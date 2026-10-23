@@ -4,9 +4,9 @@
 #  Edit, commit, and the site rebuilds automatically.
 # ─────────────────────────────────────────────────────────────
 
-name:       { en: Kamel Khelifa-Kerfa, ar: كمال خليفة قرفة }
-name_lines: { en: [Kamel, Khelifa-Kerfa], ar: [كمال, خليفة قرفة] }
-short_name: { en: K. Khelifa-Kerfa, ar: ك. خليفة قرفة }
+name:       { en: Kamel Khelifa-Kerfa, ar: كمال خليفة كرفة }
+name_lines: { en: [Kamel, Khelifa-Kerfa], ar: [كمال, خليفة كرفة] }
+short_name: { en: K. Khelifa-Kerfa, ar: ك. خليفة كرفة }
 monogram: KK
 title:       { en: Associate Professor of Physics, ar: أستاذ مشارك في الفيزياء }
 affiliation: { en: Department of Physics and Materials Sciences, ar: قسم الفيزياء وعلوم المواد }
