@@ -1,0 +1,52 @@
+<!-- source: https://khelifak.wordpress.com/library/computer-programs/hep-programs/event2/ · EVENT2 -->
+<h3>Compiling and Running EVENT2 program</h3>
+<p><a href="https://hepwww.rl.ac.uk/theory/seymour/nlo/" rel="noopener" target="_blank">EVENT2</a> is a fortran program that computes the matrix-element squared and cross-section in e+e- annihilation at NLO (that is up to alpha_s^2) written by<a href="https://hepwww.rl.ac.uk/theory/seymour" rel="noopener" target="_blank"> Mike Seymoure</a>. It implements the <a href="https://hepwww.rl.ac.uk/theory/seymour/pubs/nlo.html" rel="noopener" target="_blank">Catani-Seymoure</a> subtraction method to cancel divergencies and make numerical integration possible.</p>
+<p>To compile and run the program:</p>
+<ol>
+<li>Download latest fortran code: <a href="https://hepwww.rl.ac.uk/theory/seymour/nlo/" rel="noopener" target="_blank">event2_03.f</a>. Download the GBOOK package; gbook.f (the updated version by Seymoure).</li>
+<li>You need to have gfortran compiler installed. If you haven't already then you can get the latest release from <a href="https://gcc.gnu.org/wiki/GFortranBinaries" rel="noopener" target="_blank">here</a>.</li>
+<li>In a terminal window type: gfortran event2_03.f gbook.f. This will compile and run the code. If you get an error saying that IDATE has more arguments than should be be (or something similar) then you need to open gbook.f in a text editor and comment out the line that has the IDATE and ITIME calls</li>
+<li>You can change parameters, such as Center of Mass energy (EM), Number of Events (NEV), ...etc by opening the code in a text editor and edit it. Then compile and run as in step 3.</li>
+</ol>
+<p>To run the program in Netbeans IDE then do the following:</p>
+<ol>
+<li>Download and install <a href="https://www.netbeans.org" rel="noopener" target="_blank">Netbeans</a>. Make sure the chosen package includes C/C++ pack.</li>
+<li>Create a new project. File -&gt; new project -&gt; c/c++ project -&gt; c/c++ application -&gt; name it and choose directory -&gt; finish</li>
+<li>Right-click "source files"-&gt; new -&gt; Fortran file. browse to where "gbook.f" and "event2_03" are located -&gt; add</li>
+<li>project-&gt; debug then project-&gt; run main project. It should run and output a gtopdraw.top file.</li>
+<li>You can delete the "main.cc" file, created when setting "new project", as it isn't needed.</li>
+</ol>
+<p>To open the "gtopdraw.top" file on a Mac or Linux OS then do:</p>
+<ol>
+<li>Download SLAC's <a href="https://cp3wks05.fynu.ucl.ac.be/twiki/bin/view/Software/TopDrawer" rel="noopener" target="_blank">topdrawer</a> program (choose the binary version appropriate to your OS). Its's a .tar file.</li>
+<li>Untar the file somewhere in your computer. If using terminal then type: tar -xvf td_....tar; cd td_... (... are rest of the tar file's name).</li>
+<li>Place the executable file "td_..." into the directory where the "gtopdraw.top" file(s) is.</li>
+<li>For Mac: install the file libg2c.0.dylib, which is included in the tarball, in /usr/local/lib/ by typing in terminal<br/>
+[text-box color="green"]sudo cp libg2c.0.dylib /usr/local/lib/[/text-box]</li>
+<li>To create a .ps file from the .top file, type in the terminal<br/>
+[text-box color="green"] ./td_... gtopdraw.top "POSTSCR,ORIENT=3" [/text-box]</li>
+</ol>
+
+<h3>Linking EVENT2 with Fastjet</h3>
+<p>The guide below assumes that</p>
+<ul>
+<li>EVENT2 files have been downloaded and compiled correctly. See <a href="https://localhost/wordpress/?p=93" rel="noopener" target="_blank">this post</a>.</li>
+<li><a href="https://www.lpthe.jussieu.fr/~salam/fastjet/main.html" rel="noopener" target="_blank">FastJet</a> has been downloaded and installed as instructed in the webpage.</li>
+<li>The file "fastjet-config" is in "/usr/local/bin/". Otherwise replace the latter with the path in your computer where the file is.</li>
+<li><a href="https://www.netbeans.org" rel="noopener" target="_blank">NetBean</a>s installed and running on your OS platform. Otherwise one can just use the terminal.</li>
+</ul>
+<p><strong>Setup EVENT2 to work with FastJet in NetBeans:</strong></p>
+<ol>
+<li>First you need to create a new project: File -&gt; New Project<br/>
+In the wizard that shows up, choose "C/C++ Development" and "C/C++ Application" (if these options are not available, you have not installed the C/C++ pack properly). Press next, name your project whatever you like, and press finish.</li>
+<li>In the "projects" menu to the left you should now see your newly created project.<br/>
+If it isn't bold; right-click it, and choose "set main project".</li>
+<li>Right-click project and choose "properties".<br/>
+In the properties screen you can "open" the submenues of the configuration properties by clicking the little icons at the left.</li>
+<li>In submenu Configuration Properties -&gt; C/C++ -&gt; C++ Compiler -&gt; Command Line<br/>
+Add the following in "Additional options": `/usr/local/bin/fastjet-config --cxxflags`</li>
+<li>In submenu Configuration Properties -&gt; Linker -&gt; Tool : change g++ to gfortran.</li>
+<li>In submenu Configuration Properties -&gt; Linker -&gt; Command Line<br/>
+Add the following in "Additional options": `/user/local/bin/fastjet-config --libs --plugins` -lstdc++</li>
+<li>Exit properties by pressing "Apply" then "OK".</li>
+</ol>

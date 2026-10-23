@@ -1,0 +1,53 @@
+<!-- source: https://khelifak.wordpress.com/library/computer-programs/hep-programs/herwig-2/ · Herwig -->
+<p>Old deprecated method of installing &amp; running Herwig (<a href="@@resources/herwig-vbox">here</a>)</p>
+<p><strong>New method:</strong> via <strong>Docker </strong>[see <a href="https://phab.hepforge.org/w/mcnet2019/?__print__=1" rel="noopener" target="_blank">MCnet School 2019 Herwig Tutorial</a>]</p>
+<p>An installation of Herwig on your own device is not necessary if you use the provided virtual docker image (see next section). If you plan to use Herwig for your own research, after the MCnet school, the instructions provided under <a href="https://phab.hepforge.org/w/mcnet2019/installation/" rel="noopener" target="_blank">Installation</a> might be helpful.</p>
+<p>During the course of this tutorial you will learn:</p>
+
+<pre>How to simulate LEP events
+How to simulate LHC events
+How to include rivet analyses and compare simulation with data
+How to switch parts of the Event Generator on and off
+How to modify parameters of the Parton shower and the Hadronization model
+The Les Houches Event Handler</pre>
+
+<h4><a id="before-you-start-docker"></a>Before you start (docker containers)</h4>
+<p>All exercises within this tutorial can be done by using the provided docker image for Herwig.<br/>
+If you have not already installed docker, please follow the instructions on the <a href="https://docs.docker.com/install/" rel="noopener" target="_blank">docker website</a> and install docker on your personal computer.</p>
+<p>The required docker containers can be pulled directly from dockerhub with</p>
+
+<pre>docker pull hepstore/rivet-herwig
+
+Remember Linux users: sudo docker</pre>
+
+<p>That is basically it! In order to run Herwig, execute the following shell command</p>
+
+<pre>docker run -i  --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet-herwig Herwig</pre>
+
+<p>(update for the latest hepstore/rivet-herwig docker image do)</p>
+
+<pre>docker run -it -u $(id -u $USER) -v $PWD:$PWD -w $PWD hepstore/rivet-herwig /herwig/bin/Herwig</pre>
+
+<p>This allows the container to access your local files and to write files to the current working directory.</p>
+<p>Additionally, you can create an alias with</p>
+
+<pre>alias Herwig='docker run -i  --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet-herwig Herwig'</pre>
+
+<p>Now, all you have to do to run Herwig is to execute</p>
+
+<pre>Herwig</pre>
+
+<p>in your terminal.</p>
+<p>We also recommend creating an alias for the rivet command <strong>rivet-mkhtml</strong></p>
+
+<pre>alias rivet-mkhtml='docker run -i  --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet-herwig rivet-mkhtml'</pre>
+
+<p>If this works, you are ready to start the tutorial with <a href="https://phab.hepforge.org/w/mcnet2019/firstrun/" rel="noopener" target="_blank">First run: LEP</a>. If you have any issues, please talk to a tutor.</p>
+<p><strong>Instructions:</strong></p>
+<ol>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/installation/" rel="noopener" target="_blank">Installation</a></li>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/firstrun/" rel="noopener" target="_blank">First run: LEP</a></li>
+<li><a href="@@resources/herwig-z-jets">Second run: Z production and jets at the LHC</a></li>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/thirdrun/" rel="noopener" target="_blank">(Advanced) Third run: minimum bias events and soft physics</a></li>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/leshouches/" rel="noopener" target="_blank">(Advanced) The Les Houches Event Handler</a></li>
+</ol>

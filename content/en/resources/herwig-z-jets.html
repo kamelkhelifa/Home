@@ -1,0 +1,100 @@
+<!-- source: https://khelifak.wordpress.com/library/computer-programs/hep-programs/herwig-2/5694-2/ · Second run: Z production and jets at the LHC -->
+<p>In this section, we will simulate the 'P + P -&gt; Z+X' process at 7 TeV center-of-mass energy and study the properties of the Z-boson with the help of the <a href="https://rivet.hepforge.org/analyses/MC_ZINC.html" rel="noopener" target="_blank">MC_ZINC</a> Rivet analysis.</p>
+<p>There are different aspects of event generation, each of which plays a crucial role in the correct simulation of Z-bosons at the LHC:</p>
+<ul>
+<li>Hard matrix element</li>
+<li>Parton Shower</li>
+<li>Initial and final state radiation</li>
+<li>Multi parton interactions</li>
+<li>Hadronizaion</li>
+</ul>
+<p>During this exercise, we will see the different contributions to the Z shape observables, like the Z pT spectrum.</p>
+<p>Please download the following input file and move it to your work directory:</p>
+<p>Input file:LHC-Matchbox.in5 KB<a href="https://phab-files.hepforge.org/file/download/q5by5q5tocxpquklfi34/PHID-FILE-ekoleb6f3inpmsz6xmbl/LHC-Matchbox.in" rel="noopener" target="_blank">Download</a></p>
+<p>Alternatively, you can use the following command-line code:</p>
+<pre>wget https://phab-files.hepforge.org/file/download/q5by5q5tocxpquklfi34/PHID-FILE-ekoleb6f3inpmsz6xmbl/LHC-Matchbox.in</pre>
+<p>The input file can be used for Z production and Z+Jets production. For now, all parts except for the hard matrix element are commented out. We will uncomment the necessary parts as we progress with the exercise.</p>
+<p>Run the input file without any modifications</p>
+<pre>Herwig read LHC-Matchbox.in
+
+Herwig run LHC-Matchbox.run -N 10000</pre>
+<p>It is recommended to change the name of the newly created .yoda file to something meaningful after every new run s.t. you don't have to repeat runs in the end when we compare them with each other. For this end, you can simply use the following command-line code:</p>
+<pre>mv LHC-Matchbox.yoda LHC-noShower.yoda</pre>
+<p>Now plot the results with</p>
+<pre>rivet-mkhtml LHC-noShower.yoda</pre>
+<p>Have a look at the produced histograms and try to explain why there is no Z pT and why in the peak region Z pT is just a delta function. You should also have a look at the .log file and understand the first few events.</p>
+<p>To have a more realistic simulation of the Z-boson, we are going to uncomment some sections in the input file. We include the LO Parton shower BUT without initial and final state radiations.</p>
+<p>The relevant section in the input file should look like this:</p>
+<pre>##################################################
+## ShowerHandler(s)
+##################################################
+ 
+# Initial and final state radiation
+set /Herwig/Shower/ShowerHandler:DoFSR No
+set /Herwig/Shower/ShowerHandler:DoISR No
+ 
+
+cd /Herwig/EventHandlers
+#set EventHandler:CascadeHandler NULL
+set EventHandler:CascadeHandler:MPIHandler NULL # switches off multi parton interactions
+set EventHandler:DecayHandler NULL # switches off particle decays 
+set EventHandler:HadronizationHandler NULL # switches off hadronization</pre>
+<p>Activate initial and final state radiation and repeat the run.</p>
+<pre>set /Herwig/Shower/ShowerHandler:DoFSR Yes
+set /Herwig/Shower/ShowerHandler:DoISR Yes</pre>
+<p>Now run Herwig again and compare your results with the first run. Why do pT spectra change but the reconstructed mass of the Z boson looks roughly the same?</p>
+<p>For the next task, we are making a jump to a NLO matched parton shower. Have a look at the parton shower selection section from the input file</p>
+<pre>##################################################
+## Matching and shower selection
+##################################################
+
+#read Matchbox/MCatNLO-DefaultShower.in
+# read Matchbox/Powheg-DefaultShower.in
+## use for strict LO/NLO comparisons
+# read Matchbox/MCatLO-DefaultShower.in
+## use for improved LO showering
+read Matchbox/LO-DefaultShower.in
+
+# read Matchbox/MCatNLO-DipoleShower.in
+# read Matchbox/Powheg-DipoleShower.in
+## use for strict LO/NLO comparisons
+# read Matchbox/MCatLO-DipoleShower.in
+## use for improved LO showering
+# read Matchbox/LO-DipoleShower.in
+
+# read Matchbox/NLO-NoShower.in
+# read Matchbox/LO-NoShower.in</pre>
+<p>In the input file, we choose the "read Matchbox/LO-DefaultShower.in" option activating a LO angular ordered parton shower. Now choose the "read Matchbox/MCatNLO-DefaultShower.in" option, to activate the MC@NLO matched shower and run the event again.</p>
+<p>By now, you should have created several .yoda files. You can compare the corresponding calculations with</p>
+<pre>rivet-mkhtml *.yoda</pre>
+<p>For the final task in this section, activate the multi parton interactions, decays and hadronization options by uncommenting the relevant lines in the input file and compare the LO and the NLO matched shower simulations.</p>
+<p>By now you have finished all the obligatory parts of the Herwig tutorial.<br/>You can choose to <a href="https://herwig.hepforge.org/tutorials/gettingstarted/matrixelements.html#some-scale-variations" rel="noopener" target="_blank">dive deeper</a> into parton shower variations, play around with different cuts and scales<br/>or continue with <a href="https://phab.hepforge.org/w/mcnet2019/thirdrun/" rel="noopener" target="_blank">Third run: minimum bias events and soft physics</a> (recommended).</p>
+<h4>A note on matrix elements</h4>
+<p>As you can see, the process selection section has been completely deactivated. This is because for a process like P + P -&gt; Z + X, Herwig needs to use the external matrix element (ME) providers. However, the use of these tools in the docker/VM would be problematic due to some linking issues. In an installed (and properly linked) version of Herwig, one can easily use these external ME providers by selecting the hard-process in the Process selection and choosing the ME providers from the Matrix element library selection.</p>
+<pre>##################################################
+## Process selection
+##################################################
+
+## Model assumptions
+# read Matchbox/StandardModelLike.in
+# read Matchbox/DiagonalCKM.in
+
+## Set the order of the couplings
+# cd /Herwig/MatrixElements/Matchbox
+# set Factory:OrderInAlphaS 1
+# set Factory:OrderInAlphaEW 1
+
+## Select the process
+# do Factory:Process p p -&gt; Z0 j
+
+##################################################
+## Matrix element library selection
+##################################################
+
+## Select a generic tree/loop combination or a
+## specialized NLO package
+
+# read Matchbox/MadGraph-GoSam.in
+# read Matchbox/MadGraph-MadGraph.in
+# read Matchbox/MadGraph-NJet.in
+# read Matchbox/MadGraph-OpenLoops.in</pre>
