@@ -60,14 +60,15 @@ tracks:
     kicker: { en: Track II, ar: المسار الثاني }
     title: { en: Medicine, ar: الطب }
     place: { en: "Faculty of Medicine, University of Chlef · Algeria", ar: "كلية الطب، جامعة الشلف · الجزائر" }
-    years: { en: 2023 – present, ar: 2023 – حاليًا }
+    years: { en: "2023 – 2025 · currently on hold", ar: "2023 – 2025 · مجمّدة حاليًا" }
     summary:
       en: >
-        Candidate for the degree of Doctor of Medicine (M.D.), currently in the third
-        year, with graduation anticipated in 2030. Teaching is in French.
+        Studying towards the degree of Doctor of Medicine (M.D.), taught in French. I have
+        completed the first two years; my studies are frozen for the 2025/26 and 2026/27
+        academic years following my move to Qatar University.
       ar: >
-        طالب في مسار دكتوراه الطب، حاليًا في السنة الثالثة، والتخرج متوقع سنة 2030.
-        التدريس باللغة الفرنسية.
+        أدرس في مسار دكتوراه الطب، والتدريس فيه باللغة الفرنسية. أتممت السنتين الأولى والثانية،
+        ودراستي مجمّدة للسنتين الجامعيتين ‎2025/26‎ و‎2026/27‎ بسبب انتقالي إلى جامعة قطر.
     milestones:
       - when: { en: Jun 2004, ar: جوان 2004 }
         what: { en: Algerian Baccalaureate, ar: شهادة البكالوريا الجزائرية }
@@ -83,10 +84,10 @@ tracks:
       - when: { en: 2024 – 2025, ar: 2024 – 2025 }
         what: { en: "Second year of medicine", ar: "السنة الثانية طب" }
         where: { en: "Medical annex, Chlef", ar: "الملحقة الطبية، الشلف" }
-      - when: { en: Sep 2025 – present, ar: سبتمبر 2025 – حاليًا }
-        what: { en: "Doctor of Medicine (M.D.), Year 3", ar: "دكتوراه في الطب، السنة الثالثة" }
+      - when: { en: 2025 – 2027, ar: 2025 – 2027 }
+        what: { en: "Studies frozen (two academic years)", ar: "تجميد الدراسة (سنتان جامعيتان)" }
         where: { en: "Faculty of Medicine, University of Chlef", ar: "كلية الطب، جامعة الشلف" }
-        note: { en: Anticipated completion June 2030, ar: التخرج المتوقع جوان 2030 }
+        note: { en: "On hold during the move to Qatar University; Year 3 to follow", ar: "توقف مؤقت بسبب الانتقال إلى جامعة قطر، على أن تُستأنف بالسنة الثالثة" }
         highlight: true
     pages:
       - page: studying/medicine-year-1

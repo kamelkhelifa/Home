@@ -97,9 +97,9 @@
       <ul class="grants">
         {% for g in research.grants %}
         <li class="grant">
-          <div class="grant-top"><span class="tag">{{ t(g.role) }}</span><span class="grant-budget" dir="ltr">{{ g.budget }}</span></div>
+          <div class="grant-top"><span class="tag">{{ t(g.role) }}</span><span class="grant-when">{{ g.when }}</span></div>
           <p class="grant-title">{{ t(g.title) }}</p>
-          <p class="grant-sub">{{ t(g.scheme) }} · {{ t(g.funder) }} · {{ g.when }}</p>
+          <p class="grant-sub">{{ t(g.scheme) }} · {{ t(g.funder) }}</p>
         </li>
         {% endfor %}
       </ul>

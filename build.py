@@ -220,11 +220,15 @@ def build():
         def asset(path):
             return relative(path, current)
 
+        def teachweb(slug=None):
+            base = pick(site["teachweb"], lang)
+            return base + (f"courses/{slug}/" if slug else "")
+
         ctx = dict(
             data,
             page=key, section=key.split("/")[0], lang=lang, other_lang=other,
             dir="rtl" if lang == "ar" else "ltr",
-            t=t, ui=ui, link=link, asset=asset,
+            t=t, ui=ui, link=link, asset=asset, teachweb=teachweb,
             switch_url=link(key, other),
             canonical=f"{site['base_url'].rstrip('/')}/{current.removesuffix('index.html')}",
             alternates={lg: f"{site['base_url'].rstrip('/')}/{out_path(key, lg).removesuffix('index.html')}" for lg in LANGS},

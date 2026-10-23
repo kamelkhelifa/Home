@@ -21,11 +21,12 @@
       </div>
       <div class="current-main">
         {% for c in teaching.current.courses %}
-        <div class="course-big">
+        <a class="course-big" href="{{ teachweb(c.teachweb) }}" target="_blank" rel="noopener">
           <span class="course-code" dir="ltr">{{ c.code }}</span>
           <h3 class="course-name">{{ t(c.title) }}</h3>
           <span class="course-kind">{{ t(c.kind) }}</span>
-        </div>
+          <span class="course-big-go">{{ icon("arrow") }}</span>
+        </a>
         {% endfor %}
         {% for x in teaching.current.extras %}
         <p class="course-extra">{{ icon("users") }} {{ t(x) }}</p>
@@ -44,7 +45,7 @@
         <button class="tab" role="tab" type="button" id="tab-{{ u.id }}" aria-controls="panel-{{ u.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}">
           <span class="tab-years">{{ u.years }}</span>
           <span class="tab-name">{{ t(u.short) }}</span>
-          <span class="tab-country">{{ t(u.country) }} · {{ u.courses | selectattr("page") | list | length }} {{ ui("course_pages") }}</span>
+          <span class="tab-country">{{ t(u.country) }}</span>
         </button>
         {% endfor %}
       </div>
@@ -63,7 +64,7 @@
         <ul class="course-grid">
           {% for c in u.courses %}
           <li>
-            {% if c.page %}<a class="course-card is-link" href="{{ link(c.page) }}">{% else %}<div class="course-card">{% endif %}
+            {% if c.teachweb %}<a class="course-card is-link" href="{{ teachweb(c.teachweb) }}" target="_blank" rel="noopener">{% else %}<div class="course-card">{% endif %}
               {% if c.code %}<span class="course-code"><bdi>{{ c.code }}</bdi></span>{% endif %}
               <span class="course-title">{{ t(c.title) }}</span>
               <span class="course-meta">
@@ -71,13 +72,20 @@
                 {% if c.year %}<span class="course-year">{{ c.year }}</span>{% endif %}
               </span>
               {% if c.taught_in %}<span class="course-lang">{{ ui("taught_in_" ~ c.taught_in) }}</span>{% endif %}
-              {% if c.page %}<span class="course-go">{{ icon("right") }}</span>{% endif %}
-            {% if c.page %}</a>{% else %}</div>{% endif %}
+              {% if c.teachweb %}<span class="course-go">{{ icon("arrow") }}</span>{% endif %}
+            {% if c.teachweb %}</a>{% else %}</div>{% endif %}
           </li>
           {% endfor %}
         </ul>
       </div>
       {% endfor %}
+    </div>
+    <div class="tw-banner reveal">
+      <div>
+        <p class="eyebrow">{{ ui("teachweb") }}</p>
+        <p class="tw-text">{{ ui("teachweb_text") }}</p>
+      </div>
+      <a class="btn btn-primary" href="{{ teachweb() }}" target="_blank" rel="noopener">{{ ui("teachweb_cta") }} {{ icon("arrow") }}</a>
     </div>
     <p class="fine reveal">{{ ui("open_course_hint") }}</p>
   </div>

@@ -20,43 +20,12 @@ ROOT = Path(__file__).resolve().parent.parent
 NS = {"wp": "http://wordpress.org/export/1.2/", "content": "http://purl.org/rss/1.0/modules/content/"}
 
 # key → (wp_id, source language). Keys double as output paths.
+# Course pages are not imported: courses live on TeachWeb (github.com/kamelkhelifa/TeachWeb).
 PAGES = {
     # Studying
     "studying/physics-manchester": (2667, "en"),
     "studying/medicine-year-1": (6308, "en"),
     "studying/medicine-year-2": (6399, "en"),
-    # Teaching · Islamic University of Madinah
-    "teaching/phys101": (4229, "en"),
-    "teaching/phys102": (4556, "en"),
-    "teaching/phys302": (4691, "en"),
-    "teaching/phys321": (4688, "en"),
-    "teaching/phys342": (3948, "en"),
-    "teaching/phys352": (5655, "en"),
-    "teaching/phys354": (3954, "en"),
-    "teaching/phys390": (5275, "en"),
-    "teaching/phys401": (4870, "en"),
-    "teaching/phys402": (5643, "en"),
-    "teaching/phys402-mit": (4916, "en"),
-    # Teaching · University of Chlef
-    "teaching/chlef-vibrations-waves": (3899, "en"),
-    "teaching/chlef-vibrations-ondes": (2631, "fr"),
-    "teaching/chlef-vibrations-ar": (3828, "ar"),
-    "teaching/chlef-electromagnetism": (3907, "en"),
-    "teaching/chlef-electromagnetisme": (3254, "fr"),
-    "teaching/chlef-english": (962, "en"),
-    # Teaching · Relizane University
-    "teaching/uef223": (5903, "ar"),
-    "teaching/uef131": (6199, "en"),
-    "teaching/uef131@ar": (5754, "ar"),
-    "teaching/uem123": (5731, "en"),
-    "teaching/uem123@ar": (5775, "ar"),
-    "teaching/uef123": (6357, "en"),
-    "teaching/uet-english": (5729, "en"),
-    # Teaching · USTHB
-    "teaching/usthb-mecanique": (2041, "fr"),
-    "teaching/usthb-electricite": (1810, "fr"),
-    "teaching/usthb-english": (3232, "en"),
-    "teaching/phys7001": (2330, "en"),
     # Resources
     "resources/event2": (158, "en"),
     "resources/feynarts": (3221, "en"),

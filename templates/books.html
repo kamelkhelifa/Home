@@ -26,7 +26,8 @@
           <h3 class="book-title">{{ t(b.title) | phys }}</h3>
           <p class="book-pub">{{ t(b.publisher) }}{% if b.language %} · {{ t(b.language) }}{% endif %}</p>
           <p class="book-desc">{{ t(b.description) }}</p>
-          {% if b.page %}<a class="link-arrow" href="{{ link(b.page) }}">{{ ui("open") }} {{ icon("right") }}</a>
+          {% if b.teachweb %}<a class="link-arrow" href="{{ teachweb(b.teachweb) }}" target="_blank" rel="noopener">{{ ui("open") }} {{ icon("arrow") }}</a>
+          {% elif b.page %}<a class="link-arrow" href="{{ link(b.page) }}">{{ ui("open") }} {{ icon("right") }}</a>
           {% elif b.url %}<a class="link-arrow" href="{{ b.url }}" target="_blank" rel="noopener">{{ ui("open") }} {{ icon("arrow") }}</a>{% endif %}
         </div>
       </article>

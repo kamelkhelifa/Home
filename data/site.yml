@@ -9,11 +9,14 @@ name_lines: { en: [Kamel, Khelifa-Kerfa], ar: [كمال, خليفة كرفة] }
 short_name: { en: K. Khelifa-Kerfa, ar: ك. خليفة كرفة }
 monogram: KK
 title:       { en: Associate Professor of Physics, ar: أستاذ مشارك في الفيزياء }
+role_line:   { en: "Theoretical physicist · Educator", ar: "فيزيائي نظري · معلّم" }
+brand_sub:   { en: Personal homepage, ar: الصفحة الشخصية }
 affiliation: { en: Department of Physics and Materials Sciences, ar: قسم الفيزياء وعلوم المواد }
 institution: { en: Qatar University, ar: جامعة قطر }
 institution_detail: { en: "College of Arts & Sciences · Doha, Qatar", ar: "كلية الآداب والعلوم · الدوحة، قطر" }
 email: kkerfa@qu.edu.qa
 base_url: https://kamelkhelifa.github.io/Home   # change if you add a custom domain
+teachweb: { en: "https://kamelkhelifa.github.io/TeachWeb/", ar: "https://kamelkhelifa.github.io/TeachWeb/ar/" }
 last_updated: { en: October 2026, ar: أكتوبر 2026 }
 
 tagline:
@@ -31,15 +34,15 @@ bio:
     multi-loop calculations, all-order resummation and the analytical structure of jet
     observables at the LHC. I trained at The University of Manchester (MPhys, PhD) and
     have since taught physics for more than thirteen years across universities in Qatar,
-    Saudi Arabia and Algeria. Alongside physics, I am currently studying medicine at the
-    University of Chlef.
+    Saudi Arabia and Algeria. Alongside physics, I have completed two years of medical studies
+    at the University of Chlef, now on hold since my move to Qatar University.
   ar: >
     أستاذ مشارك في الفيزياء بجامعة قطر. تقع أبحاثي في ملتقى الكروموديناميكا الكمية الدقيقة
     وفينومينولوجيا المصادمات: حسابات دقيقة متعددة الحلقات، وإعادة الجمع بجميع الرتب، والبنية
     التحليلية لمقادير النفثات المرصودة في مصادم الهادرونات الكبير. تكوّنت في جامعة مانشستر
     (ماجستير الفيزياء ثم الدكتوراه)، ودرّست الفيزياء منذ ذلك الحين أكثر من ثلاث عشرة سنة في
-    جامعات بقطر والمملكة العربية السعودية والجزائر. وإلى جانب الفيزياء، أدرس حاليًا الطب
-    بجامعة الشلف.
+    جامعات بقطر والمملكة العربية السعودية والجزائر. وإلى جانب الفيزياء، أتممت سنتين من دراسة
+    الطب بجامعة الشلف، وهي مجمّدة حاليًا منذ انتقالي إلى جامعة قطر.
 
 profiles:
   - { label: Google Scholar, url: "https://scholar.google.com/citations?hl=en&user=XQcHCrYAAAAJ" }

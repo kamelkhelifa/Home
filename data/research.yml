@@ -75,19 +75,16 @@ grants:
     title: { en: Testing the Standard Model of Particle Physics at High Energy Colliders, ar: اختبار النموذج القياسي لفيزياء الجسيمات في المصادمات عالية الطاقة }
     funder: { en: Islamic University of Madinah, ar: الجامعة الإسلامية بالمدينة المنورة }
     when: 2019 – 2020
-    budget: "$67,000"
   - role: { en: Principal Investigator, ar: الباحث الرئيسي }
     scheme: { en: "Takamol 10 · Project 107/40", ar: "تكامل 10 · المشروع 107/40" }
     title: { en: Precise Calculations of QCD Observables for LHC Physics, ar: حسابات دقيقة لمقادير الكروموديناميكا الكمية لفيزياء مصادم الهادرونات الكبير }
     funder: { en: Islamic University of Madinah, ar: الجامعة الإسلامية بالمدينة المنورة }
     when: 2019 – 2020
-    budget: "$6,700"
   - role: { en: Co-Principal Investigator, ar: باحث رئيسي مشارك }
     scheme: { en: CNEPRU D01320130009, ar: CNEPRU D01320130009 }
     title: { en: Treatment of Quantum Systems in the Context of Non-Commutative Geometry and Feynman Path Integral Formalism, ar: معالجة الأنظمة الكمومية في سياق الهندسة غير التبادلية وصياغة تكاملات المسار لفاينمان }
     funder: { en: Algerian Ministry of Higher Education & Scientific Research, ar: وزارة التعليم العالي والبحث العلمي الجزائرية }
     when: 2014 – 2017
-    budget: "$2,000"
 
 talks:
   - when: { en: Oct 2025, ar: أكتوبر 2025 }

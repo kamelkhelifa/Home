@@ -51,7 +51,10 @@ archive:          { en: Archive, ar: الأرشيف }
 previous_unis:    { en: Previous universities, ar: الجامعات السابقة }
 universities:     { en: Universities, ar: الجامعات }
 course_pages:     { en: Course pages, ar: صفحات المقررات }
-open_course_hint: { en: "Courses marked with an arrow open their full pages: syllabus, calendar, lecture notes, assignments and past exams.", ar: "المقررات المعلَّمة بسهم تفتح صفحاتها الكاملة: المفردات، والجدول الزمني، والمذكرات، والواجبات، والاختبارات السابقة." }
+open_course_hint: { en: "Each course opens on TeachWeb, which hosts every course in one unified format: syllabus, weekly plan, notes, exams, quizzes and simulations.", ar: "يُفتح كل مقرر على الموقع التعليمي الذي يضمّ جميع المقررات بصيغة موحّدة: المفردات، والخطة الأسبوعية، والمذكرات، والاختبارات، والتمارين، والمحاكاة." }
+teachweb:         { en: TeachWeb, ar: الموقع التعليمي }
+teachweb_cta:     { en: "All courses on TeachWeb", ar: "كل المقررات على الموقع التعليمي" }
+teachweb_text:    { en: "My courseware lives on TeachWeb: every course in English and Arabic, with the same structure and interactive tools.", ar: "تقع موادي التعليمية على الموقع التعليمي: كل مقرر بالعربية والإنجليزية، بالبنية نفسها والأدوات التفاعلية نفسها." }
 taught_in_fr:     { en: Taught in French, ar: دُرّس بالفرنسية }
 taught_in_ar:     { en: Taught in Arabic, ar: دُرّس بالعربية }
 taught_in_en:     { en: Taught in English, ar: دُرّس بالإنجليزية }

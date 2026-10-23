@@ -54,7 +54,7 @@ authored:
     description:
       en: Lecture notes for the English Language course I teach to physics students, with past exams and links to supplementary reading.
       ar: مذكرات مقرر اللغة الإنجليزية الذي أدرّسه لطلبة الفيزياء، مع اختبارات سابقة وروابط لقراءات إضافية.
-    page: teaching/uet-english
+    teachweb: english-for-physicists
     accent: gold
   - title: { en: Manchester MPhys Lecture Summaries, ar: ملخصات محاضرات ماجستير مانشستر }
     cover_title: MPhys Lecture Summaries

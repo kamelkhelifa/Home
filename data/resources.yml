@@ -19,6 +19,9 @@ groups:
     title: { en: Teaching websites, ar: مواقع تعليمية }
     icon: book
     items:
+      - label: { en: TeachWeb, ar: الموقع التعليمي }
+        url: https://kamelkhelifa.github.io/TeachWeb/
+        text: { en: "All my courses in one place: syllabi, weekly plans, notes, exams, quizzes and simulations, in English and Arabic.", ar: "كل مقرراتي في مكان واحد: المفردات، والخطط الأسبوعية، والمذكرات، والاختبارات، والتمارين التفاعلية، والمحاكاة، بالعربية والإنجليزية." }
       - label: { en: Student Portal, ar: بوابة الطلاب }
         url: https://sites.google.com/view/kk-studentportal/
         text: { en: "A single place for my students: course announcements and materials.", ar: "مكان واحد لطلابي: إعلانات المقررات وموادها." }

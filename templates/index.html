@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
-{% block title %}{{ t(site.name) }}: {{ t(site.title) }}, {{ t(site.institution) }}{% endblock %}
+{% block title %}{{ t(site.name) }} · {{ t(site.role_line) }}{% endblock %}
 
 {% block content %}
 <section class="hero">
@@ -8,7 +8,7 @@
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     <div class="hero-copy">
-      <p class="eyebrow reveal"><span class="dot"></span>{{ t(site.title) }} · {{ t(site.institution) }}</p>
+      <p class="eyebrow reveal"><span class="dot"></span>{{ t(site.role_line) }}</p>
       <h1 class="hero-title reveal">
         {% set nl = t(site.name_lines) %}
         <span class="line">{{ nl[0] }}</span>
@@ -73,8 +73,8 @@
       <h2 class="h2">{{ ui("find_your_way") }}</h2>
     </div>
     {% set rooms = [
-      ("studying", "cap", {"en": "Physics at Manchester, and now medicine at Chlef: two journeys, one habit of learning.", "ar": "الفيزياء في مانشستر، والطب اليوم في الشلف: رحلتان وعادة واحدة في التعلّم."}),
-      ("teaching", "users", {"en": "This semester at Qatar University, plus thirty course pages from three countries.", "ar": "هذا الفصل في جامعة قطر، وأكثر من ثلاثين صفحة مقرر من ثلاث دول."}),
+      ("studying", "cap", {"en": "Physics at Manchester and medicine at Chlef: two journeys, one habit of learning.", "ar": "الفيزياء في مانشستر والطب في الشلف: رحلتان وعادة واحدة في التعلّم."}),
+      ("teaching", "users", {"en": "Thirteen years of courses across three countries, each one on TeachWeb.", "ar": "ثلاث عشرة سنة من المقررات في ثلاث دول، وكلها على الموقع التعليمي."}),
       ("research", "atom", {"en": "Non-global and clustering logarithms, jet observables, grants, talks and every publication.", "ar": "اللوغاريتمات غير الشاملة ولوغاريتمات التجميع، ومقادير النفثات، والمشاريع، والمداخلات، وكل المنشورات."}),
       ("books", "book", {"en": "Theses, notes, the textbooks behind my courses, and a small library.", "ar": "الرسائل والمذكرات، والكتب التي بُنيت عليها مقرراتي، ومكتبة صغيرة."}),
       ("resources", "layers", {"en": "Websites, YouTube and Telegram channels, HEP software guides, projects and articles.", "ar": "مواقع، وقنوات يوتيوب وتليغرام، وأدلة برمجيات فيزياء الطاقات العالية، ومشاريع ومقالات."}),
@@ -128,11 +128,11 @@
       </div>
       <div class="now-courses">
         {% for c in teaching.current.courses %}
-        <div class="course-tile">
+        <a class="course-tile" href="{{ teachweb(c.teachweb) }}" target="_blank" rel="noopener">
           <span class="course-code" dir="ltr">{{ c.code }}</span>
           <span class="course-title">{{ t(c.title) }}</span>
           <span class="course-kind">{{ t(c.kind) }}</span>
-        </div>
+        </a>
         {% endfor %}
       </div>
       <a class="link-arrow" href="{{ link('teaching') }}">{{ ui("teaching_archive") }} {{ icon("right") }}</a>
