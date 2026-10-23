@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
 {% from "_macros.html" import page_hero, section_head %}
-{% block title %}Resources · {{ site.name }}{% endblock %}
-{% block description %}Teaching websites, YouTube and Telegram channels, conference sites, projects and articles by {{ site.name }}.{% endblock %}
+{% block title %}{{ t(site.nav[4].label) }} · {{ t(site.name) }}{% endblock %}
+{% block description %}{{ t(resources.intro) | trim }}{% endblock %}
 
 {% block content %}
-{{ page_hero("05", "Resources", "Everything else <em>I've built.</em>"|safe, resources.intro) }}
+{{ page_hero("05", t(site.nav[4].label), t(resources.hero_title) | safe, t(resources.intro)) }}
 
-<nav class="wrap jump reveal" aria-label="Resource groups">
-  {% for g in resources.groups %}<a class="pill" href="#{{ g.id }}">{{ icon(g.icon) }} {{ g.title }}</a>{% endfor %}
-  <a class="pill" href="#community">{{ icon("heart") }} Community</a>
+<nav class="wrap jump reveal" aria-label="{{ t(site.nav[4].label) }}">
+  {% for g in resources.groups %}<a class="pill" href="#{{ g.id }}">{{ icon(g.icon) }} {{ t(g.title) }}</a>{% endfor %}
+  <a class="pill" href="#community">{{ icon("heart") }} {{ ui("community") }}</a>
 </nav>
 
 {% for g in resources.groups %}
@@ -17,20 +17,22 @@
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow"><span class="eyebrow-icon">{{ icon(g.icon) }}</span> 0{{ loop.index }}</p>
-      <h2 class="h2">{{ g.title }}</h2>
+      <h2 class="h2">{{ t(g.title) }}</h2>
     </div>
     <ul class="res-grid">
       {% for r in g["items"] %}
       <li class="reveal" style="--d: {{ loop.index0 * 50 }}ms">
-        {% if r.url %}<a class="res is-link" href="{{ r.url }}" target="_blank" rel="noopener">{% else %}<div class="res">{% endif %}
+        {% if r.page %}<a class="res is-link is-internal" href="{{ link(r.page) }}">
+        {% elif r.url %}<a class="res is-link" href="{{ r.url }}" target="_blank" rel="noopener">
+        {% else %}<div class="res">{% endif %}
           <span class="res-top">
-            <span class="res-kind">{{ r.kind or (r.url | domain) }}</span>
-            {% if r.url %}<span class="res-go">{{ icon("arrow") }}</span>{% endif %}
+            <span class="res-kind">{{ t(r.kind) if r.kind else (r.url | domain) }}</span>
+            {% if r.page %}<span class="res-go">{{ icon("right") }}</span>{% elif r.url %}<span class="res-go">{{ icon("arrow") }}</span>{% endif %}
           </span>
-          <span class="res-title">{{ r.label }}</span>
-          <span class="res-text">{{ r.text }}</span>
-          {% if r.url and r.kind %}<span class="res-domain">{{ r.url | domain }}</span>{% endif %}
-        {% if r.url %}</a>{% else %}</div>{% endif %}
+          <span class="res-title">{{ t(r.label) }}</span>
+          <span class="res-text">{{ t(r.text) }}</span>
+          {% if r.url and r.kind %}<span class="res-domain" dir="ltr">{{ r.url | domain }}</span>{% endif %}
+        {% if r.page or r.url %}</a>{% else %}</div>{% endif %}
       </li>
       {% endfor %}
     </ul>
@@ -40,12 +42,12 @@
 
 <section class="section {{ 'section-tint' if (resources.groups | length + 1) is even }}" id="community">
   <div class="wrap">
-    {{ section_head("Community", "Associations & volunteering") }}
+    {{ section_head(ui("community"), ui("community_title")) }}
     <ul class="rows">
       {% for c in resources.community %}
       <li class="row-item reveal">
-        <span class="row-when">{{ c.when }}</span>
-        <span class="row-main"><span class="row-title">{{ c.what }}</span><span class="row-sub">{{ c.where }}</span></span>
+        <span class="row-when">{{ t(c.when) }}</span>
+        <span class="row-main"><span class="row-title">{{ t(c.what) }}</span><span class="row-sub">{{ t(c.where) }}</span></span>
         {{ icon("heart", "icon row-icon") }}
       </li>
       {% endfor %}

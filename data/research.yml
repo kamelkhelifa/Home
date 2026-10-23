@@ -1,122 +1,170 @@
 # ─────────────────────────────────────────────────────────────
-#  Research — overview, themes, grants, talks, service and publications
+#  Research: overview, themes, grants, talks, service and publications
 #  Add a new paper at the TOP of `publications` (newest first).
 #  type: journal | proceedings      area: qcd | materials | ew
+#  Paper titles and venues stay in their original language.
 # ─────────────────────────────────────────────────────────────
 
-field: High-energy physics · Theory & Phenomenology
+hero_title: { en: "Soft gluons, <em>hard questions.</em>", ar: "غلوونات ليّنة، <em>وأسئلة صعبة.</em>" }
+field: { en: "High-energy physics · Theory & Phenomenology", ar: "فيزياء الطاقات العالية · النظرية والفينومينولوجيا" }
+other_fields: { en: "Also: computational physics, materials science", ar: "إضافة إلى: الفيزياء الحاسوبية وعلم المواد" }
 
-overview: >
-  I work on precision Quantum Chromodynamics for high-energy colliders. Most measurements
-  at the LHC involve jets: collimated sprays of hadrons left behind by quarks and gluons.
-  Predicting their properties reliably means resumming large logarithms to all orders in
-  perturbation theory. My work focuses on the subtle, non-global parts of that problem:
-  how soft gluons emitted into restricted regions of phase space, and the jet algorithms
-  used to cluster them, shape the observables experimentalists measure.
+overview:
+  en: >
+    I work on precision Quantum Chromodynamics for high-energy colliders. Most measurements
+    at the LHC involve jets: collimated sprays of hadrons left behind by quarks and gluons.
+    Predicting their properties reliably means resumming large logarithms to all orders in
+    perturbation theory. My work focuses on the subtle, non-global parts of that problem:
+    how soft gluons emitted into restricted regions of phase space, and the jet algorithms
+    used to cluster them, shape the observables experimentalists measure.
+  ar: >
+    أعمل على الكروموديناميكا الكمية الدقيقة في المصادمات عالية الطاقة. معظم القياسات في مصادم
+    الهادرونات الكبير تتضمن النفثات: حزمًا متراصة من الهادرونات تخلّفها الكواركات والغلوونات.
+    والتنبؤ الموثوق بخصائصها يستلزم إعادة جمع اللوغاريتمات الكبيرة بجميع رتب نظرية الاضطراب.
+    يتركّز عملي على الجوانب الدقيقة غير الشاملة من هذه المسألة: كيف تُشكّل الغلوونات الليّنة
+    المنبعثة في مناطق محدودة من فضاء الطور، وخوارزميات النفثات المستعملة لتجميعها، المقاديرَ
+    التي يقيسها التجريبيون.
 
 themes:
-  - title: Non-global logarithms
-    text: Exact multi-loop computation of non-global logarithms at finite N<sub>c</sub>, including their structure beyond leading order and the question of their exponentiation.
+  - title: { en: Non-global logarithms, ar: اللوغاريتمات غير الشاملة }
+    text:
+      en: Exact multi-loop computation of non-global logarithms at finite N<sub>c</sub>, including their structure beyond leading order and the question of their exponentiation.
+      ar: حساب دقيق متعدد الحلقات للوغاريتمات غير الشاملة عند N<sub>c</sub> منتهٍ، بما في ذلك بنيتها فيما وراء الرتبة الرائدة ومسألة قابليتها للأسّية.
     symbol: "α<sub>s</sub><sup>n</sup>L<sup>n</sup>"
-  - title: Clustering logarithms
-    text: All-order analytical structure of the k<sub>t</sub>, generalised-k<sub>t</sub> and Cambridge/Aachen algorithms, with clustering logarithms computed up to six loops.
+  - title: { en: Clustering logarithms, ar: لوغاريتمات التجميع }
+    text:
+      en: All-order analytical structure of the k<sub>t</sub>, generalised-k<sub>t</sub> and Cambridge/Aachen algorithms, with clustering logarithms computed up to six loops.
+      ar: البنية التحليلية بجميع الرتب لخوارزميات k<sub>t</sub> وk<sub>t</sub> المعمّمة وكامبريدج/آخن، مع حساب لوغاريتمات التجميع حتى ست حلقات.
     symbol: "k<sub>t</sub>"
-  - title: Jet shapes & jet mass
-    text: Resummed predictions for jet mass, hemisphere and dijet mass, and jet shapes in V/H + jet, Z + jet and dijet events at hadron colliders.
+  - title: { en: "Jet shapes & jet mass", ar: "أشكال النفثات وكتلتها" }
+    text:
+      en: Resummed predictions for jet mass, hemisphere and dijet mass, and jet shapes in V/H + jet, Z + jet and dijet events at hadron colliders.
+      ar: تنبؤات معاد جمعها لكتلة النفثة وكتلة نصف الكرة وكتلة النفثتين، ولأشكال النفثات في أحداث V/H + نفثة وZ + نفثة والنفثتين في مصادمات الهادرونات.
     symbol: "m<sub>j</sub><sup>2</sup>"
-  - title: Eikonal amplitudes
-    text: Soft-gluon (eikonal) amplitudes for processes with two and three hard legs at finite N<sub>c</sub>, and their link to the BMS evolution equation.
+  - title: { en: Eikonal amplitudes, ar: السعات الإيكونالية }
+    text:
+      en: Soft-gluon (eikonal) amplitudes for processes with two and three hard legs at finite N<sub>c</sub>, and their link to the BMS evolution equation.
+      ar: سعات الغلوونات الليّنة (الإيكونالية) للعمليات ذات ساقين وثلاث سيقان صلبة عند N<sub>c</sub> منتهٍ، وصلتها بمعادلة التطور BMS.
     symbol: "p·k"
-  - title: Azimuthal decorrelation
-    text: All-order description of azimuthal decorrelation between a jet and a Z boson at hadron colliders, and between dijets in e<sup>+</sup>e<sup>−</sup> annihilation.
+  - title: { en: Azimuthal decorrelation, ar: فقدان الترابط السمتي }
+    text:
+      en: All-order description of azimuthal decorrelation between a jet and a Z boson at hadron colliders, and between dijets in e<sup>+</sup>e<sup>−</sup> annihilation.
+      ar: وصف بجميع الرتب لفقدان الترابط السمتي بين نفثة وبوزون Z في مصادمات الهادرونات، وبين نفثتين في فناء e<sup>+</sup>e<sup>−</sup>.
     symbol: "Δφ"
-  - title: Materials physics collaborations
-    text: First-principles studies of Heusler and half-Heusler compounds for spintronic, thermoelectric and optoelectronic applications, with colleagues at Relizane University.
+  - title: { en: Materials physics collaborations, ar: تعاونات في فيزياء المواد }
+    text:
+      en: First-principles studies of Heusler and half-Heusler compounds for spintronic, thermoelectric and optoelectronic applications, with colleagues at Relizane University.
+      ar: دراسات من المبادئ الأولى لمركبات هويسلر ونصف هويسلر لتطبيقات الإلكترونيات السبينية والكهروحرارية والإلكتروضوئية، مع زملاء من جامعة غليزان.
     symbol: "E<sub>g</sub>"
 
 thesis:
   title: QCD resummation for high-pT jet shapes at hadron colliders
-  kind: PhD thesis
-  where: The University of Manchester
+  title_ar: إعادة جمع الكروموديناميكا الكمية لأشكال النفثات ذات الزخم العرضي العالي في مصادمات الهادرونات
+  kind: { en: PhD thesis, ar: أطروحة الدكتوراه }
+  where: { en: The University of Manchester, ar: جامعة مانشستر }
   year: 2012
-  supervisor: Prof. Mrinal Dasgupta
+  supervisor: { en: Prof. Mrinal Dasgupta, ar: البروفيسور مرينال داسغوبتا }
+  links:
+    - { label: { en: Thesis (PDF), ar: الأطروحة (PDF) }, url: "https://khelifak.wordpress.com/wp-content/uploads/2014/12/phd_thesis_kk.pdf" }
+    - { label: { en: Manchester theses portal, ar: بوابة رسائل جامعة مانشستر }, url: "https://www.research.manchester.ac.uk/portal/en/theses/qcd-resummation-for-highpt-jet-shapes-at-hadron-colliders(16fdf645-238d-4979-8239-155f9ba07001).html" }
+    - { label: { en: "Habilitation summary, up to 2015 (PDF)", ar: "ملخص التأهيل الجامعي حتى 2015 (PDF)" }, url: "https://khelifak.wordpress.com/wp-content/uploads/2016/09/habil_kk.pdf" }
 
 grants:
-  - role: Principal Investigator
-    scheme: Tamayyuz 1 · Project 02/40
-    title: Testing the Standard Model of Particle Physics at High Energy Colliders
-    funder: Islamic University of Madinah
+  - role: { en: Principal Investigator, ar: الباحث الرئيسي }
+    scheme: { en: "Tamayyuz 1 · Project 02/40", ar: "تميّز 1 · المشروع 02/40" }
+    title: { en: Testing the Standard Model of Particle Physics at High Energy Colliders, ar: اختبار النموذج القياسي لفيزياء الجسيمات في المصادمات عالية الطاقة }
+    funder: { en: Islamic University of Madinah, ar: الجامعة الإسلامية بالمدينة المنورة }
     when: 2019 – 2020
     budget: "$67,000"
-  - role: Principal Investigator
-    scheme: Takamol 10 · Project 107/40
-    title: Precise Calculations of QCD Observables for LHC Physics
-    funder: Islamic University of Madinah
+  - role: { en: Principal Investigator, ar: الباحث الرئيسي }
+    scheme: { en: "Takamol 10 · Project 107/40", ar: "تكامل 10 · المشروع 107/40" }
+    title: { en: Precise Calculations of QCD Observables for LHC Physics, ar: حسابات دقيقة لمقادير الكروموديناميكا الكمية لفيزياء مصادم الهادرونات الكبير }
+    funder: { en: Islamic University of Madinah, ar: الجامعة الإسلامية بالمدينة المنورة }
     when: 2019 – 2020
     budget: "$6,700"
-  - role: Co-Principal Investigator
-    scheme: CNEPRU D01320130009
-    title: Treatment of Quantum Systems in the Context of Non-Commutative Geometry and Feynman Path Integral Formalism
-    funder: Algerian Ministry of Higher Education & Scientific Research
+  - role: { en: Co-Principal Investigator, ar: باحث رئيسي مشارك }
+    scheme: { en: CNEPRU D01320130009, ar: CNEPRU D01320130009 }
+    title: { en: Treatment of Quantum Systems in the Context of Non-Commutative Geometry and Feynman Path Integral Formalism, ar: معالجة الأنظمة الكمومية في سياق الهندسة غير التبادلية وصياغة تكاملات المسار لفاينمان }
+    funder: { en: Algerian Ministry of Higher Education & Scientific Research, ar: وزارة التعليم العالي والبحث العلمي الجزائرية }
     when: 2014 – 2017
     budget: "$2,000"
 
 talks:
-  - when: Oct 2025
+  - when: { en: Oct 2025, ar: أكتوبر 2025 }
     title: Precision calculations of clustering logarithms
-    event: International Conference on Physics and Its Applications in Sciences and Engineering (ICPAFSE)
-    place: Medea, Algeria
+    event: { en: International Conference on Physics and Its Applications in Sciences and Engineering (ICPAFSE), ar: المؤتمر الدولي للفيزياء وتطبيقاتها في العلوم والهندسة (ICPAFSE) }
+    place: { en: "Medea, Algeria", ar: "المدية، الجزائر" }
     url: https://www.univ-medea.dz/icpafse2025/
-  - when: Feb 2025
+  - when: { en: Feb 2025, ar: فيفري 2025 }
     title: All-order analytical structure of the kt clustering algorithm
-    event: First International Workshop on Physics, Theory and Applications (PTA2025)
-    place: Relizane, Algeria
+    event: { en: "First International Workshop on Physics, Theory and Applications (PTA2025)", ar: "الورشة الدولية الأولى للفيزياء: النظرية والتطبيقات (PTA2025)" }
+    place: { en: "Relizane, Algeria", ar: "غليزان، الجزائر" }
     url: https://sites.google.com/view/pta2025
-  - when: May 2022
+  - when: { en: May 2022, ar: ماي 2022 }
     title: Jet shapes in H/V+jet with kt clustering at hadron colliders
-    event: XXIX International Workshop on Deep-Inelastic Scattering (DIS2022)
-    place: Santiago de Compostela, Spain
+    event: { en: XXIX International Workshop on Deep-Inelastic Scattering (DIS2022), ar: الورشة الدولية التاسعة والعشرون للتشتت غير المرن العميق (DIS2022) }
+    place: { en: "Santiago de Compostela, Spain (online)", ar: "سانتياغو دي كومبوستيلا، إسبانيا (عن بُعد)" }
     url: https://indico.cern.ch/event/1072533/
-  - when: Apr 2015
+    slides: https://drive.google.com/file/d/1XwWS7tK81VoNN0PDUSjL06FVIUyIRs9K/view?usp=sharing
+  - when: { en: Apr 2015, ar: أفريل 2015 }
     title: Eikonal gluon radiation at finite-Nc beyond two-loops
-    event: XXIII International Workshop on Deep-Inelastic Scattering (DIS2015)
-    place: SMU, Dallas, USA
+    event: { en: XXIII International Workshop on Deep-Inelastic Scattering (DIS2015), ar: الورشة الدولية الثالثة والعشرون للتشتت غير المرن العميق (DIS2015) }
+    place: { en: "SMU, Dallas, USA", ar: "جامعة SMU، دالاس، الولايات المتحدة" }
     url: https://www.physics.smu.edu/web/dis2015/
-  - when: Apr 2014
+    slides: https://drive.google.com/file/d/11ktPsSqTAjj4RVDEDRicmBvqR5GqQKbi/view?usp=sharing
+  - when: { en: Apr 2014, ar: أفريل 2014 }
     title: "Poster: Non-global logarithms beyond leading order and the possibility of their exponentiation"
-    event: First National Day of the Physics of Elementary Particles
-    place: University of Batna 1, Algeria
+    event: { en: First National Day of the Physics of Elementary Particles, ar: اليوم الوطني الأول لفيزياء الجسيمات الأولية }
+    place: { en: "University of Batna 1, Algeria", ar: "جامعة باتنة 1، الجزائر" }
     url: https://theorique05.wordpress.com/recherche/jnppe2014/
-  - when: Sep 2013
+  - when: { en: Sep 2013, ar: سبتمبر 2013 }
     title: On QCD jet mass distribution at LHC
-    event: Ninth International Conference on Subatomic Physics and Applications (CIPSA2013)
-    place: University of Constantine 1, Algeria
+    event: { en: Ninth International Conference on Subatomic Physics and Applications (CIPSA2013), ar: المؤتمر الدولي التاسع لفيزياء ما دون الذرة وتطبيقاتها (CIPSA2013) }
+    place: { en: "University of Constantine 1, Algeria", ar: "جامعة قسنطينة 1، الجزائر" }
     url: https://www.umc.edu.dz/index.php/en/seminaires-et-proceedings/178-cipsa-2013-recueil-des-resumes
-  - when: Sep 2011
+    slides: https://khelifak.wordpress.com/wp-content/uploads/2014/02/jetmass_cipsa13.pdf
+  - when: { en: Sep 2011, ar: سبتمبر 2011 }
     title: Resummation of threshold thrust in pQCD
-    event: Mini-Workshop on Jet Shapes
-    place: The University of Manchester, UK
+    event: { en: Mini-Workshop on Jet Shapes, ar: ورشة مصغّرة حول أشكال النفثات }
+    place: { en: "The University of Manchester, UK", ar: "جامعة مانشستر، المملكة المتحدة" }
+    slides: https://khelifak.wordpress.com/wp-content/uploads/2014/02/threshold_thrust.pdf
 
 public_talks:
-  - { when: Nov 2025, title: AI Applications in Physics, where: "Pedagogical Day on AI, Relizane University" }
-  - { when: Oct 2025, title: "Scientific Publishing: A Practical Guide", where: "Doctoral Day, University of Medea" }
-  - { when: Apr 2025, title: "A Journey into the Depths of the Atom: The Quantum World", where: "International Year of Quantum, Relizane University" }
-  - { when: Nov 2019, title: A Brief History of Particle Physics, where: "University Scientific Week, Islamic University of Madinah" }
-  - { when: Apr 2019, title: "Where Are We in the Milky Way?", where: "36th Book Fair, Islamic University of Madinah" }
-  - { when: Apr 2014, title: "Particle Physics: Past, Present and Future", where: "National Day of Elementary Particle Physics, University of Batna 1" }
+  - when: { en: Nov 2025, ar: نوفمبر 2025 }
+    title: { en: AI Applications in Physics, ar: تطبيقات الذكاء الاصطناعي في الفيزياء }
+    where: { en: "Pedagogical Day on AI, Relizane University", ar: "اليوم البيداغوجي حول الذكاء الاصطناعي، جامعة غليزان" }
+  - when: { en: Oct 2025, ar: أكتوبر 2025 }
+    title: { en: "Scientific Publishing: A Practical Guide", ar: "النشر العلمي: دليل عملي" }
+    where: { en: "Doctoral Day, University of Medea", ar: "يوم الدكتوراه، جامعة المدية" }
+  - when: { en: Apr 2025, ar: أفريل 2025 }
+    title: { en: "A Journey into the Depths of the Atom: The Quantum World", ar: "رحلة إلى أعماق الذرة: العالم الكمومي" }
+    where: { en: "International Year of Quantum, Relizane University", ar: "السنة الدولية للعلوم الكمومية، جامعة غليزان" }
+  - when: { en: Nov 2019, ar: نوفمبر 2019 }
+    title: { en: A Brief History of Particle Physics, ar: تاريخ موجز لفيزياء الجسيمات }
+    where: { en: "University Scientific Week, Islamic University of Madinah", ar: "الأسبوع العلمي، الجامعة الإسلامية بالمدينة المنورة" }
+  - when: { en: Apr 2019, ar: أفريل 2019 }
+    title: { en: "Where Are We in the Milky Way?", ar: "أين نحن في درب التبانة؟" }
+    where: { en: "36th Book Fair, Islamic University of Madinah", ar: "معرض الكتاب السادس والثلاثون، الجامعة الإسلامية بالمدينة المنورة" }
+    url: https://twitter.com/Libraries_iu/status/1115185005800689664
+  - when: { en: Apr 2014, ar: أفريل 2014 }
+    title: { en: "Particle Physics: Past, Present and Future", ar: "فيزياء الجسيمات: الماضي والحاضر والمستقبل" }
+    where: { en: "National Day of Elementary Particle Physics, University of Batna 1", ar: "اليوم الوطني لفيزياء الجسيمات الأولية، جامعة باتنة 1" }
+    url: https://docs.google.com/presentation/d/1FHgaD0IcIZ_hk4Nv-nGxsaNrUIuTrP6C/edit?usp=sharing
 
 service:
-  - { when: 2025 – present, what: "Referee, Journal of High Energy Physics" }
-  - { when: 2026, what: "President of the Scientific Committee, AFMPA1 conference, Relizane University", url: "https://phys-relizane.github.io/afmpa1/" }
-  - { when: 2026, what: "President of the Organising Committee, NATA'26, University of Chlef", url: "https://sites.google.com/view/nata26" }
-  - { when: 2025, what: "Chair & organiser, PTA2025 workshop, Relizane University", url: "https://sites.google.com/view/pta2025" }
-  - { when: 2022 – 2025, what: "Organising & scientific committees: NATA'22, '23, '25 · CMSRE23–25 · ICPAFSE · HEP Graduate Workshop (Batna 1)" }
+  - { when: { en: 2025 – present, ar: 2025 – حاليًا }, what: { en: "Referee, Journal of High Energy Physics", ar: "محكّم في مجلة فيزياء الطاقات العالية (JHEP)" } }
+  - { when: 2026, what: { en: "President of the Scientific Committee, AFMPA1 conference, Relizane University", ar: "رئيس اللجنة العلمية لمؤتمر AFMPA1، جامعة غليزان" }, url: "https://phys-relizane.github.io/afmpa1/" }
+  - { when: 2026, what: { en: "President of the Organising Committee, NATA'26, University of Chlef", ar: "رئيس اللجنة التنظيمية لمؤتمر NATA'26، جامعة الشلف" }, url: "https://sites.google.com/view/nata26" }
+  - { when: 2025, what: { en: "Chair & organiser, PTA2025 workshop, Relizane University", ar: "رئيس ومنظم ورشة PTA2025، جامعة غليزان" }, url: "https://sites.google.com/view/pta2025" }
+  - { when: 2022 – 2025, what: { en: "Organising & scientific committees: NATA'22, '23, '25 · CMSRE23–25 · ICPAFSE", ar: "عضو اللجان التنظيمية والعلمية: NATA'22 و'23 و'25 · CMSRE23–25 · ICPAFSE" } }
+  - { when: 2022, what: { en: "Graduate HEP School (online), University of Batna 1", ar: "مدرسة الدراسات العليا في فيزياء الطاقات العالية (عن بُعد)، جامعة باتنة 1" }, url: "https://indico.cern.ch/event/1124884/" }
+  - { when: 2015, what: { en: "JSLA 2015, University of Chlef", ar: "الأيام العلمية JSLA 2015، جامعة الشلف" }, url: "https://sites.google.com/site/jsla2015chlef" }
 
 labs:
-  - { when: 2025 – present, what: "Laboratory of Physics of Experimental Techniques and its Applications (LPETA)", where: University of Medea }
-  - { when: 2024 – present, what: "Laboratory of Physics of Thin Layers and Advanced Technologies (LPTLAT)", where: Relizane University }
-  - { when: 2016 – present, what: "Mathematical Physics Group (former head), Laboratory of Mathematics and Applications (LMA)", where: University of Chlef }
-  - { when: 2014 – 2016, what: "Laboratory of Mathematical and Subatomic Physics (LPMS)", where: University of Constantine 1 }
+  - { when: { en: 2025 – present, ar: 2025 – حاليًا }, what: { en: "Laboratory of Physics of Experimental Techniques and its Applications (LPETA)", ar: "مخبر فيزياء التقنيات التجريبية وتطبيقاتها (LPETA)" }, where: { en: University of Medea, ar: جامعة المدية } }
+  - { when: { en: 2024 – present, ar: 2024 – حاليًا }, what: { en: "Laboratory of Physics of Thin Layers and Advanced Technologies (LPTLAT)", ar: "مخبر فيزياء الطبقات الرقيقة والتقنيات المتقدمة (LPTLAT)" }, where: { en: Relizane University, ar: جامعة غليزان } }
+  - { when: { en: 2016 – present, ar: 2016 – حاليًا }, what: { en: "Mathematical Physics Group (former head), Laboratory of Mathematics and Applications (LMA)", ar: "فرقة الفيزياء الرياضية (رئيسها سابقًا)، مخبر الرياضيات وتطبيقاتها (LMA)" }, where: { en: University of Chlef, ar: جامعة الشلف } }
+  - { when: 2014 – 2016, what: { en: "Laboratory of Mathematical and Subatomic Physics (LPMS)", ar: "مخبر الفيزياء الرياضية وفيزياء ما دون الذرة (LPMS)" }, where: { en: University of Constantine 1, ar: جامعة قسنطينة 1 } }
 
 collaborators: [M. Dasgupta, A. Banfi, S. Marzani, M. Spannowsky, Y. Delenda, M. Benghanem]
 

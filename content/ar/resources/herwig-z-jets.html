@@ -1,0 +1,100 @@
+<!-- source: https://khelifak.wordpress.com/library/computer-programs/hep-programs/herwig-2/5694-2/ · Second run: Z production and jets at the LHC -->
+<p>سنحاكي في هذا القسم العملية 'P + P -&gt; Z+X' عند طاقة مركز كتلة قدرها 7 TeV، وندرس خصائص البوزون Z بالاستعانة بتحليل Rivet المسمى <a href="https://rivet.hepforge.org/analyses/MC_ZINC.html" rel="noopener" target="_blank">MC_ZINC</a>.</p>
+<p>لتوليد الأحداث جوانب مختلفة، يؤدي كل منها دورًا حاسمًا في المحاكاة الصحيحة للبوزونات Z في LHC:</p>
+<ul>
+<li>عنصر المصفوفة الصلب</li>
+<li>وابل البارتونات</li>
+<li>إشعاع الحالة الابتدائية والحالة النهائية</li>
+<li>التفاعلات متعددة البارتونات</li>
+<li>التهدرن</li>
+</ul>
+<p>سنرى خلال هذا التمرين المساهمات المختلفة في المرصودات المتعلقة بشكل توزيعات Z، مثل طيف الزخم العرضي pT للبوزون Z.</p>
+<p>يُرجى تنزيل ملف الإدخال الآتي ونقله إلى مجلد عملك:</p>
+<p>ملف الإدخال: LHC-Matchbox.in ‏(5 KB) <a href="https://phab-files.hepforge.org/file/download/q5by5q5tocxpquklfi34/PHID-FILE-ekoleb6f3inpmsz6xmbl/LHC-Matchbox.in" rel="noopener" target="_blank">تنزيل</a></p>
+<p>وبدلًا من ذلك، يمكنك استعمال الأمر الآتي في سطر الأوامر:</p>
+<pre>wget https://phab-files.hepforge.org/file/download/q5by5q5tocxpquklfi34/PHID-FILE-ekoleb6f3inpmsz6xmbl/LHC-Matchbox.in</pre>
+<p>يمكن استعمال ملف الإدخال لإنتاج Z ولإنتاج Z مع نفاثات. وفي الوقت الحالي، جميع الأجزاء محوّلة إلى تعليقات باستثناء عنصر المصفوفة الصلب. وسنزيل علامات التعليق عن الأجزاء اللازمة كلما تقدمنا في التمرين.</p>
+<p>شغّل ملف الإدخال دون أي تعديل</p>
+<pre>Herwig read LHC-Matchbox.in
+
+Herwig run LHC-Matchbox.run -N 10000</pre>
+<p>يُستحسن تغيير اسم ملف .yoda المُنشأ حديثًا إلى اسم ذي دلالة بعد كل تشغيل جديد، حتى لا تضطر إلى إعادة عمليات التشغيل في النهاية عندما نقارن بعضها ببعض. ولهذا الغرض، يمكنك ببساطة استعمال الأمر الآتي في سطر الأوامر:</p>
+<pre>mv LHC-Matchbox.yoda LHC-noShower.yoda</pre>
+<p>ارسم الآن النتائج بالأمر</p>
+<pre>rivet-mkhtml LHC-noShower.yoda</pre>
+<p>تأمّل المدرجات التكرارية الناتجة وحاول أن تفسّر لماذا لا يوجد زخم عرضي pT للبوزون Z، ولماذا يكون pT للبوزون Z في منطقة القمة مجرد دالة دلتا. وينبغي لك أيضًا أن تطّلع على ملف .log وأن تفهم الأحداث القليلة الأولى.</p>
+<p>للحصول على محاكاة أكثر واقعية للبوزون Z، سنزيل علامات التعليق عن بعض الأقسام في ملف الإدخال. سندرج وابل البارتونات عند الرتبة الدنيا LO، ولكن دون إشعاعَي الحالة الابتدائية والحالة النهائية.</p>
+<p>ينبغي أن يبدو القسم المعني في ملف الإدخال على النحو الآتي:</p>
+<pre>##################################################
+## ShowerHandler(s)
+##################################################
+ 
+# Initial and final state radiation
+set /Herwig/Shower/ShowerHandler:DoFSR No
+set /Herwig/Shower/ShowerHandler:DoISR No
+ 
+
+cd /Herwig/EventHandlers
+#set EventHandler:CascadeHandler NULL
+set EventHandler:CascadeHandler:MPIHandler NULL # switches off multi parton interactions
+set EventHandler:DecayHandler NULL # switches off particle decays 
+set EventHandler:HadronizationHandler NULL # switches off hadronization</pre>
+<p>فعّل إشعاع الحالة الابتدائية والحالة النهائية وأعد التشغيل.</p>
+<pre>set /Herwig/Shower/ShowerHandler:DoFSR Yes
+set /Herwig/Shower/ShowerHandler:DoISR Yes</pre>
+<p>شغّل Herwig الآن مرة أخرى وقارن نتائجك بنتائج التشغيل الأول. لماذا تتغير أطياف pT في حين تبدو الكتلة المعاد بناؤها للبوزون Z متماثلة تقريبًا؟</p>
+<p>في المهمة التالية، سننتقل إلى وابل بارتونات مُطابَق عند الرتبة التالية للرتبة الدنيا NLO. ألقِ نظرة على قسم اختيار وابل البارتونات في ملف الإدخال</p>
+<pre>##################################################
+## Matching and shower selection
+##################################################
+
+#read Matchbox/MCatNLO-DefaultShower.in
+# read Matchbox/Powheg-DefaultShower.in
+## use for strict LO/NLO comparisons
+# read Matchbox/MCatLO-DefaultShower.in
+## use for improved LO showering
+read Matchbox/LO-DefaultShower.in
+
+# read Matchbox/MCatNLO-DipoleShower.in
+# read Matchbox/Powheg-DipoleShower.in
+## use for strict LO/NLO comparisons
+# read Matchbox/MCatLO-DipoleShower.in
+## use for improved LO showering
+# read Matchbox/LO-DipoleShower.in
+
+# read Matchbox/NLO-NoShower.in
+# read Matchbox/LO-NoShower.in</pre>
+<p>اخترنا في ملف الإدخال الخيار "read Matchbox/LO-DefaultShower.in" الذي يفعّل وابل بارتونات مرتبًا زاويًا عند الرتبة الدنيا LO. اختر الآن الخيار "read Matchbox/MCatNLO-DefaultShower.in" لتفعيل الوابل المُطابَق بطريقة MC@NLO، وأعد تشغيل المحاكاة.</p>
+<p>ينبغي أن تكون قد أنشأت حتى الآن عدة ملفات .yoda. ويمكنك مقارنة الحسابات المقابلة لها بالأمر</p>
+<pre>rivet-mkhtml *.yoda</pre>
+<p>في المهمة الأخيرة من هذا القسم، فعّل خيارات التفاعلات متعددة البارتونات والتفككات والتهدرن بإزالة علامات التعليق عن الأسطر المعنية في ملف الإدخال، وقارن بين محاكاتَي الوابل المُطابَق عند LO وعند NLO.</p>
+<p>بهذا تكون قد أنهيت جميع الأجزاء الإلزامية من الدرس التطبيقي لبرنامج Herwig.<br/>يمكنك أن تختار <a href="https://herwig.hepforge.org/tutorials/gettingstarted/matrixelements.html#some-scale-variations" rel="noopener" target="_blank">التعمق أكثر</a> في تغييرات وابل البارتونات، وتجربة قيود (cuts) وسلالم طاقية مختلفة،<br/>أو مواصلة العمل مع <a href="https://phab.hepforge.org/w/mcnet2019/thirdrun/" rel="noopener" target="_blank">التشغيل الثالث: أحداث الانحياز الأدنى (minimum bias) والفيزياء اللينة</a> (يُنصح به).</p>
+<h4>ملاحظة حول عناصر المصفوفة</h4>
+<p>كما ترى، فقد عُطّل قسم اختيار العملية تعطيلًا كاملًا. ذلك أن Herwig يحتاج، في عملية مثل P + P -&gt; Z + X، إلى استعمال مزوّدي عناصر المصفوفة (ME) الخارجيين. غير أن استعمال هذه الأدوات داخل docker أو الآلة الافتراضية قد يكون إشكاليًا بسبب بعض مشكلات الربط. أما في نسخة مثبّتة من Herwig (ومربوطة ربطًا صحيحًا)، فيمكن بسهولة استعمال مزوّدي ME الخارجيين هؤلاء باختيار العملية الصلبة في قسم Process selection، واختيار مزوّدي ME من قسم Matrix element library selection.</p>
+<pre>##################################################
+## Process selection
+##################################################
+
+## Model assumptions
+# read Matchbox/StandardModelLike.in
+# read Matchbox/DiagonalCKM.in
+
+## Set the order of the couplings
+# cd /Herwig/MatrixElements/Matchbox
+# set Factory:OrderInAlphaS 1
+# set Factory:OrderInAlphaEW 1
+
+## Select the process
+# do Factory:Process p p -&gt; Z0 j
+
+##################################################
+## Matrix element library selection
+##################################################
+
+## Select a generic tree/loop combination or a
+## specialized NLO package
+
+# read Matchbox/MadGraph-GoSam.in
+# read Matchbox/MadGraph-MadGraph.in
+# read Matchbox/MadGraph-NJet.in
+# read Matchbox/MadGraph-OpenLoops.in</pre>

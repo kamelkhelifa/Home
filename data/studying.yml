@@ -1,88 +1,134 @@
 # ─────────────────────────────────────────────────────────────
-#  Studying — two parallel journeys: Physics (Manchester) and Medicine (Chlef)
+#  Studying: two parallel journeys, Physics (Manchester) and Medicine (Chlef)
+#  `page:` links a card to a full page in content/<lang>/<page>.html
 # ─────────────────────────────────────────────────────────────
 
-intro: >
-  Learning has never stopped being the main thread. A merit scholarship took me from
-  Oued-Sly in Chlef to London and Manchester, where I spent seven years becoming a
-  theoretical physicist. Years later, while teaching full-time, I went back to the
-  Baccalaureate as a free candidate to begin a second degree, this time in medicine.
+hero_title: { en: "Two journeys, <em>one habit.</em>", ar: "رحلتان، <em>وعادةٌ واحدة.</em>" }
+intro:
+  en: >
+    Learning has never stopped being the main thread. A merit scholarship took me from
+    Oued-Sly in Chlef to London and Manchester, where I spent seven years becoming a
+    theoretical physicist. Years later, while teaching full-time, I went back to the
+    Baccalaureate as a free candidate to begin a second degree, this time in medicine.
+  ar: >
+    لم يتوقف التعلّم يومًا عن أن يكون الخيط الناظم. حملتني منحة الاستحقاق من وادي سلي بالشلف
+    إلى لندن ثم مانشستر، حيث قضيت سبع سنوات حتى صرت فيزيائيًا نظريًا. وبعد سنوات، وأنا أدرّس
+    بدوام كامل، عدت إلى امتحان البكالوريا مترشحًا حرًّا لأبدأ شهادة ثانية، في الطب هذه المرة.
 
 tracks:
   - id: physics
-    kicker: Track I
-    title: Physics
-    place: The University of Manchester · United Kingdom
+    kicker: { en: Track I, ar: المسار الأول }
+    title: { en: Physics, ar: الفيزياء }
+    place: { en: "The University of Manchester · United Kingdom", ar: "جامعة مانشستر · المملكة المتحدة" }
     years: 2005 – 2012
-    summary: >
-      Four-year Master of Physics with Theoretical Physics (First Class Honours),
-      followed by a PhD in theoretical particle physics in the School of Physics &
-      Astronomy, supervised by Prof. Mrinal Dasgupta.
+    summary:
+      en: >
+        Four-year Master of Physics with Theoretical Physics (First Class Honours),
+        followed by a PhD in theoretical particle physics in the School of Physics &
+        Astronomy, supervised by Prof. Mrinal Dasgupta.
+      ar: >
+        ماجستير الفيزياء مع الفيزياء النظرية في أربع سنوات (بمرتبة الشرف الأولى)، تلته دكتوراه
+        في فيزياء الجسيمات النظرية بكلية الفيزياء والفلك، تحت إشراف البروفيسور مرينال داسغوبتا.
     milestones:
-      - when: Jan – Sep 2005
-        what: Graduate Preparatory Course in English for Academic Purposes
-        where: Language Centre, University College London
-        note: IELTS 6.5
+      - when: { en: Jan – Sep 2005, ar: جانفي – سبتمبر 2005 }
+        what: { en: Graduate Preparatory Course in English for Academic Purposes, ar: دورة تحضيرية في الإنجليزية للأغراض الأكاديمية }
+        where: { en: "Language Centre, University College London", ar: "مركز اللغات، كلية لندن الجامعية (UCL)" }
+        note: { en: IELTS 6.5, ar: "IELTS بدرجة 6.5" }
       - when: 2005 – 2009
-        what: MPhys Physics with Theoretical Physics
-        where: School of Physics & Astronomy, The University of Manchester
-        note: First Class with Honours · MPhys project supervised by Prof. A. Pilaftsis
+        what: { en: MPhys Physics with Theoretical Physics, ar: ماجستير الفيزياء مع الفيزياء النظرية (MPhys) }
+        where: { en: "School of Physics & Astronomy, The University of Manchester", ar: "كلية الفيزياء والفلك، جامعة مانشستر" }
+        note: { en: "First Class with Honours · MPhys project supervised by Prof. A. Pilaftsis", ar: "مرتبة الشرف الأولى · مشروع التخرج بإشراف البروفيسور أ. بيلافتسيس" }
         highlight: true
-      - when: Summer 2008
-        what: Research Assistant, Manchester Interferometer Polarisation Experiment
-        where: The University of Manchester
-        note: Simulation of a prototype radio-astronomy experiment for the Cosmic Microwave Background
-      - when: Aug – Sep 2010
-        what: 40th British Universities Summer School in Theoretical Elementary Particle Physics (BUSSTEPP)
-        where: Swansea University
+      - when: { en: Summer 2008, ar: صيف 2008 }
+        what: { en: "Research Assistant, Manchester Interferometer Polarisation Experiment", ar: "مساعد باحث، تجربة مانشستر لقياس الاستقطاب بالتداخل" }
+        where: { en: The University of Manchester, ar: جامعة مانشستر }
+        note: { en: Simulation of a prototype radio-astronomy experiment for the Cosmic Microwave Background, ar: محاكاة نموذج أولي لتجربة فلك راديوي لرصد إشعاع الخلفية الكونية الميكروي }
+      - when: { en: Aug – Sep 2010, ar: أوت – سبتمبر 2010 }
+        what: { en: 40th British Universities Summer School in Theoretical Elementary Particle Physics (BUSSTEPP), ar: المدرسة الصيفية الأربعون للجامعات البريطانية في فيزياء الجسيمات الأولية النظرية (BUSSTEPP) }
+        where: { en: Swansea University, ar: جامعة سوانزي }
       - when: 2009 – 2012
-        what: PhD Particle Physics
-        where: School of Physics & Astronomy, The University of Manchester
-        note: "Thesis: QCD resummation for high-pT jet shapes at hadron colliders · Overseas Research Student Award"
+        what: { en: PhD Particle Physics, ar: دكتوراه في فيزياء الجسيمات }
+        where: { en: "School of Physics & Astronomy, The University of Manchester", ar: "كلية الفيزياء والفلك، جامعة مانشستر" }
+        note: { en: "Thesis: QCD resummation for high-pT jet shapes at hadron colliders · Overseas Research Student Award", ar: "الأطروحة: إعادة جمع الكروموديناميكا الكمية لأشكال النفثات ذات الزخم العرضي العالي في مصادمات الهادرونات · منحة الطالب الباحث الدولي" }
         highlight: true
+    pages:
+      - page: studying/physics-manchester
+        title: { en: MPhys lecture summaries, ar: ملخصات محاضرات الماجستير }
+        text: { en: "Typeset and handwritten summaries of every module, 2005 – 2009.", ar: "ملخصات مطبوعة ومكتوبة بخط اليد لكل المقررات، 2005 – 2009." }
 
   - id: medicine
-    kicker: Track II
-    title: Medicine
-    place: Faculty of Medicine, University of Chlef · Algeria
-    years: 2023 – present
-    summary: >
-      Candidate for the degree of Doctor of Medicine (M.D.), currently in the third
-      year, with graduation anticipated in 2030.
+    kicker: { en: Track II, ar: المسار الثاني }
+    title: { en: Medicine, ar: الطب }
+    place: { en: "Faculty of Medicine, University of Chlef · Algeria", ar: "كلية الطب، جامعة الشلف · الجزائر" }
+    years: { en: 2023 – present, ar: 2023 – حاليًا }
+    summary:
+      en: >
+        Candidate for the degree of Doctor of Medicine (M.D.), currently in the third
+        year, with graduation anticipated in 2030. Teaching is in French.
+      ar: >
+        طالب في مسار دكتوراه الطب، حاليًا في السنة الثالثة، والتخرج متوقع سنة 2030.
+        التدريس باللغة الفرنسية.
     milestones:
-      - when: Jun 2004
-        what: Algerian Baccalaureate
-        where: Oued-Sly High School, Chlef
-        note: 17.15 / 20, ranked 2nd nationally, full merit scholarship to study in the UK
-      - when: Jun 2023
-        what: Algerian Baccalaureate, sat again as a free candidate
-        where: Chlef
-        note: 17.35 / 20, admitted to the Faculty of Medicine
-      - when: Sep 2023 – present
-        what: Doctor of Medicine (M.D.), Year 3
-        where: Faculty of Medicine, University of Chlef
-        note: Anticipated completion June 2030
+      - when: { en: Jun 2004, ar: جوان 2004 }
+        what: { en: Algerian Baccalaureate, ar: شهادة البكالوريا الجزائرية }
+        where: { en: "Oued-Sly High School, Chlef", ar: "ثانوية وادي سلي، الشلف" }
+        note: { en: "17.15 / 20, ranked 2nd nationally, full merit scholarship to study in the UK", ar: "17.15 / 20، المرتبة الثانية وطنيًا، ومنحة استحقاق كاملة للدراسة في المملكة المتحدة" }
+      - when: { en: Jun 2023, ar: جوان 2023 }
+        what: { en: "Algerian Baccalaureate, sat again as a free candidate", ar: "شهادة البكالوريا مجددًا، مترشحًا حرًّا" }
+        where: { en: Chlef, ar: الشلف }
+        note: { en: "17.35 / 20, admitted to the Faculty of Medicine", ar: "17.35 / 20، والقبول في كلية الطب" }
+      - when: { en: 2023 – 2024, ar: 2023 – 2024 }
+        what: { en: "First year of medicine", ar: "السنة الأولى طب" }
+        where: { en: "Medical annex of the University of Blida 1, Chlef", ar: "الملحقة الطبية لجامعة البليدة 1، الشلف" }
+      - when: { en: 2024 – 2025, ar: 2024 – 2025 }
+        what: { en: "Second year of medicine", ar: "السنة الثانية طب" }
+        where: { en: "Medical annex, Chlef", ar: "الملحقة الطبية، الشلف" }
+      - when: { en: Sep 2025 – present, ar: سبتمبر 2025 – حاليًا }
+        what: { en: "Doctor of Medicine (M.D.), Year 3", ar: "دكتوراه في الطب، السنة الثالثة" }
+        where: { en: "Faculty of Medicine, University of Chlef", ar: "كلية الطب، جامعة الشلف" }
+        note: { en: Anticipated completion June 2030, ar: التخرج المتوقع جوان 2030 }
         highlight: true
+    pages:
+      - page: studying/medicine-year-1
+        title: { en: "Year 1 · 2023 – 2024", ar: "السنة الأولى · 2023 – 2024" }
+        text: { en: "Lecture notes, TD, TP and exams for every module, both semesters.", ar: "مذكرات المحاضرات والأعمال الموجهة والتطبيقية والامتحانات لكل المقاييس، في السداسيين." }
+      - page: studying/medicine-year-2
+        title: { en: "Year 2 · 2024 – 2025", ar: "السنة الثانية · 2024 – 2025" }
+        text: { en: "Materials organised by system: cardiovascular, respiratory, digestive and more.", ar: "المواد مرتبة حسب الأجهزة: القلبي الوعائي، والتنفسي، والهضمي، وغيرها." }
 
 archive:
-  title: Manchester MPhys lecture summaries
-  description: >
-    Lecture summaries and exam reviews I wrote as an undergraduate on the four-year MPhys
-    in Physics with Theoretical Physics (2005 – 2009), arranged by year and semester. They
-    come as LaTeX-typeset PDFs and scanned handwritten notes. They cover, among others,
-    Advanced Quantum Mechanics, Gravitation, Quantum Field Theory and The Early Universe.
-  url: https://khelifak.wordpress.com/teaching/uom-mphys-theoretical-physics-program/
-  topics: [Advanced Quantum Mechanics, Gravitation, Quantum Field Theory, The Early Universe]
+  page: studying/physics-manchester
+  title: { en: Manchester MPhys lecture summaries, ar: ملخصات محاضرات ماجستير مانشستر }
+  description:
+    en: >
+      Lecture summaries and exam reviews I wrote as an undergraduate on the four-year MPhys
+      in Physics with Theoretical Physics (2005 – 2009), arranged by year and semester. They
+      come as LaTeX-typeset PDFs and scanned handwritten notes, covering everything from
+      Dynamics to Quantum Field Theory and The Early Universe.
+    ar: >
+      ملخصات محاضرات ومراجعات امتحانات كتبتها طالبًا في برنامج ماجستير الفيزياء مع الفيزياء
+      النظرية ذي السنوات الأربع (2005 – 2009)، مرتبة حسب السنة والفصل الدراسي. بعضها ملفات PDF
+      منسقة بـ LaTeX وبعضها نسخ ممسوحة بخط اليد، وتغطي كل شيء من الديناميكا إلى نظرية الحقول
+      الكمومية والكون المبكر.
+  topics:
+    - { en: Dynamics, ar: الديناميكا }
+    - { en: Advanced Quantum Mechanics, ar: ميكانيكا الكم المتقدمة }
+    - { en: Gravitation, ar: الجاذبية }
+    - { en: Quantum Field Theory, ar: نظرية الحقول الكمومية }
+    - { en: The Early Universe, ar: الكون المبكر }
 
 medicine_resources:
-  title: Medicine study communities
-  description: >
-    Study groups and channels I run for medical students, covering research, question
-    banks, anatomy and medical translation.
+  title: { en: Medicine study materials, ar: مواد دراسة الطب }
+  description:
+    en: >
+      Everything I collect as a medical student: lecture notes, TD, TP and past exams (EMD)
+      for each module, plus the study channels I run for fellow students.
+    ar: >
+      كل ما أجمعه طالبًا في الطب: مذكرات المحاضرات، والأعمال الموجهة والتطبيقية، والامتحانات
+      السابقة لكل مقياس، إضافة إلى قنوات الدراسة التي أشرف عليها لزملائي الطلبة.
   items:
-    - { label: MedQBank, url: https://sites.google.com/view/medqbank, kind: Question bank website }
-    - { label: MedResearch, kind: Telegram channel }
-    - { label: MedQBank, kind: Telegram channel }
-    - { label: MedNature, kind: Telegram channel }
-    - { label: MedTranslation, kind: Telegram channel }
-    - { label: MedAnatomy, kind: Telegram channel }
+    - { label: MedQBank, url: "https://sites.google.com/view/medqbank", kind: { en: Question bank website, ar: موقع بنك أسئلة } }
+    - { label: MedResearch, kind: { en: Telegram channel, ar: قناة تليغرام } }
+    - { label: MedNature, kind: { en: Telegram channel, ar: قناة تليغرام } }
+    - { label: MedTranslation, kind: { en: Telegram channel, ar: قناة تليغرام } }
+    - { label: MedAnatomy, kind: { en: Telegram channel, ar: قناة تليغرام } }

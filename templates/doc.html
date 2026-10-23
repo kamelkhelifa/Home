@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% set sec_idx = {"studying": 0, "teaching": 1, "research": 2, "books": 3, "resources": 4}[doc.section] %}
+{% block title %}{% if doc.code %}{{ doc.code }}: {% endif %}{{ t(doc.title) }} · {{ t(site.name) }}{% endblock %}
+{% block description %}{{ t(doc.title) }} · {{ t(doc.parent) }}{% endblock %}
+
+{% block content %}
+<section class="page-hero doc-hero">
+  <div class="page-hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav class="crumbs reveal" aria-label="Breadcrumb">
+      <a href="{{ link('index') }}">{{ ui("home") }}</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ link(doc.section) }}">{{ t(site.nav[sec_idx].label) }}</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ t(doc.parent) }}</span>
+    </nav>
+    {% if doc.code %}<p class="doc-code reveal"><bdi>{{ doc.code }}</bdi></p>{% endif %}
+    <h1 class="page-title doc-title reveal">{{ t(doc.title) }}</h1>
+    <ul class="doc-chips reveal">
+      {% for c in doc.chips %}
+      {% if c.i18n is defined %}<li class="chip chip-accent">{{ ui(c.i18n) }}</li>{% else %}<li class="chip">{{ t(c) }}</li>{% endif %}
+      {% endfor %}
+      {% if translated_from %}<li class="chip chip-note">{{ icon("globe") }} {{ ui("translated_from") }} ({{ ui("lang_" ~ translated_from) }})</li>{% endif %}
+    </ul>
+  </div>
+</section>
+
+<section class="section doc-section">
+  <div class="wrap doc-layout{% if toc | length < 2 %} no-toc{% endif %}">
+    {% if toc | length >= 2 %}
+    <aside class="toc" aria-label="{{ ui('contents') }}">
+      <p class="toc-h">{{ ui("contents") }}</p>
+      <ol class="toc-list" data-toc>
+        {% for h in toc %}<li><a href="#{{ h.id }}">{{ h.text }}</a></li>{% endfor %}
+      </ol>
+    </aside>
+    {% endif %}
+    <article class="prose">
+      {{ body }}
+      <footer class="doc-foot">
+        <p class="fine">{{ icon("file") }} {{ ui("files_note") }}</p>
+        <a class="link-arrow back" href="{{ link(doc.section) }}">{{ icon("right", "icon icon-back") }} {{ ui("back_to") }} {{ t(site.nav[sec_idx].label) }}</a>
+      </footer>
+    </article>
+  </div>
+</section>
+{% endblock %}

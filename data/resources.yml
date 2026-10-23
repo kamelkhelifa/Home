@@ -1,64 +1,138 @@
 # ─────────────────────────────────────────────────────────────
-#  Resources — my other websites, channels, projects and articles
-#  Items without a `url` are shown as plain entries (add the link when ready).
+#  Resources: my other websites, channels, projects, guides and articles
+#  `page:` links to a full page in content/<lang>/<page>.html, `url:` to an external site.
+#  Items with neither are shown as plain entries.
 # ─────────────────────────────────────────────────────────────
 
-intro: >
-  Everything I have built outside the lecture hall: course sites, video channels,
-  conference pages, community projects and short articles on whatever I needed to
-  learn at the time.
+hero_title: { en: "Everything else <em>I've built.</em>", ar: "كل ما بنيتُه <em>خارج القاعة.</em>" }
+intro:
+  en: >
+    Everything I have built outside the lecture hall: course sites, video channels,
+    conference pages, software guides, community projects and short articles on
+    whatever I needed to learn at the time.
+  ar: >
+    كل ما بنيته خارج قاعة المحاضرات: مواقع المقررات، وقنوات الفيديو، وصفحات المؤتمرات،
+    وأدلة البرمجيات، والمشاريع المجتمعية، ومقالات قصيرة في ما احتجت إلى تعلّمه حينها.
 
 groups:
   - id: teaching-web
-    title: Teaching websites
+    title: { en: Teaching websites, ar: مواقع تعليمية }
     icon: book
     items:
-      - { label: Student Portal, url: "https://sites.google.com/view/kk-studentportal/", text: "A single place for my students: course announcements and materials." }
-      - { label: Personal Teaching Web (legacy), url: "https://khelifak.wordpress.com/", text: "The original WordPress home of my courses and notes, kept online as an archive." }
-      - { label: Chlef PhysicsWeb, url: "https://chlefphys.wordpress.com/", text: "Course website for the physics department at the University of Chlef." }
-      - { label: USTHB PhysicsWeb, url: "https://usthbphysique.wordpress.com/", text: "Course website for first-year physics at USTHB, Algiers." }
-      - { label: BAC Web, url: "https://baccalauria.wordpress.com/", text: "Free preparation material for the Algerian Baccalaureate." }
+      - label: { en: Student Portal, ar: بوابة الطلاب }
+        url: https://sites.google.com/view/kk-studentportal/
+        text: { en: "A single place for my students: course announcements and materials.", ar: "مكان واحد لطلابي: إعلانات المقررات وموادها." }
+      - label: { en: Personal Teaching Web (legacy), ar: موقع التدريس الشخصي (الأرشيف) }
+        url: https://khelifak.wordpress.com/
+        text: { en: "The original WordPress home of my courses and notes, now migrated to this site.", ar: "الموطن الأصلي لمقرراتي ومذكراتي على ووردبريس، وقد نُقل محتواه إلى هذا الموقع." }
+      - label: { en: Chlef PhysicsWeb, ar: موقع الفيزياء بالشلف }
+        url: https://chlefphys.wordpress.com/
+        text: { en: Course website for the physics department at the University of Chlef., ar: موقع مقررات قسم الفيزياء بجامعة الشلف. }
+      - label: { en: USTHB PhysicsWeb, ar: موقع الفيزياء بباب الزوار }
+        url: https://usthbphysique.wordpress.com/
+        text: { en: "Course website for first-year physics at USTHB, Algiers.", ar: "موقع مقررات الفيزياء للسنة الأولى بجامعة باب الزوار، الجزائر العاصمة." }
+      - label: { en: "BAC Web (Majma' Al-Baccalaureate)", ar: "مجمع البكالوريا" }
+        url: https://baccalauria.wordpress.com/
+        text: { en: Free preparation material for the Algerian Baccalaureate., ar: مواد مجانية للتحضير لشهادة البكالوريا الجزائرية. }
 
   - id: channels
-    title: Video & community channels
+    title: { en: Video & community channels, ar: قنوات الفيديو والتواصل }
     icon: play
     items:
-      - { label: Physics Teaching Channel, kind: YouTube, text: "Recorded lectures and problem sessions from my university courses." }
-      - { label: BAC Channel, kind: YouTube, url: "https://www.youtube.com/@baccalauria", text: "Video lessons for Baccalaureate candidates." }
-      - { label: Physics Club, kind: Telegram, text: "Discussion, problems and announcements for physics students." }
-      - { label: APhO / IPhO preparation, kind: Telegram, text: "Olympiad-level problem solving for national team candidates." }
-      - { label: Physics Courses (L1 – M1), kind: Telegram, text: "Course channels for undergraduate and master's physics." }
-      - { label: BAC, kind: Telegram, text: "Baccalaureate preparation community." }
+      - label: { en: Physics Teaching Channel, ar: قناة تدريس الفيزياء }
+        kind: YouTube
+        url: https://www.youtube.com/channel/UCG3osw1ou5XFdQXb3PWH-NQ
+        text: { en: Recorded lectures and problem sessions from my university courses., ar: محاضرات وحصص حل مسائل مسجلة من مقرراتي الجامعية. }
+      - label: { en: BAC Channel, ar: قناة البكالوريا }
+        kind: YouTube
+        url: https://www.youtube.com/@baccalauria
+        text: { en: Video lessons for Baccalaureate candidates., ar: دروس مصورة للمترشحين لشهادة البكالوريا. }
+      - label: { en: Physics Club, ar: نادي الفيزياء }
+        kind: Telegram
+        url: https://t.me/IUPhysicsClub
+        text: { en: "Discussion, problems and announcements for physics students.", ar: "نقاشات ومسائل وإعلانات لطلبة الفيزياء." }
+      - label: { en: "@KamelKhelifa7", ar: "‎@KamelKhelifa7" }
+        kind: X (Twitter)
+        url: https://twitter.com/KamelKhelifa7
+        text: { en: Updates on teaching and research., ar: مستجدات التدريس والبحث. }
+      - label: { en: APhO / IPhO preparation, ar: التحضير للأولمبياد الآسيوي والدولي للفيزياء }
+        kind: Telegram
+        text: { en: Olympiad-level problem solving for national team candidates., ar: حل مسائل بمستوى الأولمبياد للمترشحين للمنتخب الوطني. }
+      - label: { en: "Physics Courses (L1 – M1)", ar: "مقررات الفيزياء (ل1 – م1)" }
+        kind: Telegram
+        text: { en: "Course channels for undergraduate and master's physics.", ar: "قنوات مقررات الفيزياء في الليسانس والماستر." }
 
-  - id: conferences
-    title: Conference websites
-    icon: calendar
+  - id: guides
+    title: { en: "Software guides for HEP", ar: "أدلة برمجيات فيزياء الطاقات العالية" }
+    icon: layers
     items:
-      - { label: "AFMPA1 · 2026", url: "https://phys-relizane.github.io/afmpa1/", text: "First National Conference on Advanced Functional Materials & Physics Applications, Relizane." }
-      - { label: "NATA'26", url: "https://sites.google.com/view/nata26", text: "Third International Conference on Non-linear Analysis: Theory and Applications, Chlef." }
-      - { label: "NATA'25", url: "https://sites.google.com/view/nata25", text: "Second International Conference on Non-linear Analysis, Chlef." }
-      - { label: "PTA2025", url: "https://sites.google.com/view/pta2025", text: "First International Workshop on Physics: Theory and Applications, Relizane." }
-      - { label: "NATA'23", url: "https://sites.google.com/view/confnata23", text: "First International Conference on Non-linear Analysis, Chlef." }
-      - { label: "NATA'22", url: "https://sites.google.com/view/confnata22", text: "First National Conference on Non-linear Analysis, Chlef." }
-
-  - id: projects
-    title: Projects & other websites
-    icon: spark
-    items:
-      - { label: Moajam El-Asmaa, url: "https://moajam-elasmaa.vercel.app/", text: "Moajam El-Asmaa (معجم الأسماء), a web app I designed and built." }
-      - { label: MedQBank, url: "https://sites.google.com/view/medqbank", text: "A question bank for medical students." }
-      - { label: Oyoun El-Itqan Education Academy, kind: "2022 – 2023", text: "A private academy I founded in Chlef, offering languages, IT, UCMAS and school subjects." }
-      - { label: "Maqraa Michkat Al-Wahyayn", kind: "2021 – 2023", text: "A free online school for Quran memorisation and Tajweed." }
+      - label: { en: EVENT2, ar: EVENT2 }
+        page: resources/event2
+        kind: { en: Guide, ar: دليل }
+        text: { en: "Compiling and running the EVENT2 NLO Monte Carlo for e⁺e⁻ event shapes.", ar: "تثبيت وتشغيل برنامج مونت كارلو EVENT2 من الرتبة التالية للرائدة لأشكال أحداث e⁺e⁻." }
+      - label: { en: Herwig, ar: Herwig }
+        page: resources/herwig
+        kind: { en: Guide, ar: دليل }
+        text: { en: "Installing and running the Herwig event generator, step by step.", ar: "تثبيت مولّد الأحداث Herwig وتشغيله خطوة بخطوة." }
+      - label: { en: "Z production and jets at the LHC", ar: "إنتاج Z والنفثات في مصادم الهادرونات الكبير" }
+        page: resources/herwig-z-jets
+        kind: { en: Tutorial, ar: درس تطبيقي }
+        text: { en: "A second Herwig run: simulating pp → Z + X at 7 TeV and analysing it with Rivet.", ar: "تشغيل ثانٍ لـ Herwig: محاكاة pp → Z + X عند 7 TeV وتحليلها بـ Rivet." }
+      - label: { en: HERWIG via VirtualBox, ar: HERWIG عبر VirtualBox }
+        page: resources/herwig-vbox
+        kind: { en: Guide, ar: دليل }
+        text: { en: Running HERWIG inside a ready-made virtual machine., ar: تشغيل HERWIG داخل آلة افتراضية جاهزة. }
+      - label: { en: "FeynArts, FormCalc & LoopTools", ar: "FeynArts وFormCalc وLoopTools" }
+        page: resources/feynarts
+        kind: { en: Guide, ar: دليل }
+        text: { en: Generating and evaluating one-loop Feynman diagrams., ar: توليد مخططات فاينمان ذات الحلقة الواحدة وحسابها. }
 
   - id: articles
-    title: Articles & notes
+    title: { en: "Articles & notes", ar: "مقالات ومذكرات" }
     icon: pen
     items:
-      - { label: Introduction to Mathematica, kind: Article, text: "A practical introduction to Mathematica for physics students and researchers." }
-      - { label: "A Physicist's Toolkit", kind: Article, text: "The software, habits and resources I rely on for research and teaching." }
-      - { label: "Moodle: exporting a course's student list", kind: How-to, url: "https://khelifak.wordpress.com/library/itweb/moodle/", text: "A short how-to for colleagues managing Moodle course sites." }
+      - label: { en: "A Physicist's Toolkit", ar: "عُدّة الفيزيائي" }
+        page: resources/physicists-toolkit
+        kind: { en: Article, ar: مقال }
+        text: { en: "The essential tools an undergraduate physicist should have or consider having.", ar: "أهم الأدوات التي ينبغي أن يمتلكها طالب الفيزياء أو يفكر في امتلاكها." }
+      - label: { en: Introduction to Mathematica, ar: مدخل إلى Mathematica }
+        page: resources/introduction-to-mathematica
+        kind: { en: Workshop, ar: ورشة }
+        text: { en: "A short workshop on Mathematica basics, Islamic University of Madinah (2018), with its notebook.", ar: "ورشة قصيرة في أساسيات Mathematica بالجامعة الإسلامية بالمدينة المنورة (2018)، مع دفتر الورشة." }
+      - label: { en: Charity projects people overlook, ar: مشاريع خيرية يغفل عنها كثير من الناس }
+        page: resources/charity-projects
+        kind: { en: Article, ar: مقال }
+        text: { en: "Simple, highly rewarding good deeds that many people forget, and how to keep them up.", ar: "أعمال خير يسيرة عظيمة الأجر يغفل عنها كثيرون، وضوابط المداومة عليها." }
+      - label: { en: Practical steps to founding a local association, ar: الخطوات العملية في إنشاء جمعية محلية }
+        page: resources/local-association
+        kind: { en: Article, ar: مقال }
+        text: { en: "From intention and consultation to statutes and registration.", ar: "من النية والاستشارة إلى القانون الأساسي والاعتماد." }
+      - label: { en: "Moodle: exporting a course's student list", ar: "Moodle: تصدير قائمة طلاب المقرر" }
+        page: resources/moodle
+        kind: { en: How-to, ar: إرشادات }
+        text: { en: A short how-to for colleagues managing Moodle course sites., ar: دليل قصير للزملاء الذين يديرون مقررات على Moodle. }
+
+  - id: conferences
+    title: { en: Conference websites, ar: مواقع المؤتمرات }
+    icon: calendar
+    items:
+      - { label: { en: "AFMPA1 · 2026", ar: "AFMPA1 · 2026" }, url: "https://phys-relizane.github.io/afmpa1/", text: { en: "First National Conference on Advanced Functional Materials & Physics Applications, Relizane.", ar: "المؤتمر الوطني الأول للمواد الوظيفية المتقدمة وتطبيقات الفيزياء، غليزان." } }
+      - { label: { en: "NATA'26", ar: "NATA'26" }, url: "https://sites.google.com/view/nata26", text: { en: "Third International Conference on Non-linear Analysis: Theory and Applications, Chlef.", ar: "المؤتمر الدولي الثالث للتحليل غير الخطي: النظرية والتطبيقات، الشلف." } }
+      - { label: { en: "NATA'25", ar: "NATA'25" }, url: "https://sites.google.com/view/nata25", text: { en: "Second International Conference on Non-linear Analysis, Chlef.", ar: "المؤتمر الدولي الثاني للتحليل غير الخطي، الشلف." } }
+      - { label: { en: "PTA2025", ar: "PTA2025" }, url: "https://sites.google.com/view/pta2025", text: { en: "First International Workshop on Physics: Theory and Applications, Relizane.", ar: "الورشة الدولية الأولى للفيزياء: النظرية والتطبيقات، غليزان." } }
+      - { label: { en: "NATA'23", ar: "NATA'23" }, url: "https://sites.google.com/view/confnata23", text: { en: "First International Conference on Non-linear Analysis, Chlef.", ar: "المؤتمر الدولي الأول للتحليل غير الخطي، الشلف." } }
+      - { label: { en: "NATA'22", ar: "NATA'22" }, url: "https://sites.google.com/view/confnata22", text: { en: "First National Conference on Non-linear Analysis, Chlef.", ar: "المؤتمر الوطني الأول للتحليل غير الخطي، الشلف." } }
+
+  - id: projects
+    title: { en: "Projects & other websites", ar: "مشاريع ومواقع أخرى" }
+    icon: spark
+    items:
+      - { label: { en: Moajam El-Asmaa, ar: معجم الأسماء }, url: "https://moajam-elasmaa.vercel.app/", text: { en: "Moajam El-Asmaa (معجم الأسماء), a web app I designed and built.", ar: "تطبيق ويب صممته وبرمجته." } }
+      - { label: { en: MedQBank, ar: MedQBank }, url: "https://sites.google.com/view/medqbank", text: { en: A question bank for medical students., ar: بنك أسئلة لطلبة الطب. } }
+      - { label: { en: Oyoun El-Itqan Education Academy, ar: أكاديمية عيون الإتقان التعليمية }, kind: "2022 – 2023", text: { en: "A private academy I founded in Chlef, offering languages, IT, UCMAS and school subjects.", ar: "أكاديمية خاصة أسستها بالشلف، تقدم دروسًا في اللغات والإعلام الآلي والحساب الذهني UCMAS ومواد الدراسة." } }
+      - { label: { en: "Maqraa Michkat Al-Wahyayn", ar: "مقرأة مشكاة الوحيين" }, kind: "2021 – 2023", text: { en: "A free online school for Quran memorisation and Tajweed.", ar: "مقرأة إلكترونية مجانية لتحفيظ القرآن الكريم وتعليم أحكام التجويد." } }
 
 community:
-  - { when: 2022 – present, what: "Vice President, Charity Association “Yanabee3 Alkhair”", where: Chlef }
-  - { when: 2015 – 2021, what: "President, Cultural & Scientific Association “Michcat Al-Oloum”", where: Oued-Sly, Chlef }
-  - { when: 2013 – 2016, what: "Volunteer English instructor in community programmes", where: Chlef }
+  - { when: { en: 2022 – present, ar: 2022 – حاليًا }, what: { en: "Vice President, Charity Association “Yanabee3 Alkhair”", ar: "نائب رئيس الجمعية الخيرية «ينابيع الخير»" }, where: { en: Chlef, ar: الشلف } }
+  - { when: 2015 – 2021, what: { en: "President, Cultural & Scientific Association “Michcat Al-Oloum”", ar: "رئيس الجمعية الثقافية العلمية «مشكاة العلوم»" }, where: { en: "Oued-Sly, Chlef", ar: "وادي سلي، الشلف" } }
+  - { when: 2013 – 2016, what: { en: "Volunteer English instructor in community programmes", ar: "مدرّس متطوع للغة الإنجليزية في برامج مجتمعية" }, where: { en: Chlef, ar: الشلف } }

@@ -1,0 +1,122 @@
+# ─────────────────────────────────────────────────────────────
+#  Interface strings (buttons, labels, headings) in both languages
+# ─────────────────────────────────────────────────────────────
+
+skip:            { en: Skip to content, ar: انتقل إلى المحتوى }
+home:            { en: Home, ar: الرئيسية }
+menu_open:       { en: Open menu, ar: فتح القائمة }
+menu_close:      { en: Close menu, ar: إغلاق القائمة }
+theme:           { en: Toggle colour theme, ar: تبديل المظهر }
+switch_label:    { en: العربية, ar: English }
+switch_aria:     { en: اقرأ هذه الصفحة بالعربية, ar: Read this page in English }
+get_in_touch:    { en: Get in touch, ar: للتواصل }
+navigate:        { en: Navigate, ar: تصفح }
+profiles:        { en: Research profiles, ar: الملفات البحثية }
+elsewhere:       { en: Elsewhere, ar: على الشبكة }
+last_updated:    { en: Last updated, ar: آخر تحديث }
+rights:          { en: All rights reserved., ar: جميع الحقوق محفوظة. }
+
+# Home
+explore_research: { en: Explore research, ar: استكشف الأبحاث }
+current_teaching: { en: Current teaching, ar: التدريس الحالي }
+cv:               { en: CV, ar: السيرة الذاتية }
+about:            { en: About, ar: نبذة }
+about_title:      { en: "Precision QCD,<br><em>patient teaching.</em>", ar: "دقّةٌ في البحث،<br><em>وصبرٌ في التعليم.</em>" }
+at_a_glance:      { en: At a glance, ar: لمحة سريعة }
+fact_field:       { en: Field, ar: التخصص }
+fact_dept:        { en: Department, ar: القسم }
+fact_trained:     { en: Trained at, ar: التكوين }
+fact_trained_val: { en: "The University of Manchester · MPhys, PhD", ar: "جامعة مانشستر · ماجستير الفيزياء، دكتوراه" }
+fact_contact:     { en: Contact, ar: التواصل }
+explore:          { en: Explore, ar: استكشف }
+find_your_way:    { en: Find your way around, ar: دليل الموقع }
+latest_papers:    { en: Latest papers, ar: أحدث الأوراق }
+recent_work:      { en: Recent work, ar: أعمال حديثة }
+all_publications: { en: All publications, ar: كل المنشورات }
+now_teaching:     { en: Now teaching, ar: أدرّس حاليًا }
+teaching_archive: { en: Teaching & course archive, ar: التدريس وأرشيف المقررات }
+canvas_caption:   { en: "Simulated collider event · hard jets + soft radiation", ar: "حدث تصادم محاكى · نفثات صلبة وإشعاع ليّن" }
+accepted:         { en: Accepted, ar: مقبول للنشر }
+
+# Studying
+from_archive:     { en: From the archive, ar: من الأرشيف }
+open_summaries:   { en: Open the summaries, ar: تصفّح الملخصات }
+medicine:         { en: Medicine, ar: الطب }
+study_materials:  { en: Study materials, ar: مواد الدراسة }
+
+# Teaching
+current:          { en: Current, ar: حاليًا }
+since:            { en: Since, ar: منذ }
+archive:          { en: Archive, ar: الأرشيف }
+previous_unis:    { en: Previous universities, ar: الجامعات السابقة }
+universities:     { en: Universities, ar: الجامعات }
+course_pages:     { en: Course pages, ar: صفحات المقررات }
+open_course_hint: { en: "Courses marked with an arrow open their full pages: syllabus, calendar, lecture notes, assignments and past exams.", ar: "المقررات المعلَّمة بسهم تفتح صفحاتها الكاملة: المفردات، والجدول الزمني، والمذكرات، والواجبات، والاختبارات السابقة." }
+taught_in_fr:     { en: Taught in French, ar: دُرّس بالفرنسية }
+taught_in_ar:     { en: Taught in Arabic, ar: دُرّس بالعربية }
+taught_in_en:     { en: Taught in English, ar: دُرّس بالإنجليزية }
+beyond:           { en: Beyond the classroom, ar: خارج قاعة الدرس }
+beyond_title:     { en: "Workshops, training & olympiads", ar: "ورشات وتكوين وأولمبياد" }
+mentoring:        { en: Mentoring, ar: الإشراف }
+supervision:      { en: Supervision, ar: الإشراف على الرسائل }
+
+# Research
+publications:     { en: Publications, ar: المنشورات }
+papers_title:     { en: Papers & proceedings, ar: أوراق ومداخلات منشورة }
+full_lists:       { en: "Full, up-to-date lists on", ar: "القوائم الكاملة والمحدّثة على" }
+and:              { en: and, ar: و }
+search_pubs:      { en: "Search titles, authors, journals…", ar: "ابحث في العناوين والمؤلفين والمجلات…" }
+search_label:     { en: Search publications, ar: البحث في المنشورات }
+filter_all:       { en: All, ar: الكل }
+filter_qcd:       { en: QCD & jets, ar: الكروموديناميكا والنفثات }
+filter_materials: { en: Materials, ar: المواد }
+filter_proc:      { en: Proceedings, ar: مداخلات }
+items_of:         { en: "of", ar: "من" }
+items:            { en: items, ar: عنصرًا }
+no_match:         { en: No publications match your search., ar: لا توجد منشورات مطابقة لبحثك. }
+proceedings:      { en: Proceedings, ar: مداخلة }
+funding:          { en: Funding, ar: التمويل }
+grants:           { en: Research grants, ar: المشاريع البحثية الممولة }
+talks:            { en: Talks, ar: المداخلات }
+talks_title:      { en: "Conference talks & posters", ar: "مداخلات وملصقات في المؤتمرات" }
+slides:           { en: Slides, ar: الشرائح }
+outreach:         { en: Outreach, ar: التوعية العلمية }
+public_talks:     { en: "Public & invited talks", ar: "محاضرات عامة ومحاضرات بدعوة" }
+service:          { en: Service, ar: الخدمة الأكاديمية }
+service_title:    { en: "Refereeing & conferences", ar: "التحكيم والمؤتمرات" }
+affiliations:     { en: Affiliations, ar: الانتماءات }
+labs_title:       { en: Research laboratories, ar: مخابر البحث }
+supervised_by:    { en: Supervised by, ar: بإشراف }
+collaborators:    { en: Collaborators include, ar: من المتعاونين }
+documents:        { en: Documents, ar: وثائق }
+
+# Books
+authored:         { en: Authored, ar: من تأليفي }
+authored_title:   { en: "Books, theses & notes", ar: "كتب ورسائل ومذكرات" }
+shelf:            { en: The bookshelf, ar: رفّ الكتب }
+shelf_title:      { en: Textbooks behind my courses, ar: الكتب التي بُنيت عليها مقرراتي }
+library:          { en: Library, ar: المكتبة }
+library_title:    { en: Online libraries & classics, ar: مكتبات إلكترونية وكتب تراثية }
+open:             { en: Open, ar: فتح }
+
+# Resources
+community:        { en: Community, ar: المجتمع }
+community_title:  { en: "Associations & volunteering", ar: "الجمعيات والعمل التطوعي" }
+read:             { en: Read, ar: اقرأ }
+guides:           { en: Guides, ar: أدلة }
+
+# Content pages
+contents:         { en: On this page, ar: محتويات الصفحة }
+translated_from:  { en: "Translated from the original", ar: "مترجمة عن الأصل" }
+lang_en:          { en: English, ar: الإنجليزية }
+lang_ar:          { en: Arabic, ar: العربية }
+lang_fr:          { en: French, ar: الفرنسية }
+files_note:       { en: "Linked documents (PDF, slides) open from the original WordPress file store.", ar: "تُفتح الوثائق المرتبطة (PDF، الشرائح) من مخزن ملفات ووردبريس الأصلي." }
+back_to:          { en: Back to, ar: العودة إلى }
+year:             { en: Academic year, ar: السنة الجامعية }
+
+# 404
+not_found_eyebrow: { en: Error 404, ar: خطأ 404 }
+not_found_title:   { en: "This page <em>decayed.</em>", ar: "هذه الصفحة <em>تلاشت.</em>" }
+not_found_text:    { en: "It may have moved during the migration from WordPress. Try one of the sections below.", ar: "ربما انتقلت أثناء الترحيل من ووردبريس. جرّب أحد الأقسام أدناه." }
+back_home:         { en: Back home, ar: العودة إلى الرئيسية }

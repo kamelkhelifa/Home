@@ -1,25 +1,33 @@
 {% from "_icons.html" import icon %}
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}" dir="{{ dir }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{{ site.name }}{% endblock %}</title>
-  <meta name="description" content="{% block description %}{{ site.tagline | trim }}{% endblock %}">
-  <meta name="author" content="{{ site.name }}">
+  <title>{% block title %}{{ t(site.name) }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ t(site.tagline) | trim }}{% endblock %}">
+  <meta name="author" content="{{ t(site.name) }}">
   <meta name="theme-color" content="#0b0d12" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ 'ar_AR' if lang == 'ar' else 'en_GB' }}">
   <meta property="og:title" content="{{ self.title() }}">
   <meta property="og:description" content="{{ self.description() }}">
-  <meta property="og:url" content="{{ site.base_url }}/{{ '' if page == 'index' else page ~ '.html' }}">
-  <link rel="canonical" href="{{ site.base_url }}/{{ '' if page == 'index' else page ~ '.html' }}">
-  {% if page == "404" %}<base href="{{ site.base_url }}/">{% endif %}
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta property="og:url" content="{{ canonical }}">
+  <link rel="canonical" href="{{ canonical }}">
+  {% for lg, href in alternates.items() %}<link rel="alternate" hreflang="{{ lg }}" href="{{ href }}">
+  {% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ alternates.en }}">
+  {% if page == "404" %}<base href="{{ site.base_url }}/{{ 'ar/' if lang == 'ar' }}">{% endif %}
+  <link rel="icon" href="{{ asset('assets/img/favicon.svg') }}" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  {% if lang == "ar" %}
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  {% else %}
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  {% endif %}
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <script>
     (function () {
       try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -27,37 +35,42 @@
     })();
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Person","name":"{{ site.name }}","jobTitle":"{{ site.title }}",
-   "affiliation":{"@type":"CollegeOrUniversity","name":"{{ site.institution }}"},"email":"mailto:{{ site.email }}",
-   "alumniOf":"The University of Manchester","url":"{{ site.base_url }}",
-   "sameAs":[{% for p in site.profiles %}"{{ p.url }}"{{ "," if not loop.last }}{% endfor %}]}
+  {"@context":"https://schema.org","@type":"Person","name":"{{ site.name.en }}","alternateName":"{{ site.name.ar }}",
+   "jobTitle":"{{ site.title.en }}","affiliation":{"@type":"CollegeOrUniversity","name":"{{ site.institution.en }}"},
+   "email":"mailto:{{ site.email }}","alumniOf":"The University of Manchester","url":"{{ site.base_url }}",
+   "sameAs":[{% for p in site.profiles %}"{{ p.url }}"{{ "," }}{% endfor %}{% for s in site.social %}"{{ s.url }}"{{ "," if not loop.last }}{% endfor %}]}
   </script>
 </head>
-<body class="page-{{ page }}">
-  <a class="skip" href="#main">Skip to content</a>
+<body class="page-{{ page | replace('/', '-') }} section-{{ section }}">
+  <a class="skip" href="#main">{{ ui("skip") }}</a>
 
   <header class="site-header" data-header>
     <div class="wrap header-inner">
-      <a class="brand" href="index.html" aria-label="{{ site.name }}: home">
+      <a class="brand" href="{{ link('index') }}" aria-label="{{ t(site.name) }}: {{ ui('home') }}">
         <span class="brand-mark" aria-hidden="true">{{ site.monogram }}</span>
         <span class="brand-text">
-          <span class="brand-name">{{ site.name }}</span>
-          <span class="brand-sub">{{ site.institution }}</span>
+          <span class="brand-name">{{ t(site.name) }}</span>
+          <span class="brand-sub">{{ t(site.institution) }}</span>
         </span>
       </a>
       <nav class="nav" aria-label="Primary">
         <ul class="nav-list" data-nav>
           {% for item in site.nav %}
-          <li><a href="{{ item.href }}" {% if page == item.id %}aria-current="page"{% endif %}>
-            <span class="nav-idx">0{{ loop.index }}</span>{{ item.label }}</a></li>
+          <li><a href="{{ link(item.id) }}" {% if section == item.id %}aria-current="page"{% endif %}>
+            <span class="nav-idx">0{{ loop.index }}</span>{{ t(item.label) }}</a></li>
           {% endfor %}
+          <li class="nav-lang-mobile"><a href="{{ switch_url }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}">{{ ui("switch_label") }}</a></li>
         </ul>
       </nav>
       <div class="header-actions">
-        <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme">
+        <a class="lang-switch" href="{{ switch_url }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}" aria-label="{{ ui('switch_aria') }}">
+          {{ icon("globe") }}<span>{{ ui("switch_label") }}</span>
+        </a>
+        <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="{{ ui('theme') }}">
           {{ icon("sun", "icon i-sun") }}{{ icon("moon", "icon i-moon") }}
         </button>
-        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="Open menu" aria-expanded="false">
+        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="{{ ui('menu_open') }}" aria-expanded="false"
+                data-label-open="{{ ui('menu_open') }}" data-label-close="{{ ui('menu_close') }}">
           {{ icon("menu", "icon i-menu") }}{{ icon("close", "icon i-close") }}
         </button>
       </div>
@@ -71,33 +84,39 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="footer-cta reveal">
-        <p class="eyebrow">Get in touch</p>
-        <a class="footer-mail" href="mailto:{{ site.email }}">{{ site.email }}{{ icon("arrow") }}</a>
-        <p class="footer-addr">{{ site.affiliation }} · {{ site.institution }}<br>{{ site.institution_detail }}</p>
+        <p class="eyebrow">{{ ui("get_in_touch") }}</p>
+        <a class="footer-mail" href="mailto:{{ site.email }}" dir="ltr">{{ site.email }}{{ icon("arrow") }}</a>
+        <p class="footer-addr">{{ t(site.affiliation) }} · {{ t(site.institution) }}<br>{{ t(site.institution_detail) }}</p>
       </div>
       <div class="footer-grid">
         <div>
-          <p class="footer-h">Navigate</p>
+          <p class="footer-h">{{ ui("navigate") }}</p>
           <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            {% for item in site.nav %}<li><a href="{{ item.href }}">{{ item.label }}</a></li>{% endfor %}
+            <li><a href="{{ link('index') }}">{{ ui("home") }}</a></li>
+            {% for item in site.nav %}<li><a href="{{ link(item.id) }}">{{ t(item.label) }}</a></li>{% endfor %}
           </ul>
         </div>
         <div>
-          <p class="footer-h">Research profiles</p>
+          <p class="footer-h">{{ ui("profiles") }}</p>
           <ul class="footer-links">
             {% for p in site.profiles %}<li><a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.label }}</a></li>{% endfor %}
           </ul>
         </div>
+        <div>
+          <p class="footer-h">{{ ui("elsewhere") }}</p>
+          <ul class="footer-links">
+            {% for s in site.social %}<li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ t(s.label) }}</a></li>{% endfor %}
+            <li><a href="{{ switch_url }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}">{{ ui("switch_label") }}</a></li>
+          </ul>
+        </div>
         <div class="footer-note">
           <span class="brand-mark lg" aria-hidden="true">{{ site.monogram }}</span>
-          <p>© {{ site.year }} {{ site.name }}.<br>Last updated {{ site.last_updated }}.</p>
+          <p>© {{ year }} {{ t(site.name) }}.<br>{{ ui("last_updated") }}: {{ t(site.last_updated) }}.</p>
         </div>
       </div>
     </div>
   </footer>
 
-  <script src="assets/js/main.js" defer></script>
-  {% block scripts %}{% endblock %}
+  <script src="{{ asset('assets/js/main.js') }}" defer></script>
 </body>
 </html>

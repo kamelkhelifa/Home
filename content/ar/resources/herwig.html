@@ -1,0 +1,53 @@
+<!-- source: https://khelifak.wordpress.com/library/computer-programs/hep-programs/herwig-2/ · Herwig -->
+<p>الطريقة القديمة (المتجاوَزة) لتثبيت Herwig وتشغيله (<a href="@@resources/herwig-vbox">هنا</a>)</p>
+<p><strong>الطريقة الجديدة:</strong> بواسطة <strong>Docker </strong>[انظر <a href="https://phab.hepforge.org/w/mcnet2019/?__print__=1" rel="noopener" target="_blank">الدرس التطبيقي لبرنامج Herwig في مدرسة MCnet 2019</a>]</p>
+<p>لا حاجة إلى تثبيت Herwig على جهازك الخاص إذا استعملت صورة docker الافتراضية المتوفرة (انظر القسم التالي). أما إذا كنت تنوي استعمال Herwig في أبحاثك الخاصة بعد مدرسة MCnet، فقد تفيدك التعليمات الواردة في صفحة <a href="https://phab.hepforge.org/w/mcnet2019/installation/" rel="noopener" target="_blank">التثبيت</a>.</p>
+<p>ستتعلم خلال هذا الدرس التطبيقي:</p>
+
+<pre>كيفية محاكاة أحداث LEP
+كيفية محاكاة أحداث LHC
+كيفية إدراج تحليلات rivet ومقارنة المحاكاة بالبيانات
+كيفية تفعيل أجزاء مولّد الأحداث وتعطيلها
+كيفية تعديل وسائط وابل البارتونات (Parton shower) ونموذج التهدرن (Hadronization)
+معالج الأحداث Les Houches</pre>
+
+<h4><a id="before-you-start-docker"></a>قبل أن تبدأ (حاويات docker)</h4>
+<p>يمكن إنجاز جميع التمارين الواردة في هذا الدرس التطبيقي باستعمال صورة docker المتوفرة لبرنامج Herwig.<br/>
+وإذا لم تكن قد ثبّتّ docker بعد، فاتبع التعليمات الواردة في <a href="https://docs.docker.com/install/" rel="noopener" target="_blank">موقع docker</a> وثبّته على حاسوبك الشخصي.</p>
+<p>يمكن سحب حاويات docker المطلوبة مباشرة من dockerhub بالأمر</p>
+
+<pre>docker pull hepstore/rivet-herwig
+
+Remember Linux users: sudo docker</pre>
+
+<p>هذا كل ما في الأمر! ولتشغيل Herwig نفّذ أمر الصدفة الآتي</p>
+
+<pre>docker run -i  --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet-herwig Herwig</pre>
+
+<p>(تحديث: مع أحدث صورة docker لـ hepstore/rivet-herwig نفّذ)</p>
+
+<pre>docker run -it -u $(id -u $USER) -v $PWD:$PWD -w $PWD hepstore/rivet-herwig /herwig/bin/Herwig</pre>
+
+<p>يتيح هذا للحاوية الوصول إلى ملفاتك المحلية وكتابة الملفات في مجلد العمل الحالي.</p>
+<p>كما يمكنك إنشاء اسم مستعار (alias) بالأمر</p>
+
+<pre>alias Herwig='docker run -i  --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet-herwig Herwig'</pre>
+
+<p>والآن، كل ما عليك فعله لتشغيل Herwig هو تنفيذ</p>
+
+<pre>Herwig</pre>
+
+<p>في الطرفية.</p>
+<p>ونوصي أيضًا بإنشاء اسم مستعار لأمر rivet <strong>rivet-mkhtml</strong></p>
+
+<pre>alias rivet-mkhtml='docker run -i  --rm  -u `id -u $USER`:`id -g`  -v $PWD:$PWD -w $PWD  hepstore/rivet-herwig rivet-mkhtml'</pre>
+
+<p>إذا نجح ذلك، فأنت جاهز لبدء الدرس التطبيقي بـ<a href="https://phab.hepforge.org/w/mcnet2019/firstrun/" rel="noopener" target="_blank">التشغيل الأول: LEP</a>. وإن واجهتك أي مشكلة، فتحدّث إلى أحد المؤطرين.</p>
+<p><strong>التعليمات:</strong></p>
+<ol>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/installation/" rel="noopener" target="_blank">التثبيت</a></li>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/firstrun/" rel="noopener" target="_blank">التشغيل الأول: LEP</a></li>
+<li><a href="@@resources/herwig-z-jets">التشغيل الثاني: إنتاج Z والنفاثات في LHC</a></li>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/thirdrun/" rel="noopener" target="_blank">(متقدم) التشغيل الثالث: أحداث الانحياز الأدنى (minimum bias) والفيزياء اللينة</a></li>
+<li><a href="https://phab.hepforge.org/w/mcnet2019/leshouches/" rel="noopener" target="_blank">(متقدم) معالج الأحداث Les Houches</a></li>
+</ol>

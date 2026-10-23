@@ -1,54 +1,64 @@
 # ─────────────────────────────────────────────────────────────
 #  Global profile & settings
-#  Edit this file, commit, and the site rebuilds automatically.
+#  Text that differs by language is written as  { en: …, ar: … }.
+#  Edit, commit, and the site rebuilds automatically.
 # ─────────────────────────────────────────────────────────────
 
-name: Kamel Khelifa-Kerfa
-short_name: K. Khelifa-Kerfa
+name:       { en: Kamel Khelifa-Kerfa, ar: كمال خليفة قرفة }
+name_lines: { en: [Kamel, Khelifa-Kerfa], ar: [كمال, خليفة قرفة] }
+short_name: { en: K. Khelifa-Kerfa, ar: ك. خليفة قرفة }
 monogram: KK
-title: Associate Professor of Physics
-affiliation: Department of Physics and Materials Sciences
-institution: Qatar University
-institution_detail: College of Arts & Sciences · Doha, Qatar
+title:       { en: Associate Professor of Physics, ar: أستاذ مشارك في الفيزياء }
+affiliation: { en: Department of Physics and Materials Sciences, ar: قسم الفيزياء وعلوم المواد }
+institution: { en: Qatar University, ar: جامعة قطر }
+institution_detail: { en: "College of Arts & Sciences · Doha, Qatar", ar: "كلية الآداب والعلوم · الدوحة، قطر" }
 email: kkerfa@qu.edu.qa
-base_url: https://khelifak.github.io   # change to your final GitHub Pages / custom domain URL
-last_updated: October 2026
+base_url: https://kamelkhelifa.github.io/home   # change if you add a custom domain
+last_updated: { en: October 2026, ar: أكتوبر 2026 }
 
-tagline: >
-  Theoretical particle physicist working on all-order perturbative QCD and jet
-  physics at high-energy colliders — and a teacher at heart.
+tagline:
+  en: >
+    Theoretical particle physicist working on all-order perturbative QCD and jet
+    physics at high-energy colliders, and a teacher at heart.
+  ar: >
+    فيزيائي نظري متخصص في فيزياء الجسيمات، يعمل على الكروموديناميكا الكمية الاضطرابية
+    بجميع الرتب وفيزياء النفثات في المصادمات عالية الطاقة، ومعلّمٌ في المقام الأول.
 
-bio: >
-  I am an Associate Professor of Physics at Qatar University. My research sits at the
-  intersection of precision Quantum Chromodynamics and collider phenomenology: exact
-  multi-loop calculations, all-order resummation and the analytical structure of jet
-  observables at the LHC. I trained at The University of Manchester (MPhys, PhD) and
-  have since taught physics for more than thirteen years across universities in Qatar,
-  Saudi Arabia and Algeria. Alongside physics, I am currently studying medicine at the
-  University of Chlef.
-
+bio:
+  en: >
+    I am an Associate Professor of Physics at Qatar University. My research sits at the
+    intersection of precision Quantum Chromodynamics and collider phenomenology: exact
+    multi-loop calculations, all-order resummation and the analytical structure of jet
+    observables at the LHC. I trained at The University of Manchester (MPhys, PhD) and
+    have since taught physics for more than thirteen years across universities in Qatar,
+    Saudi Arabia and Algeria. Alongside physics, I am currently studying medicine at the
+    University of Chlef.
+  ar: >
+    أستاذ مشارك في الفيزياء بجامعة قطر. تقع أبحاثي في ملتقى الكروموديناميكا الكمية الدقيقة
+    وفينومينولوجيا المصادمات: حسابات دقيقة متعددة الحلقات، وإعادة الجمع بجميع الرتب، والبنية
+    التحليلية لمقادير النفثات المرصودة في مصادم الهادرونات الكبير. تكوّنت في جامعة مانشستر
+    (ماجستير الفيزياء ثم الدكتوراه)، ودرّست الفيزياء منذ ذلك الحين أكثر من ثلاث عشرة سنة في
+    جامعات بقطر والمملكة العربية السعودية والجزائر. وإلى جانب الفيزياء، أدرس حاليًا الطب
+    بجامعة الشلف.
 
 profiles:
-  - label: Google Scholar
-    url: https://scholar.google.com/citations?hl=en&user=XQcHCrYAAAAJ
-  - label: ORCID
-    url: https://orcid.org/0000-0001-9252-3666
-  - label: Scopus
-    url: https://www.scopus.com/authid/detail.uri?authorId=36439645400
-  - label: Web of Science
-    url: https://www.webofscience.com/wos/author/record/ISA-9851-2023
-  - label: ResearchGate
-    url: https://www.researchgate.net/profile/Kamel-Khelifa-Kerfa
-  - label: LinkedIn
-    url: https://www.linkedin.com/in/kamel-khelifa-kerfa-bba3ab194/
-  - label: SciPost
-    url: https://scipost.org/contributor/18055
+  - { label: Google Scholar, url: "https://scholar.google.com/citations?hl=en&user=XQcHCrYAAAAJ" }
+  - { label: ORCID, url: "https://orcid.org/0000-0001-9252-3666" }
+  - { label: INSPIRE-HEP, url: "https://inspirehep.net/literature?q=a%20Khelifa-Kerfa" }
+  - { label: Scopus, url: "https://www.scopus.com/authid/detail.uri?authorId=36439645400" }
+  - { label: Web of Science, url: "https://www.webofscience.com/wos/author/record/ISA-9851-2023" }
+  - { label: ResearchGate, url: "https://www.researchgate.net/profile/Kamel-Khelifa-Kerfa" }
+  - { label: LinkedIn, url: "https://www.linkedin.com/in/kamel-khelifa-kerfa-bba3ab194/" }
+  - { label: SciPost, url: "https://scipost.org/contributor/18055" }
+
+social:
+  - { label: { en: YouTube · Physics Teaching, ar: يوتيوب · قناة التدريس }, url: "https://www.youtube.com/channel/UCG3osw1ou5XFdQXb3PWH-NQ" }
+  - { label: { en: Telegram · Physics Club, ar: تليغرام · نادي الفيزياء }, url: "https://t.me/IUPhysicsClub" }
+  - { label: { en: X (Twitter) · @KamelKhelifa7, ar: إكس (تويتر) · ‎@KamelKhelifa7 }, url: "https://twitter.com/KamelKhelifa7" }
 
 nav:
-  - { id: studying,  label: Studying,  href: studying.html }
-  - { id: teaching,  label: Teaching,  href: teaching.html }
-  - { id: research,  label: Research,  href: research.html }
-  - { id: books,     label: Books,     href: books.html }
-  - { id: resources, label: Resources, href: resources.html }
-
-languages: "Arabic (native) · English (expert) · French (intermediate)"
+  - { id: studying,  label: { en: Studying,  ar: الدراسة } }
+  - { id: teaching,  label: { en: Teaching,  ar: التدريس } }
+  - { id: research,  label: { en: Research,  ar: البحث } }
+  - { id: books,     label: { en: Books,     ar: الكتب } }
+  - { id: resources, label: { en: Resources, ar: موارد } }

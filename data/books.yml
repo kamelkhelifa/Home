@@ -1,60 +1,87 @@
 # ─────────────────────────────────────────────────────────────
 #  Books
-#  `authored`  — books, theses and lecture-note volumes written by me.
-#                To add a book: copy one block, fill it in, and (optionally) drop a cover
-#                image in static/img/books/ and reference it with `cover:`.
-#  `shelf`     — the textbooks my courses are built on, grouped by subject.
+#  `authored` : books, theses and lecture-note volumes written by me.
+#               Add a cover image in static/img/books/ and reference it with `cover:`.
+#  `shelf`    : the textbooks my courses are built on (titles stay in the original).
+#  `library`  : online libraries and classic works (from the old "المكتبة" pages).
 # ─────────────────────────────────────────────────────────────
 
-intro: >
-  The books I have written, and the books I teach from. The second list is the reading
-  that has stood behind my courses at Manchester, Madinah, Chlef, USTHB and Relizane.
+hero_title: { en: "Written, <em>and read.</em>", ar: "ما كتبتُ، <em>وما قرأت.</em>" }
+intro:
+  en: >
+    The books I have written and the books I teach from. The bookshelf lists the reading
+    behind my courses at Manchester, Madinah, Chlef, USTHB and Relizane. The library
+    gathers online collections and classics of the Islamic scientific tradition.
+  ar: >
+    ما ألّفتُ من كتب، وما أدرّس منه. يضمّ رفّ الكتب المراجعَ التي قامت عليها مقرراتي في
+    مانشستر والمدينة المنورة والشلف وباب الزوار وغليزان، وتجمع المكتبة مجموعاتٍ إلكترونية
+    وأمّهاتِ الكتب من التراث العلمي الإسلامي.
 
 authored:
-  - title: QCD Resummation for High-pT Jet Shapes at Hadron Colliders
-    kind: Doctoral thesis
-    publisher: The University of Manchester
+  - title: { en: "QCD Resummation for High-pT Jet Shapes at Hadron Colliders", ar: "إعادة جمع الكروموديناميكا الكمية لأشكال النفثات ذات الزخم العرضي العالي في مصادمات الهادرونات" }
+    cover_title: QCD Resummation for High-pT Jet Shapes at Hadron Colliders
+    kind: { en: Doctoral thesis, ar: أطروحة دكتوراه }
+    publisher: { en: The University of Manchester, ar: جامعة مانشستر }
     year: 2012
-    language: English
-    description: >
-      The dissertation that grew into my research programme. It covers non-global
-      logarithms, jet algorithms and the all-order resummation of jet-mass distributions
-      in Z + jet and dijet events at the LHC.
+    language: { en: English, ar: بالإنجليزية }
+    description:
+      en: >
+        The dissertation that grew into my research programme. It covers non-global
+        logarithms, jet algorithms and the all-order resummation of jet-mass distributions
+        in Z + jet and dijet events at the LHC.
+      ar: >
+        الأطروحة التي انبثق منها برنامجي البحثي: اللوغاريتمات غير الشاملة، وخوارزميات النفثات،
+        وإعادة الجمع بجميع الرتب لتوزيعات كتلة النفثة في أحداث Z + نفثة والنفثتين في مصادم
+        الهادرونات الكبير.
+    url: https://khelifak.wordpress.com/wp-content/uploads/2014/12/phd_thesis_kk.pdf
     accent: maroon
-  - title: English for Physicists
-    kind: Lecture notes
-    publisher: Course UET · Relizane University
-    language: English
-    description: >
-      Lecture notes for the English Language course I teach to physics students,
-      with past exams and links to supplementary reading.
-    url: https://khelifak.wordpress.com/teaching/teaching-2/ur/english/
-    accent: gold
-  - title: Manchester MPhys Lecture Summaries
-    kind: Study notes · 2005 – 2009
-    publisher: The University of Manchester
-    language: English
-    description: >
-      Typeset and handwritten summaries of the four-year theoretical physics programme,
-      from Advanced Quantum Mechanics to Quantum Field Theory and The Early Universe.
-    url: https://khelifak.wordpress.com/teaching/uom-mphys-theoretical-physics-program/
+  - title: { en: Pedagogical & Research Activities (Habilitation), ar: النشاطات البيداغوجية والبحثية (التأهيل الجامعي) }
+    cover_title: Habilitation
+    kind: { en: University habilitation, ar: التأهيل الجامعي }
+    publisher: { en: Presentation, ar: عرض تقديمي }
+    year: 2015
+    language: { en: English, ar: بالإنجليزية }
+    description:
+      en: A short presentation of my teaching and research activities up to 2015.
+      ar: عرض موجز لنشاطاتي في التدريس والبحث حتى سنة 2015.
+    url: https://khelifak.wordpress.com/wp-content/uploads/2016/09/habil_kk.pdf
     accent: ink
+  - title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }
+    cover_title: English for Physicists
+    kind: { en: Lecture notes, ar: مذكرات محاضرات }
+    publisher: { en: "Course UET · Relizane University", ar: "مقرر UET · جامعة غليزان" }
+    language: { en: English, ar: بالإنجليزية }
+    description:
+      en: Lecture notes for the English Language course I teach to physics students, with past exams and links to supplementary reading.
+      ar: مذكرات مقرر اللغة الإنجليزية الذي أدرّسه لطلبة الفيزياء، مع اختبارات سابقة وروابط لقراءات إضافية.
+    page: teaching/uet-english
+    accent: gold
+  - title: { en: Manchester MPhys Lecture Summaries, ar: ملخصات محاضرات ماجستير مانشستر }
+    cover_title: MPhys Lecture Summaries
+    kind: { en: "Study notes · 2005 – 2009", ar: "مذكرات دراسية · 2005 – 2009" }
+    publisher: { en: The University of Manchester, ar: جامعة مانشستر }
+    language: { en: English, ar: بالإنجليزية }
+    description:
+      en: Typeset and handwritten summaries of the four-year theoretical physics programme, from Dynamics to Quantum Field Theory and The Early Universe.
+      ar: ملخصات مطبوعة ومكتوبة بخط اليد لبرنامج الفيزياء النظرية ذي السنوات الأربع، من الديناميكا إلى نظرية الحقول الكمومية والكون المبكر.
+    page: studying/physics-manchester
+    accent: maroon
 
 shelf:
-  - subject: Introductory physics
+  - subject: { en: Introductory physics, ar: الفيزياء التمهيدية }
     books:
       - { title: Fundamentals of Physics, authors: "D. Halliday, R. Resnick & J. Walker", edition: "10th ed., Wiley, 2011", course: "PHYS101 · PHYS102" }
-  - subject: Electromagnetism
+  - subject: { en: Electromagnetism, ar: الكهرومغناطيسية }
     books:
-      - { title: Introduction to Electrodynamics, authors: D. J. Griffiths, edition: Prentice Hall, course: Electromagnetism }
-      - { title: Classical Electrodynamics, authors: J. D. Jackson, edition: Wiley, course: Electromagnetism }
-      - { title: The Feynman Lectures on Physics, Vol. II, authors: "R. P. Feynman, R. B. Leighton & M. Sands", course: Electromagnetism }
-  - subject: Quantum mechanics
+      - { title: Introduction to Electrodynamics, authors: D. J. Griffiths, edition: Prentice Hall, course: UEF224 }
+      - { title: Classical Electrodynamics, authors: J. D. Jackson, edition: Wiley, course: UEF224 }
+      - { title: The Feynman Lectures on Physics, Vol. II, authors: "R. P. Feynman, R. B. Leighton & M. Sands", course: UEF224 }
+  - subject: { en: Quantum mechanics, ar: ميكانيكا الكم }
     books:
       - { title: Introduction to Quantum Mechanics, authors: D. J. Griffiths, edition: "2nd ed.", course: PHYS401 }
       - { title: The Principles of Quantum Mechanics, authors: P. A. M. Dirac, edition: Oxford, course: PHYS401 }
       - { title: Introductory Quantum Mechanics, authors: R. L. Liboff, course: PHYS401 }
-  - subject: Modern, thermal & mathematical physics
+  - subject: { en: "Modern, thermal & mathematical physics", ar: "الفيزياء الحديثة والحرارية والرياضية" }
     books:
       - { title: Modern Physics, authors: "R. A. Serway, C. J. Moses & C. A. Moyer", edition: "3rd ed., Cengage, 2004", course: PHYS342 }
       - { title: Concepts in Thermal Physics, authors: "S. J. Blundell & K. M. Blundell", edition: "OUP, 2010", course: PHYS321 }
@@ -62,3 +89,27 @@ shelf:
       - { title: Statistical Physics, authors: F. Mandl, course: PHYS321 }
       - { title: Mathematical Methods for Physicists, authors: "G. B. Arfken & H. J. Weber", edition: "6th ed., Academic Press", course: PHYS352 }
       - { title: Mathematical Methods in the Physical Sciences, authors: M. L. Boas, course: PHYS352 }
+
+library:
+  - group: { en: Physics books in Arabic, ar: كتب الفيزياء بالعربية }
+    items:
+      - label: { en: Alfreed Physics, ar: موقع الفريد للفيزياء }
+        url: https://www.alfreed-ph.com/p/blog-page_370.html
+        text: { en: "A large collection of physics books written in, or translated into, Arabic.", ar: "موقع يحوي عددًا كبيرًا من الكتب الفيزيائية العربية والمترجمة إلى اللغة العربية." }
+      - label: { en: Physics.com library, ar: موقع الفيزياء.كوم }
+        url: https://zoom-teach.blogspot.com/
+        text: { en: A huge library of physics books., ar: يحوي مكتبة ضخمة من كتب الفيزياء. }
+  - group: { en: Science in Islamic civilisation, ar: الكتب العلمية في الحضارة الإسلامية }
+    items:
+      - label: { en: "Kitāb al-Manāẓir (Book of Optics)", ar: "كتاب المناظر" }
+        text: { en: Ibn al-Haytham, ar: ابن الهيثم }
+      - label: { en: "Sidrat Muntahā al-Afkār", ar: "سدرة منتهى الأفكار" }
+        text: { en: Taqī al-Dīn al-Rāṣid, ar: تقي الدين الراصد }
+  - group: { en: Online libraries, ar: مكتبات على الشبكة }
+    items:
+      - label: { en: Al-Waqfeya Library, ar: المكتبة الوقفية }
+        url: http://www.waqfeya.com/
+        text: { en: Free library of classical Islamic texts., ar: مكتبة مجانية لكتب التراث الإسلامي. }
+      - label: { en: Internet Archive, ar: مكتبة أرشيف الإنترنت }
+        url: https://archive.org/
+        text: { en: Millions of free books, texts and recordings., ar: ملايين الكتب والنصوص والتسجيلات المجانية. }

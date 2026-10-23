@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
 {% from "_macros.html" import page_hero, section_head %}
-{% block title %}Teaching · {{ site.name }}{% endblock %}
-{% block description %}Current courses at Qatar University and the teaching archive from Relizane, Madinah, Chlef and USTHB.{% endblock %}
+{% block title %}{{ t(site.nav[1].label) }} · {{ t(site.name) }}{% endblock %}
+{% block description %}{{ t(teaching.philosophy) | trim }}{% endblock %}
 
 {% block content %}
-{{ page_hero("02", "Teaching", "Teaching, <em>then and now.</em>"|safe, teaching.philosophy) }}
+{{ page_hero("02", t(site.nav[1].label), t(teaching.hero_title) | safe, t(teaching.philosophy)) }}
 
 <section class="section tight">
   <div class="wrap">
     <div class="current reveal">
       <div class="current-side">
-        <p class="eyebrow"><span class="dot live"></span>Current · {{ teaching.current.term }}</p>
-        <h2 class="h2">{{ teaching.current.institution }}</h2>
-        <p class="muted">{{ teaching.current.unit }}</p>
-        <p class="muted small">Since {{ teaching.current.since }}</p>
+        <p class="eyebrow"><span class="dot live"></span>{{ ui("current") }} · {{ t(teaching.current.term) }}</p>
+        <h2 class="h2">{{ t(teaching.current.institution) }}</h2>
+        <p class="muted">{{ t(teaching.current.unit) }}</p>
+        <p class="muted small">{{ ui("since") }} {{ t(teaching.current.since) }}</p>
         {% for l in teaching.current.links %}
-        <a class="link-arrow" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} {{ icon("arrow") }}</a>
+        <a class="link-arrow" href="{{ l.url }}" target="_blank" rel="noopener">{{ t(l.label) }} {{ icon("arrow") }}</a>
         {% endfor %}
       </div>
       <div class="current-main">
         {% for c in teaching.current.courses %}
         <div class="course-big">
-          <span class="course-code">{{ c.code }}</span>
-          <h3 class="course-name">{{ c.title }}</h3>
-          <span class="course-kind">{{ c.kind }}</span>
+          <span class="course-code" dir="ltr">{{ c.code }}</span>
+          <h3 class="course-name">{{ t(c.title) }}</h3>
+          <span class="course-kind">{{ t(c.kind) }}</span>
         </div>
         {% endfor %}
         {% for x in teaching.current.extras %}
-        <p class="course-extra">{{ icon("users") }} {{ x }}</p>
+        <p class="course-extra">{{ icon("users") }} {{ t(x) }}</p>
         {% endfor %}
       </div>
     </div>
@@ -37,14 +37,14 @@
 
 <section class="section section-tint" id="archive">
   <div class="wrap">
-    {{ section_head("Archive", "Previous universities") }}
+    {{ section_head(ui("archive"), ui("previous_unis")) }}
     <div class="tabs reveal" data-tabs>
-      <div class="tab-list" role="tablist" aria-label="Universities">
+      <div class="tab-list" role="tablist" aria-label="{{ ui('universities') }}">
         {% for u in teaching.archive %}
         <button class="tab" role="tab" type="button" id="tab-{{ u.id }}" aria-controls="panel-{{ u.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}">
           <span class="tab-years">{{ u.years }}</span>
-          <span class="tab-name">{{ u.short or u.institution }}</span>
-          <span class="tab-country">{{ u.country }}</span>
+          <span class="tab-name">{{ t(u.short) }}</span>
+          <span class="tab-country">{{ t(u.country) }} · {{ u.courses | selectattr("page") | list | length }} {{ ui("course_pages") }}</span>
         </button>
         {% endfor %}
       </div>
@@ -52,44 +52,47 @@
       <div class="tab-panel" role="tabpanel" id="panel-{{ u.id }}" aria-labelledby="tab-{{ u.id }}">
         <div class="panel-head">
           <div>
-            <h3 class="h3">{{ u.institution }}</h3>
-            <p class="muted">{{ u.role }} · {{ u.country }} · {{ u.years }}</p>
+            <h3 class="h3">{{ t(u.institution) }}</h3>
+            <p class="muted">{{ t(u.role) }} · {{ t(u.country) }} · {{ u.years }}</p>
           </div>
           <div class="panel-links">
             {% if u.site %}<a class="pill" href="{{ u.site.url }}" target="_blank" rel="noopener">{{ u.site.label }} {{ icon("arrow") }}</a>{% endif %}
-            {% if u.url %}<a class="pill" href="{{ u.url }}" target="_blank" rel="noopener">Course pages {{ icon("arrow") }}</a>{% endif %}
           </div>
         </div>
-        {% if u.note %}<p class="panel-note">{{ icon("award") }} {{ u.note }}</p>{% endif %}
+        {% if u.note %}<p class="panel-note">{{ icon("award") }} {{ t(u.note) }}</p>{% endif %}
         <ul class="course-grid">
           {% for c in u.courses %}
           <li>
-            {% if c.url %}<a class="course-card is-link" href="{{ c.url }}" target="_blank" rel="noopener">{% else %}<div class="course-card">{% endif %}
-              {% if c.code %}<span class="course-code">{{ c.code }}</span>{% endif %}
-              <span class="course-title">{{ c.title }}</span>
-              <span class="course-kind">{{ c.kind }}</span>
-              {% if c.url %}<span class="course-go">{{ icon("arrow") }}</span>{% endif %}
-            {% if c.url %}</a>{% else %}</div>{% endif %}
+            {% if c.page %}<a class="course-card is-link" href="{{ link(c.page) }}">{% else %}<div class="course-card">{% endif %}
+              {% if c.code %}<span class="course-code"><bdi>{{ c.code }}</bdi></span>{% endif %}
+              <span class="course-title">{{ t(c.title) }}</span>
+              <span class="course-meta">
+                <span class="course-kind">{{ t(c.kind) }}</span>
+                {% if c.year %}<span class="course-year">{{ c.year }}</span>{% endif %}
+              </span>
+              {% if c.taught_in %}<span class="course-lang">{{ ui("taught_in_" ~ c.taught_in) }}</span>{% endif %}
+              {% if c.page %}<span class="course-go">{{ icon("right") }}</span>{% endif %}
+            {% if c.page %}</a>{% else %}</div>{% endif %}
           </li>
           {% endfor %}
         </ul>
       </div>
       {% endfor %}
     </div>
-    <p class="fine reveal">Courses with an arrow open their full course pages (syllabus, calendar, notes, assignments and past exams).</p>
+    <p class="fine reveal">{{ ui("open_course_hint") }}</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    {{ section_head("Beyond the classroom", "Workshops, training & olympiads") }}
+    {{ section_head(ui("beyond"), ui("beyond_title")) }}
     <div class="cards-3">
       {% for b in teaching.beyond %}
-      <article class="card reveal" style="--d: {{ loop.index0 * 60 }}ms">
-        <span class="card-when">{{ b.when }}</span>
-        <h3 class="card-title">{{ b.title }}</h3>
-        <p class="card-text">{{ b.text }}</p>
-      </article>
+      {% if b.page %}<a class="card is-link reveal" href="{{ link(b.page) }}" style="--d: {{ loop.index0 * 60 }}ms">{% else %}<article class="card reveal" style="--d: {{ loop.index0 * 60 }}ms">{% endif %}
+        <span class="card-when">{{ t(b.when) }}</span>
+        <h3 class="card-title">{{ t(b.title) }}</h3>
+        <p class="card-text">{{ t(b.text) }}</p>
+      {% if b.page %}</a>{% else %}</article>{% endif %}
       {% endfor %}
     </div>
   </div>
@@ -97,17 +100,17 @@
 
 <section class="section section-tint">
   <div class="wrap">
-    {{ section_head("Mentoring", "Supervision") }}
+    {{ section_head(ui("mentoring"), ui("supervision")) }}
     <ul class="rows">
       {% for s in teaching.supervision %}
       <li class="row-item reveal">
         <span class="row-when">{{ s.when }}</span>
-        <span class="row-main"><span class="row-title">{{ s.topic }}</span><span class="row-sub">{{ s.who }} · {{ s.where }}</span></span>
-        <span class="tag">{{ s.level }}</span>
+        <span class="row-main"><span class="row-title">{{ t(s.topic) }}</span><span class="row-sub">{{ s.who }} · {{ t(s.where) }}</span></span>
+        <span class="tag">{{ t(s.level) }}</span>
       </li>
       {% endfor %}
     </ul>
-    <p class="fine reveal">{{ teaching.examinations }}</p>
+    <p class="fine reveal">{{ t(teaching.examinations) }}</p>
   </div>
 </section>
 {% endblock %}

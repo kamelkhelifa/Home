@@ -30,7 +30,7 @@
   function setMenu(open) {
     document.body.classList.toggle("menu-open", open);
     menuBtn.setAttribute("aria-expanded", String(open));
-    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menuBtn.setAttribute("aria-label", open ? menuBtn.dataset.labelClose : menuBtn.dataset.labelOpen);
   }
   if (menuBtn) {
     menuBtn.addEventListener("click", function () { setMenu(!document.body.classList.contains("menu-open")); });
@@ -122,7 +122,7 @@
         if (ok) shown++;
       });
       groups.forEach(function (g) { g.hidden = !g.querySelector(".pub:not([hidden])"); });
-      countEl.textContent = shown + " of " + pubs.length + " items";
+      countEl.textContent = shown + " " + countEl.dataset.of + " " + pubs.length + " " + countEl.dataset.items;
       empty.hidden = shown !== 0;
     }
     filterBtns.forEach(function (b) {
@@ -134,6 +134,23 @@
     });
     search.addEventListener("input", apply);
     apply();
+  }
+
+  /* ---------- Table of contents: highlight the current section ---------- */
+  var tocLinks = document.querySelectorAll("[data-toc] a");
+  if (tocLinks.length && "IntersectionObserver" in window) {
+    var byId = {};
+    tocLinks.forEach(function (a) { byId[decodeURIComponent(a.getAttribute("href").slice(1))] = a; });
+    var heads = Object.keys(byId).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        tocLinks.forEach(function (a) { a.classList.remove("is-active"); });
+        var a = byId[en.target.id];
+        if (a) a.classList.add("is-active");
+      });
+    }, { rootMargin: "-15% 0px -70% 0px" });
+    heads.forEach(function (h) { spy.observe(h); });
   }
 
   /* ---------- Hero: animated collider event display ---------- */
@@ -161,6 +178,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       if (W > 980) { cx = W * 0.73; cy = H * 0.5; R = Math.min(W * 0.27, H * 0.4); }
       else { cx = W * 0.86; cy = H * 0.16; R = Math.max(W * 0.55, 220); }
+      if (root.dir === "rtl") cx = W - cx;
     }
     function gauss() { return (Math.random() + Math.random() + Math.random() - 1.5) / 1.5; }
 

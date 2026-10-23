@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
-{% block title %}{{ site.name }}: {{ site.title }}, {{ site.institution }}{% endblock %}
+{% block title %}{{ t(site.name) }}: {{ t(site.title) }}, {{ t(site.institution) }}{% endblock %}
 
 {% block content %}
 <section class="hero">
@@ -8,30 +8,29 @@
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     <div class="hero-copy">
-      <p class="eyebrow reveal"><span class="dot"></span>{{ site.title }} · {{ site.institution }}</p>
+      <p class="eyebrow reveal"><span class="dot"></span>{{ t(site.title) }} · {{ t(site.institution) }}</p>
       <h1 class="hero-title reveal">
-        <span class="line">Kamel</span>
-        <span class="line"><em>Khelifa-Kerfa</em></span>
+        {% set nl = t(site.name_lines) %}
+        <span class="line">{{ nl[0] }}</span>
+        <span class="line"><em>{{ nl[1] }}</em></span>
       </h1>
-      <p class="hero-lead reveal">{{ site.tagline }}</p>
+      <p class="hero-lead reveal">{{ t(site.tagline) }}</p>
       <div class="hero-actions reveal">
-        <a class="btn btn-primary" href="research.html">Explore research {{ icon("right") }}</a>
-        <a class="btn btn-ghost" href="teaching.html">Current teaching</a>
-        {% if site.cv %}<a class="btn btn-ghost" href="{{ site.cv }}" download>{{ icon("download") }} CV</a>{% endif %}
+        <a class="btn btn-primary" href="{{ link('research') }}">{{ ui("explore_research") }} {{ icon("right") }}</a>
+        <a class="btn btn-ghost" href="{{ link('teaching') }}">{{ ui("current_teaching") }}</a>
+        {% if cv %}<a class="btn btn-ghost" href="{{ asset(cv) }}" download>{{ icon("download") }} {{ ui("cv") }}</a>{% endif %}
       </div>
     </div>
   </div>
-  <div class="hero-caption" aria-hidden="true">
-    <span>Simulated collider event · hard jets + soft radiation</span>
-  </div>
+  <div class="hero-caption" aria-hidden="true"><span>{{ ui("canvas_caption") }}</span></div>
 </section>
 
-<section class="stats" aria-label="Key figures">
+<section class="stats" aria-label="{{ ui('at_a_glance') }}">
   <div class="wrap stats-grid">
-    {% for s in site.stats %}
+    {% for s in stats %}
     <div class="stat reveal" style="--d: {{ loop.index0 * 60 }}ms">
       <span class="stat-value" data-count="{{ s.value }}">{{ s.value }}</span>{% if s.suffix %}<span class="stat-suffix">{{ s.suffix }}</span>{% endif %}
-      <span class="stat-label">{{ s.label }}</span>
+      <span class="stat-label">{{ t(s.label) }}</span>
     </div>
     {% endfor %}
   </div>
@@ -40,25 +39,25 @@
 <section class="section">
   <div class="wrap split">
     <div class="split-head reveal">
-      <p class="eyebrow">About</p>
-      <h2 class="h2">Precision QCD,<br><em>patient teaching.</em></h2>
-      <aside class="hero-card about-card reveal" aria-label="At a glance">
-        {% if site.portrait %}
-        <img class="portrait" src="{{ site.portrait }}" alt="Portrait of {{ site.name }}" width="96" height="96">
+      <p class="eyebrow">{{ ui("about") }}</p>
+      <h2 class="h2">{{ ui("about_title") }}</h2>
+      <aside class="hero-card about-card reveal" aria-label="{{ ui('at_a_glance') }}">
+        {% if portrait %}
+        <img class="portrait" src="{{ asset(portrait) }}" alt="{{ t(site.name) }}" width="96" height="96">
         {% else %}
         <span class="brand-mark xl" aria-hidden="true">{{ site.monogram }}</span>
         {% endif %}
         <dl class="facts">
-          <div><dt>Field</dt><dd>{{ research.field }}</dd></div>
-          <div><dt>Department</dt><dd>{{ site.affiliation }}</dd></div>
-          <div><dt>Trained at</dt><dd>The University of Manchester · MPhys, PhD</dd></div>
-          <div><dt>Contact</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd></div>
+          <div><dt>{{ ui("fact_field") }}</dt><dd>{{ t(research.field) }}</dd></div>
+          <div><dt>{{ ui("fact_dept") }}</dt><dd>{{ t(site.affiliation) }}</dd></div>
+          <div><dt>{{ ui("fact_trained") }}</dt><dd>{{ ui("fact_trained_val") }}</dd></div>
+          <div><dt>{{ ui("fact_contact") }}</dt><dd><a href="mailto:{{ site.email }}" dir="ltr">{{ site.email }}</a></dd></div>
         </dl>
       </aside>
     </div>
     <div class="split-body reveal">
-      <p class="lead">{{ site.bio }}</p>
-      <ul class="pill-row" aria-label="Research profiles">
+      <p class="lead">{{ t(site.bio) }}</p>
+      <ul class="pill-row" aria-label="{{ ui('profiles') }}">
         {% for p in site.profiles %}
         <li><a class="pill" href="{{ p.url }}" target="_blank" rel="noopener">{{ p.label }}{{ icon("arrow") }}</a></li>
         {% endfor %}
@@ -70,23 +69,23 @@
 <section class="section section-tint">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">Explore</p>
-      <h2 class="h2">Find your way around</h2>
+      <p class="eyebrow">{{ ui("explore") }}</p>
+      <h2 class="h2">{{ ui("find_your_way") }}</h2>
     </div>
     {% set rooms = [
-      ("studying", "cap", "Studying", "Physics at Manchester, and now medicine at Chlef: two journeys, one habit of learning."),
-      ("teaching", "users", "Teaching", "This semester at Qatar University, plus thirteen years of course archives from three countries."),
-      ("research", "atom", "Research", "Non-global and clustering logarithms, jet observables, grants, talks and every publication."),
-      ("books", "book", "Books", "Theses, notes and the textbooks my courses are built on."),
-      ("resources", "layers", "Resources", "Websites, YouTube and Telegram channels, conference pages, projects and articles."),
+      ("studying", "cap", {"en": "Physics at Manchester, and now medicine at Chlef: two journeys, one habit of learning.", "ar": "الفيزياء في مانشستر، والطب اليوم في الشلف: رحلتان وعادة واحدة في التعلّم."}),
+      ("teaching", "users", {"en": "This semester at Qatar University, plus thirty course pages from three countries.", "ar": "هذا الفصل في جامعة قطر، وأكثر من ثلاثين صفحة مقرر من ثلاث دول."}),
+      ("research", "atom", {"en": "Non-global and clustering logarithms, jet observables, grants, talks and every publication.", "ar": "اللوغاريتمات غير الشاملة ولوغاريتمات التجميع، ومقادير النفثات، والمشاريع، والمداخلات، وكل المنشورات."}),
+      ("books", "book", {"en": "Theses, notes, the textbooks behind my courses, and a small library.", "ar": "الرسائل والمذكرات، والكتب التي بُنيت عليها مقرراتي، ومكتبة صغيرة."}),
+      ("resources", "layers", {"en": "Websites, YouTube and Telegram channels, HEP software guides, projects and articles.", "ar": "مواقع، وقنوات يوتيوب وتليغرام، وأدلة برمجيات فيزياء الطاقات العالية، ومشاريع ومقالات."}),
     ] %}
     <div class="rooms">
-      {% for id, ic, title, text in rooms %}
-      <a class="room reveal" href="{{ id }}.html" style="--d: {{ loop.index0 * 70 }}ms">
+      {% for id, ic, text in rooms %}
+      <a class="room reveal" href="{{ link(id) }}" style="--d: {{ loop.index0 * 70 }}ms">
         <span class="room-idx">0{{ loop.index }}</span>
         <span class="room-icon">{{ icon(ic) }}</span>
-        <span class="room-title">{{ title }}</span>
-        <span class="room-text">{{ text }}</span>
+        <span class="room-title">{{ t(site.nav[loop.index0].label) }}</span>
+        <span class="room-text">{{ t(text) }}</span>
         <span class="room-go">{{ icon("right") }}</span>
       </a>
       {% endfor %}
@@ -98,17 +97,17 @@
   <div class="wrap">
     <div class="section-head row reveal">
       <div>
-        <p class="eyebrow">Latest papers</p>
-        <h2 class="h2">Recent work</h2>
+        <p class="eyebrow">{{ ui("latest_papers") }}</p>
+        <h2 class="h2">{{ ui("recent_work") }}</h2>
       </div>
-      <a class="link-arrow" href="research.html#publications">All publications {{ icon("right") }}</a>
+      <a class="link-arrow" href="{{ link('research') }}#publications">{{ ui("all_publications") }} {{ icon("right") }}</a>
     </div>
     <div class="paper-cards">
       {% for p in research.publications if p.area == "qcd" %}{% if loop.index <= 3 %}
-      <article class="paper-card reveal" style="--d: {{ loop.index0 * 80 }}ms">
+      <article class="paper-card reveal" style="--d: {{ loop.index0 * 80 }}ms" lang="en" dir="ltr">
         <div class="paper-meta">
           <span class="tag">{{ p.year }}</span>
-          {% if p.status == "accepted" %}<span class="tag tag-accent">Accepted</span>{% endif %}
+          {% if p.status == "accepted" %}<span class="tag tag-accent" lang="{{ lang }}">{{ ui("accepted") }}</span>{% endif %}
         </div>
         <h3 class="paper-title">{% if p.doi %}<a href="{{ p.doi }}" target="_blank" rel="noopener">{{ p.title | phys }}</a>{% else %}{{ p.title | phys }}{% endif %}</h3>
         <p class="paper-authors">{{ p.authors | authors }}</p>
@@ -123,20 +122,20 @@
   <div class="wrap now">
     <div class="now-card reveal">
       <div class="now-head">
-        <p class="eyebrow"><span class="dot live"></span>Now teaching · {{ teaching.current.term }}</p>
-        <h2 class="h2">{{ teaching.current.institution }}</h2>
-        <p class="muted">{{ teaching.current.unit }}</p>
+        <p class="eyebrow"><span class="dot live"></span>{{ ui("now_teaching") }} · {{ t(teaching.current.term) }}</p>
+        <h2 class="h2">{{ t(teaching.current.institution) }}</h2>
+        <p class="muted">{{ t(teaching.current.unit) }}</p>
       </div>
       <div class="now-courses">
         {% for c in teaching.current.courses %}
         <div class="course-tile">
-          <span class="course-code">{{ c.code }}</span>
-          <span class="course-title">{{ c.title }}</span>
-          <span class="course-kind">{{ c.kind }}</span>
+          <span class="course-code" dir="ltr">{{ c.code }}</span>
+          <span class="course-title">{{ t(c.title) }}</span>
+          <span class="course-kind">{{ t(c.kind) }}</span>
         </div>
         {% endfor %}
       </div>
-      <a class="link-arrow" href="teaching.html">Teaching &amp; course archive {{ icon("right") }}</a>
+      <a class="link-arrow" href="{{ link('teaching') }}">{{ ui("teaching_archive") }} {{ icon("right") }}</a>
     </div>
   </div>
 </section>

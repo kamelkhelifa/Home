@@ -1,0 +1,52 @@
+<!-- source: https://khelifak.wordpress.com/library/computer-programs/hep-programs/event2/ · EVENT2 -->
+<h3>ترجمة برنامج EVENT2 وتشغيله</h3>
+<p>برنامج <a href="https://hepwww.rl.ac.uk/theory/seymour/nlo/" rel="noopener" target="_blank">EVENT2</a> برنامج مكتوب بلغة fortran يحسب مربع عنصر المصفوفة والمقطع العرضي في عملية الفناء e+e- عند الرتبة التالية للرتبة الدنيا NLO (أي حتى alpha_s^2)، وهو من تأليف<a href="https://hepwww.rl.ac.uk/theory/seymour" rel="noopener" target="_blank"> Mike Seymoure</a>. ويعتمد البرنامج طريقة الطرح لـ<a href="https://hepwww.rl.ac.uk/theory/seymour/pubs/nlo.html" rel="noopener" target="_blank">Catani-Seymoure</a> لإلغاء التباعدات وجعل التكامل العددي ممكنًا.</p>
+<p>لترجمة البرنامج وتشغيله:</p>
+<ol>
+<li>نزّل أحدث نسخة من شيفرة fortran: <a href="https://hepwww.rl.ac.uk/theory/seymour/nlo/" rel="noopener" target="_blank">event2_03.f</a>. ونزّل حزمة GBOOK؛ أي الملف gbook.f (النسخة المحدّثة من طرف Seymoure).</li>
+<li>يجب أن يكون المترجم gfortran مثبّتًا على جهازك. وإن لم يكن كذلك، فيمكنك الحصول على أحدث إصدار منه من <a href="https://gcc.gnu.org/wiki/GFortranBinaries" rel="noopener" target="_blank">هنا</a>.</li>
+<li>اكتب في نافذة الطرفية: gfortran event2_03.f gbook.f. سيؤدي ذلك إلى ترجمة الشيفرة وتشغيلها. إذا ظهرت لك رسالة خطأ تفيد بأن IDATE يحتوي على عدد من الوسائط أكثر مما ينبغي (أو رسالة مشابهة)، فافتح الملف gbook.f في محرر نصوص وحوّل السطر الذي يحتوي على استدعاءي IDATE وITIME إلى تعليق</li>
+<li>يمكنك تغيير الوسائط، مثل طاقة مركز الكتلة (EM) وعدد الأحداث (NEV)، إلخ، بفتح الشيفرة في محرر نصوص وتعديلها، ثم ترجمتها وتشغيلها كما في الخطوة 3.</li>
+</ol>
+<p>لتشغيل البرنامج في بيئة التطوير Netbeans IDE اتبع ما يلي:</p>
+<ol>
+<li>نزّل برنامج <a href="https://www.netbeans.org" rel="noopener" target="_blank">Netbeans</a> وثبّته. وتأكد من أن الحزمة المختارة تتضمن حزمة C/C++.</li>
+<li>أنشئ مشروعًا جديدًا: File -&gt; new project -&gt; c/c++ project -&gt; c/c++ application -&gt; سمِّ المشروع واختر المجلد -&gt; finish</li>
+<li>انقر بزر الفأرة الأيمن على "source files"-&gt; new -&gt; Fortran file. ثم انتقل إلى المجلد الذي يوجد فيه الملفان "gbook.f" و"event2_03" -&gt; add</li>
+<li>project-&gt; debug ثم project-&gt; run main project. ينبغي أن يعمل البرنامج وأن يُنتج ملفًا باسم gtopdraw.top.</li>
+<li>يمكنك حذف الملف "main.cc" الذي يُنشأ عند إعداد "new project"، إذ لا حاجة إليه.</li>
+</ol>
+<p>لفتح الملف "gtopdraw.top" على نظام تشغيل Mac أو Linux اتبع ما يلي:</p>
+<ol>
+<li>نزّل برنامج <a href="https://cp3wks05.fynu.ucl.ac.be/twiki/bin/view/Software/TopDrawer" rel="noopener" target="_blank">topdrawer</a> التابع لمختبر SLAC (اختر النسخة الثنائية الملائمة لنظام تشغيلك). وهو ملف بصيغة .tar.</li>
+<li>فكّ ضغط الملف في أي مكان على حاسوبك. وإذا كنت تستعمل الطرفية فاكتب: tar -xvf td_....tar; cd td_... (حيث تمثل ... بقية اسم ملف tar).</li>
+<li>ضع الملف التنفيذي "td_..." في المجلد الذي يوجد فيه الملف (أو الملفات) "gtopdraw.top".</li>
+<li>على نظام Mac: ثبّت الملف libg2c.0.dylib، المضمَّن في الأرشيف، في المجلد /usr/local/lib/ بكتابة ما يلي في الطرفية<br/>
+[text-box color="green"]sudo cp libg2c.0.dylib /usr/local/lib/[/text-box]</li>
+<li>لإنشاء ملف .ps انطلاقًا من الملف .top، اكتب في الطرفية<br/>
+[text-box color="green"] ./td_... gtopdraw.top "POSTSCR,ORIENT=3" [/text-box]</li>
+</ol>
+
+<h3>ربط EVENT2 بمكتبة Fastjet</h3>
+<p>يفترض الدليل الآتي أن</p>
+<ul>
+<li>ملفات EVENT2 قد نُزّلت وتُرجمت ترجمة صحيحة. انظر <a href="https://localhost/wordpress/?p=93" rel="noopener" target="_blank">هذه التدوينة</a>.</li>
+<li>مكتبة <a href="https://www.lpthe.jussieu.fr/~salam/fastjet/main.html" rel="noopener" target="_blank">FastJet</a> قد نُزّلت وثُبّتت وفق التعليمات الواردة في صفحتها.</li>
+<li>الملف "fastjet-config" موجود في "/usr/local/bin/". وإلا فاستبدل هذا المسار بالمسار الذي يوجد فيه الملف على حاسوبك.</li>
+<li>برنامج <a href="https://www.netbeans.org" rel="noopener" target="_blank">NetBean</a>s مثبّت ويعمل على نظام تشغيلك. وإلا فيمكن الاكتفاء باستعمال الطرفية.</li>
+</ul>
+<p><strong>إعداد EVENT2 للعمل مع FastJet في NetBeans:</strong></p>
+<ol>
+<li>أولًا، عليك إنشاء مشروع جديد: File -&gt; New Project<br/>
+في المعالج الذي يظهر، اختر "C/C++ Development" و"C/C++ Application" (إذا لم تكن هذه الخيارات متاحة، فهذا يعني أنك لم تثبّت حزمة C/C++ تثبيتًا صحيحًا). اضغط next، وسمِّ مشروعك بالاسم الذي تريده، ثم اضغط finish.</li>
+<li>ينبغي أن ترى الآن مشروعك الجديد في قائمة "projects" على اليسار.<br/>
+إذا لم يكن اسمه مكتوبًا بخط عريض، فانقر عليه بزر الفأرة الأيمن واختر "set main project".</li>
+<li>انقر على المشروع بزر الفأرة الأيمن واختر "properties".<br/>
+في شاشة الخصائص يمكنك "فتح" القوائم الفرعية لخصائص الإعداد بالنقر على الأيقونات الصغيرة على اليسار.</li>
+<li>في القائمة الفرعية Configuration Properties -&gt; C/C++ -&gt; C++ Compiler -&gt; Command Line<br/>
+أضف ما يلي في "Additional options": `/usr/local/bin/fastjet-config --cxxflags`</li>
+<li>في القائمة الفرعية Configuration Properties -&gt; Linker -&gt; Tool : غيّر g++ إلى gfortran.</li>
+<li>في القائمة الفرعية Configuration Properties -&gt; Linker -&gt; Command Line<br/>
+أضف ما يلي في "Additional options": `/user/local/bin/fastjet-config --libs --plugins` -lstdc++</li>
+<li>اخرج من الخصائص بالضغط على "Apply" ثم "OK".</li>
+</ol>

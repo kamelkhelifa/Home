@@ -1,28 +1,29 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
 {% from "_macros.html" import page_hero, section_head %}
-{% block title %}Research · {{ site.name }}{% endblock %}
-{% block description %}All-order perturbative QCD and jet physics: non-global and clustering logarithms, jet observables, publications, grants and talks.{% endblock %}
+{% block title %}{{ t(site.nav[2].label) }} · {{ t(site.name) }}{% endblock %}
+{% block description %}{{ t(research.overview) | trim }}{% endblock %}
 
 {% block content %}
-{{ page_hero("03", "Research · " ~ research.field, "Soft gluons, <em>hard questions.</em>"|safe, research.overview) }}
+{{ page_hero("03", t(site.nav[2].label) ~ " · " ~ t(research.field), t(research.hero_title) | safe, t(research.overview)) }}
 
 <section class="section tight">
   <div class="wrap">
-    <ul class="pill-row reveal" aria-label="Research profiles">
+    <ul class="pill-row reveal" aria-label="{{ ui('profiles') }}">
       {% for p in site.profiles %}
       <li><a class="pill" href="{{ p.url }}" target="_blank" rel="noopener">{{ p.label }}{{ icon("arrow") }}</a></li>
       {% endfor %}
     </ul>
     <div class="themes">
-      {% for t in research.themes %}
+      {% for th in research.themes %}
       <article class="theme reveal" style="--d: {{ loop.index0 * 60 }}ms">
-        <span class="theme-symbol" aria-hidden="true">{{ t.symbol | safe }}</span>
-        <h3 class="theme-title">{{ t.title }}</h3>
-        <p class="theme-text">{{ t.text | safe }}</p>
+        <span class="theme-symbol" aria-hidden="true" dir="ltr">{{ th.symbol | safe }}</span>
+        <h3 class="theme-title">{{ t(th.title) }}</h3>
+        <p class="theme-text">{{ t(th.text) | safe }}</p>
       </article>
       {% endfor %}
     </div>
+    <p class="fine reveal">{{ t(research.other_fields) }}</p>
   </div>
 </section>
 
@@ -30,25 +31,25 @@
   <div class="wrap">
     <div class="section-head row reveal">
       <div>
-        <p class="eyebrow">Publications</p>
-        <h2 class="h2">Papers &amp; proceedings</h2>
+        <p class="eyebrow">{{ ui("publications") }}</p>
+        <h2 class="h2">{{ ui("papers_title") }}</h2>
       </div>
-      <p class="muted small">Full and up-to-date lists on <a href="{{ site.profiles[0].url }}" target="_blank" rel="noopener">Google Scholar</a> and <a href="{{ site.profiles[1].url }}" target="_blank" rel="noopener">ORCID</a>.</p>
+      <p class="muted small">{{ ui("full_lists") }} <a href="{{ site.profiles[0].url }}" target="_blank" rel="noopener">Google Scholar</a>, <a href="{{ site.profiles[2].url }}" target="_blank" rel="noopener">INSPIRE</a> {{ ui("and") }} <a href="{{ site.profiles[1].url }}" target="_blank" rel="noopener">ORCID</a>.</p>
     </div>
 
     <div class="pub-controls reveal" data-pub-controls hidden>
       <label class="search">
         {{ icon("search") }}
-        <span class="sr-only">Search publications</span>
-        <input type="search" placeholder="Search titles, authors, journals…" data-pub-search>
+        <span class="sr-only">{{ ui("search_label") }}</span>
+        <input type="search" placeholder="{{ ui('search_pubs') }}" data-pub-search>
       </label>
-      <div class="filters" role="group" aria-label="Filter publications">
-        <button type="button" class="filter is-on" data-filter="all">All</button>
-        <button type="button" class="filter" data-filter="qcd">QCD &amp; jets</button>
-        <button type="button" class="filter" data-filter="materials">Materials</button>
-        <button type="button" class="filter" data-filter="proceedings">Proceedings</button>
+      <div class="filters" role="group" aria-label="{{ ui('publications') }}">
+        <button type="button" class="filter is-on" data-filter="all" aria-pressed="true">{{ ui("filter_all") }}</button>
+        <button type="button" class="filter" data-filter="qcd" aria-pressed="false">{{ ui("filter_qcd") }}</button>
+        <button type="button" class="filter" data-filter="materials" aria-pressed="false">{{ ui("filter_materials") }}</button>
+        <button type="button" class="filter" data-filter="proceedings" aria-pressed="false">{{ ui("filter_proc") }}</button>
       </div>
-      <p class="pub-count" data-pub-count aria-live="polite"></p>
+      <p class="pub-count" data-pub-count data-of="{{ ui('items_of') }}" data-items="{{ ui('items') }}" aria-live="polite"></p>
     </div>
 
     <div class="pubs" data-pubs>
@@ -58,12 +59,12 @@
         <ol class="pub-list">
           {% for p in research.publications if p.year == y %}
           <li class="pub" data-area="{{ p.area }}" data-type="{{ p.type }}">
-            <p class="pub-title">{% if p.doi %}<a href="{{ p.doi }}" target="_blank" rel="noopener">{{ p.title | phys }}</a>{% else %}{{ p.title | phys }}{% endif %}</p>
-            <p class="pub-authors">{{ p.authors | authors }}</p>
+            <p class="pub-title" lang="en" dir="ltr">{% if p.doi %}<a href="{{ p.doi }}" target="_blank" rel="noopener">{{ p.title | phys }}</a>{% else %}{{ p.title | phys }}{% endif %}</p>
+            <p class="pub-authors" lang="en" dir="ltr">{{ p.authors | authors }}</p>
             <p class="pub-venue">
-              <span>{{ p.venue }}</span>
-              {% if p.type == "proceedings" %}<span class="tag">Proceedings</span>{% endif %}
-              {% if p.status == "accepted" %}<span class="tag tag-accent">Accepted</span>{% endif %}
+              <span lang="en" dir="ltr">{{ p.venue }}</span>
+              {% if p.type == "proceedings" %}<span class="tag">{{ ui("proceedings") }}</span>{% endif %}
+              {% if p.status == "accepted" %}<span class="tag tag-accent">{{ ui("accepted") }}</span>{% endif %}
               {% if p.doi %}<a class="tag tag-link" href="{{ p.doi }}" target="_blank" rel="noopener">DOI {{ icon("arrow") }}</a>{% endif %}
             </p>
           </li>
@@ -71,7 +72,7 @@
         </ol>
       </div>
       {% endfor %}
-      <p class="empty" data-pub-empty hidden>No publications match your search.</p>
+      <p class="empty" data-pub-empty hidden>{{ ui("no_match") }}</p>
     </div>
   </div>
 </section>
@@ -80,20 +81,25 @@
   <div class="wrap duo">
     <article class="feature reveal">
       <span class="feature-icon">{{ icon("book") }}</span>
-      <p class="eyebrow">{{ research.thesis.kind }} · {{ research.thesis.year }}</p>
-      <h2 class="h3">{{ research.thesis.title | phys }}</h2>
-      <p>{{ research.thesis.where }}. Supervised by {{ research.thesis.supervisor }}.</p>
-      <p class="muted small">Collaborators include {{ research.collaborators | join(", ") }}.</p>
+      <p class="eyebrow">{{ t(research.thesis.kind) }} · {{ research.thesis.year }}</p>
+      <h2 class="h3">{% if lang == "ar" %}{{ research.thesis.title_ar }}{% else %}{{ research.thesis.title | phys }}{% endif %}</h2>
+      <p>{{ t(research.thesis.where) }}. {{ ui("supervised_by") }} {{ t(research.thesis.supervisor) }}.</p>
+      <ul class="doc-links">
+        {% for l in research.thesis.links %}
+        <li><a href="{{ l.url }}" target="_blank" rel="noopener">{{ icon("file") }} {{ t(l.label) }} {{ icon("arrow") }}</a></li>
+        {% endfor %}
+      </ul>
+      <p class="muted small">{{ ui("collaborators") }} <span lang="en" dir="ltr">{{ research.collaborators | join(", ") }}</span>.</p>
     </article>
     <div class="reveal" style="--d: 100ms">
-      <p class="eyebrow">Funding</p>
-      <h2 class="h3 mb">Research grants</h2>
+      <p class="eyebrow">{{ ui("funding") }}</p>
+      <h2 class="h3 mb">{{ ui("grants") }}</h2>
       <ul class="grants">
         {% for g in research.grants %}
         <li class="grant">
-          <div class="grant-top"><span class="tag">{{ g.role }}</span><span class="grant-budget">{{ g.budget }}</span></div>
-          <p class="grant-title">{{ g.title }}</p>
-          <p class="grant-sub">{{ g.scheme }} · {{ g.funder }} · {{ g.when }}</p>
+          <div class="grant-top"><span class="tag">{{ t(g.role) }}</span><span class="grant-budget" dir="ltr">{{ g.budget }}</span></div>
+          <p class="grant-title">{{ t(g.title) }}</p>
+          <p class="grant-sub">{{ t(g.scheme) }} · {{ t(g.funder) }} · {{ g.when }}</p>
         </li>
         {% endfor %}
       </ul>
@@ -103,16 +109,16 @@
 
 <section class="section section-tint">
   <div class="wrap">
-    {{ section_head("Talks", "Conference talks & posters") }}
+    {{ section_head(ui("talks"), ui("talks_title")) }}
     <ul class="rows">
-      {% for t in research.talks %}
+      {% for tk in research.talks %}
       <li class="row-item reveal">
-        <span class="row-when">{{ t.when }}</span>
+        <span class="row-when">{{ t(tk.when) }}</span>
         <span class="row-main">
-          <span class="row-title">{{ t.title | phys }}</span>
-          <span class="row-sub">{% if t.url %}<a href="{{ t.url }}" target="_blank" rel="noopener">{{ t.event }}</a>{% else %}{{ t.event }}{% endif %} · {{ t.place }}</span>
+          <span class="row-title" lang="en" dir="ltr">{{ tk.title | phys }}</span>
+          <span class="row-sub">{% if tk.url %}<a href="{{ tk.url }}" target="_blank" rel="noopener">{{ t(tk.event) }}</a>{% else %}{{ t(tk.event) }}{% endif %} · {{ t(tk.place) }}</span>
         </span>
-        {{ icon("mic", "icon row-icon") }}
+        {% if tk.slides %}<a class="tag tag-link" href="{{ tk.slides }}" target="_blank" rel="noopener">{{ ui("slides") }} {{ icon("arrow") }}</a>{% else %}{{ icon("mic", "icon row-icon") }}{% endif %}
       </li>
       {% endfor %}
     </ul>
@@ -121,14 +127,14 @@
 
 <section class="section">
   <div class="wrap">
-    {{ section_head("Outreach", "Public & invited talks") }}
+    {{ section_head(ui("outreach"), ui("public_talks")) }}
     <div class="cards-3">
-      {% for t in research.public_talks %}
-      <article class="card reveal" style="--d: {{ loop.index0 * 60 }}ms">
-        <span class="card-when">{{ t.when }}</span>
-        <h3 class="card-title">“{{ t.title }}”</h3>
-        <p class="card-text">{{ t.where }}</p>
-      </article>
+      {% for tk in research.public_talks %}
+      {% if tk.url %}<a class="card is-link reveal" href="{{ tk.url }}" target="_blank" rel="noopener" style="--d: {{ loop.index0 * 60 }}ms">{% else %}<article class="card reveal" style="--d: {{ loop.index0 * 60 }}ms">{% endif %}
+        <span class="card-when">{{ t(tk.when) }}</span>
+        <h3 class="card-title">{{ "«" if lang == "ar" else "“" }}{{ t(tk.title) }}{{ "»" if lang == "ar" else "”" }}</h3>
+        <p class="card-text">{{ t(tk.where) }}</p>
+      {% if tk.url %}</a>{% else %}</article>{% endif %}
       {% endfor %}
     </div>
   </div>
@@ -137,20 +143,20 @@
 <section class="section section-tint">
   <div class="wrap duo">
     <div class="reveal">
-      <p class="eyebrow">Service</p>
-      <h2 class="h3 mb">Refereeing &amp; conferences</h2>
+      <p class="eyebrow">{{ ui("service") }}</p>
+      <h2 class="h3 mb">{{ ui("service_title") }}</h2>
       <ul class="mini-rows">
         {% for s in research.service %}
-        <li><span class="mini-when">{{ s.when }}</span><span>{% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.what }}</a>{% else %}{{ s.what }}{% endif %}</span></li>
+        <li><span class="mini-when">{{ t(s.when) }}</span><span>{% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ t(s.what) }}</a>{% else %}{{ t(s.what) }}{% endif %}</span></li>
         {% endfor %}
       </ul>
     </div>
     <div class="reveal" style="--d: 100ms">
-      <p class="eyebrow">Affiliations</p>
-      <h2 class="h3 mb">Research laboratories</h2>
+      <p class="eyebrow">{{ ui("affiliations") }}</p>
+      <h2 class="h3 mb">{{ ui("labs_title") }}</h2>
       <ul class="mini-rows">
         {% for l in research.labs %}
-        <li><span class="mini-when">{{ l.when }}</span><span>{{ l.what }}<br><span class="muted">{{ l.where }}</span></span></li>
+        <li><span class="mini-when">{{ t(l.when) }}</span><span>{{ t(l.what) }}<br><span class="muted">{{ t(l.where) }}</span></span></li>
         {% endfor %}
       </ul>
     </div>
