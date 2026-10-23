@@ -267,8 +267,12 @@ def build():
         + "\n".join(urls) + "\n</urlset>\n",
         encoding="utf-8",
     )
-    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
-    print(f"Built {count} pages ({len(LANGS)} languages) into {OUT.relative_to(ROOT)}/")
+    if site.get("launched"):
+        (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
+    else:  # pre-launch: pages carry a noindex tag; robots.txt itself only counts on a custom domain
+        (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
+    print(f"Built {count} pages ({len(LANGS)} languages) into {OUT.relative_to(ROOT)}/"
+          + ("" if site.get("launched") else "  [pre-launch: hidden from search engines]"))
 
 
 if __name__ == "__main__":

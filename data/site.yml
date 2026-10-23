@@ -17,6 +17,10 @@ institution_detail: { en: "College of Arts & Sciences · Doha, Qatar", ar: "كل
 email: kamel.kkhelifa@gmail.com            # principal
 email_secondary: kkerfa@qu.edu.qa         # Qatar University
 base_url: https://kamelkhelifa.github.io/Home   # change if you add a custom domain
+
+# Launch switch. While false, every page tells search engines not to index it
+# (the site stays reachable for anyone who has the link). Set to true on launch day.
+launched: false
 teachweb: { en: "https://kamelkhelifa.github.io/TeachWeb/", ar: "https://kamelkhelifa.github.io/TeachWeb/ar/" }
 last_updated: { en: October 2026, ar: أكتوبر 2026 }
 

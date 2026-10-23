@@ -41,6 +41,10 @@ Open a file, click ✏️, edit, then **Commit changes**. The site rebuilds and 
 
 YAML tip: wrap any value containing `:`, `#` or `?` in "double quotes".
 
+## Launch switch
+While `launched: false` in `data/site.yml`, every page carries a `noindex` tag, so search engines will not list the site.
+Anyone with the link can still open it. On launch day, set `launched: true` and commit.
+
 ## Publishing (one-time setup)
 1. In the repository: **Settings → Pages → Build and deployment → Source → GitHub Actions**.
 2. Push to `main`. The workflow `.github/workflows/pages.yml` builds and deploys the site.
