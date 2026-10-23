@@ -31,6 +31,7 @@
           </span>
           <span class="res-title">{{ t(r.label) }}</span>
           <span class="res-text">{{ t(r.text) }}</span>
+          {% if r.award %}<span class="res-award">{{ icon("award") }} {{ t(r.award) }}</span>{% endif %}
           {% if r.url and r.kind %}<span class="res-domain" dir="ltr">{{ r.url | domain }}</span>{% endif %}
         {% if r.page or r.url %}</a>{% else %}</div>{% endif %}
       </li>

@@ -53,7 +53,7 @@ archive:
     country: { en: Saudi Arabia, ar: المملكة العربية السعودية }
     years: 2016 – 2020
     role: { en: Associate Professor, ar: أستاذ مشارك }
-    note: { en: "Teaching Excellence Award (2018) for an outstanding interactive teaching website.", ar: "جائزة التميز في التدريس (2018) لتطوير موقع تعليمي تفاعلي متميز." }
+    note: { en: "Teaching Excellence Award (2018), Faculty of Science, for my interactive teaching website khelifak.wordpress.com.", ar: "جائزة التميز في التدريس (2018) من كلية العلوم، عن موقعي التعليمي التفاعلي khelifak.wordpress.com." }
     courses:
       - { code: PHYS101, title: { en: General Physics I, ar: الفيزياء العامة 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys101, year: 2016 – 2017 }
       - { code: PHYS102, title: { en: General Physics II, ar: الفيزياء العامة 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys102, year: 2017 – 2018 }

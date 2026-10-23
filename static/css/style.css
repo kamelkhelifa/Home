@@ -778,6 +778,8 @@ html[lang="ar"] .wip-heading { text-transform: none; font-size: .9rem; }
 .res.is-link:hover .res-go { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .res-title { font: 430 1.3rem/1.2 var(--serif); letter-spacing: -.01em; }
 .res-text { color: var(--muted); font-size: .92rem; line-height: 1.55; }
+.res-award { display: flex; gap: 8px; align-items: flex-start; margin-top: 4px; padding: 10px 12px; border-radius: 10px; background: var(--gold-soft); color: var(--ink-2); font-size: .82rem; line-height: 1.45; }
+.res-award .icon { flex: none; width: 16px; height: 16px; margin-top: 1px; color: var(--gold); }
 .res-domain { margin-top: auto; padding-top: 12px; font: 400 .74rem/1.2 var(--mono); color: var(--accent); }
 
 /* ---------- Language switch ---------- */

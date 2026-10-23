@@ -27,7 +27,8 @@ groups:
         text: { en: "Built for my students at Relizane University: course announcements and materials in one place.", ar: "أنشأتها لطلابي في جامعة غليزان: إعلانات المقررات وموادها في مكان واحد." }
       - label: { en: Personal Teaching Web (legacy), ar: موقع التدريس الشخصي (الأرشيف) }
         url: https://khelifak.wordpress.com/
-        text: { en: "The original WordPress home of my courses and notes, now migrated to this site.", ar: "الموطن الأصلي لمقرراتي ومذكراتي على ووردبريس، وقد نُقل محتواه إلى هذا الموقع." }
+        text: { en: "The original WordPress home of my courses and notes, now migrated to this site and to TeachWeb.", ar: "الموطن الأصلي لمقرراتي ومذكراتي على ووردبريس، وقد نُقل محتواه إلى هذا الموقع وإلى الموقع التعليمي." }
+        award: { en: "Teaching Excellence Award 2018 · Faculty of Science, Islamic University of Madinah", ar: "جائزة التميز في التدريس 2018 · كلية العلوم، الجامعة الإسلامية بالمدينة المنورة" }
       - label: { en: Chlef PhysicsWeb, ar: موقع الفيزياء بالشلف }
         url: https://chlefphys.wordpress.com/
         text: { en: Course website for the physics department at the University of Chlef., ar: موقع مقررات قسم الفيزياء بجامعة الشلف. }
