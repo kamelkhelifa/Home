@@ -10,6 +10,8 @@ theme:           { en: Toggle colour theme, ar: تبديل المظهر }
 switch_label:    { en: العربية, ar: English }
 switch_aria:     { en: اقرأ هذه الصفحة بالعربية, ar: Read this page in English }
 get_in_touch:    { en: Get in touch, ar: للتواصل }
+email_also:      { en: "Also at", ar: "وكذلك على" }
+email_university: { en: Qatar University, ar: جامعة قطر }
 navigate:        { en: Navigate, ar: تصفح }
 profiles:        { en: Research profiles, ar: الملفات البحثية }
 elsewhere:       { en: Elsewhere, ar: على الشبكة }

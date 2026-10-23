@@ -14,7 +14,8 @@ brand_sub:   { en: Personal homepage, ar: الصفحة الشخصية }
 affiliation: { en: Department of Physics and Materials Sciences, ar: قسم الفيزياء وعلوم المواد }
 institution: { en: Qatar University, ar: جامعة قطر }
 institution_detail: { en: "College of Arts & Sciences · Doha, Qatar", ar: "كلية الآداب والعلوم · الدوحة، قطر" }
-email: kkerfa@qu.edu.qa
+email: kamel.kkhelifa@gmail.com            # principal
+email_secondary: kkerfa@qu.edu.qa         # Qatar University
 base_url: https://kamelkhelifa.github.io/Home   # change if you add a custom domain
 teachweb: { en: "https://kamelkhelifa.github.io/TeachWeb/", ar: "https://kamelkhelifa.github.io/TeachWeb/ar/" }
 last_updated: { en: October 2026, ar: أكتوبر 2026 }

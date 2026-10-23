@@ -947,6 +947,10 @@ html[lang="ar"] .nav-list a { font-size: .98rem; }
 .footer-mail .icon { width: .7em; height: .7em; color: var(--accent); transition: transform .35s var(--ease); }
 .footer-mail:hover .icon { transform: scaleX(var(--flip)) translate(6px, -6px); }
 .footer-addr { margin-top: 1.4rem; color: var(--muted); }
+.footer-mail-alt { margin: 1rem 0 0; color: var(--muted); font-size: 1rem; }
+.footer-mail-alt a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+.footer-mail-alt a:hover { color: var(--accent); border-color: var(--accent); }
+.facts .alt-mail { color: var(--muted); }
 .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; padding-top: 40px; border-top: 1px solid var(--line); }
 .footer-h { font: 500 .7rem/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .footer-links { display: grid; gap: 8px; }

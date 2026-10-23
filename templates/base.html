@@ -37,7 +37,7 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"{{ site.name.en }}","alternateName":"{{ site.name.ar }}",
    "jobTitle":"{{ site.title.en }}","affiliation":{"@type":"CollegeOrUniversity","name":"{{ site.institution.en }}"},
-   "email":"mailto:{{ site.email }}","alumniOf":"The University of Manchester","url":"{{ site.base_url }}",
+   "email":["mailto:{{ site.email }}","mailto:{{ site.email_secondary }}"],"alumniOf":"The University of Manchester","url":"{{ site.base_url }}",
    "sameAs":[{% for p in site.profiles %}"{{ p.url }}"{{ "," }}{% endfor %}{% for s in site.social %}"{{ s.url }}"{{ "," if not loop.last }}{% endfor %}]}
   </script>
 </head>
@@ -86,6 +86,7 @@
       <div class="footer-cta reveal">
         <p class="eyebrow">{{ ui("get_in_touch") }}</p>
         <a class="footer-mail" href="mailto:{{ site.email }}" dir="ltr">{{ site.email }}{{ icon("arrow") }}</a>
+        {% if site.email_secondary %}<p class="footer-mail-alt">{{ ui("email_also") }} <a href="mailto:{{ site.email_secondary }}" dir="ltr">{{ site.email_secondary }}</a> ({{ ui("email_university") }})</p>{% endif %}
         <p class="footer-addr">{{ t(site.affiliation) }} · {{ t(site.institution) }}<br>{{ t(site.institution_detail) }}</p>
       </div>
       <div class="footer-grid">

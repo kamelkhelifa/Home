@@ -51,7 +51,7 @@
           <div><dt>{{ ui("fact_field") }}</dt><dd>{{ t(research.field) }}</dd></div>
           <div><dt>{{ ui("fact_dept") }}</dt><dd>{{ t(site.affiliation) }}</dd></div>
           <div><dt>{{ ui("fact_trained") }}</dt><dd>{{ ui("fact_trained_val") }}</dd></div>
-          <div><dt>{{ ui("fact_contact") }}</dt><dd><a href="mailto:{{ site.email }}" dir="ltr">{{ site.email }}</a></dd></div>
+          <div><dt>{{ ui("fact_contact") }}</dt><dd><a href="mailto:{{ site.email }}" dir="ltr">{{ site.email }}</a>{% if site.email_secondary %}<br><a class="alt-mail" href="mailto:{{ site.email_secondary }}" dir="ltr">{{ site.email_secondary }}</a>{% endif %}</dd></div>
         </dl>
       </aside>
     </div>
