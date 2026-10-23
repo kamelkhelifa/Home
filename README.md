@@ -3,8 +3,8 @@
 The bilingual (English / العربية) personal website of Dr Kamel Khelifa-Kerfa, Associate Professor of Physics at Qatar University.
 It replaces the WordPress site [khelifak.wordpress.com](https://khelifak.wordpress.com/); all of that site's published pages have been migrated here.
 
-- **English:** `https://kamelkhelifa.github.io/home/`
-- **العربية:** `https://kamelkhelifa.github.io/home/ar/`
+- **English:** `https://kamelkhelifa.github.io/Home/`
+- **العربية:** `https://kamelkhelifa.github.io/Home/ar/`
 
 **Sections:** Home · Studying (Physics at Manchester, Medicine at Chlef) · Teaching (Qatar University + 30 archived course pages) ·
 Research · Books · Resources (websites, channels, HEP software guides, articles).
