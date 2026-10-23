@@ -7,12 +7,8 @@
 {% block content %}
 {{ page_hero("04", t(site.nav[3].label), t(books.hero_title) | safe, t(books.intro)) }}
 
-<section class="section tight">
-  <div class="wrap">
-    {{ section_head(ui("authored"), ui("authored_title")) }}
-    <div class="books">
-      {% for b in books.authored %}
-      <article class="book reveal" style="--d: {{ loop.index0 * 90 }}ms">
+{% macro book_card(b, i) %}
+      <article class="book reveal" style="--d: {{ i * 90 }}ms">
         <div class="cover cover-{{ b.accent or 'ink' }}" aria-hidden="true" dir="ltr" lang="en">
           {% if b.cover %}<img src="{{ asset('assets/img/books/' ~ b.cover) }}" alt="">{% else %}
           <span class="cover-kind">{{ b.kind.en }}</span>
@@ -31,8 +27,51 @@
           {% elif b.url %}<a class="link-arrow" href="{{ b.url }}" target="_blank" rel="noopener">{{ ui("open") }} {{ icon("arrow") }}</a>{% endif %}
         </div>
       </article>
-      {% endfor %}
+{% endmacro %}
+
+<section class="section tight">
+  <div class="wrap">
+    {{ section_head(ui("theses"), ui("theses_title")) }}
+    <div class="books books-2">
+      {% for b in books.theses %}{{ book_card(b, loop.index0) }}{% endfor %}
     </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap">
+    {{ section_head(ui("notes"), ui("notes_title")) }}
+    <div class="books books-2">
+      {% for b in books.notes %}{{ book_card(b, loop.index0) }}{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    {{ section_head(ui("in_progress"), ui("in_progress_title")) }}
+    {% for g in books.in_progress %}
+    <div class="wip-group reveal">
+      <h3 class="wip-heading">{{ t(g.group) }}</h3>
+      <ul class="wip-grid">
+        {% for b in g["items"] %}
+        <li class="wip">
+          <div class="cover cover-sm cover-{{ b.accent or 'ink' }}" aria-hidden="true" dir="rtl" lang="ar">
+            <span class="cover-kind">{{ "ترجمة" if b.original else "تأليف" }}</span>
+            <span class="cover-title">{{ b.cover_title }}</span>
+            <span class="cover-author">{{ site.name.ar }}</span>
+            <span class="cover-rule"></span>
+          </div>
+          <div class="wip-body">
+            <span class="tag tag-accent">{{ ui("in_progress_tag") }}</span>
+            <h4 class="wip-title">{{ t(b.title) }}</h4>
+            {% if b.original %}<p class="wip-orig">{{ ui("translation_of") }} <span lang="en" dir="ltr">{{ b.original }}</span></p>{% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
   </div>
 </section>
 

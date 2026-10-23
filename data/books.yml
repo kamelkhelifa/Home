@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────
 #  Books
-#  `authored` : books, theses and lecture-note volumes written by me.
-#               Add a cover image in static/img/books/ and reference it with `cover:`.
+#  `theses`, `notes` : theses and lecture-note volumes (add a real cover in static/img/books/ with `cover:`).
+#  `in_progress`      : books being written or translated, grouped.
 #  `shelf`    : the textbooks my courses are built on (titles stay in the original).
 #  `library`  : online libraries and classic works (from the old "المكتبة" pages).
 # ─────────────────────────────────────────────────────────────
@@ -9,43 +9,56 @@
 hero_title: { en: "Written, <em>and read.</em>", ar: "ما كتبتُ، <em>وما قرأت.</em>" }
 intro:
   en: >
-    The books I have written and the books I teach from. The bookshelf lists the reading
-    behind my courses at Manchester, Madinah, Chlef, USTHB and Relizane. The library
-    gathers online collections and classics of the Islamic scientific tradition.
+    My theses and lecture notes, the books I am writing and translating into Arabic, and the
+    books I teach from. The library gathers online collections and classics of the Islamic
+    scientific tradition.
   ar: >
-    ما ألّفتُ من كتب، وما أدرّس منه. يضمّ رفّ الكتب المراجعَ التي قامت عليها مقرراتي في
-    مانشستر والمدينة المنورة والشلف وباب الزوار وغليزان، وتجمع المكتبة مجموعاتٍ إلكترونية
-    وأمّهاتِ الكتب من التراث العلمي الإسلامي.
+    رسائلي ومذكرات محاضراتي، والكتب التي أؤلّفها أو أترجمها إلى العربية، والكتب التي أدرّس منها.
+    وتجمع المكتبة مجموعاتٍ إلكترونية وأمّهاتِ الكتب من التراث العلمي الإسلامي.
 
-authored:
+theses:
   - title: { en: "QCD Resummation for High-pT Jet Shapes at Hadron Colliders", ar: "إعادة جمع الكروموديناميكا الكمية لأشكال النفثات ذات الزخم العرضي العالي في مصادمات الهادرونات" }
     cover_title: QCD Resummation for High-pT Jet Shapes at Hadron Colliders
-    kind: { en: Doctoral thesis, ar: أطروحة دكتوراه }
-    publisher: { en: The University of Manchester, ar: جامعة مانشستر }
+    kind: { en: PhD thesis, ar: أطروحة دكتوراه }
+    publisher: { en: "The University of Manchester · supervised by Prof. M. Dasgupta", ar: "جامعة مانشستر · بإشراف البروفيسور م. داسغوبتا" }
     year: 2012
     language: { en: English, ar: بالإنجليزية }
     description:
       en: >
-        The dissertation that grew into my research programme. It covers non-global
-        logarithms, jet algorithms and the all-order resummation of jet-mass distributions
-        in Z + jet and dijet events at the LHC.
+        Non-global logarithms, jet algorithms and the all-order resummation of jet-mass
+        distributions in Z + jet and dijet events at the LHC: the work that grew into my
+        research programme.
       ar: >
-        الأطروحة التي انبثق منها برنامجي البحثي: اللوغاريتمات غير الشاملة، وخوارزميات النفثات،
-        وإعادة الجمع بجميع الرتب لتوزيعات كتلة النفثة في أحداث Z + نفثة والنفثتين في مصادم
-        الهادرونات الكبير.
+        اللوغاريتمات غير الشاملة، وخوارزميات النفثات، وإعادة الجمع بجميع الرتب لتوزيعات كتلة
+        النفثة في أحداث Z + نفثة والنفثتين في مصادم الهادرونات الكبير: العمل الذي انبثق منه
+        برنامجي البحثي.
     url: https://khelifak.wordpress.com/wp-content/uploads/2014/12/phd_thesis_kk.pdf
     accent: maroon
-  - title: { en: Pedagogical & Research Activities (Habilitation), ar: النشاطات البيداغوجية والبحثية (التأهيل الجامعي) }
-    cover_title: Habilitation
-    kind: { en: University habilitation, ar: التأهيل الجامعي }
-    publisher: { en: Presentation, ar: عرض تقديمي }
-    year: 2015
+  - title: { en: MPhys research project, ar: مشروع ماجستير الفيزياء }
+    cover_title: MPhys Research Project
+    kind: { en: "Master's thesis (MPhys)", ar: "رسالة ماجستير (MPhys)" }
+    publisher: { en: "The University of Manchester · supervised by Prof. A. Pilaftsis", ar: "جامعة مانشستر · بإشراف البروفيسور أ. بيلافتسيس" }
+    year: 2009
     language: { en: English, ar: بالإنجليزية }
     description:
-      en: A short presentation of my teaching and research activities up to 2015.
-      ar: عرض موجز لنشاطاتي في التدريس والبحث حتى سنة 2015.
-    url: https://khelifak.wordpress.com/wp-content/uploads/2016/09/habil_kk.pdf
+      en: >
+        Two-part research project (MPhys Project I & II) in theoretical physics, completed in the
+        final year of the Master of Physics with Theoretical Physics.
+      ar: >
+        مشروع بحثي من جزأين (المشروع الأول والثاني) في الفيزياء النظرية، أُنجز في السنة الأخيرة
+        من ماجستير الفيزياء مع الفيزياء النظرية.
     accent: ink
+
+notes:
+  - title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }
+    cover_title: Quantum Mechanics I
+    kind: { en: Lecture notes, ar: مذكرات محاضرات }
+    publisher: { en: "Course UEF223 · Relizane University", ar: "مقرر UEF223 · جامعة غليزان" }
+    description:
+      en: From the wavefunction and the Schrödinger equation to the hydrogen atom, written for third-year physics students.
+      ar: من الدالة الموجية ومعادلة شرودنغر إلى ذرة الهيدروجين، كُتبت لطلبة السنة الثالثة فيزياء.
+    teachweb: taught/relizane/uef223
+    accent: maroon
   - title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }
     cover_title: English for Physicists
     kind: { en: Lecture notes, ar: مذكرات محاضرات }
@@ -56,16 +69,39 @@ authored:
       ar: مذكرات مقرر اللغة الإنجليزية الذي أدرّسه لطلبة الفيزياء، مع اختبارات سابقة وروابط لقراءات إضافية.
     teachweb: taught/relizane/uet-english
     accent: gold
-  - title: { en: Manchester MPhys Lecture Summaries, ar: ملخصات محاضرات ماجستير مانشستر }
-    cover_title: MPhys Lecture Summaries
-    kind: { en: "Study notes · 2005 – 2009", ar: "مذكرات دراسية · 2005 – 2009" }
-    publisher: { en: The University of Manchester, ar: جامعة مانشستر }
-    language: { en: English, ar: بالإنجليزية }
-    description:
-      en: Typeset and handwritten summaries of the four-year theoretical physics programme, from Dynamics to Quantum Field Theory and The Early Universe.
-      ar: ملخصات مطبوعة ومكتوبة بخط اليد لبرنامج الفيزياء النظرية ذي السنوات الأربع، من الديناميكا إلى نظرية الحقول الكمومية والكون المبكر.
-    page: studying/physics-manchester
-    accent: maroon
+
+# Books in progress. `original` = the translated book; `cover_title` is shown on the generated cover.
+in_progress:
+  - group: { en: Translations into Arabic, ar: ترجمات إلى العربية }
+    items:
+      - title: { en: Vibrations and Waves, ar: الاهتزازات والأمواج }
+        original: "G. C. King, Vibrations and Waves (Wiley)"
+        cover_title: الاهتزازات والأمواج
+        accent: gold
+      - title: { en: Introduction to Quantum Mechanics, ar: مقدمة في ميكانيكا الكم }
+        original: "D. J. Griffiths, Introduction to Quantum Mechanics (Cambridge University Press)"
+        cover_title: مقدمة في ميكانيكا الكم
+        accent: maroon
+      - title: { en: Physics for Scientists and Engineers, ar: الفيزياء للعلماء والمهندسين }
+        original: "R. A. Serway & J. W. Jewett, Physics for Scientists and Engineers (Cengage)"
+        cover_title: الفيزياء للعلماء والمهندسين
+        accent: ink
+  - group: { en: "Authored in Arabic · Physics", ar: "تأليف بالعربية · الفيزياء" }
+    items:
+      - title: { en: "Āyāt wa Ālāt (Signs and Instruments)", ar: آيات وآلات }
+        cover_title: آيات وآلات
+        accent: maroon
+      - title: { en: "Siyar Aʿlām al-Fīziyāʾiyyīn (Lives of Eminent Physicists)", ar: سير أعلام الفيزيائيين }
+        cover_title: سير أعلام الفيزيائيين
+        accent: gold
+  - group: { en: "Authored in Arabic · Other", ar: "تأليف بالعربية · أخرى" }
+    items:
+      - title: { en: "Jāmiʿ Aqwāl al-Salaf (A Compendium of the Sayings of the Salaf)", ar: جامع أقوال السلف }
+        cover_title: جامع أقوال السلف
+        accent: ink
+      - title: { en: "Al-Āyāt al-Kawniyya min al-Āyāt al-Sharʿiyya (The Cosmic Signs in the Scriptural Signs)", ar: الآيات الكونية من الآيات الشرعية }
+        cover_title: الآيات الكونية من الآيات الشرعية
+        accent: maroon
 
 shelf:
   - subject: { en: Introductory physics, ar: الفيزياء التمهيدية }

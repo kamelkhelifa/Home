@@ -30,8 +30,6 @@ current:
       teachweb: taught/qu/phys194
   extras:
     - { en: "Online exam-review sessions via MS Teams, run through the QU Student Learning Support Center.", ar: "حصص مراجعة للاختبارات عبر MS Teams، بالتعاون مع مركز دعم تعلّم الطلاب بجامعة قطر." }
-  links:
-    - { label: { en: Student Portal, ar: بوابة الطلاب }, url: "https://sites.google.com/view/kk-studentportal/" }
 
 archive:
   - id: relizane
@@ -40,6 +38,7 @@ archive:
     country: { en: Algeria, ar: الجزائر }
     years: 2021 – 2026
     role: { en: Associate Professor, ar: أستاذ محاضر }
+    site: { label: { en: Student Portal, ar: بوابة الطلاب }, url: "https://sites.google.com/view/kk-studentportal/" }
     courses:
       - { code: UEF223, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/relizane/uef223, year: 2020 – 2023, taught_in: ar }
       - { code: UEF131, title: { en: Quantum Mechanics II, ar: ميكانيكا الكم 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/relizane/uef131, year: 2021 – 2024 }

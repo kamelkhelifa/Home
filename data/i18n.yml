@@ -96,8 +96,14 @@ collaborators:    { en: Collaborators include, ar: من المتعاونين }
 documents:        { en: Documents, ar: وثائق }
 
 # Books
-authored:         { en: Authored, ar: من تأليفي }
-authored_title:   { en: "Books, theses & notes", ar: "كتب ورسائل ومذكرات" }
+theses:           { en: Theses, ar: الرسائل الجامعية }
+theses_title:     { en: "Master's & PhD in physics", ar: "الماجستير والدكتوراه في الفيزياء" }
+notes:            { en: Lecture notes, ar: مذكرات المحاضرات }
+notes_title:      { en: Notes written for my courses, ar: مذكرات كتبتها لمقرراتي }
+in_progress:      { en: Books, ar: الكتب }
+in_progress_title: { en: Books in progress, ar: كتب قيد الإنجاز }
+in_progress_tag:  { en: In progress, ar: قيد الإنجاز }
+translation_of:   { en: Translation of, ar: ترجمة لكتاب }
 shelf:            { en: The bookshelf, ar: رفّ الكتب }
 shelf_title:      { en: Textbooks behind my courses, ar: الكتب التي بُنيت عليها مقرراتي }
 library:          { en: Library, ar: المكتبة }

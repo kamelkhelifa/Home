@@ -57,7 +57,7 @@
             <p class="muted">{{ t(u.role) }} · {{ t(u.country) }} · {{ u.years }}</p>
           </div>
           <div class="panel-links">
-            {% if u.site %}<a class="pill" href="{{ u.site.url }}" target="_blank" rel="noopener">{{ u.site.label }} {{ icon("arrow") }}</a>{% endif %}
+            {% if u.site %}<a class="pill" href="{{ u.site.url }}" target="_blank" rel="noopener">{{ t(u.site.label) }} {{ icon("arrow") }}</a>{% endif %}
           </div>
         </div>
         {% if u.note %}<p class="panel-note">{{ icon("award") }} {{ t(u.note) }}</p>{% endif %}

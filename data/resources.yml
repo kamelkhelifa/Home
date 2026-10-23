@@ -24,7 +24,7 @@ groups:
         text: { en: "All my courses in one place: syllabi, weekly plans, notes, exams, quizzes and simulations, in English and Arabic.", ar: "كل مقرراتي في مكان واحد: المفردات، والخطط الأسبوعية، والمذكرات، والاختبارات، والتمارين التفاعلية، والمحاكاة، بالعربية والإنجليزية." }
       - label: { en: Student Portal, ar: بوابة الطلاب }
         url: https://sites.google.com/view/kk-studentportal/
-        text: { en: "A single place for my students: course announcements and materials.", ar: "مكان واحد لطلابي: إعلانات المقررات وموادها." }
+        text: { en: "Built for my students at Relizane University: course announcements and materials in one place.", ar: "أنشأتها لطلابي في جامعة غليزان: إعلانات المقررات وموادها في مكان واحد." }
       - label: { en: Personal Teaching Web (legacy), ar: موقع التدريس الشخصي (الأرشيف) }
         url: https://khelifak.wordpress.com/
         text: { en: "The original WordPress home of my courses and notes, now migrated to this site.", ar: "الموطن الأصلي لمقرراتي ومذكراتي على ووردبريس، وقد نُقل محتواه إلى هذا الموقع." }

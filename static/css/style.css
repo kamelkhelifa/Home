@@ -723,6 +723,25 @@ main { display: block; }
 .book-desc { color: var(--ink-2); max-width: 620px; }
 @media (max-width: 620px) { .book { grid-template-columns: 1fr; } .cover { width: 160px; } }
 
+.books-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.books-2 .book { grid-template-columns: 150px 1fr; align-items: start; }
+.books-2 .book-title { font-size: clamp(1.35rem, 1.1rem + .7vw, 1.7rem); }
+@media (max-width: 980px) { .books-2 { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .books-2 .book { grid-template-columns: 1fr; } }
+.cover[lang="ar"] .cover-title { font-family: "Amiri", "Fraunces", serif; font-size: 1.35rem; line-height: 1.5; letter-spacing: 0; }
+.cover[lang="ar"] .cover-kind, .cover[lang="ar"] .cover-author { font-family: "IBM Plex Sans Arabic", var(--sans); letter-spacing: 0; text-transform: none; font-size: .68rem; }
+.cover.cover-sm { width: 120px; flex: none; padding: 16px 14px; transform: none; border-radius: 8px 4px 4px 8px; }
+.wip-group + .wip-group { margin-top: 40px; }
+.wip-heading { font: 500 .78rem/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.wip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.wip { display: flex; gap: 20px; align-items: center; padding: 18px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); transition: border-color .3s, transform .3s var(--ease); }
+.wip:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+.wip .cover-sm { aspect-ratio: 2 / 3; }
+.wip-body { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; min-width: 0; }
+.wip-title { font: 440 1.15rem/1.35 var(--serif); }
+.wip-orig { margin: 0; font-size: .84rem; color: var(--muted); }
+html[lang="ar"] .wip-title { font-weight: 700; }
+html[lang="ar"] .wip-heading { text-transform: none; font-size: .9rem; }
 .shelf { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 @media (max-width: 860px) { .shelf { grid-template-columns: 1fr; } }
 .shelf-group { padding: 28px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }
