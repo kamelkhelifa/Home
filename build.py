@@ -222,7 +222,7 @@ def build():
 
         def teachweb(slug=None):
             base = pick(site["teachweb"], lang)
-            return base + (f"courses/{slug}/" if slug else "")
+            return base + (f"{slug.strip('/')}/" if slug else "")
 
         ctx = dict(
             data,

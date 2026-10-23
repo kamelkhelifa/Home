@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────
 #  Teaching: current post + archive of previous universities
-#  `teachweb:` links a course to its page on TeachWeb (kamelkhelifa.github.io/TeachWeb/courses/<slug>/)
+#  `teachweb:` links a course to its page on TeachWeb: the path after kamelkhelifa.github.io/TeachWeb/ (e.g. taught/madinah/phys321)
 #  `taught_in:` (en | ar | fr) shows the language of instruction
 # ─────────────────────────────────────────────────────────────
 
@@ -23,11 +23,11 @@ current:
     - code: PHYS 193
       title: { en: General Physics for Engineering II, ar: الفيزياء العامة للهندسة 2 }
       kind: { en: Lecture, ar: محاضرات }
-      teachweb: general-physics-2
+      teachweb: taught/qu/phys193
     - code: PHYS 194
       title: { en: Experimental General Physics for Engineering II, ar: الفيزياء العامة التجريبية للهندسة 2 }
       kind: { en: Laboratory, ar: مختبر }
-      teachweb: electricity-lab
+      teachweb: taught/qu/phys194
   extras:
     - { en: "Online exam-review sessions via MS Teams, run through the QU Student Learning Support Center.", ar: "حصص مراجعة للاختبارات عبر MS Teams، بالتعاون مع مركز دعم تعلّم الطلاب بجامعة قطر." }
   links:
@@ -41,12 +41,12 @@ archive:
     years: 2021 – 2026
     role: { en: Associate Professor, ar: أستاذ محاضر }
     courses:
-      - { code: UEF223, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: quantum-mechanics-1, year: 2020 – 2023, taught_in: ar }
-      - { code: UEF131, title: { en: Quantum Mechanics II, ar: ميكانيكا الكم 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: quantum-mechanics-2, year: 2021 – 2024 }
-      - { code: UEM123, title: { en: Numerical Methods & Programming, ar: الطرق العددية والبرمجة }, kind: { en: Lecture & computer lab, ar: محاضرات وأعمال تطبيقية }, teachweb: numerical-methods }
-      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture, tutorials & lab, ar: محاضرات وأعمال موجهة وتطبيقية }, teachweb: vibrations-waves, year: 2024 – 2025 }
-      - { code: UET, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, teachweb: english-for-physicists, taught_in: en }
-      - { title: { en: Applied Quantum Mechanics, ar: ميكانيكا الكم التطبيقية }, kind: { en: Lecture, ar: محاضرات } }
+      - { code: UEF223, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/relizane/uef223, year: 2020 – 2023, taught_in: ar }
+      - { code: UEF131, title: { en: Quantum Mechanics II, ar: ميكانيكا الكم 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/relizane/uef131, year: 2021 – 2024 }
+      - { code: UEM123, title: { en: Numerical Methods & Programming, ar: الطرق العددية والبرمجة }, kind: { en: Lecture & computer lab, ar: محاضرات وأعمال تطبيقية }, teachweb: taught/relizane/uem123 }
+      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture, tutorials & lab, ar: محاضرات وأعمال موجهة وتطبيقية }, teachweb: taught/relizane/uef123, year: 2024 – 2025 }
+      - { code: UET, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/relizane/uet-english, taught_in: en }
+      - { title: { en: Applied Quantum Mechanics, ar: ميكانيكا الكم التطبيقية }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/relizane/applied-quantum-mechanics }
 
   - id: madinah
     institution: { en: Islamic University of Madinah, ar: الجامعة الإسلامية بالمدينة المنورة }
@@ -56,17 +56,17 @@ archive:
     role: { en: Associate Professor, ar: أستاذ مشارك }
     note: { en: "Teaching Excellence Award (2018) for an outstanding interactive teaching website.", ar: "جائزة التميز في التدريس (2018) لتطوير موقع تعليمي تفاعلي متميز." }
     courses:
-      - { code: PHYS101, title: { en: General Physics I, ar: الفيزياء العامة 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: general-physics-1, year: 2016 – 2017 }
-      - { code: PHYS102, title: { en: General Physics II, ar: الفيزياء العامة 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: general-physics-2, year: 2017 – 2018 }
-      - { code: PHYS302, title: { en: Classical Mechanics II, ar: الميكانيكا الكلاسيكية 2 }, kind: { en: Lecture & lab, ar: محاضرات ومختبر }, teachweb: classical-mechanics-2 }
-      - { code: PHYS321, title: { en: Thermal & Statistical Physics, ar: الفيزياء الحرارية والإحصائية }, kind: { en: Lecture, ar: محاضرات }, teachweb: thermal-statistical-physics, year: 2019 – 2020 }
-      - { code: PHYS342, title: { en: Modern Physics II, ar: الفيزياء الحديثة 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: modern-physics-2, year: 2017 – 2018 }
-      - { code: PHYS352, title: { en: Mathematical Physics II, ar: الفيزياء الرياضية 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: mathematical-physics-2, year: 2019 – 2020 }
-      - { code: PHYS354, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: quantum-mechanics-1, year: 2017 – 2018 }
-      - { code: PHYS401, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: quantum-mechanics-1, year: 2019 – 2020 }
-      - { code: PHYS402, title: { en: Quantum Mechanics II, ar: ميكانيكا الكم 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: quantum-mechanics-2, year: 2019 – 2020 }
-      - { code: PHYS402, title: { en: "Quantum Mechanics II (MIT-based)", ar: "ميكانيكا الكم 2 (وفق مقرر MIT)" }, kind: { en: Lecture, ar: محاضرات }, teachweb: quantum-mechanics-2, year: 2019 – 2020 }
-      - { code: PHYS390, title: { en: Training, ar: التدريب الميداني }, kind: { en: Supervised training, ar: تدريب مُشرَف عليه }, teachweb: physics-training, year: 2018 – 2019 }
+      - { code: PHYS101, title: { en: General Physics I, ar: الفيزياء العامة 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys101, year: 2016 – 2017 }
+      - { code: PHYS102, title: { en: General Physics II, ar: الفيزياء العامة 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys102, year: 2017 – 2018 }
+      - { code: PHYS302, title: { en: Classical Mechanics II, ar: الميكانيكا الكلاسيكية 2 }, kind: { en: Lecture & lab, ar: محاضرات ومختبر }, teachweb: taught/madinah/phys302 }
+      - { code: PHYS321, title: { en: Thermal & Statistical Physics, ar: الفيزياء الحرارية والإحصائية }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys321, year: 2019 – 2020 }
+      - { code: PHYS342, title: { en: Modern Physics II, ar: الفيزياء الحديثة 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys342, year: 2017 – 2018 }
+      - { code: PHYS352, title: { en: Mathematical Physics II, ar: الفيزياء الرياضية 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys352, year: 2019 – 2020 }
+      - { code: PHYS354, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys401, year: 2017 – 2018 }
+      - { code: PHYS401, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys401, year: 2019 – 2020 }
+      - { code: PHYS402, title: { en: Quantum Mechanics II, ar: ميكانيكا الكم 2 }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys402, year: 2019 – 2020 }
+      - { code: PHYS402, title: { en: "Quantum Mechanics II (MIT-based)", ar: "ميكانيكا الكم 2 (وفق مقرر MIT)" }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/madinah/phys402-mit, year: 2019 – 2020 }
+      - { code: PHYS390, title: { en: Training, ar: التدريب الميداني }, kind: { en: Supervised training, ar: تدريب مُشرَف عليه }, teachweb: taught/madinah/phys390, year: 2018 – 2019 }
 
   - id: chlef
     institution: { en: University of Chlef (UHBC), ar: جامعة حسيبة بن بوعلي بالشلف }
@@ -76,12 +76,12 @@ archive:
     role: { en: Assistant / Associate Professor, ar: أستاذ مساعد / محاضر }
     site: { label: Chlef PhysicsWeb, url: "https://chlefphys.wordpress.com/" }
     courses:
-      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: vibrations-waves, year: 2016 – 2017 }
-      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: vibrations-waves, year: 2015 – 2016, taught_in: fr }
-      - { code: "و ت أ 321", title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: vibrations-waves, year: 2016 – 2017, taught_in: ar }
-      - { title: { en: Electromagnetism, ar: الكهرومغناطيسية }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: electromagnetism, year: 2016 – 2017 }
-      - { code: UEF224, title: { en: Electromagnetism, ar: الكهرومغناطيسية }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: electromagnetism, year: 2015 – 2016, taught_in: fr }
-      - { code: UET121, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, teachweb: english-for-physicists, year: 2015 – 2016, taught_in: en }
+      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: taught/chlef/vibrations-waves, year: 2016 – 2017 }
+      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: taught/chlef/vibrations-waves, year: 2015 – 2016, taught_in: fr }
+      - { code: "و ت أ 321", title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: taught/chlef/vibrations-waves, year: 2016 – 2017, taught_in: ar }
+      - { title: { en: Electromagnetism, ar: الكهرومغناطيسية }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: taught/chlef/electromagnetism, year: 2016 – 2017 }
+      - { code: UEF224, title: { en: Electromagnetism, ar: الكهرومغناطيسية }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, teachweb: taught/chlef/electromagnetism, year: 2015 – 2016, taught_in: fr }
+      - { code: UET121, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/chlef/english, year: 2015 – 2016, taught_in: en }
 
   - id: usthb
     institution: { en: University of Science & Technology Houari Boumediene (USTHB), ar: جامعة العلوم والتكنولوجيا هواري بومدين }
@@ -91,11 +91,11 @@ archive:
     role: { en: Assistant Professor, ar: أستاذ مساعد }
     site: { label: USTHB PhysicsWeb, url: "https://usthbphysique.wordpress.com/" }
     courses:
-      - { code: UEF112, title: { en: Mechanics, ar: الميكانيكا }, kind: { en: Lecture, tutorials & lab, ar: محاضرات وأعمال موجهة وتطبيقية }, teachweb: general-physics-1, year: 2013 – 2014, taught_in: fr }
-      - { code: UEF212, title: { en: Electricity, ar: الكهرباء }, kind: { en: Lab, ar: أعمال تطبيقية }, teachweb: electricity-lab, year: 2013 – 2014, taught_in: fr }
-      - { code: PHYS7001, title: { en: Particle Physics, ar: فيزياء الجسيمات }, kind: { en: Lecture, ar: محاضرات }, teachweb: particle-physics, year: 2013 – 2014 }
-      - { title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, teachweb: english-for-physicists, year: 2012 – 2013, taught_in: en }
-      - { title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture, ar: محاضرات }, teachweb: vibrations-waves }
+      - { code: UEF112, title: { en: Mechanics, ar: الميكانيكا }, kind: { en: Lecture, tutorials & lab, ar: محاضرات وأعمال موجهة وتطبيقية }, teachweb: taught/usthb/mechanics, year: 2013 – 2014, taught_in: fr }
+      - { code: UEF212, title: { en: Electricity, ar: الكهرباء }, kind: { en: Lab, ar: أعمال تطبيقية }, teachweb: taught/usthb/electricity-lab, year: 2013 – 2014, taught_in: fr }
+      - { code: PHYS7001, title: { en: Particle Physics, ar: فيزياء الجسيمات }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/usthb/phys7001, year: 2013 – 2014 }
+      - { title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/usthb/english, year: 2012 – 2013, taught_in: en }
+      - { title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture, ar: محاضرات }, teachweb: taught/usthb/vibrations-waves }
 
 beyond:
   - when: { en: 2025 – present, ar: 2025 – حاليًا }

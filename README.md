@@ -30,8 +30,8 @@ Open a file, click ✏️, edit, then **Commit changes**. The site rebuilds and 
 - **Add a paper:** copy an entry at the top of `publications:` in `data/research.yml`. Paper titles stay in English.
   `type` is `journal` or `proceedings`; `area` is `qcd`, `materials` or `ew`; add `status: accepted` if it applies.
 - **New semester:** edit `current:` in `data/teaching.yml`.
-- **Add a course:** add it to the right university in `data/teaching.yml` with `teachweb: <slug>`. The slug is the course's
-  file name on TeachWeb (`data/courses/<slug>.yml` there). The course card then opens that TeachWeb page, in the reader's language.
+- **Add a course:** add it to the right university in `data/teaching.yml` with `teachweb: taught/<university>/<course>`.
+  This is the course's path on TeachWeb. The course card then opens that page, in the reader's language.
 - **Add a full page** (notes, guide, article): write `content/en/<section>/<name>.html` and `content/ar/<section>/<name>.html`
   (plain HTML starting at `<h2>`; headings become the table of contents), then reference it with `page: <section>/<name>`
   in `data/studying.yml` or `data/resources.yml`. Inside a page, link to another page with `href="@@resources/herwig"`.
