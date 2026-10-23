@@ -34,19 +34,20 @@ theses:
         برنامجي البحثي.
     url: https://khelifak.wordpress.com/wp-content/uploads/2014/12/phd_thesis_kk.pdf
     accent: maroon
-  - title: { en: MPhys research project, ar: مشروع ماجستير الفيزياء }
-    cover_title: MPhys Research Project
+  - title: { en: Looking for Extra Dimensions, ar: البحث عن أبعاد إضافية }
+    cover_title: Looking for Extra Dimensions
     kind: { en: "Master's thesis (MPhys)", ar: "رسالة ماجستير (MPhys)" }
-    publisher: { en: "The University of Manchester · supervised by Prof. A. Pilaftsis", ar: "جامعة مانشستر · بإشراف البروفيسور أ. بيلافتسيس" }
+    publisher: { en: "The University of Manchester · supervised by Prof. Apostolos Pilaftsis", ar: "جامعة مانشستر · بإشراف البروفيسور أبوستولوس بيلافتسيس" }
     year: 2009
     language: { en: English, ar: بالإنجليزية }
     description:
       en: >
-        Two-part research project (MPhys Project I & II) in theoretical physics, completed in the
-        final year of the Master of Physics with Theoretical Physics.
+        Final-year research project (MPhys Project I & II) in theoretical physics, searching for
+        signatures of extra spatial dimensions, completed for the Master of Physics with
+        Theoretical Physics.
       ar: >
-        مشروع بحثي من جزأين (المشروع الأول والثاني) في الفيزياء النظرية، أُنجز في السنة الأخيرة
-        من ماجستير الفيزياء مع الفيزياء النظرية.
+        مشروع بحثي في السنة الأخيرة (المشروع الأول والثاني) في الفيزياء النظرية، يبحث عن آثار
+        الأبعاد المكانية الإضافية، أُنجز ضمن ماجستير الفيزياء مع الفيزياء النظرية.
     accent: ink
 
 notes:
@@ -55,8 +56,8 @@ notes:
     kind: { en: Lecture notes, ar: مذكرات محاضرات }
     publisher: { en: "Course UEF223 · Relizane University", ar: "مقرر UEF223 · جامعة غليزان" }
     description:
-      en: From the wavefunction and the Schrödinger equation to the hydrogen atom, written for third-year physics students.
-      ar: من الدالة الموجية ومعادلة شرودنغر إلى ذرة الهيدروجين، كُتبت لطلبة السنة الثالثة فيزياء.
+      en: From the wavefunction and the Schrödinger equation to the hydrogen atom, written for second-year physics students.
+      ar: من الدالة الموجية ومعادلة شرودنغر إلى ذرة الهيدروجين، كُتبت لطلبة السنة الثانية فيزياء.
     teachweb: taught/relizane/uef223
     accent: maroon
   - title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }

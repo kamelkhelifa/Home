@@ -35,7 +35,8 @@ Open a file, click ✏️, edit, then **Commit changes**. The site rebuilds and 
 - **Add a full page** (notes, guide, article): write `content/en/<section>/<name>.html` and `content/ar/<section>/<name>.html`
   (plain HTML starting at `<h2>`; headings become the table of contents), then reference it with `page: <section>/<name>`
   in `data/studying.yml` or `data/resources.yml`. Inside a page, link to another page with `href="@@resources/herwig"`.
-- **Add a book:** copy a block under `authored:` in `data/books.yml`. A real cover image can go in `static/img/books/`, referenced with `cover:`.
+- **Books:** in `data/books.yml`, copy a block under `theses:`, `notes:` or a group of `in_progress:`. When a book is published,
+  move it out of `in_progress` and add `url:`. A real cover image can go in `static/img/books/`, referenced with `cover:`.
 - **Portrait photo:** save it as `static/img/portrait.jpg`.
 - **Downloadable CV:** save it as `static/files/CV.pdf`.
 

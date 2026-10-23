@@ -37,7 +37,7 @@ tracks:
       - when: 2005 – 2009
         what: { en: MPhys Physics with Theoretical Physics, ar: ماجستير الفيزياء مع الفيزياء النظرية (MPhys) }
         where: { en: "School of Physics & Astronomy, The University of Manchester", ar: "كلية الفيزياء والفلك، جامعة مانشستر" }
-        note: { en: "First Class with Honours · MPhys project supervised by Prof. A. Pilaftsis", ar: "مرتبة الشرف الأولى · مشروع التخرج بإشراف البروفيسور أ. بيلافتسيس" }
+        note: { en: "First Class with Honours · MPhys project “Looking for Extra Dimensions”, supervised by Prof. Apostolos Pilaftsis", ar: "مرتبة الشرف الأولى · مشروع التخرج «البحث عن أبعاد إضافية» بإشراف البروفيسور أبوستولوس بيلافتسيس" }
         highlight: true
       - when: { en: Summer 2008, ar: صيف 2008 }
         what: { en: "Research Assistant, Manchester Interferometer Polarisation Experiment", ar: "مساعد باحث، تجربة مانشستر لقياس الاستقطاب بالتداخل" }
