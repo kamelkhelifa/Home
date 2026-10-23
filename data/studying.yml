@@ -1,0 +1,88 @@
+# ─────────────────────────────────────────────────────────────
+#  Studying — two parallel journeys: Physics (Manchester) and Medicine (Chlef)
+# ─────────────────────────────────────────────────────────────
+
+intro: >
+  Learning has never stopped being the main thread. A merit scholarship took me from
+  Oued-Sly in Chlef to London and Manchester, where I spent seven years becoming a
+  theoretical physicist. Years later, while teaching full-time, I went back to the
+  Baccalaureate as a free candidate to begin a second degree, this time in medicine.
+
+tracks:
+  - id: physics
+    kicker: Track I
+    title: Physics
+    place: The University of Manchester · United Kingdom
+    years: 2005 – 2012
+    summary: >
+      Four-year Master of Physics with Theoretical Physics (First Class Honours),
+      followed by a PhD in theoretical particle physics in the School of Physics &
+      Astronomy, supervised by Prof. Mrinal Dasgupta.
+    milestones:
+      - when: Jan – Sep 2005
+        what: Graduate Preparatory Course in English for Academic Purposes
+        where: Language Centre, University College London
+        note: IELTS 6.5
+      - when: 2005 – 2009
+        what: MPhys Physics with Theoretical Physics
+        where: School of Physics & Astronomy, The University of Manchester
+        note: First Class with Honours · MPhys project supervised by Prof. A. Pilaftsis
+        highlight: true
+      - when: Summer 2008
+        what: Research Assistant, Manchester Interferometer Polarisation Experiment
+        where: The University of Manchester
+        note: Simulation of a prototype radio-astronomy experiment for the Cosmic Microwave Background
+      - when: Aug – Sep 2010
+        what: 40th British Universities Summer School in Theoretical Elementary Particle Physics (BUSSTEPP)
+        where: Swansea University
+      - when: 2009 – 2012
+        what: PhD Particle Physics
+        where: School of Physics & Astronomy, The University of Manchester
+        note: "Thesis: QCD resummation for high-pT jet shapes at hadron colliders · Overseas Research Student Award"
+        highlight: true
+
+  - id: medicine
+    kicker: Track II
+    title: Medicine
+    place: Faculty of Medicine, University of Chlef · Algeria
+    years: 2023 – present
+    summary: >
+      Candidate for the degree of Doctor of Medicine (M.D.), currently in the third
+      year, with graduation anticipated in 2030.
+    milestones:
+      - when: Jun 2004
+        what: Algerian Baccalaureate
+        where: Oued-Sly High School, Chlef
+        note: 17.15 / 20, ranked 2nd nationally, full merit scholarship to study in the UK
+      - when: Jun 2023
+        what: Algerian Baccalaureate, sat again as a free candidate
+        where: Chlef
+        note: 17.35 / 20, admitted to the Faculty of Medicine
+      - when: Sep 2023 – present
+        what: Doctor of Medicine (M.D.), Year 3
+        where: Faculty of Medicine, University of Chlef
+        note: Anticipated completion June 2030
+        highlight: true
+
+archive:
+  title: Manchester MPhys lecture summaries
+  description: >
+    Lecture summaries and exam reviews I wrote as an undergraduate on the four-year MPhys
+    in Physics with Theoretical Physics (2005 – 2009), arranged by year and semester. They
+    come as LaTeX-typeset PDFs and scanned handwritten notes. They cover, among others,
+    Advanced Quantum Mechanics, Gravitation, Quantum Field Theory and The Early Universe.
+  url: https://khelifak.wordpress.com/teaching/uom-mphys-theoretical-physics-program/
+  topics: [Advanced Quantum Mechanics, Gravitation, Quantum Field Theory, The Early Universe]
+
+medicine_resources:
+  title: Medicine study communities
+  description: >
+    Study groups and channels I run for medical students, covering research, question
+    banks, anatomy and medical translation.
+  items:
+    - { label: MedQBank, url: https://sites.google.com/view/medqbank, kind: Question bank website }
+    - { label: MedResearch, kind: Telegram channel }
+    - { label: MedQBank, kind: Telegram channel }
+    - { label: MedNature, kind: Telegram channel }
+    - { label: MedTranslation, kind: Telegram channel }
+    - { label: MedAnatomy, kind: Telegram channel }

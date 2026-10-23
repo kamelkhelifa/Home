@@ -1,0 +1,320 @@
+# ─────────────────────────────────────────────────────────────
+#  Research — overview, themes, grants, talks, service and publications
+#  Add a new paper at the TOP of `publications` (newest first).
+#  type: journal | proceedings      area: qcd | materials | ew
+# ─────────────────────────────────────────────────────────────
+
+field: High-energy physics · Theory & Phenomenology
+
+overview: >
+  I work on precision Quantum Chromodynamics for high-energy colliders. Most measurements
+  at the LHC involve jets: collimated sprays of hadrons left behind by quarks and gluons.
+  Predicting their properties reliably means resumming large logarithms to all orders in
+  perturbation theory. My work focuses on the subtle, non-global parts of that problem:
+  how soft gluons emitted into restricted regions of phase space, and the jet algorithms
+  used to cluster them, shape the observables experimentalists measure.
+
+themes:
+  - title: Non-global logarithms
+    text: Exact multi-loop computation of non-global logarithms at finite N<sub>c</sub>, including their structure beyond leading order and the question of their exponentiation.
+    symbol: "α<sub>s</sub><sup>n</sup>L<sup>n</sup>"
+  - title: Clustering logarithms
+    text: All-order analytical structure of the k<sub>t</sub>, generalised-k<sub>t</sub> and Cambridge/Aachen algorithms, with clustering logarithms computed up to six loops.
+    symbol: "k<sub>t</sub>"
+  - title: Jet shapes & jet mass
+    text: Resummed predictions for jet mass, hemisphere and dijet mass, and jet shapes in V/H + jet, Z + jet and dijet events at hadron colliders.
+    symbol: "m<sub>j</sub><sup>2</sup>"
+  - title: Eikonal amplitudes
+    text: Soft-gluon (eikonal) amplitudes for processes with two and three hard legs at finite N<sub>c</sub>, and their link to the BMS evolution equation.
+    symbol: "p·k"
+  - title: Azimuthal decorrelation
+    text: All-order description of azimuthal decorrelation between a jet and a Z boson at hadron colliders, and between dijets in e<sup>+</sup>e<sup>−</sup> annihilation.
+    symbol: "Δφ"
+  - title: Materials physics collaborations
+    text: First-principles studies of Heusler and half-Heusler compounds for spintronic, thermoelectric and optoelectronic applications, with colleagues at Relizane University.
+    symbol: "E<sub>g</sub>"
+
+thesis:
+  title: QCD resummation for high-pT jet shapes at hadron colliders
+  kind: PhD thesis
+  where: The University of Manchester
+  year: 2012
+  supervisor: Prof. Mrinal Dasgupta
+
+grants:
+  - role: Principal Investigator
+    scheme: Tamayyuz 1 · Project 02/40
+    title: Testing the Standard Model of Particle Physics at High Energy Colliders
+    funder: Islamic University of Madinah
+    when: 2019 – 2020
+    budget: "$67,000"
+  - role: Principal Investigator
+    scheme: Takamol 10 · Project 107/40
+    title: Precise Calculations of QCD Observables for LHC Physics
+    funder: Islamic University of Madinah
+    when: 2019 – 2020
+    budget: "$6,700"
+  - role: Co-Principal Investigator
+    scheme: CNEPRU D01320130009
+    title: Treatment of Quantum Systems in the Context of Non-Commutative Geometry and Feynman Path Integral Formalism
+    funder: Algerian Ministry of Higher Education & Scientific Research
+    when: 2014 – 2017
+    budget: "$2,000"
+
+talks:
+  - when: Oct 2025
+    title: Precision calculations of clustering logarithms
+    event: International Conference on Physics and Its Applications in Sciences and Engineering (ICPAFSE)
+    place: Medea, Algeria
+    url: https://www.univ-medea.dz/icpafse2025/
+  - when: Feb 2025
+    title: All-order analytical structure of the kt clustering algorithm
+    event: First International Workshop on Physics, Theory and Applications (PTA2025)
+    place: Relizane, Algeria
+    url: https://sites.google.com/view/pta2025
+  - when: May 2022
+    title: Jet shapes in H/V+jet with kt clustering at hadron colliders
+    event: XXIX International Workshop on Deep-Inelastic Scattering (DIS2022)
+    place: Santiago de Compostela, Spain
+    url: https://indico.cern.ch/event/1072533/
+  - when: Apr 2015
+    title: Eikonal gluon radiation at finite-Nc beyond two-loops
+    event: XXIII International Workshop on Deep-Inelastic Scattering (DIS2015)
+    place: SMU, Dallas, USA
+    url: https://www.physics.smu.edu/web/dis2015/
+  - when: Apr 2014
+    title: "Poster: Non-global logarithms beyond leading order and the possibility of their exponentiation"
+    event: First National Day of the Physics of Elementary Particles
+    place: University of Batna 1, Algeria
+    url: https://theorique05.wordpress.com/recherche/jnppe2014/
+  - when: Sep 2013
+    title: On QCD jet mass distribution at LHC
+    event: Ninth International Conference on Subatomic Physics and Applications (CIPSA2013)
+    place: University of Constantine 1, Algeria
+    url: https://www.umc.edu.dz/index.php/en/seminaires-et-proceedings/178-cipsa-2013-recueil-des-resumes
+  - when: Sep 2011
+    title: Resummation of threshold thrust in pQCD
+    event: Mini-Workshop on Jet Shapes
+    place: The University of Manchester, UK
+
+public_talks:
+  - { when: Nov 2025, title: AI Applications in Physics, where: "Pedagogical Day on AI, Relizane University" }
+  - { when: Oct 2025, title: "Scientific Publishing: A Practical Guide", where: "Doctoral Day, University of Medea" }
+  - { when: Apr 2025, title: "A Journey into the Depths of the Atom: The Quantum World", where: "International Year of Quantum, Relizane University" }
+  - { when: Nov 2019, title: A Brief History of Particle Physics, where: "University Scientific Week, Islamic University of Madinah" }
+  - { when: Apr 2019, title: "Where Are We in the Milky Way?", where: "36th Book Fair, Islamic University of Madinah" }
+  - { when: Apr 2014, title: "Particle Physics: Past, Present and Future", where: "National Day of Elementary Particle Physics, University of Batna 1" }
+
+service:
+  - { when: 2025 – present, what: "Referee, Journal of High Energy Physics" }
+  - { when: 2026, what: "President of the Scientific Committee, AFMPA1 conference, Relizane University", url: "https://phys-relizane.github.io/afmpa1/" }
+  - { when: 2026, what: "President of the Organising Committee, NATA'26, University of Chlef", url: "https://sites.google.com/view/nata26" }
+  - { when: 2025, what: "Chair & organiser, PTA2025 workshop, Relizane University", url: "https://sites.google.com/view/pta2025" }
+  - { when: 2022 – 2025, what: "Organising & scientific committees: NATA'22, '23, '25 · CMSRE23–25 · ICPAFSE · HEP Graduate Workshop (Batna 1)" }
+
+labs:
+  - { when: 2025 – present, what: "Laboratory of Physics of Experimental Techniques and its Applications (LPETA)", where: University of Medea }
+  - { when: 2024 – present, what: "Laboratory of Physics of Thin Layers and Advanced Technologies (LPTLAT)", where: Relizane University }
+  - { when: 2016 – present, what: "Mathematical Physics Group (former head), Laboratory of Mathematics and Applications (LMA)", where: University of Chlef }
+  - { when: 2014 – 2016, what: "Laboratory of Mathematical and Subatomic Physics (LPMS)", where: University of Constantine 1 }
+
+collaborators: [M. Dasgupta, A. Banfi, S. Marzani, M. Spannowsky, Y. Delenda, M. Benghanem]
+
+publications:
+  - title: V/H + Jet Production with the Cambridge/Aachen Algorithm
+    authors: K. Khelifa-Kerfa
+    venue: Phys. Rev. D (2026)
+    year: 2026
+    type: journal
+    status: accepted
+    doi: https://journals.aps.org/prd/accepted/10.1103/gzgr-gf82
+    area: qcd
+  - title: FrYBi (Y=Ca,Sr,Ba) Semiconductors for Visible-Light Harvesting
+    authors: O. Hammadache, M. Houari, S. Mesbah, K. Khelifa-Kerfa, M. Benghanem, T. Lantri, B. Belarbi
+    venue: Revista Mexicana de Fisica (2026)
+    year: 2026
+    type: journal
+    status: accepted
+    area: materials
+  - title: Structure of non-global logarithms with Cambridge/Aachen clustering
+    authors: K. Khelifa-Kerfa
+    venue: SciPost Phys. 20, 094 (2026)
+    year: 2026
+    type: journal
+    doi: https://doi.org/10.21468/SciPostPhys.20.4.094
+    area: qcd
+  - title: 'Advanced Properties of CoZrFeP Heusler Compound: A Spin-Gapless Semiconductor for Thermoelectric and Spintronic Applications'
+    authors: B. Belarbi, M. Houari, S. Mesbah, K. Khelifa-Kerfa, M. Benghanem, T. Lantri, O. Hammadache, A. Boucherdoud
+    venue: Mod. Phys. Lett. B 2650033 (2026)
+    year: 2026
+    type: journal
+    doi: https://doi.org/10.1142/S0217984926500338
+    area: materials
+  - title: Jet-mass in V/H+jet up to four-loops with kt clustering
+    authors: K. Khelifa-Kerfa, M. Benghanem
+    venue: JHEP 2026(2), 9 (2026)
+    year: 2026
+    type: journal
+    doi: https://doi.org/10.1007/JHEP02(2026)009
+    area: qcd
+  - title: Hemisphere mass up to four-loops with generalised kt algorithms
+    authors: K. Khelifa-Kerfa, M. Benghanem
+    venue: Eur. Phys. J. C 85, 845 (2025)
+    year: 2025
+    type: journal
+    doi: https://doi.org/10.1140/epjc/s10052-025-14569-0
+    area: qcd
+  - title: Clustering logarithms up to six loops
+    authors: K. Khelifa-Kerfa
+    venue: Phys. Rev. D 111, 094018 (2025)
+    year: 2025
+    type: journal
+    doi: https://doi.org/10.1103/PhysRevD.111.094018
+    area: qcd
+  - title: Dijet mass up to four-loops with(out) kt clustering
+    authors: K. Khelifa-Kerfa
+    venue: Eur. Phys. J. C 85, 133 (2025)
+    year: 2025
+    type: journal
+    doi: https://doi.org/10.1140/epjc/s10052-025-13837-3
+    area: qcd
+  - title: Analytical structure of kt clustering to any order
+    authors: K. Khelifa-Kerfa
+    venue: Phys. Rev. D 111, 014027 (2025)
+    year: 2025
+    type: journal
+    doi: https://doi.org/10.1103/PhysRevD.111.014027
+    area: qcd
+  - title: Spin-Gapless Quaternary Heusler Alloys IrCoTiZ (Z=Si,Sn,Pb)
+    authors: A. Khatar, B. Bouadjemi, M. Houari, M. Matougui, T. Lantri, K. Khelifa-Kerfa et al.
+    venue: Brazilian J. Phys. 55(3), 116 (2025)
+    year: 2025
+    type: journal
+    doi: https://doi.org/10.1007/s13538-025-01725-w
+    area: materials
+  - title: Non-global logarithms up to four loops at finite-Nc for V/H+jet processes at hadron colliders
+    authors: K. Khelifa-Kerfa
+    venue: JHEP 10(2024)079 (2024)
+    year: 2024
+    type: journal
+    doi: https://doi.org/10.1007/JHEP10(2024)079
+    area: qcd
+  - title: 'KCaAs and KCaP: Promising Half-Heusler Compounds for UV Protection and Thermoelectric Applications'
+    authors: O. Hammadache, S. Mesbah, M. Houari, K. Khelifa-Kerfa, M. Benghanem, T. Lantri, B. Belarbi
+    venue: Physica Scripta 99(11), 115940 (2024)
+    year: 2024
+    type: journal
+    doi: https://doi.org/10.1088/1402-4896/ad8191
+    area: materials
+  - title: Dijet azimuthal decorrelation in e+e− annihilation
+    authors: H. Benslama, Y. Delenda, K. Khelifa-Kerfa
+    venue: Phys. Lett. B 840, 137903 (2023)
+    year: 2023
+    type: journal
+    doi: https://doi.org/10.1016/j.physletb.2023.137903
+    area: qcd
+  - title: The Effects of the Widths on the One-Loop Electroweak Corrections to the pp to WW Process
+    authors: N. B. Abdi, R. Bouamrane, K. Khelifa-Kerfa
+    venue: Adv. High Energy Phys. 2023, 8851436 (2023)
+    year: 2023
+    type: journal
+    doi: https://doi.org/10.1155/2023/8851436
+    area: ew
+  - title: Azimuthal decorrelation between a jet and a Z boson at hadron colliders
+    authors: H. Bouaziz, Y. Delenda, K. Khelifa-Kerfa
+    venue: JHEP 2022(10), 1-32 (2022)
+    year: 2022
+    type: journal
+    doi: https://doi.org/10.1007/JHEP10(2022)006
+    area: qcd
+  - title: Jet mass distribution in Higgs/vector boson + jet events at hadron colliders with kt clustering
+    authors: N. Ziani, K. Khelifa-Kerfa, Y. Delenda
+    venue: Eur. Phys. J. C 81(7), 570 (2021)
+    year: 2021
+    type: journal
+    doi: https://doi.org/10.1140/epjc/s10052-021-09379-z
+    area: qcd
+  - title: Eikonal Amplitudes and Non-global Logarithms from the BMS Equation
+    authors: H. Benslama, Y. Delenda, K. Khelifa-Kerfa, A. M. Ibrahim
+    venue: Phys. Part. Nucl. Lett. 18(1), 5-18 (2021)
+    year: 2021
+    type: journal
+    doi: https://doi.org/10.1134/S1547477121010039
+    area: qcd
+  - title: Eikonal amplitudes for three-hard legs processes at finite-Nc
+    authors: K. Khelifa-Kerfa, Y. Delenda
+    venue: Phys. Lett. B 809, 135768 (2020)
+    year: 2020
+    type: journal
+    doi: https://doi.org/10.1016/j.physletb.2020.135768
+    area: qcd
+  - title: Eikonal gluon bremsstrahlung at finite Nc beyond two loops
+    authors: Y. Delenda, K. Khelifa-Kerfa
+    venue: Phys. Rev. D 93, 054027 (2016)
+    year: 2016
+    type: journal
+    doi: https://doi.org/10.1103/PhysRevD.93.054027
+    area: qcd
+  - title: Non-global logarithms at finite Nc beyond leading order
+    authors: K. Khelifa-Kerfa, Y. Delenda
+    venue: JHEP 2015, 94 (2015)
+    year: 2015
+    type: journal
+    doi: https://doi.org/10.1007/JHEP03(2015)094
+    area: qcd
+  - title: On jet mass distributions in Z+jet and dijet processes at the LHC
+    authors: M. Dasgupta, K. Khelifa-Kerfa, S. Marzani, M. Spannowsky
+    venue: JHEP 2012, 126 (2012)
+    year: 2012
+    type: journal
+    doi: https://doi.org/10.1007/JHEP10(2012)126
+    area: qcd
+  - title: On the resummation of clustering logarithms for non-global observables
+    authors: Y. Delenda, K. Khelifa-Kerfa
+    venue: JHEP 2012, 109 (2012)
+    year: 2012
+    type: journal
+    doi: https://doi.org/10.1007/JHEP09(2012)109
+    area: qcd
+  - title: Non-global logs and clustering impact on jet mass with a jet veto distribution
+    authors: K. Khelifa-Kerfa
+    venue: JHEP 2012, 72 (2012)
+    year: 2012
+    type: journal
+    doi: https://doi.org/10.1007/JHEP02(2012)072
+    area: qcd
+  - title: Non-global logarithms and jet algorithms in high-pT jet shapes
+    authors: A. Banfi, M. Dasgupta, K. Khelifa-Kerfa, S. Marzani
+    venue: JHEP 2010, 64 (2010)
+    year: 2010
+    type: journal
+    doi: https://doi.org/10.1007/JHEP08(2010)064
+    area: qcd
+  - title: Jet shapes in H/V boson+jet with kt clustering at hadron colliders
+    authors: K. Khelifa-Kerfa, Y. Delenda, N. Ziani
+    venue: Zenodo 7241205 (2023)
+    year: 2023
+    type: proceedings
+    doi: https://doi.org/10.5281/zenodo.7241205
+    area: qcd
+  - title: Eikonal gluon radiation at finite-Nc beyond 2 loops
+    authors: K. Khelifa-Kerfa, Y. Delenda
+    venue: PoS DIS2015, 143 (2015)
+    year: 2015
+    type: proceedings
+    doi: https://doi.org/10.22323/1.247.0143
+    area: qcd
+  - title: On the resummation of non-global logarithms at finite Nc
+    authors: Y. Delenda, K. Khelifa-Kerfa
+    venue: PoS DIS2015, 138 (2015)
+    year: 2015
+    type: proceedings
+    doi: https://doi.org/10.22323/1.247.0138
+    area: qcd
+  - title: Resummation of clustering logarithms for non-global QCD observables
+    authors: Y. Delenda, K. Khelifa-Kerfa
+    venue: PoS DIS2013, 164 (2013)
+    year: 2013
+    type: proceedings
+    doi: https://doi.org/10.22323/1.191.0164
+    area: qcd

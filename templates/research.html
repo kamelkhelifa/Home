@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import page_hero, section_head %}
+{% block title %}Research · {{ site.name }}{% endblock %}
+{% block description %}All-order perturbative QCD and jet physics: non-global and clustering logarithms, jet observables, publications, grants and talks.{% endblock %}
+
+{% block content %}
+{{ page_hero("03", "Research · " ~ research.field, "Soft gluons, <em>hard questions.</em>"|safe, research.overview) }}
+
+<section class="section tight">
+  <div class="wrap">
+    <ul class="pill-row reveal" aria-label="Research profiles">
+      {% for p in site.profiles %}
+      <li><a class="pill" href="{{ p.url }}" target="_blank" rel="noopener">{{ p.label }}{{ icon("arrow") }}</a></li>
+      {% endfor %}
+    </ul>
+    <div class="themes">
+      {% for t in research.themes %}
+      <article class="theme reveal" style="--d: {{ loop.index0 * 60 }}ms">
+        <span class="theme-symbol" aria-hidden="true">{{ t.symbol | safe }}</span>
+        <h3 class="theme-title">{{ t.title }}</h3>
+        <p class="theme-text">{{ t.text | safe }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint" id="publications">
+  <div class="wrap">
+    <div class="section-head row reveal">
+      <div>
+        <p class="eyebrow">Publications</p>
+        <h2 class="h2">Papers &amp; proceedings</h2>
+      </div>
+      <p class="muted small">Full and up-to-date lists on <a href="{{ site.profiles[0].url }}" target="_blank" rel="noopener">Google Scholar</a> and <a href="{{ site.profiles[1].url }}" target="_blank" rel="noopener">ORCID</a>.</p>
+    </div>
+
+    <div class="pub-controls reveal" data-pub-controls hidden>
+      <label class="search">
+        {{ icon("search") }}
+        <span class="sr-only">Search publications</span>
+        <input type="search" placeholder="Search titles, authors, journals…" data-pub-search>
+      </label>
+      <div class="filters" role="group" aria-label="Filter publications">
+        <button type="button" class="filter is-on" data-filter="all">All</button>
+        <button type="button" class="filter" data-filter="qcd">QCD &amp; jets</button>
+        <button type="button" class="filter" data-filter="materials">Materials</button>
+        <button type="button" class="filter" data-filter="proceedings">Proceedings</button>
+      </div>
+      <p class="pub-count" data-pub-count aria-live="polite"></p>
+    </div>
+
+    <div class="pubs" data-pubs>
+      {% for y in pub_years %}
+      <div class="pub-year" data-year-group>
+        <h3 class="year-label">{{ y }}</h3>
+        <ol class="pub-list">
+          {% for p in research.publications if p.year == y %}
+          <li class="pub" data-area="{{ p.area }}" data-type="{{ p.type }}">
+            <p class="pub-title">{% if p.doi %}<a href="{{ p.doi }}" target="_blank" rel="noopener">{{ p.title | phys }}</a>{% else %}{{ p.title | phys }}{% endif %}</p>
+            <p class="pub-authors">{{ p.authors | authors }}</p>
+            <p class="pub-venue">
+              <span>{{ p.venue }}</span>
+              {% if p.type == "proceedings" %}<span class="tag">Proceedings</span>{% endif %}
+              {% if p.status == "accepted" %}<span class="tag tag-accent">Accepted</span>{% endif %}
+              {% if p.doi %}<a class="tag tag-link" href="{{ p.doi }}" target="_blank" rel="noopener">DOI {{ icon("arrow") }}</a>{% endif %}
+            </p>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endfor %}
+      <p class="empty" data-pub-empty hidden>No publications match your search.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap duo">
+    <article class="feature reveal">
+      <span class="feature-icon">{{ icon("book") }}</span>
+      <p class="eyebrow">{{ research.thesis.kind }} · {{ research.thesis.year }}</p>
+      <h2 class="h3">{{ research.thesis.title | phys }}</h2>
+      <p>{{ research.thesis.where }}. Supervised by {{ research.thesis.supervisor }}.</p>
+      <p class="muted small">Collaborators include {{ research.collaborators | join(", ") }}.</p>
+    </article>
+    <div class="reveal" style="--d: 100ms">
+      <p class="eyebrow">Funding</p>
+      <h2 class="h3 mb">Research grants</h2>
+      <ul class="grants">
+        {% for g in research.grants %}
+        <li class="grant">
+          <div class="grant-top"><span class="tag">{{ g.role }}</span><span class="grant-budget">{{ g.budget }}</span></div>
+          <p class="grant-title">{{ g.title }}</p>
+          <p class="grant-sub">{{ g.scheme }} · {{ g.funder }} · {{ g.when }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap">
+    {{ section_head("Talks", "Conference talks & posters") }}
+    <ul class="rows">
+      {% for t in research.talks %}
+      <li class="row-item reveal">
+        <span class="row-when">{{ t.when }}</span>
+        <span class="row-main">
+          <span class="row-title">{{ t.title | phys }}</span>
+          <span class="row-sub">{% if t.url %}<a href="{{ t.url }}" target="_blank" rel="noopener">{{ t.event }}</a>{% else %}{{ t.event }}{% endif %} · {{ t.place }}</span>
+        </span>
+        {{ icon("mic", "icon row-icon") }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    {{ section_head("Outreach", "Public & invited talks") }}
+    <div class="cards-3">
+      {% for t in research.public_talks %}
+      <article class="card reveal" style="--d: {{ loop.index0 * 60 }}ms">
+        <span class="card-when">{{ t.when }}</span>
+        <h3 class="card-title">“{{ t.title }}”</h3>
+        <p class="card-text">{{ t.where }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap duo">
+    <div class="reveal">
+      <p class="eyebrow">Service</p>
+      <h2 class="h3 mb">Refereeing &amp; conferences</h2>
+      <ul class="mini-rows">
+        {% for s in research.service %}
+        <li><span class="mini-when">{{ s.when }}</span><span>{% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.what }}</a>{% else %}{{ s.what }}{% endif %}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="reveal" style="--d: 100ms">
+      <p class="eyebrow">Affiliations</p>
+      <h2 class="h3 mb">Research laboratories</h2>
+      <ul class="mini-rows">
+        {% for l in research.labs %}
+        <li><span class="mini-when">{{ l.when }}</span><span>{{ l.what }}<br><span class="muted">{{ l.where }}</span></span></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}

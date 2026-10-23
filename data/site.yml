@@ -1,0 +1,54 @@
+# ─────────────────────────────────────────────────────────────
+#  Global profile & settings
+#  Edit this file, commit, and the site rebuilds automatically.
+# ─────────────────────────────────────────────────────────────
+
+name: Kamel Khelifa-Kerfa
+short_name: K. Khelifa-Kerfa
+monogram: KK
+title: Associate Professor of Physics
+affiliation: Department of Physics and Materials Sciences
+institution: Qatar University
+institution_detail: College of Arts & Sciences · Doha, Qatar
+email: kkerfa@qu.edu.qa
+base_url: https://khelifak.github.io   # change to your final GitHub Pages / custom domain URL
+last_updated: October 2026
+
+tagline: >
+  Theoretical particle physicist working on all-order perturbative QCD and jet
+  physics at high-energy colliders — and a teacher at heart.
+
+bio: >
+  I am an Associate Professor of Physics at Qatar University. My research sits at the
+  intersection of precision Quantum Chromodynamics and collider phenomenology: exact
+  multi-loop calculations, all-order resummation and the analytical structure of jet
+  observables at the LHC. I trained at The University of Manchester (MPhys, PhD) and
+  have since taught physics for more than thirteen years across universities in Qatar,
+  Saudi Arabia and Algeria. Alongside physics, I am currently studying medicine at the
+  University of Chlef.
+
+
+profiles:
+  - label: Google Scholar
+    url: https://scholar.google.com/citations?hl=en&user=XQcHCrYAAAAJ
+  - label: ORCID
+    url: https://orcid.org/0000-0001-9252-3666
+  - label: Scopus
+    url: https://www.scopus.com/authid/detail.uri?authorId=36439645400
+  - label: Web of Science
+    url: https://www.webofscience.com/wos/author/record/ISA-9851-2023
+  - label: ResearchGate
+    url: https://www.researchgate.net/profile/Kamel-Khelifa-Kerfa
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/kamel-khelifa-kerfa-bba3ab194/
+  - label: SciPost
+    url: https://scipost.org/contributor/18055
+
+nav:
+  - { id: studying,  label: Studying,  href: studying.html }
+  - { id: teaching,  label: Teaching,  href: teaching.html }
+  - { id: research,  label: Research,  href: research.html }
+  - { id: books,     label: Books,     href: books.html }
+  - { id: resources, label: Resources, href: resources.html }
+
+languages: "Arabic (native) · English (expert) · French (intermediate)"

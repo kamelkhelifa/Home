@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import page_hero, section_head %}
+{% block title %}Studying · {{ site.name }}{% endblock %}
+{% block description %}Physics at The University of Manchester (MPhys, PhD) and Medicine at the University of Chlef.{% endblock %}
+
+{% block content %}
+{{ page_hero("01", "Studying", "Two journeys, <em>one habit.</em>"|safe, studying.intro) }}
+
+<section class="section tight">
+  <div class="wrap tracks">
+    {% for t in studying.tracks %}
+    <article class="track track-{{ t.id }} reveal" style="--d: {{ loop.index0 * 120 }}ms">
+      <header class="track-head">
+        <span class="track-kicker">{{ t.kicker }}</span>
+        <h2 class="track-title">{{ t.title }}</h2>
+        <p class="track-place">{{ t.place }}</p>
+        <p class="track-years">{{ t.years }}</p>
+        <p class="track-summary">{{ t.summary }}</p>
+      </header>
+      <ol class="timeline">
+        {% for m in t.milestones %}
+        <li class="tl-item{% if m.highlight %} is-key{% endif %}">
+          <span class="tl-when">{{ m.when }}</span>
+          <span class="tl-what">{{ m.what | phys }}</span>
+          <span class="tl-where">{{ m.where }}</span>
+          {% if m.note %}<span class="tl-note">{{ m.note | phys }}</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap duo">
+    <article class="feature reveal">
+      <span class="feature-icon">{{ icon("cap") }}</span>
+      <p class="eyebrow">From the archive</p>
+      <h2 class="h3">{{ studying.archive.title }}</h2>
+      <p>{{ studying.archive.description }}</p>
+      <ul class="chip-row">
+        {% for t in studying.archive.topics %}<li class="chip">{{ t }}</li>{% endfor %}
+      </ul>
+      <a class="btn btn-primary" href="{{ studying.archive.url }}" target="_blank" rel="noopener">Open the summaries {{ icon("arrow") }}</a>
+    </article>
+    <article class="feature reveal" style="--d: 100ms">
+      <span class="feature-icon">{{ icon("heart") }}</span>
+      <p class="eyebrow">Medicine</p>
+      <h2 class="h3">{{ studying.medicine_resources.title }}</h2>
+      <p>{{ studying.medicine_resources.description }}</p>
+      <ul class="mini-list">
+        {% for r in studying.medicine_resources["items"] %}
+        <li>
+          {% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.label }} {{ icon("arrow") }}</a>{% else %}<span>{{ r.label }}</span>{% endif %}
+          <span class="mini-kind">{{ r.kind }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </article>
+  </div>
+</section>
+{% endblock %}

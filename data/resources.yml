@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────────────────────
+#  Resources — my other websites, channels, projects and articles
+#  Items without a `url` are shown as plain entries (add the link when ready).
+# ─────────────────────────────────────────────────────────────
+
+intro: >
+  Everything I have built outside the lecture hall: course sites, video channels,
+  conference pages, community projects and short articles on whatever I needed to
+  learn at the time.
+
+groups:
+  - id: teaching-web
+    title: Teaching websites
+    icon: book
+    items:
+      - { label: Student Portal, url: "https://sites.google.com/view/kk-studentportal/", text: "A single place for my students: course announcements and materials." }
+      - { label: Personal Teaching Web (legacy), url: "https://khelifak.wordpress.com/", text: "The original WordPress home of my courses and notes, kept online as an archive." }
+      - { label: Chlef PhysicsWeb, url: "https://chlefphys.wordpress.com/", text: "Course website for the physics department at the University of Chlef." }
+      - { label: USTHB PhysicsWeb, url: "https://usthbphysique.wordpress.com/", text: "Course website for first-year physics at USTHB, Algiers." }
+      - { label: BAC Web, url: "https://baccalauria.wordpress.com/", text: "Free preparation material for the Algerian Baccalaureate." }
+
+  - id: channels
+    title: Video & community channels
+    icon: play
+    items:
+      - { label: Physics Teaching Channel, kind: YouTube, text: "Recorded lectures and problem sessions from my university courses." }
+      - { label: BAC Channel, kind: YouTube, url: "https://www.youtube.com/@baccalauria", text: "Video lessons for Baccalaureate candidates." }
+      - { label: Physics Club, kind: Telegram, text: "Discussion, problems and announcements for physics students." }
+      - { label: APhO / IPhO preparation, kind: Telegram, text: "Olympiad-level problem solving for national team candidates." }
+      - { label: Physics Courses (L1 – M1), kind: Telegram, text: "Course channels for undergraduate and master's physics." }
+      - { label: BAC, kind: Telegram, text: "Baccalaureate preparation community." }
+
+  - id: conferences
+    title: Conference websites
+    icon: calendar
+    items:
+      - { label: "AFMPA1 · 2026", url: "https://phys-relizane.github.io/afmpa1/", text: "First National Conference on Advanced Functional Materials & Physics Applications, Relizane." }
+      - { label: "NATA'26", url: "https://sites.google.com/view/nata26", text: "Third International Conference on Non-linear Analysis: Theory and Applications, Chlef." }
+      - { label: "NATA'25", url: "https://sites.google.com/view/nata25", text: "Second International Conference on Non-linear Analysis, Chlef." }
+      - { label: "PTA2025", url: "https://sites.google.com/view/pta2025", text: "First International Workshop on Physics: Theory and Applications, Relizane." }
+      - { label: "NATA'23", url: "https://sites.google.com/view/confnata23", text: "First International Conference on Non-linear Analysis, Chlef." }
+      - { label: "NATA'22", url: "https://sites.google.com/view/confnata22", text: "First National Conference on Non-linear Analysis, Chlef." }
+
+  - id: projects
+    title: Projects & other websites
+    icon: spark
+    items:
+      - { label: Moajam El-Asmaa, url: "https://moajam-elasmaa.vercel.app/", text: "Moajam El-Asmaa (معجم الأسماء), a web app I designed and built." }
+      - { label: MedQBank, url: "https://sites.google.com/view/medqbank", text: "A question bank for medical students." }
+      - { label: Oyoun El-Itqan Education Academy, kind: "2022 – 2023", text: "A private academy I founded in Chlef, offering languages, IT, UCMAS and school subjects." }
+      - { label: "Maqraa Michkat Al-Wahyayn", kind: "2021 – 2023", text: "A free online school for Quran memorisation and Tajweed." }
+
+  - id: articles
+    title: Articles & notes
+    icon: pen
+    items:
+      - { label: Introduction to Mathematica, kind: Article, text: "A practical introduction to Mathematica for physics students and researchers." }
+      - { label: "A Physicist's Toolkit", kind: Article, text: "The software, habits and resources I rely on for research and teaching." }
+      - { label: "Moodle: exporting a course's student list", kind: How-to, url: "https://khelifak.wordpress.com/library/itweb/moodle/", text: "A short how-to for colleagues managing Moodle course sites." }
+
+community:
+  - { when: 2022 – present, what: "Vice President, Charity Association “Yanabee3 Alkhair”", where: Chlef }
+  - { when: 2015 – 2021, what: "President, Cultural & Scientific Association “Michcat Al-Oloum”", where: Oued-Sly, Chlef }
+  - { when: 2013 – 2016, what: "Volunteer English instructor in community programmes", where: Chlef }

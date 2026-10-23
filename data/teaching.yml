@@ -1,0 +1,129 @@
+# ─────────────────────────────────────────────────────────────
+#  Teaching — current post + archive of previous universities
+#  `url` on a course links to its course page (legacy WordPress pages for now).
+# ─────────────────────────────────────────────────────────────
+
+philosophy: >
+  Physics is learned by doing. I build my courses around clear structure, worked
+  problems and open materials, so that every student can find the syllabus, the notes
+  and the past exams in one place, in the language they need.
+
+current:
+  institution: Qatar University
+  unit: Department of Physics and Materials Sciences · College of Arts & Sciences
+  since: August 2026
+  term: Fall 2026
+  courses:
+    - code: PHYS 193
+      title: General Physics for Engineering II
+      kind: Lecture
+    - code: PHYS 194
+      title: Experimental General Physics for Engineering II
+      kind: Laboratory
+  extras:
+    - Online exam-review sessions via MS Teams, run through the QU Student Learning Support Center.
+  links:
+    - { label: Student Portal, url: https://sites.google.com/view/kk-studentportal/ }
+
+archive:
+  - id: relizane
+    institution: Relizane University
+    country: Algeria
+    years: 2021 – 2026
+    role: Associate Professor
+    site: null
+    courses:
+      - { title: Quantum Mechanics I, code: UEF223, kind: Lecture, url: "https://khelifak.wordpress.com/teaching/teaching-2/ur/uef223-%D9%85%D9%8A%D9%83%D8%A7%D9%86%D9%8A%D9%83%D8%A7-%D8%A7%D9%84%D9%83%D9%85-1/" }
+      - { title: Quantum Mechanics II, kind: Lecture }
+      - { title: Applied Quantum Mechanics, kind: Lecture }
+      - { title: Vibrations & Waves, kind: Lecture & Lab }
+      - { title: Numerical Methods, kind: Computer Lab }
+      - { title: English Language, code: UET, kind: Lecture, url: https://khelifak.wordpress.com/teaching/teaching-2/ur/english/ }
+
+  - id: madinah
+    institution: Islamic University of Madinah
+    country: Saudi Arabia
+    years: 2016 – 2020
+    role: Associate Professor
+    note: Teaching Excellence Award (2018) for an outstanding interactive teaching website.
+    courses:
+      - { title: General Physics I, code: PHYS101, kind: Lecture, url: https://khelifak.wordpress.com/studying/teaching-2/iu/general-physics-i/ }
+      - { title: General Physics II, code: PHYS102, kind: Lecture, url: https://khelifak.wordpress.com/teaching/teaching-2/iu/phys102-general-physicsii/ }
+      - { title: Classical Mechanics II, code: PHYS302, kind: Lecture & Lab }
+      - { title: Thermal & Statistical Physics, code: PHYS321, kind: Lecture, url: https://khelifak.wordpress.com/studying/teaching-2/iu/phys321-thermal-and-statistical-physics/ }
+      - { title: Modern Physics II, code: PHYS342, kind: Lecture, url: https://khelifak.wordpress.com/studying/teaching-2/iu/modern-physics-2/ }
+      - { title: Mathematical Physics II, code: PHYS352, kind: Lecture, url: https://khelifak.wordpress.com/teaching/iu/phys352-mathematical-physics-ii }
+      - { title: Quantum Mechanics I, code: PHYS401, kind: Lecture, url: https://khelifak.wordpress.com/studying/teaching-2/iu/phys401-quantum-mechanics-1/ }
+      - { title: Quantum Mechanics II, kind: Lecture }
+
+  - id: chlef
+    institution: University of Chlef (UHBC)
+    short: University of Chlef
+    country: Algeria
+    years: 2014 – 2016
+    role: Assistant / Associate Professor
+    site: { label: Chlef PhysicsWeb, url: https://chlefphys.wordpress.com/ }
+    courses:
+      - { title: Electromagnetism, kind: Lecture, url: https://khelifak.wordpress.com/teaching/uhbc/electromagnetism/ }
+      - { title: Vibrations & Waves, kind: Lecture }
+      - { title: English Language, kind: Lecture }
+
+  - id: usthb
+    institution: University of Science & Technology Houari Boumediene (USTHB)
+    short: USTHB, Algiers
+    country: Algeria
+    years: 2013 – 2014
+    role: Assistant Professor
+    site: { label: USTHB PhysicsWeb, url: https://usthbphysique.wordpress.com/ }
+    url: https://khelifak.wordpress.com/studying/teaching-2/usthb/
+    courses:
+      - { title: Classical Mechanics, kind: Lecture & Lab }
+      - { title: Electricity & Magnetism, kind: Lecture & Lab }
+      - { title: Vibrations & Waves, kind: Lecture }
+      - { title: Introduction to Particle Physics, kind: Lecture }
+      - { title: English Language, kind: Lecture }
+
+beyond:
+  - when: 2025 – present
+    title: IPhO Trainer, Algerian Olympiad Association
+    text: Prepares Algeria's national team for the International Physics Olympiad through problem-solving workshops, mock exams and one-to-one coaching.
+  - when: Jan 2026
+    title: Scientific Writing with LaTeX
+    text: Workshop for staff and PhD students across Algerian universities, Medea University.
+  - when: Apr 2026
+    title: ICT in the Pedagogical Environment
+    text: Hybrid training programme for newly recruited faculty on Moodle and hybrid learning design, Relizane University.
+  - when: Mar 2018
+    title: Introduction to Mathematica
+    text: Technical lecture on research uses of Mathematica for students and faculty, Islamic University of Madinah.
+  - when: 2015 – 2016
+    title: English Language Trainer
+    text: English workshops for colleagues in the Physics and Mathematics departments, University of Chlef.
+
+supervision:
+  - level: PhD (co-supervisor)
+    who: H. Bouaziz
+    topic: On the Resummation of NGLs and CLs for QCD Observables Based on Soft Gluons Evolution
+    where: University of Batna 1
+    when: 2018 – 2023
+  - level: MSc
+    who: M. Djilali
+    topic: The Effect of Doping on the Physico-chemical Properties of KCaZ (Z = P, As) Materials
+    where: Relizane University
+    when: 2025
+  - level: MSc
+    who: M. Ziane
+    topic: Numerical Solutions of the Schrödinger Equation in 1D and 2D
+    where: Relizane University
+    when: 2025
+  - level: MSc
+    who: H. Belalia
+    topic: "The Hydrogen Atom: A Pedagogical Study"
+    where: Relizane University
+    when: 2023
+  - level: BSc
+    who: A. Siddiq
+    topic: Introduction to the Standard Model
+    where: Islamic University of Madinah
+    when: 2017
+examinations: "Thesis and oral examiner since 2013: 2 PhD · 4 Masters · 4 BSc"

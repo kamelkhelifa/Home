@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}{{ site.name }}: {{ site.title }}, {{ site.institution }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <canvas class="hero-canvas" data-event-display aria-hidden="true"></canvas>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow reveal"><span class="dot"></span>{{ site.title }} · {{ site.institution }}</p>
+      <h1 class="hero-title reveal">
+        <span class="line">Kamel</span>
+        <span class="line"><em>Khelifa-Kerfa</em></span>
+      </h1>
+      <p class="hero-lead reveal">{{ site.tagline }}</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="research.html">Explore research {{ icon("right") }}</a>
+        <a class="btn btn-ghost" href="teaching.html">Current teaching</a>
+        {% if site.cv %}<a class="btn btn-ghost" href="{{ site.cv }}" download>{{ icon("download") }} CV</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="hero-caption" aria-hidden="true">
+    <span>Simulated collider event · hard jets + soft radiation</span>
+  </div>
+</section>
+
+<section class="stats" aria-label="Key figures">
+  <div class="wrap stats-grid">
+    {% for s in site.stats %}
+    <div class="stat reveal" style="--d: {{ loop.index0 * 60 }}ms">
+      <span class="stat-value" data-count="{{ s.value }}">{{ s.value }}</span>{% if s.suffix %}<span class="stat-suffix">{{ s.suffix }}</span>{% endif %}
+      <span class="stat-label">{{ s.label }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="split-head reveal">
+      <p class="eyebrow">About</p>
+      <h2 class="h2">Precision QCD,<br><em>patient teaching.</em></h2>
+      <aside class="hero-card about-card reveal" aria-label="At a glance">
+        {% if site.portrait %}
+        <img class="portrait" src="{{ site.portrait }}" alt="Portrait of {{ site.name }}" width="96" height="96">
+        {% else %}
+        <span class="brand-mark xl" aria-hidden="true">{{ site.monogram }}</span>
+        {% endif %}
+        <dl class="facts">
+          <div><dt>Field</dt><dd>{{ research.field }}</dd></div>
+          <div><dt>Department</dt><dd>{{ site.affiliation }}</dd></div>
+          <div><dt>Trained at</dt><dd>The University of Manchester · MPhys, PhD</dd></div>
+          <div><dt>Contact</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd></div>
+        </dl>
+      </aside>
+    </div>
+    <div class="split-body reveal">
+      <p class="lead">{{ site.bio }}</p>
+      <ul class="pill-row" aria-label="Research profiles">
+        {% for p in site.profiles %}
+        <li><a class="pill" href="{{ p.url }}" target="_blank" rel="noopener">{{ p.label }}{{ icon("arrow") }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Explore</p>
+      <h2 class="h2">Find your way around</h2>
+    </div>
+    {% set rooms = [
+      ("studying", "cap", "Studying", "Physics at Manchester, and now medicine at Chlef: two journeys, one habit of learning."),
+      ("teaching", "users", "Teaching", "This semester at Qatar University, plus thirteen years of course archives from three countries."),
+      ("research", "atom", "Research", "Non-global and clustering logarithms, jet observables, grants, talks and every publication."),
+      ("books", "book", "Books", "Theses, notes and the textbooks my courses are built on."),
+      ("resources", "layers", "Resources", "Websites, YouTube and Telegram channels, conference pages, projects and articles."),
+    ] %}
+    <div class="rooms">
+      {% for id, ic, title, text in rooms %}
+      <a class="room reveal" href="{{ id }}.html" style="--d: {{ loop.index0 * 70 }}ms">
+        <span class="room-idx">0{{ loop.index }}</span>
+        <span class="room-icon">{{ icon(ic) }}</span>
+        <span class="room-title">{{ title }}</span>
+        <span class="room-text">{{ text }}</span>
+        <span class="room-go">{{ icon("right") }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head row reveal">
+      <div>
+        <p class="eyebrow">Latest papers</p>
+        <h2 class="h2">Recent work</h2>
+      </div>
+      <a class="link-arrow" href="research.html#publications">All publications {{ icon("right") }}</a>
+    </div>
+    <div class="paper-cards">
+      {% for p in research.publications if p.area == "qcd" %}{% if loop.index <= 3 %}
+      <article class="paper-card reveal" style="--d: {{ loop.index0 * 80 }}ms">
+        <div class="paper-meta">
+          <span class="tag">{{ p.year }}</span>
+          {% if p.status == "accepted" %}<span class="tag tag-accent">Accepted</span>{% endif %}
+        </div>
+        <h3 class="paper-title">{% if p.doi %}<a href="{{ p.doi }}" target="_blank" rel="noopener">{{ p.title | phys }}</a>{% else %}{{ p.title | phys }}{% endif %}</h3>
+        <p class="paper-authors">{{ p.authors | authors }}</p>
+        <p class="paper-venue">{{ p.venue }}</p>
+      </article>
+      {% endif %}{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap now">
+    <div class="now-card reveal">
+      <div class="now-head">
+        <p class="eyebrow"><span class="dot live"></span>Now teaching · {{ teaching.current.term }}</p>
+        <h2 class="h2">{{ teaching.current.institution }}</h2>
+        <p class="muted">{{ teaching.current.unit }}</p>
+      </div>
+      <div class="now-courses">
+        {% for c in teaching.current.courses %}
+        <div class="course-tile">
+          <span class="course-code">{{ c.code }}</span>
+          <span class="course-title">{{ c.title }}</span>
+          <span class="course-kind">{{ c.kind }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <a class="link-arrow" href="teaching.html">Teaching &amp; course archive {{ icon("right") }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

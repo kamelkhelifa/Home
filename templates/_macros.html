@@ -1,0 +1,17 @@
+{% macro page_hero(idx, label, title, lead) -%}
+<section class="page-hero">
+  <div class="page-hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow reveal"><span class="eyebrow-idx">{{ idx }}</span> {{ label }}</p>
+    <h1 class="page-title reveal">{{ title }}</h1>
+    {% if lead %}<p class="page-lead reveal">{{ lead }}</p>{% endif %}
+  </div>
+</section>
+{%- endmacro %}
+
+{% macro section_head(eyebrow, title, id=None) -%}
+<div class="section-head reveal"{% if id %} id="{{ id }}"{% endif %}>
+  <p class="eyebrow">{{ eyebrow }}</p>
+  <h2 class="h2">{{ title }}</h2>
+</div>
+{%- endmacro %}

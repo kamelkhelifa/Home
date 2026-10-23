@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────────────────────
+#  Books
+#  `authored`  — books, theses and lecture-note volumes written by me.
+#                To add a book: copy one block, fill it in, and (optionally) drop a cover
+#                image in static/img/books/ and reference it with `cover:`.
+#  `shelf`     — the textbooks my courses are built on, grouped by subject.
+# ─────────────────────────────────────────────────────────────
+
+intro: >
+  The books I have written, and the books I teach from. The second list is the reading
+  that has stood behind my courses at Manchester, Madinah, Chlef, USTHB and Relizane.
+
+authored:
+  - title: QCD Resummation for High-pT Jet Shapes at Hadron Colliders
+    kind: Doctoral thesis
+    publisher: The University of Manchester
+    year: 2012
+    language: English
+    description: >
+      The dissertation that grew into my research programme. It covers non-global
+      logarithms, jet algorithms and the all-order resummation of jet-mass distributions
+      in Z + jet and dijet events at the LHC.
+    accent: maroon
+  - title: English for Physicists
+    kind: Lecture notes
+    publisher: Course UET · Relizane University
+    language: English
+    description: >
+      Lecture notes for the English Language course I teach to physics students,
+      with past exams and links to supplementary reading.
+    url: https://khelifak.wordpress.com/teaching/teaching-2/ur/english/
+    accent: gold
+  - title: Manchester MPhys Lecture Summaries
+    kind: Study notes · 2005 – 2009
+    publisher: The University of Manchester
+    language: English
+    description: >
+      Typeset and handwritten summaries of the four-year theoretical physics programme,
+      from Advanced Quantum Mechanics to Quantum Field Theory and The Early Universe.
+    url: https://khelifak.wordpress.com/teaching/uom-mphys-theoretical-physics-program/
+    accent: ink
+
+shelf:
+  - subject: Introductory physics
+    books:
+      - { title: Fundamentals of Physics, authors: "D. Halliday, R. Resnick & J. Walker", edition: "10th ed., Wiley, 2011", course: "PHYS101 · PHYS102" }
+  - subject: Electromagnetism
+    books:
+      - { title: Introduction to Electrodynamics, authors: D. J. Griffiths, edition: Prentice Hall, course: Electromagnetism }
+      - { title: Classical Electrodynamics, authors: J. D. Jackson, edition: Wiley, course: Electromagnetism }
+      - { title: The Feynman Lectures on Physics, Vol. II, authors: "R. P. Feynman, R. B. Leighton & M. Sands", course: Electromagnetism }
+  - subject: Quantum mechanics
+    books:
+      - { title: Introduction to Quantum Mechanics, authors: D. J. Griffiths, edition: "2nd ed.", course: PHYS401 }
+      - { title: The Principles of Quantum Mechanics, authors: P. A. M. Dirac, edition: Oxford, course: PHYS401 }
+      - { title: Introductory Quantum Mechanics, authors: R. L. Liboff, course: PHYS401 }
+  - subject: Modern, thermal & mathematical physics
+    books:
+      - { title: Modern Physics, authors: "R. A. Serway, C. J. Moses & C. A. Moyer", edition: "3rd ed., Cengage, 2004", course: PHYS342 }
+      - { title: Concepts in Thermal Physics, authors: "S. J. Blundell & K. M. Blundell", edition: "OUP, 2010", course: PHYS321 }
+      - { title: Fundamentals of Statistical and Thermal Physics, authors: F. Reif, course: PHYS321 }
+      - { title: Statistical Physics, authors: F. Mandl, course: PHYS321 }
+      - { title: Mathematical Methods for Physicists, authors: "G. B. Arfken & H. J. Weber", edition: "6th ed., Academic Press", course: PHYS352 }
+      - { title: Mathematical Methods in the Physical Sciences, authors: M. L. Boas, course: PHYS352 }

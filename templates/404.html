@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}Page not found · {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero notfound">
+  <div class="page-hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow">Error 404</p>
+    <h1 class="page-title">This page <em>decayed.</em></h1>
+    <p class="page-lead">It may have moved during the migration from WordPress. Try one of the sections below.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="index.html">Back home {{ icon("right") }}</a>
+      {% for item in site.nav %}<a class="btn btn-ghost" href="{{ item.href }}">{{ item.label }}</a>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

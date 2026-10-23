@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import page_hero, section_head %}
+{% block title %}Books · {{ site.name }}{% endblock %}
+{% block description %}Books, theses and lecture notes by {{ site.name }}, and the textbooks behind the courses.{% endblock %}
+
+{% block content %}
+{{ page_hero("04", "Books", "Written, <em>and read.</em>"|safe, books.intro) }}
+
+<section class="section tight">
+  <div class="wrap">
+    {{ section_head("Authored", "Books, theses & notes") }}
+    <div class="books">
+      {% for b in books.authored %}
+      <article class="book reveal" style="--d: {{ loop.index0 * 90 }}ms">
+        <div class="cover cover-{{ b.accent or 'ink' }}" aria-hidden="true">
+          {% if b.cover %}<img src="assets/img/books/{{ b.cover }}" alt="">{% else %}
+          <span class="cover-kind">{{ b.kind }}</span>
+          <span class="cover-title">{{ b.title | phys }}</span>
+          <span class="cover-author">{{ site.short_name }}</span>
+          <span class="cover-rule"></span>
+          {% endif %}
+        </div>
+        <div class="book-body">
+          <p class="eyebrow">{{ b.kind }}{% if b.year %} · {{ b.year }}{% endif %}</p>
+          <h3 class="book-title">{{ b.title | phys }}</h3>
+          <p class="book-pub">{{ b.publisher }}{% if b.language %} · {{ b.language }}{% endif %}</p>
+          <p class="book-desc">{{ b.description }}</p>
+          {% if b.url %}<a class="link-arrow" href="{{ b.url }}" target="_blank" rel="noopener">Open {{ icon("arrow") }}</a>{% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="wrap">
+    {{ section_head("The bookshelf", "Textbooks behind my courses") }}
+    <div class="shelf">
+      {% for g in books.shelf %}
+      <div class="shelf-group reveal" style="--d: {{ loop.index0 * 60 }}ms">
+        <h3 class="shelf-subject">{{ g.subject }}</h3>
+        <ul class="shelf-list">
+          {% for b in g.books %}
+          <li class="shelf-item">
+            <span class="spine" style="--h: {{ (70 + (loop.index * 37) % 30) / 100 }}"></span>
+            <span class="shelf-main">
+              <span class="shelf-title">{{ b.title }}</span>
+              <span class="shelf-author">{{ b.authors }}{% if b.edition %} · {{ b.edition }}{% endif %}</span>
+            </span>
+            <span class="tag">{{ b.course }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
