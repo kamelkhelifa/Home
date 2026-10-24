@@ -200,13 +200,13 @@ textbooks:
     - { authors: R. A. Serway & J. W. Jewett Jr., title: Physics for Scientists and Engineers with Modern Physics, edition: 11th, publisher: Cengage, year: 2025 }
   recommended:
     - { authors: D. C. Giancoli, title: Physics for Scientists and Engineers with Modern Physics, publisher: Pearson Prentice Hall }
-    - { authors: H. D. Young, R. A. Freedman & A. L. Ford, title: University Physics with Modern Physics (Technology Update), edition: 14th, publisher: Pearson }
+    - { authors: "H. D. Young, R. A. Freedman & A. L. Ford", title: "University Physics with Modern Physics (Technology Update)", edition: 14th, publisher: Pearson }
     - { authors: R. D. Knight, title: Physics for Scientists and Engineers with Modern Physics, publisher: Pearson Addison Wesley }
   online:
     - title: { en: "MIT OCW 8.02: Electricity and Magnetism (class slides)", ar: "مقرر MIT OCW 8.02: الكهرباء والمغناطيسية (شرائح المحاضرات)" }
-      url: http://ocw.mit.edu/courses/physics/8-02-physics-ii-electricity-and-magnetism-spring-2007/class-slides/
+      url: https://ocw.mit.edu/courses/8-02-physics-ii-electricity-and-magnetism-spring-2007/
     - title: { en: "Wolfram Demonstrations: electrostatics", ar: "عروض Wolfram التوضيحية: الكهرباء الساكنة" }
-      url: http://demonstrations.wolfram.com/topic.html?topic=Electrostatics&limit=20
+      url: https://demonstrations.wolfram.com/topic.html?topic=Electrostatics&limit=20
     - title: { en: "Freelance-teacher video lessons", ar: "دروس مرئية من موقع Freelance-teacher" }
       url: http://www.freelance-teacher.com/videos.htm
 

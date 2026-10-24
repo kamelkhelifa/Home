@@ -13,7 +13,7 @@ taught:
 credits: 1
 hours: { lecture: 0, tutorial: 0, lab: 3 }
 weeks: 15
-prerequisites: { en: "PHYS 191 and PHYS 192", ar: "PHYS 191 و PHYS 192" }
+prerequisites: { en: "PHYS 191, PHYS 192 and PHYS 193", ar: "PHYS 191 و PHYS 192 و PHYS 193" }
 corequisites: { en: "PHYS 193", ar: "PHYS 193" }
 
 description:

@@ -17,7 +17,7 @@ philosophy:
 current:
   institution: { en: Qatar University, ar: جامعة قطر }
   unit: { en: "Department of Physics and Materials Sciences · College of Arts & Sciences", ar: "قسم الفيزياء وعلوم المواد · كلية الآداب والعلوم" }
-  since: { en: August 2026, ar: أوت 2026 }
+  since: { en: August 2026, ar: أغسطس 2026 }
   term: { en: Fall 2026, ar: خريف 2026 }
   courses:
     - code: PHYS 193
