@@ -1,5 +1,5 @@
 # Interactive labs (sim ids for static/js/sims.js) and glossaries shown on the course pages,
-# keyed by the `companion:` field of each course in data/taught/. Taken from the TeachWeb open courses.
+# keyed by the `companion:` field of each course in data/taught/.
 classical-mechanics-2:
   sims:
   - phase-space

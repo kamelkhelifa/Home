@@ -19,15 +19,16 @@ groups:
     title: { en: Teaching websites, ar: مواقع تعليمية }
     icon: book
     items:
-      - label: { en: TeachWeb, ar: الموقع التعليمي }
-        url: https://kamelkhelifa.github.io/TeachWeb/
-        text: { en: "All my courses in one place: syllabi, weekly plans, notes, exams, quizzes and simulations, in English and Arabic.", ar: "كل مقرراتي في مكان واحد: المفردات، والخطط الأسبوعية، والمذكرات، والاختبارات، والتمارين التفاعلية، والمحاكاة، بالعربية والإنجليزية." }
+      - label: { en: "Formula sheet & physical constants", ar: "جدول القوانين والثوابت الفيزيائية" }
+        page: resources/formulas
+        kind: { en: On this site, ar: في هذا الموقع }
+        text: { en: "The mathematics and CODATA constants used across my courses, on one page you can filter or print on A4.", ar: "الرياضيات وثوابت CODATA المستعملة في مقرراتي، في صفحة واحدة يمكن تصفيتها أو طباعتها على ورقة A4." }
       - label: { en: Student Portal, ar: بوابة الطلاب }
         url: https://sites.google.com/view/kk-studentportal/
         text: { en: "Built for my students at Relizane University: course announcements and materials in one place.", ar: "أنشأتها لطلابي في جامعة غليزان: إعلانات المقررات وموادها في مكان واحد." }
       - label: { en: Personal Teaching Web (legacy), ar: موقع التدريس الشخصي (الأرشيف) }
         url: https://khelifak.wordpress.com/
-        text: { en: "The original WordPress home of my courses and notes, now migrated to this site and to TeachWeb.", ar: "الموطن الأصلي لمقرراتي ومذكراتي على ووردبريس، وقد نُقل محتواه إلى هذا الموقع وإلى الموقع التعليمي." }
+        text: { en: "The original WordPress home of my courses and notes, now migrated to this site.", ar: "الموطن الأصلي لمقرراتي ومذكراتي على ووردبريس، وقد نُقل محتواه إلى هذا الموقع." }
         award: { en: "Teaching Excellence Award 2018 · Faculty of Science, Islamic University of Madinah", ar: "جائزة التميز في التدريس 2018 · كلية العلوم، الجامعة الإسلامية بالمدينة المنورة" }
       - label: { en: Chlef PhysicsWeb, ar: موقع الفيزياء بالشلف }
         url: https://chlefphys.wordpress.com/

@@ -1,8 +1,7 @@
 # Kamel Khelifa-Kerfa: academic website · الموقع الأكاديمي
 
 The bilingual (English / العربية) personal website of Dr Kamel Khelifa-Kerfa, Associate Professor of Physics at Qatar University.
-It replaces the WordPress site [khelifak.wordpress.com](https://khelifak.wordpress.com/). University-independent open courses live on the companion site
-[TeachWeb](https://kamelkhelifa.github.io/TeachWeb/); everything else, including every course as taught at each university, is here.
+It replaces the WordPress site [khelifak.wordpress.com](https://khelifak.wordpress.com/), including every course as taught at each university.
 
 - **English:** `https://kamelkhelifa.github.io/Home/`
 - **العربية:** `https://kamelkhelifa.github.io/Home/ar/`
@@ -37,7 +36,9 @@ Open a file, click ✏️, edit, then **Commit changes**. The site rebuilds and 
   interactive lab, textbooks and glossary. Anything missing shows a discreet "to be added".
   Items under `pending:`, plus `notes:` and `sources:`, are **never published**. A file listed as pending in any
   course is withheld everywhere. In `data/teaching.yml`, link a course card with `course: <university>/<course>`.
-  The lab and glossary come from `data/companions.yml`, which is shared with TeachWeb's open courses.
+  The lab and glossary come from `data/companions.yml`.
+- **Formula sheet:** `data/formulas.yml` (constants, SI prefixes, formulas in LaTeX) becomes `resources/formulas.html`,
+  which every course page links to. It can be filtered and prints on A4 in two columns.
 - **Add a full page** (notes, guide, article): write `content/en/<section>/<name>.html` and `content/ar/<section>/<name>.html`
   (plain HTML starting at `<h2>`; headings become the table of contents), then reference it with `page: <section>/<name>`
   in `data/studying.yml` or `data/resources.yml`. Inside a page, link to another page with `href="@@resources/herwig"`.

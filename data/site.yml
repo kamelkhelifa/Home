@@ -21,7 +21,6 @@ base_url: https://kamelkhelifa.github.io/Home   # change if you add a custom dom
 # Launch switch. While false, every page tells search engines not to index it
 # (the site stays reachable for anyone who has the link). Set to true on launch day.
 launched: false
-teachweb: { en: "https://kamelkhelifa.github.io/TeachWeb/", ar: "https://kamelkhelifa.github.io/TeachWeb/ar/" }
 last_updated: { en: October 2026, ar: أكتوبر 2026, fr: octobre 2026 }
 
 tagline:

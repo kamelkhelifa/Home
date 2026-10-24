@@ -256,12 +256,32 @@ def render_fragment(key, lang, current):
     return Markup(str(soup)), toc
 
 
+# ---------------------------------------------------------------- formula sheet (data/formulas.yml)
+
+FORMULAS_PAGE = "resources/formulas"
+
+
+def load_formulas():
+    f = load("formulas")
+    for sec in f["sections"]:
+        for it in sec["items"]:
+            # stack the formulas of one item (separated by \qquad) on separate lines, so they fit two printed columns;
+            # long lines are also split at ",\quad"
+            parts = []
+            for p in re.split(r"\\qquad", it["tex"]):
+                parts += re.split(r",\s*\\quad\s*", p) if len(p) > 90 else [p]
+            parts = [x.strip().rstrip(",") for x in parts if x.strip()]
+            it["tex"] = parts[0] if len(parts) == 1 else "\\begin{aligned}&" + " \\\\ &".join(parts) + "\\end{aligned}"
+    return f
+
+
 # ---------------------------------------------------------------- build
 
 def build():
     data = {n: load(n) for n in ["site", "i18n", "studying", "teaching", "research", "books", "resources"]}
     site, i18n = data["site"], data["i18n"]
     course_ui = load("course_ui")
+    formulas = load_formulas()
     unis = load_courses()
     courses = {c["page"]: c for u in unis for c in u["courses"]}
     page_langs = {c["page"]: c["uni"]["langs"] for c in courses.values()}
@@ -327,15 +347,11 @@ def build():
         def asset(path):
             return relative(path, current)
 
-        def teachweb(slug=None):
-            base = pick(site["teachweb"], lang)
-            return base + (f"{slug.strip('/')}/" if slug else "")
-
         ctx = dict(
             data,
             page=key, section=key.split("/")[0], lang=lang, other_lang=other,
             dir="rtl" if lang == "ar" else "ltr",
-            t=t, ui=ui, link=link, asset=asset, teachweb=teachweb, cui=cui, cui_has=cui_has,
+            t=t, ui=ui, link=link, asset=asset, cui=cui, cui_has=cui_has,
             labels=course_ui, unis=unis, page_langs_all=langs,
             switch_url=link(key, other),
             switches=[{"lang": lg, "name": LANG_NAMES[lg], "url": relative(out_path(key, lg), current)} for lg in langs if lg != lang],
@@ -360,6 +376,8 @@ def build():
             render("doc.html", key, lang, doc=page_meta[key], body=body, toc=toc,
                    translated_from=orig if orig and orig != lang else None)
             count += 1
+        render("formulas.html", FORMULAS_PAGE, lang, formulas=formulas)
+        count += 1
     for key, c in courses.items():
         for lang in c["uni"]["langs"]:
             render("course.html", key, lang, langs=c["uni"]["langs"], c=c)
@@ -367,7 +385,7 @@ def build():
 
     base = site["base_url"].rstrip("/")
     urls = []
-    for key in [k for k in SECTIONS if k != "404"] + content_keys + list(courses):
+    for key in [k for k in SECTIONS if k != "404"] + content_keys + [FORMULAS_PAGE] + list(courses):
         langs = page_langs.get(key, LANGS)
         links = "".join(
             f'<xhtml:link rel="alternate" hreflang="{lg}" href="{base}/{out_path(key, lg).removesuffix("index.html")}"/>'

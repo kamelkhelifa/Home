@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 NS = {"wp": "http://wordpress.org/export/1.2/", "content": "http://purl.org/rss/1.0/modules/content/"}
 
 # key → (wp_id, source language). Keys double as output paths.
-# Course pages are not imported: courses live on TeachWeb (github.com/kamelkhelifa/TeachWeb).
+# Course pages are not imported: each course has its own page built from data/taught/.
 PAGES = {
     # Studying
     "studying/physics-manchester": (2667, "en"),

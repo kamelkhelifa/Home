@@ -840,21 +840,13 @@ html[lang="ar"] .wip-heading { text-transform: none; font-size: .9rem; }
 .doc-links a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 500; color: var(--accent); }
 .doc-links .icon { width: 1em; height: 1em; }
 
-/* ---------- TeachWeb links ---------- */
+/* ---------- Course links ---------- */
 a.course-big { position: relative; text-decoration: none; color: inherit; transition: background-color .25s, border-color .25s, transform .25s var(--ease); }
 a.course-big:hover { color: inherit; background: color-mix(in srgb, var(--feature-ink) 12%, transparent); border-color: color-mix(in srgb, var(--feature-ink) 30%, transparent); transform: translateY(-2px); }
 .course-big-go { position: absolute; top: 18px; inset-inline-end: 18px; opacity: .6; }
 .course-big-go .icon { transform: scaleX(var(--flip)); width: 18px; height: 18px; }
 a.course-tile { text-decoration: none; color: inherit; transition: border-color .25s, transform .25s var(--ease); }
 a.course-tile:hover { color: inherit; border-color: var(--accent); transform: translateY(-2px); }
-.tw-banner {
-  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 32px;
-  margin-top: 20px; padding: 26px 30px; border-radius: calc(var(--radius) + 4px);
-  background: var(--surface); border: 1px solid var(--line); position: relative; overflow: hidden;
-}
-.tw-banner::before { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 4px; background: linear-gradient(var(--accent), var(--gold)); }
-.tw-banner .eyebrow { margin-bottom: 6px; color: var(--accent); }
-.tw-text { margin: 0; max-width: 640px; color: var(--ink-2); }
 
 /* ---------- Content pages (migrated course pages, notes, guides) ---------- */
 .doc-hero { padding-bottom: clamp(32px, 4vw, 56px); }

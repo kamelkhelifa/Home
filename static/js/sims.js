@@ -1,4 +1,4 @@
-/* TeachWeb — interactive labs. Each lab is drawn on a <canvas>; labels are bilingual.
+/* Interactive labs. Each lab is drawn on a <canvas>; labels are bilingual.
    A course lists its labs in `sims:`; each becomes <div class="sim" data-sim="id">. */
 (function () {
   'use strict';

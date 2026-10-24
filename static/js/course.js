@@ -1,5 +1,5 @@
 /* Course pages: weekly progress, grade calculator, materials filter, glossary & maths.
-   Adapted from TeachWeb's course script. Progress is stored only in the visitor's browser. */
+   Progress is stored only in the visitor's browser. */
 (function () {
   "use strict";
   var $ = function (s, r) { return (r || document).querySelector(s); };

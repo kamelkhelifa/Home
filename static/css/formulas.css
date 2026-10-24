@@ -1,0 +1,89 @@
+/* ==========================================================================
+   Formula sheet (resources/formulas.html): constants, SI prefixes, formulas.
+   On screen: cards; in print: one compact A4 sheet in two columns.
+   ========================================================================== */
+
+.fs-hero .page-title { font-size: clamp(2.2rem, 1.4rem + 3.2vw, 4rem); max-width: 900px; }
+.fs-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.fs-search {
+  flex: 1; max-width: 460px; min-width: 220px; display: flex; align-items: center; gap: 10px;
+  height: 46px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: var(--surface); color: var(--muted); transition: border-color .2s;
+}
+.fs-search:focus-within { border-color: var(--accent); }
+.fs-search .icon { width: 18px; height: 18px; flex: none; }
+.fs-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; color: var(--ink); }
+.fs-tools .btn .icon { width: 18px; height: 18px; }
+.fs-jump { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.fs-jump .pill { font-size: .8rem; }
+
+.fs-wrap { display: grid; gap: 22px; }
+.fs-wrap > * { min-width: 0; }
+.fsheet [hidden] { display: none !important; }
+.fs-block {
+  padding: clamp(18px, 3vw, 28px); border-radius: var(--radius); border: 1px solid var(--line);
+  background: var(--surface); box-shadow: var(--shadow); scroll-margin-top: calc(var(--header-h) + 16px);
+}
+.fs-h {
+  display: flex; align-items: center; gap: 12px; margin: 0 0 14px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--line); font: 440 clamp(1.25rem, 1.1rem + .6vw, 1.6rem)/1.25 var(--serif);
+}
+html[lang="ar"] .fs-h { font-weight: 700; }
+.fs-idx { font: 500 .8rem/1 var(--mono); color: var(--accent); letter-spacing: .08em; }
+.fs-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap: 4px 28px; margin: 0; }
+.fs-item { min-width: 0; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+.fs-item dt { font: 600 .74rem/1.3 var(--sans); color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+html[lang="ar"] .fs-item dt { font-size: .9rem; letter-spacing: 0; text-transform: none; }
+.fs-item dd { margin: 2px 0 0; overflow-x: auto; overflow-y: hidden; direction: ltr; }
+.fsheet .katex { direction: ltr; unicode-bidi: isolate; }
+.fs-item .katex-display { margin: .4em 0; text-align: start; }
+.fs-item .katex-display > .katex { text-align: left; }
+html[dir="rtl"] .fs-item .katex-display, html[dir="rtl"] .fs-item .katex-display > .katex { text-align: right; }
+
+/* scrolling tables in RTL pages leak overflow to the document in Chromium: contain their painting */
+.fsheet .table-wrap { contain: paint; }
+.fs-constants { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.45; }
+.fs-constants th, .fs-constants td { padding: 9px 14px; border-bottom: 1px solid var(--line); text-align: start; vertical-align: middle; }
+.fs-constants th { background: var(--surface-2); font-size: .8rem; font-weight: 600; white-space: nowrap; }
+.fs-constants tr:last-child td { border-bottom: 0; }
+.fs-constants tbody tr:hover td { background: var(--accent-soft); }
+.fs-constants td.m { direction: ltr; white-space: nowrap; }
+.fs-exact {
+  display: inline-block; margin-inline-start: 6px; padding: 1px 8px; border-radius: 999px; vertical-align: middle;
+  font-size: .68rem; font-weight: 600; background: var(--gold-soft); color: var(--gold);
+}
+.fs-note { margin: 12px 0 0; font-size: .84rem; color: var(--muted); }
+.fs-sub { margin: 22px 0 10px; font: 600 .74rem/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+html[lang="ar"] .fs-sub { font-family: var(--sans); font-size: .9rem; letter-spacing: 0; }
+.fs-prefixes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; direction: ltr; }
+.fs-prefixes li {
+  display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 2px 10px;
+  padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface-2); font-size: .85rem;
+}
+.fs-prefixes b { grid-row: span 2; font-size: 1.3rem; font-weight: 500; color: var(--accent); }
+.fs-prefixes i { font-style: normal; color: var(--muted); }
+.fs-empty { margin: 0; padding: 28px; text-align: center; color: var(--muted); border: 1px dashed var(--line-strong); border-radius: var(--radius); }
+
+@media print {
+  .site-header, .site-footer, .fs-tools, .fs-jump, .fs-hero .page-lead, .fs-hero .crumbs, .page-hero-bg { display: none !important; }
+  .fs-hero { padding: 0 0 6pt; }
+  .fs-hero .page-title { font-size: 17pt; margin: 0; }
+  .fsheet { padding: 0; }
+  .fs-wrap { display: block; columns: 2; column-gap: 14pt; max-width: none; padding: 0; }
+  .fs-block { break-inside: avoid-column; border: 0; box-shadow: none; padding: 0 0 8pt; margin: 0 0 6pt; background: none; }
+  #constants { column-span: all; break-inside: auto; }
+  .fs-constants td:first-child { white-space: nowrap; }
+  .fs-h { font-size: 11pt; padding-bottom: 2pt; margin-bottom: 4pt; }
+  .fs-items { display: block; }
+  .fs-item { padding: 2pt 0; break-inside: avoid; }
+  .fs-item dt { font-size: 7pt; color: #000; }
+  .fs-item dd { overflow: visible; }
+  .fsheet .katex { font-size: .82em; }
+  .fsheet .table-wrap { contain: none; border: 0; overflow: visible; }
+  .fs-constants th, .fs-constants td { padding: 2pt 3pt; font-size: 7.5pt; }
+  .fs-constants td.m { white-space: normal; }
+  .fs-prefixes { grid-template-columns: repeat(6, 1fr); gap: 2pt; }
+  .fs-prefixes li { padding: 2pt 4pt; background: none; }
+  .fs-note { font-size: 6.5pt; }
+  @page { size: A4; margin: 12mm; }
+}

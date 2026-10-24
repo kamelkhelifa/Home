@@ -54,10 +54,18 @@ previous_unis:    { en: Previous universities, ar: الجامعات السابق
 universities:     { en: Universities, ar: الجامعات }
 course_pages:     { en: Course pages, ar: صفحات المقررات }
 open_course_hint: { en: "Each course opens its own page with that university's syllabus: weekly plan, assessment, lecture notes, past exams, textbooks, an interactive lab and a glossary. Courses taught in Algeria are also available in French.", ar: "يفتح كل مقرر صفحته الخاصة بمفردات تلك الجامعة: الخطة الأسبوعية، والتقييم، ومذكرات المحاضرات، والاختبارات السابقة، والكتب، ومختبرًا تفاعليًا، ومسردًا للمصطلحات. والمقررات التي دُرّست في الجزائر متاحة بالفرنسية أيضًا." }
-teachweb:         { en: TeachWeb, ar: الموقع التعليمي }
-teachweb_cta:     { en: "Visit TeachWeb", ar: "زيارة الموقع التعليمي", fr: "Visiter TeachWeb" }
-teachweb_text:    { en: "Open courses, independent of any university, are being prepared on TeachWeb: polished syllabi with worked problems, quizzes and simulations, in English and Arabic.", ar: "يجري إعداد مقررات مفتوحة، مستقلة عن أي جامعة، على الموقع التعليمي: مفردات منقّحة مع مسائل محلولة واختبارات قصيرة ومحاكاة، بالعربية والإنجليزية." }
-teachweb_open:    { en: "Open courses on TeachWeb", ar: "المقررات المفتوحة على الموقع التعليمي", fr: "Cours ouverts sur TeachWeb" }
+formulas:         { en: Formula sheet, ar: جدول القوانين, fr: Formulaire }
+formulas_filter:  { en: "Filter: Gaussian, Taylor, Legendre…", ar: "تصفية: غاوس، تايلور، لوجندر…" }
+constants:        { en: Physical constants, ar: الثوابت الفيزيائية }
+quantity:         { en: Quantity, ar: المقدار }
+symbol:           { en: Symbol, ar: الرمز }
+value:            { en: Value, ar: القيمة }
+unit:             { en: Unit, ar: الوحدة }
+exact:            { en: exact, ar: دقيقة }
+si_prefixes:      { en: SI prefixes, ar: سوابق النظام الدولي }
+print_sheet:      { en: Print (A4), ar: طباعة (A4) }
+fs_empty:         { en: Nothing matches this filter., ar: لا شيء يطابق هذه التصفية. }
+fs_jump:          { en: Sections, ar: الأقسام }
 taught_in_fr:     { en: Taught in French, ar: دُرّس بالفرنسية }
 taught_in_ar:     { en: Taught in Arabic, ar: دُرّس بالعربية }
 taught_in_en:     { en: Taught in English, ar: دُرّس بالإنجليزية }
