@@ -160,7 +160,7 @@
       <li class="week{% if w.milestone == 'break' %} is-break{% endif %}" id="week-{{ wid }}" data-week="{{ wid }}">
         <div class="week-head">
           <label class="week-check" title="{{ cui('mark_done') }}">
-            <input type="checkbox" data-week-done="{{ wid }}" aria-label="{{ cui('mark_done') }}: {{ cui('week') }} {{ w.week }}"{% if w.milestone == 'break' %} disabled{% endif %}>
+            <input type="checkbox" data-week-done="{{ wid }}" aria-label="{{ cui('mark_done') }}: {% if w.numeric %}{{ cui('week') }} {% endif %}{{ w.week }}"{% if w.milestone == 'break' %} disabled{% endif %}>
             <span class="box">{{ ic('check', 'ic xs') }}</span>
           </label>
           <button class="week-toggle" type="button" aria-expanded="false" aria-controls="week-panel-{{ wid }}"{% if not has_body %} disabled{% endif %}>
@@ -272,7 +272,7 @@
           <span class="mat-icon t-{{ m.type }}">{{ ic(type_icon[m.type] or 'notes') }}</span>
           <span class="mat-body">
             <span class="mat-title">{{ t(m.title) }}</span>
-            <span class="mat-meta">{{ t(labels.material_types[m.type]) if m.type in labels.material_types else m.type }}{% if m.week %} · {{ cui('week') }} <bdi>{{ m.week }}</bdi>{% endif %}{% if m.lang %} · <span class="lang-tag">{{ m.lang | upper }}</span>{% endif %}</span>
+            <span class="mat-meta">{{ t(labels.material_types[m.type]) if m.type in labels.material_types else m.type }}{% if m.week %} · {% if m.week is string and m.week.startswith('Ch.') %}{{ cui('chapter') }} <bdi>{{ m.week[3:] | trim }}</bdi>{% else %}{{ cui('week') }} <bdi>{{ m.week }}</bdi>{% endif %}{% endif %}{% if m.lang %} · <span class="lang-tag">{{ m.lang | upper }}</span>{% endif %}</span>
           </span>
           {{ ic('external', 'ic xs mat-ext') }}
         </a>

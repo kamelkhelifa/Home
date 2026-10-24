@@ -1,5 +1,6 @@
 # Interface strings and label sets for the course pages (en / ar / fr).
 ui:
+  chapter: { en: Ch., ar: الفصل, fr: Chap. }
   formulas_title: { en: "Formula sheet & physical constants", ar: "جدول القوانين والثوابت الفيزيائية", fr: "Formulaire et constantes physiques" }
   formulas_note: { en: "Bilingual sheet (CODATA 2018), searchable and printable on A4.", ar: "ورقة ثنائية اللغة (CODATA 2018)، قابلة للبحث والطباعة على ورقة A4.", fr: "Fiche bilingue (CODATA 2018), avec recherche, imprimable en A4 (en anglais)." }
   activity:

@@ -75,12 +75,9 @@ archive:
     role: { en: Assistant / Associate Professor, ar: أستاذ مساعد / محاضر }
     site: { label: Chlef PhysicsWeb, url: "https://chlefphys.wordpress.com/" }
     courses:
-      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, course: chlef/vibrations-waves, year: 2016 – 2017 }
-      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, course: chlef/vibrations-waves, year: 2015 – 2016, taught_in: fr }
-      - { code: "و ت أ 321", title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, course: chlef/vibrations-waves, year: 2016 – 2017, taught_in: ar }
-      - { title: { en: Electromagnetism, ar: الكهرومغناطيسية }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, course: chlef/electromagnetism, year: 2016 – 2017 }
-      - { code: UEF224, title: { en: Electromagnetism, ar: الكهرومغناطيسية }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, course: chlef/electromagnetism, year: 2015 – 2016, taught_in: fr }
-      - { code: UET121, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, course: chlef/english, year: 2015 – 2016, taught_in: en }
+      - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, course: chlef/vibrations-waves, year: 2014 – 2016, taught_in: fr }
+      - { code: UEF224, title: { en: Electromagnetism, ar: الكهرومغناطيسية }, kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }, course: chlef/electromagnetism, year: 2014 – 2016, taught_in: fr }
+      - { code: "UET121 · UET511", title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, course: chlef/english, year: 2014 – 2016, taught_in: en }
 
   - id: usthb
     institution: { en: University of Science & Technology Houari Boumediene (USTHB), ar: جامعة العلوم والتكنولوجيا هواري بومدين }

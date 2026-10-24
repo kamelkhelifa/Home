@@ -10,8 +10,8 @@ area: electromagnetism
 companion: electromagnetism   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lectures & tutorials, ar: محاضرات وأعمال موجهة, fr: Cours et travaux dirigés }
 taught:
+  - { years: 2014–2015, code: UEF224, lang: fr }
   - { years: 2015–2016, code: UEF224, lang: fr }
-  - { years: 2016–2017, code: UEF224, lang: en }
 hours: { lecture: 1.5, tutorial: 1.5, lab: 0 }
 prerequisites:
   en: "UEF112 (Math3), UEF113 (Phys2)"
@@ -25,6 +25,26 @@ objectives:
   - en: Students will encounter wave equations of the same form as those they met in UEF123 (Vibrations and Waves).
     ar: يصادف الطالب معادلات انتشار لها الشكل نفسه الذي عرفه في المقرر UEF123 (الاهتزازات والأمواج).
     fr: L’étudiant retrouve des équations de propagation de la même forme que celles qu’il a rencontrées en UEF123 (Vibrations et Ondes).
+
+description:
+  en: |
+    Electromagnetism is the first complete field theory that students meet: four equations, Maxwell's equations, account for electricity, magnetism and light. This second-year course (semester 4 of the Matter Sciences licence) builds them up from the experimental laws and uses them to describe electromagnetic waves.
+
+    After a chapter of mathematical tools (vector analysis, the Dirac delta and Poisson's equation), the course treats electrostatics (Coulomb's and Gauss's laws, the potential, the energy of a charge distribution and the multipole expansion) and magnetostatics (the Lorentz force, the Biot–Savart and Ampère laws, the vector potential and magnetic dipoles). Electrodynamics then brings in Faraday's law of induction, inductance and magnetic energy, and Maxwell's displacement current completes the four equations, in integral and differential form.
+
+    The last part applies Maxwell's equations to electromagnetic plane waves in vacuum, to reflection and refraction at a boundary (the Fresnel equations), to guided waves in lines and waveguides, and finally to fields in materials: polarisation, magnetisation and waves in matter. The same wave equations met in Vibrations and Waves reappear here, now for the electromagnetic field.
+  ar: |
+    الكهرومغناطيسية أول نظرية حقلية متكاملة يتعرّف عليها الطالب: أربع معادلات، هي معادلات ماكسويل، تفسّر الكهرباء والمغناطيسية والضوء معًا. ويبني هذا المقرر، المدرَّس في السنة الثانية (الفصل الرابع من ليسانس علوم المادة)، هذه المعادلات انطلاقًا من القوانين التجريبية، ثم يستعملها لوصف الأمواج الكهرومغناطيسية.
+
+    بعد فصل في الأدوات الرياضية (التحليل الشعاعي، وتوزيع ديراك، ومعادلة بواسون)، يعالج المقرر الكهروساكنة (قانونا كولوم وغاوس، والكمون، وطاقة توزيع شحني، والنشر متعدد الأقطاب) والمغناطيسية الساكنة (قوة لورنتز، وقانونا بيو-سافار وأمبير، والكمون الشعاعي، وثنائيات الأقطاب المغناطيسية). ثم تُدخل الكهروديناميكا قانون فاراداي للتحريض، والذاتية، والطاقة المغناطيسية، ويُكمل تيار الإزاحة لماكسويل المعادلات الأربع بصيغتيها التكاملية والتفاضلية.
+
+    ويطبّق الجزء الأخير معادلات ماكسويل على الأمواج الكهرومغناطيسية المستوية في الفراغ، وعلى الانعكاس والانكسار عند سطح فاصل (معادلات فرينل)، وعلى الأمواج الموجَّهة في الخطوط والدلائل الموجية، وأخيرًا على الحقول في الأوساط المادية: الاستقطاب، والتمغنط، والأمواج في المادة. وتظهر هنا من جديد معادلات الانتشار نفسها التي دُرست في مقرر الاهتزازات والأمواج، ولكن للحقل الكهرومغناطيسي.
+  fr: |
+    L'électromagnétisme est la première théorie de champ complète que rencontrent les étudiants : quatre équations, les équations de Maxwell, rendent compte à la fois de l'électricité, du magnétisme et de la lumière. Ce cours de deuxième année (semestre 4 de la licence Sciences de la Matière) les construit à partir des lois expérimentales et les utilise pour décrire les ondes électromagnétiques.
+
+    Après un chapitre d'outils mathématiques (analyse vectorielle, distribution de Dirac, équation de Poisson), le cours traite l'électrostatique (lois de Coulomb et de Gauss, potentiel, énergie d'une distribution de charges, développement multipolaire) et la magnétostatique (force de Lorentz, lois de Biot-Savart et d'Ampère, potentiel vecteur, dipôles magnétiques). L'électrodynamique introduit ensuite la loi d'induction de Faraday, l'inductance et l'énergie magnétique, et le courant de déplacement de Maxwell complète les quatre équations, sous forme intégrale et différentielle.
+
+    La dernière partie applique les équations de Maxwell aux ondes planes électromagnétiques dans le vide, à la réflexion et à la réfraction à une interface (équations de Fresnel), aux ondes guidées dans les lignes et les guides d'ondes, et enfin aux champs dans les milieux matériels : polarisation, aimantation et ondes dans la matière. Les équations d'onde vues en Vibrations et Ondes réapparaissent ici, cette fois pour le champ électromagnétique.
 
 # "By the end of the course, successful students will be able to:"
 outcomes:
@@ -72,10 +92,24 @@ outcomes:
 assessment:
   - type: quiz
     weight: 33
-    title: { en: Continuous assessment, ar: التقييم المستمر, fr: Contrôle continu }
+    title: { en: "Continuous assessment (tutorials)", ar: "التقييم المستمر (الأعمال الموجهة)", fr: "Contrôle continu (TD)" }
+    detail:
+      en: "Tests (quizzes) 1 and 2, participation, homework assignments and attendance in the tutorial sessions."
+      ar: "الاختباران القصيران 1 و2، والمشاركة، والواجبات المنزلية، والمواظبة على حصص الأعمال الموجهة."
+      fr: "Interrogations 1 et 2, participation, devoirs à la maison et assiduité aux séances de TD."
+    when: { en: During the semester, ar: خلال الفصل, fr: Pendant le semestre }
   - type: final
     weight: 67
-    title: { en: Exam, ar: الاختبار, fr: Examen }
+    title: { en: Final exam, ar: الاختبار النهائي, fr: Examen final }
+    detail:
+      en: "Written exam at the end of the semester. A resit exam is held for students who do not pass."
+      ar: "اختبار كتابي في نهاية الفصل، يليه اختبار استدراكي للطلبة غير الناجحين."
+      fr: "Examen écrit en fin de semestre. Un examen de rattrapage est organisé pour les étudiants non admis."
+    when: { en: End of semester, ar: نهاية الفصل, fr: Fin de semestre }
+assessment_note:
+  en: "Standard scheme of Algerian universities (LMD): final mark = 0.33 × continuous assessment + 0.67 × exam."
+  ar: "النظام المعتمد في الجامعات الجزائرية (ل م د): العلامة النهائية = 0.33 × التقييم المستمر + 0.67 × الاختبار."
+  fr: "Schéma habituel des universités algériennes (LMD) : note finale = 0,33 × contrôle continu + 0,67 × examen."
 
 # Course plan (chapters; the source gives no week-by-week calendar)
 schedule:
@@ -124,6 +158,7 @@ textbooks:
     - { authors: A. Zangwill, title: Modern Electrodynamics, publisher: Cambridge University Press, year: 2013 }
     - { authors: "R. P. Feynman, R. B. Leighton and M. Sands", title: "The Feynman Lectures on Physics, Volume II", publisher: Addison-Wesley, year: 1965 }
     - { authors: "J.-P. Pérez, R. Carles and R. Fleckinger", title: "Électromagnétisme : fondements et applications", publisher: Dunod, year: 2011 }
+    - { authors: L. D. Landau and E. M. Lifshitz, title: "The Classical Theory of Fields (Course of Theoretical Physics, Vol. 2)", edition: 4th, publisher: Butterworth-Heinemann, year: 1975 }
   online:
     - title: { en: Lectures on Electromagnetism — D. Tong (Cambridge), ar: Lectures on Electromagnetism — D. Tong (كامبريدج), fr: Lectures on Electromagnetism — D. Tong (Cambridge) }
       url: https://www.damtp.cam.ac.uk/user/tong/em.html
@@ -150,29 +185,29 @@ textbooks:
 materials:
   # Lecture notes (French polycopié)
   - { type: notes, title: { en: "Lecture notes — all chapters", ar: "مذكرات المحاضرات — جميع الفصول", fr: "Polycopié de cours — tous les chapitres" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 1 — Mathematical tools", ar: "الفصل 1 — الأدوات الرياضية", fr: "Chapitre 1 — Outils mathématiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap11.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 2 — Electrostatics", ar: "الفصل 2 — الكهروساكنة", fr: "Chapitre 2 — Électrostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap21.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 3 — Magnetostatics", ar: "الفصل 3 — المغناطيسية الساكنة", fr: "Chapitre 3 — Magnétostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap31.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 4 — Electrodynamics and Maxwell's equations", ar: "الفصل 4 — الكهروديناميكا ومعادلات ماكسويل", fr: "Chapitre 4 — Électrodynamique et équations de Maxwell" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap41.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 5 — Propagation of electromagnetic waves", ar: "الفصل 5 — انتشار الأمواج الكهرومغناطيسية", fr: "Chapitre 5 — Propagation des ondes électromagnétiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap51.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 6 — Electromagnetism in materials (part 1)", ar: "الفصل 6 — الكهرومغناطيسية في المواد (الجزء 1)", fr: "Chapitre 6 — L’électromagnétisme dans les matériaux (partie 1)" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_chap6a.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 6 — Electromagnetism in materials (part 2)", ar: "الفصل 6 — الكهرومغناطيسية في المواد (الجزء 2)", fr: "Chapitre 6 — L’électromagnétisme dans les matériaux (partie 2)" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_chap6b.pdf, lang: fr }
-  - { type: notes, title: { en: "Chapter 6 — Electromagnetism in materials (part 3)", ar: "الفصل 6 — الكهرومغناطيسية في المواد (الجزء 3)", fr: "Chapitre 6 — L’électromagnétisme dans les matériaux (partie 3)" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_chap6c.pdf, lang: fr }
+  - { type: notes, title: { en: "Chapter 1 — Mathematical tools", ar: "الفصل 1 — الأدوات الرياضية", fr: "Chapitre 1 — Outils mathématiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap11.pdf, lang: fr, week: "Ch. 1" }
+  - { type: notes, title: { en: "Chapter 2 — Electrostatics", ar: "الفصل 2 — الكهروساكنة", fr: "Chapitre 2 — Électrostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap21.pdf, lang: fr, week: "Ch. 2" }
+  - { type: notes, title: { en: "Chapter 3 — Magnetostatics", ar: "الفصل 3 — المغناطيسية الساكنة", fr: "Chapitre 3 — Magnétostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap31.pdf, lang: fr, week: "Ch. 3" }
+  - { type: notes, title: { en: "Chapter 4 — Electrodynamics and Maxwell's equations", ar: "الفصل 4 — الكهروديناميكا ومعادلات ماكسويل", fr: "Chapitre 4 — Électrodynamique et équations de Maxwell" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap41.pdf, lang: fr, week: "Ch. 4" }
+  - { type: notes, title: { en: "Chapter 5 — Propagation of electromagnetic waves", ar: "الفصل 5 — انتشار الأمواج الكهرومغناطيسية", fr: "Chapitre 5 — Propagation des ondes électromagnétiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_cours_chap51.pdf, lang: fr, week: "Ch. 5" }
+  - { type: notes, title: { en: "Chapter 6 — Electromagnetism in materials (part 1)", ar: "الفصل 6 — الكهرومغناطيسية في المواد (الجزء 1)", fr: "Chapitre 6 — L’électromagnétisme dans les matériaux (partie 1)" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_chap6a.pdf, lang: fr, week: "Ch. 6" }
+  - { type: notes, title: { en: "Chapter 6 — Electromagnetism in materials (part 2)", ar: "الفصل 6 — الكهرومغناطيسية في المواد (الجزء 2)", fr: "Chapitre 6 — L’électromagnétisme dans les matériaux (partie 2)" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_chap6b.pdf, lang: fr, week: "Ch. 6" }
+  - { type: notes, title: { en: "Chapter 6 — Electromagnetism in materials (part 3)", ar: "الفصل 6 — الكهرومغناطيسية في المواد (الجزء 3)", fr: "Chapitre 6 — L’électromagnétisme dans les matériaux (partie 3)" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_chap6c.pdf, lang: fr, week: "Ch. 6" }
   # Tutorials
-  - { type: summary, title: { en: "Summary 1 — Mathematical tools", ar: "الملخص 1 — الأدوات الرياضية", fr: "Résumé 1 — Outils mathématiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_resume1.pdf, lang: fr }
-  - { type: problems, title: { en: "Problem set 1 — Mathematical tools", ar: "السلسلة 1 — الأدوات الرياضية", fr: "Série 1 — Outils mathématiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_serie1.pdf, lang: fr }
-  - { type: problems, title: { en: "Problem set 2 — Electrostatics", ar: "السلسلة 2 — الكهروساكنة", fr: "Série 2 — Électrostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/02/em_serie2.pdf, lang: fr }
-  - { type: problems, title: { en: "Problem set 3 — Magnetostatics", ar: "السلسلة 3 — المغناطيسية الساكنة", fr: "Série 3 — Magnétostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/02/em_serie3.pdf, lang: fr }
-  - { type: problems, title: { en: "Problem set 4 — Maxwell's equations", ar: "السلسلة 4 — معادلات ماكسويل", fr: "Série 4 — Équations de Maxwell" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/03/em_serie4.pdf, lang: fr }
-  - { type: problems, title: { en: "Problem set 5 — Propagation of electromagnetic waves", ar: "السلسلة 5 — انتشار الأمواج الكهرومغناطيسية", fr: "Série 5 — Propagation des ondes électromagnétiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_serie5.pdf, lang: fr }
-  - { type: problems, title: { en: "Problem set 6 — Electromagnetism in materials", ar: "السلسلة 6 — الكهرومغناطيسية في المواد", fr: "Série 6 — L’électromagnétisme dans les matériaux" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/05/em_serie6.pdf, lang: fr }
-  - { type: solutions, title: { en: "Solutions to problem set 6 — Electromagnetism in materials", ar: "حل السلسلة 6 — الكهرومغناطيسية في المواد", fr: "Solution de la série 6 — L’électromagnétisme dans les matériaux" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/05/em_serie6_s.pdf, lang: fr }
+  - { type: summary, title: { en: "Summary 1 — Mathematical tools", ar: "الملخص 1 — الأدوات الرياضية", fr: "Résumé 1 — Outils mathématiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_resume1.pdf, lang: fr, week: "Ch. 1" }
+  - { type: problems, title: { en: "Problem set 1 — Mathematical tools", ar: "السلسلة 1 — الأدوات الرياضية", fr: "Série 1 — Outils mathématiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/01/em_serie1.pdf, lang: fr, week: "Ch. 1" }
+  - { type: problems, title: { en: "Problem set 2 — Electrostatics", ar: "السلسلة 2 — الكهروساكنة", fr: "Série 2 — Électrostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/02/em_serie2.pdf, lang: fr, week: "Ch. 2" }
+  - { type: problems, title: { en: "Problem set 3 — Magnetostatics", ar: "السلسلة 3 — المغناطيسية الساكنة", fr: "Série 3 — Magnétostatique" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/02/em_serie3.pdf, lang: fr, week: "Ch. 3" }
+  - { type: problems, title: { en: "Problem set 4 — Maxwell's equations", ar: "السلسلة 4 — معادلات ماكسويل", fr: "Série 4 — Équations de Maxwell" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/03/em_serie4.pdf, lang: fr, week: "Ch. 4" }
+  - { type: problems, title: { en: "Problem set 5 — Propagation of electromagnetic waves", ar: "السلسلة 5 — انتشار الأمواج الكهرومغناطيسية", fr: "Série 5 — Propagation des ondes électromagnétiques" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_serie5.pdf, lang: fr, week: "Ch. 5" }
+  - { type: problems, title: { en: "Problem set 6 — Electromagnetism in materials", ar: "السلسلة 6 — الكهرومغناطيسية في المواد", fr: "Série 6 — L’électromagnétisme dans les matériaux" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/05/em_serie6.pdf, lang: fr, week: "Ch. 6" }
+  - { type: solutions, title: { en: "Solutions to problem set 6 — Electromagnetism in materials", ar: "حل السلسلة 6 — الكهرومغناطيسية في المواد", fr: "Solution de la série 6 — L’électromagnétisme dans les matériaux" }, url: https://khelifak.wordpress.com/wp-content/uploads/2016/05/em_serie6_s.pdf, lang: fr, week: "Ch. 6" }
 
 exams:
-  - { title: { en: Exam, ar: الاختبار, fr: Examen }, session: "2014", paper: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_exam.pdf, lang: fr }
+  - { title: { en: Exam, ar: الاختبار, fr: Examen }, session: 2014–2015, paper: https://khelifak.wordpress.com/wp-content/uploads/2016/04/em_exam.pdf, lang: fr }
 
 pending:
-  - { what: "Landau & Lifshitz, The Classical Theory of Fields — full book on archive.org", url: https://archive.org/details/TheClassicalTheoryOfFields, why: "copyrighted textbook uploaded by a third party; link only if you are comfortable with it" }
+  - { what: "Landau & Lifshitz, The Classical Theory of Fields — full book on archive.org", url: https://archive.org/details/TheClassicalTheoryOfFields, why: "Kamel 24-10-2026: keep the link only if the site is open for use. archive.org itself is open, but this item is a copyrighted Pergamon/Elsevier book uploaded by a third party (not a publisher-authorised copy), so the link is withheld and the book is cited under textbooks instead." }
 
 sources:
   - teaching/chlef-electromagnetisme   # https://khelifak.wordpress.com/studying/teaching-2/uhbc/electromagnetisme/ (French, 2015–2016, richest)
@@ -188,3 +223,8 @@ notes: >
   The only linked exam is labelled "2014" on the page (file uploaded April 2016): for a semester-4 course this may be
   spring 2014 (before the Chlef appointment) or 2014–2015 — authorship/year to confirm. Test, exam and resit papers of
   2015–2016 were listed but never linked. Marks (groups G1–4) dropped.
+  UPDATE 24-10-2026 (Kamel's answers): taught only in French, in 2014–2015 and 2015–2016 (he moved to Chlef in Oct 2014 and
+  left for IU in Sept 2016, so the 2016–2017 English section was never taught and is removed). The "2014" exam is his (2014–2015).
+  Continuous assessment 33 % = tests 1–2, participation, homework and attendance. Notes, summary and problem sets attached to
+  their chapters. Landau & Lifshitz: cited under textbooks; the archive.org copy stays unlinked (third-party upload of a copyrighted book).
+  The formula sheet comes from the page-wide card (resources/formulas). DRAFTED for Kamel's later review: description and the assessment details.

@@ -29,7 +29,7 @@
 - id: chlef
   name: { en: Hassiba Benbouali University of Chlef, ar: جامعة حسيبة بن بوعلي بالشلف, fr: Université Hassiba Benbouali de Chlef }
   country: { en: Algeria, ar: الجزائر, fr: Algérie }
-  years: { en: 2014 – 2017, ar: 2014 – 2017, fr: 2014 – 2017 }
+  years: { en: 2014 – 2016, ar: 2014 – 2016, fr: 2014 – 2016 }
   french: true
   hue: 30
 
