@@ -221,9 +221,8 @@ schedule:
 
 textbooks:
   required:
-    - { authors: D. J. Griffiths, title: "مقدمة في ميكانيكا الكم (Arabic translation of Introduction to Quantum Mechanics)", edition: 3rd, publisher: Cambridge University Press, year: 2018 }
+    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 3rd, publisher: Cambridge University Press, year: 2018, note: { en: "Arabic translation: \u2068مقدمة في ميكانيكا الكم\u2069", ar: "الترجمة العربية: مقدمة في ميكانيكا الكم", fr: "traduction arabe : \u2068مقدمة في ميكانيكا الكم\u2069" } }
   recommended:
-    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 3rd, publisher: Cambridge University Press, year: 2018 }
     - { authors: R. P. Feynman, title: "The Feynman Lectures on Physics, Vol. 3", publisher: Paperback, year: 2003 }
     - { authors: P. A. M. Dirac, title: The Principles of Quantum Mechanics, publisher: Oxford University Press, year: 1947 }
     - { authors: "C. Cohen-Tannoudji, B. Diu, F. Laloë", title: Mécanique quantique, publisher: Hermann, year: 1997 }

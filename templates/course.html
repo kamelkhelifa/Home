@@ -322,6 +322,13 @@
   {% set tb = c.textbooks or {} %}
   <section class="sec" id="library" aria-labelledby="library-title">
     {{ sec_head('library', 'library', 10) }}
+    {% if c.companion != 'english-for-physicists' %}
+    <a class="formula-card" href="{{ teachweb('formulas') }}" target="_blank" rel="noopener">
+      <span class="formula-icon">{{ ic('formula') }}</span>
+      <span class="formula-body"><span class="formula-title">{{ cui('formulas_title') }}</span><span class="formula-note">{{ cui('formulas_note') }}</span></span>
+      {{ ic('external', 'ic xs') }}
+    </a>
+    {% endif %}
     {% if not (tb.required or tb.recommended or tb.online) %}{{ placeholder() }}{% endif %}
     {% if tb.required %}
     <h3 class="sub">{{ cui('required') }}</h3>
@@ -329,7 +336,7 @@
       {% for b in tb.required %}
       <li class="lib-book is-main">
         <span class="lib-spine" aria-hidden="true"><i>{{ ((b.authors or b.title).split(',')[0].split('&')[0].split(' and ')[0]) | trim }}</i></span>
-        <div><p class="lib-title">{{ b.title }}</p><p class="lib-meta">{{ b.authors or '' }}{% if b.edition %} · {{ b.edition }}{% endif %}{% if b.publisher %} · {{ b.publisher }}{% endif %}{% if b.year %} · {{ b.year }}{% endif %}</p></div>
+        <div><p class="lib-title">{{ b.title }}</p><p class="lib-meta">{{ b.authors or '' }}{% if b.edition %} · {{ b.edition }}{% endif %}{% if b.publisher %} · {{ b.publisher }}{% endif %}{% if b.year %} · {{ b.year }}{% endif %}</p>{% if b.note %}<p class="lib-note">(<span dir="auto">{{ t(b.note) }}</span>)</p>{% endif %}</div>
       </li>
       {% endfor %}
     </ul>
@@ -338,7 +345,7 @@
     <h3 class="sub">{{ cui('recommended') }}</h3>
     <ul class="lib-books compact">
       {% for b in tb.recommended %}
-      <li class="lib-book"><div><p class="lib-title">{{ b.title }}</p><p class="lib-meta">{{ b.authors or '' }}{% if b.edition %} · {{ b.edition }}{% endif %}{% if b.publisher %} · {{ b.publisher }}{% endif %}{% if b.year %} · {{ b.year }}{% endif %}</p></div></li>
+      <li class="lib-book"><div><p class="lib-title">{{ b.title }}</p><p class="lib-meta">{{ b.authors or '' }}{% if b.edition %} · {{ b.edition }}{% endif %}{% if b.publisher %} · {{ b.publisher }}{% endif %}{% if b.year %} · {{ b.year }}{% endif %}</p>{% if b.note %}<p class="lib-note">(<span dir="auto">{{ t(b.note) }}</span>)</p>{% endif %}</div></li>
       {% endfor %}
     </ul>
     {% endif %}
