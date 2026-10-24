@@ -45,7 +45,7 @@ archive:
       - { code: UEM123, title: { en: Numerical Methods & Programming, ar: الطرق العددية والبرمجة }, kind: { en: Computer lab, ar: أعمال تطبيقية على الحاسوب }, course: relizane/uem123, year: 2021 – 2022, taught_in: fr }
       - { code: UEF123, title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture, tutorials & lab, ar: محاضرات وأعمال موجهة وتطبيقية }, course: relizane/uef123, year: 2023 – 2025, taught_in: en }
       - { code: UET, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, course: relizane/uet-english, year: 2021 – 2024, taught_in: en }
-      - { title: { en: Applied Quantum Mechanics, ar: ميكانيكا الكم التطبيقية }, kind: { en: Lecture & tutorials (M1), ar: محاضرات وأعمال موجهة (م1) }, course: relizane/applied-quantum-mechanics, taught_in: en }
+      - { title: { en: Applied Quantum Mechanics, ar: ميكانيكا الكم التطبيقية }, kind: { en: Lecture & tutorials (M1), ar: محاضرات وأعمال موجهة (م1) }, course: relizane/applied-quantum-mechanics, year: 2024 – 2025, taught_in: en }
 
   - id: madinah
     institution: { en: Islamic University of Madinah, ar: الجامعة الإسلامية بالمدينة المنورة }
