@@ -2,20 +2,20 @@
 #  Interface strings (buttons, labels, headings) in both languages
 # ─────────────────────────────────────────────────────────────
 
-skip:            { en: Skip to content, ar: انتقل إلى المحتوى }
-home:            { en: Home, ar: الرئيسية }
-menu_open:       { en: Open menu, ar: فتح القائمة }
-menu_close:      { en: Close menu, ar: إغلاق القائمة }
-theme:           { en: Toggle colour theme, ar: تبديل المظهر }
+skip:            { en: Skip to content, ar: انتقل إلى المحتوى, fr: Aller au contenu }
+home:            { en: Home, ar: الرئيسية, fr: Accueil }
+menu_open:       { en: Open menu, ar: فتح القائمة, fr: Ouvrir le menu }
+menu_close:      { en: Close menu, ar: إغلاق القائمة, fr: Fermer le menu }
+theme:           { en: Toggle colour theme, ar: تبديل المظهر, fr: Changer de thème }
 switch_label:    { en: العربية, ar: English }
-switch_aria:     { en: اقرأ هذه الصفحة بالعربية, ar: Read this page in English }
-get_in_touch:    { en: Get in touch, ar: للتواصل }
-email_also:      { en: "Also at", ar: "وكذلك على" }
-email_university: { en: Qatar University, ar: جامعة قطر }
-navigate:        { en: Navigate, ar: تصفح }
-profiles:        { en: Research profiles, ar: الملفات البحثية }
-elsewhere:       { en: Elsewhere, ar: على الشبكة }
-last_updated:    { en: Last updated, ar: آخر تحديث }
+switch_aria:     { en: اقرأ هذه الصفحة بالعربية, ar: Read this page in English, fr: Changer de langue }
+get_in_touch:    { en: Get in touch, ar: للتواصل, fr: Contact }
+email_also:      { en: "Also at", ar: "وكذلك على", fr: "Également" }
+email_university: { en: Qatar University, ar: جامعة قطر, fr: Université du Qatar }
+navigate:        { en: Navigate, ar: تصفح, fr: Navigation }
+profiles:        { en: Research profiles, ar: الملفات البحثية, fr: Profils de recherche }
+elsewhere:       { en: Elsewhere, ar: على الشبكة, fr: Ailleurs }
+last_updated:    { en: Last updated, ar: آخر تحديث, fr: Dernière mise à jour }
 rights:          { en: All rights reserved., ar: جميع الحقوق محفوظة. }
 
 # Home
@@ -53,10 +53,11 @@ archive:          { en: Archive, ar: الأرشيف }
 previous_unis:    { en: Previous universities, ar: الجامعات السابقة }
 universities:     { en: Universities, ar: الجامعات }
 course_pages:     { en: Course pages, ar: صفحات المقررات }
-open_course_hint: { en: "Each course opens on TeachWeb, which hosts every course in one unified format: syllabus, weekly plan, notes, exams, quizzes and simulations.", ar: "يُفتح كل مقرر على الموقع التعليمي الذي يضمّ جميع المقررات بصيغة موحّدة: المفردات، والخطة الأسبوعية، والمذكرات، والاختبارات، والتمارين، والمحاكاة." }
+open_course_hint: { en: "Each course opens its own page with that university's syllabus: weekly plan, assessment, lecture notes, past exams, textbooks, an interactive lab and a glossary. Courses taught in Algeria are also available in French.", ar: "يفتح كل مقرر صفحته الخاصة بمفردات تلك الجامعة: الخطة الأسبوعية، والتقييم، ومذكرات المحاضرات، والاختبارات السابقة، والكتب، ومختبرًا تفاعليًا، ومسردًا للمصطلحات. والمقررات التي دُرّست في الجزائر متاحة بالفرنسية أيضًا." }
 teachweb:         { en: TeachWeb, ar: الموقع التعليمي }
-teachweb_cta:     { en: "All courses on TeachWeb", ar: "كل المقررات على الموقع التعليمي" }
-teachweb_text:    { en: "My courseware lives on TeachWeb: every course in English and Arabic, with the same structure and interactive tools.", ar: "تقع موادي التعليمية على الموقع التعليمي: كل مقرر بالعربية والإنجليزية، بالبنية نفسها والأدوات التفاعلية نفسها." }
+teachweb_cta:     { en: "Visit TeachWeb", ar: "زيارة الموقع التعليمي", fr: "Visiter TeachWeb" }
+teachweb_text:    { en: "Open courses, independent of any university, are being prepared on TeachWeb: polished syllabi with worked problems, quizzes and simulations, in English and Arabic.", ar: "يجري إعداد مقررات مفتوحة، مستقلة عن أي جامعة، على الموقع التعليمي: مفردات منقّحة مع مسائل محلولة واختبارات قصيرة ومحاكاة، بالعربية والإنجليزية." }
+teachweb_open:    { en: "Open courses on TeachWeb", ar: "المقررات المفتوحة على الموقع التعليمي", fr: "Cours ouverts sur TeachWeb" }
 taught_in_fr:     { en: Taught in French, ar: دُرّس بالفرنسية }
 taught_in_ar:     { en: Taught in Arabic, ar: دُرّس بالعربية }
 taught_in_en:     { en: Taught in English, ar: دُرّس بالإنجليزية }
@@ -123,7 +124,7 @@ lang_en:          { en: English, ar: الإنجليزية }
 lang_ar:          { en: Arabic, ar: العربية }
 lang_fr:          { en: French, ar: الفرنسية }
 files_note:       { en: "Linked documents (PDF, slides) open from the original WordPress file store.", ar: "تُفتح الوثائق المرتبطة (PDF، الشرائح) من مخزن ملفات ووردبريس الأصلي." }
-back_to:          { en: Back to, ar: العودة إلى }
+back_to:          { en: Back to, ar: العودة إلى, fr: Retour à }
 year:             { en: Academic year, ar: السنة الجامعية }
 
 # 404

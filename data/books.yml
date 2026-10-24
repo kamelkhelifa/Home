@@ -58,7 +58,7 @@ notes:
     description:
       en: From the wavefunction and the Schrödinger equation to the hydrogen atom, written for second-year physics students.
       ar: من الدالة الموجية ومعادلة شرودنغر إلى ذرة الهيدروجين، كُتبت لطلبة السنة الثانية فيزياء.
-    teachweb: taught/relizane/uef223
+    course: relizane/uef223
     accent: maroon
   - title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }
     cover_title: English for Physicists
@@ -68,7 +68,7 @@ notes:
     description:
       en: Lecture notes for the English Language course I teach to physics students, with past exams and links to supplementary reading.
       ar: مذكرات مقرر اللغة الإنجليزية الذي أدرّسه لطلبة الفيزياء، مع اختبارات سابقة وروابط لقراءات إضافية.
-    teachweb: taught/relizane/uet-english
+    course: relizane/uet-english
     accent: gold
 
 # Books in progress. `original` = the translated book; `cover_title` is shown on the generated cover.

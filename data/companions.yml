@@ -1,0 +1,2832 @@
+# Interactive labs (sim ids for static/js/sims.js) and glossaries shown on the course pages,
+# keyed by the `companion:` field of each course in data/taught/. Taken from the TeachWeb open courses.
+classical-mechanics-2:
+  sims:
+  - phase-space
+  - oscillator
+  glossary:
+  - en: Centre of mass
+    ar: مركز الكتلة
+    fr: Centre de masse
+    def:
+      en: Mass-weighted average position of a system; it moves as if all external forces acted on the total mass there.
+      ar: الموضع المتوسط المرجَّح بالكتل؛ يتحرك كأن كل القوى الخارجية تؤثر على الكتلة الكلية المجمعة فيه.
+  - en: Reduced mass
+    ar: الكتلة المختزلة
+    fr: Masse réduite
+    def:
+      en: The mass \(\mu = m_1m_2/(m_1+m_2)\) governing the relative motion of two bodies.
+      ar: الكتلة \(\mu = m_1m_2/(m_1+m_2)\) التي تحكم الحركة النسبية لجسمين.
+  - en: Coefficient of restitution
+    ar: معامل الارتداد
+    fr: Coefficient de restitution
+    def:
+      en: Ratio of relative speeds after and before a collision.
+      ar: نسبة السرعتين النسبيتين بعد التصادم وقبله.
+  - en: Impulse
+    ar: الدفع
+    fr: Impulsion (percussion)
+    def:
+      en: Time integral of a force; equals the change in momentum.
+      ar: التكامل الزمني للقوة؛ يساوي التغير في كمية الحركة.
+  - en: Rigid body
+    ar: الجسم الصلب
+    fr: Solide indéformable
+    def:
+      en: A body whose inter-particle distances stay fixed.
+      ar: جسم تبقى المسافات بين جسيماته ثابتة.
+  - en: Moment of inertia
+    ar: عزم العطالة
+    fr: Moment d'inertie
+    def:
+      en: Rotational inertia about an axis, \(I = \sum m_i d_i^2\).
+      ar: العطالة الدورانية حول محور، \(I = \sum m_i d_i^2\).
+  - en: Parallel-axis theorem
+    ar: نظرية المحاور المتوازية (هويغنز–شتاينر)
+    fr: Théorème de Huygens
+    def:
+      en: \(I = I_{\text{cm}} + Md^2\) for parallel axes a distance \(d\) apart.
+      ar: \(I = I_{\text{cm}} + Md^2\) لمحورين متوازيين البعد بينهما \(d\).
+  - en: Physical pendulum
+    ar: النواس الفيزيائي (المركب)
+    fr: Pendule pesant
+    def:
+      en: A rigid body oscillating about a fixed horizontal axis under gravity.
+      ar: جسم صلب يهتز حول محور أفقي ثابت تحت تأثير الثقالة.
+  - en: Rolling without slipping
+    ar: الدحرجة دون انزلاق
+    fr: Roulement sans glissement
+    def:
+      en: 'Motion with zero velocity at the contact point: \(v_{\text{cm}} = R\omega\).'
+      ar: 'حركة تنعدم فيها السرعة عند نقطة التماس: \(v_{\text{cm}} = R\omega\).'
+  - en: Inertia tensor
+    ar: موتر العطالة
+    fr: Tenseur d'inertie
+    def:
+      en: Symmetric matrix linking angular velocity to angular momentum, \(\vb{L} = \mathsf{I}\boldsymbol\omega\).
+      ar: مصفوفة متناظرة تربط السرعة الزاوية بالعزم الحركي، \(\vb{L} = \mathsf{I}\boldsymbol\omega\).
+  - en: Principal axes
+    ar: المحاور الرئيسية
+    fr: Axes principaux d'inertie
+    def:
+      en: Axes in which the inertia tensor is diagonal; L is parallel to ω along them.
+      ar: محاور يكون فيها موتر العطالة قطريًا؛ ويوازي L عندها ω.
+  - en: Euler's equations
+    ar: معادلات أويلر
+    fr: Équations d'Euler
+    def:
+      en: Equations of rotational motion of a rigid body written in its principal-axis frame.
+      ar: معادلات الحركة الدورانية لجسم صلب مكتوبة في مرجع محاوره الرئيسية.
+  - en: Euler angles
+    ar: زوايا أويلر
+    fr: Angles d'Euler
+    def:
+      en: Three angles specifying the orientation of a rigid body.
+      ar: ثلاث زوايا تحدد توجّه جسم صلب.
+  - en: Precession
+    ar: المبادرة (الحركة البدارية)
+    fr: Précession
+    def:
+      en: Slow rotation of the spin axis of a top or gyroscope about the vertical.
+      ar: دوران بطيء لمحور دوران الخذروف أو الجيروسكوب حول الشاقول.
+  - en: Nutation
+    ar: الترنّح
+    fr: Nutation
+    def:
+      en: Nodding oscillation of the axis of a top superposed on its precession.
+      ar: تأرجح محور الخذروف صعودًا ونزولًا متراكبًا مع حركة المبادرة.
+  - en: Coriolis force
+    ar: قوة كوريوليس
+    fr: Force de Coriolis
+    def:
+      en: Inertial force \(-2m\boldsymbol\omega\times\vb{v}'\) felt by a body moving in a rotating frame.
+      ar: قوة عطالية \(-2m\boldsymbol\omega\times\vb{v}'\) يخضع لها جسم يتحرك في مرجع دوّار.
+  - en: Functional
+    ar: الدالية (الدالة التابعية)
+    fr: Fonctionnelle
+    def:
+      en: A map that assigns a number to a whole function (e.g. the action).
+      ar: تطبيق يقرن عددًا بدالة كاملة (مثل الفعل).
+  - en: Euler–Lagrange equation
+    ar: معادلة أويلر–لاغرانج
+    fr: Équation d'Euler-Lagrange
+    def:
+      en: Condition for a functional to be stationary.
+      ar: شرط استقرار دالية.
+  - en: Action
+    ar: الفعل
+    fr: Action
+    def:
+      en: Time integral of the Lagrangian, \(S = \int L\,\dd t\).
+      ar: التكامل الزمني لدالة لاغرانج، \(S = \int L\,\dd t\).
+  - en: Hamilton's principle
+    ar: مبدأ هاملتون
+    fr: Principe de Hamilton
+    def:
+      en: The actual motion makes the action stationary.
+      ar: الحركة الفعلية تجعل الفعل مستقرًا.
+  - en: Generalised coordinates
+    ar: الإحداثيات المعممة
+    fr: Coordonnées généralisées
+    def:
+      en: Independent variables that specify the configuration and respect the constraints.
+      ar: متغيرات مستقلة تحدد هيئة الجملة وتحترم القيود.
+  - en: Constraint
+    ar: القيد (الرابط)
+    fr: Liaison
+    def:
+      en: A geometric or kinematic condition restricting the motion.
+      ar: شرط هندسي أو حركي يحدّ من الحركة.
+  - en: Lagrange multiplier
+    ar: مضاعف لاغرانج
+    fr: Multiplicateur de Lagrange
+    def:
+      en: Auxiliary variable that enforces a constraint and yields the constraint force.
+      ar: متغير مساعد يفرض القيد ويعطي قوة القيد.
+  - en: Cyclic coordinate
+    ar: الإحداثية الدورية (المهملة)
+    fr: Coordonnée cyclique
+    def:
+      en: A coordinate absent from the Lagrangian; its conjugate momentum is conserved.
+      ar: إحداثية غائبة عن دالة لاغرانج؛ وكمية الحركة المرافقة لها منحفظة.
+  - en: Generalised momentum
+    ar: كمية الحركة المعممة (المرافقة)
+    fr: Moment conjugué
+    def:
+      en: \(p_k = \partial L/\partial\dot q_k\).
+      ar: \(p_k = \partial L/\partial\dot q_k\).
+  - en: Hamiltonian
+    ar: دالة هاملتون (الهاملتوني)
+    fr: Hamiltonien
+    def:
+      en: Legendre transform of the Lagrangian, \(H = \sum p_k\dot q_k - L\); usually the total energy.
+      ar: تحويل لوجاندر لدالة لاغرانج، \(H = \sum p_k\dot q_k - L\)؛ وهي عادة الطاقة الكلية.
+  - en: Phase space
+    ar: فضاء الطور
+    fr: Espace des phases
+    def:
+      en: The space of all coordinates and momenta; each state is one point.
+      ar: فضاء كل الإحداثيات وكميات الحركة؛ تمثَّل كل حالة بنقطة.
+  - en: Normal coordinates
+    ar: الإحداثيات الطبيعية
+    fr: Coordonnées normales
+    def:
+      en: Coordinates in which small oscillations decouple into independent harmonic oscillators.
+      ar: إحداثيات تنفصل فيها الاهتزازات الصغيرة إلى هزازات توافقية مستقلة.
+  - en: Effective potential
+    ar: الكمون الفعّال
+    fr: Potentiel effectif
+    def:
+      en: Radial potential \(U(r) + \ell^2/2mr^2\) including the centrifugal barrier.
+      ar: الكمون القطري \(U(r) + \ell^2/2mr^2\) شاملًا الحاجز النابذ.
+electricity-lab:
+  sims:
+  - rc-circuit
+  glossary:
+  - en: Measurement uncertainty
+    ar: ارتياب القياس
+    fr: Incertitude de mesure
+    def:
+      en: Range within which the true value is expected to lie, written \(x \pm \Delta x\).
+      ar: المجال الذي يُتوقع أن تقع فيه القيمة الحقيقية، ويُكتب \(x \pm \Delta x\).
+  - en: Relative uncertainty
+    ar: الارتياب النسبي
+    fr: Incertitude relative
+    def:
+      en: \(\Delta x/|x|\), often in percent; used to compare precisions and to propagate through products.
+      ar: \(\Delta x/|x|\)، ويُعبَّر عنه غالبًا بالنسبة المئوية؛ يُستعمل لمقارنة الدقة ولنشر الارتياب في الجداءات.
+  - en: Systematic error
+    ar: الخطأ المنهجي
+    fr: Erreur systématique
+    def:
+      en: Error that shifts all readings the same way (offset, calibration, method); not reduced by averaging.
+      ar: خطأ يزيح كل القراءات في الاتجاه نفسه (انزياح، معايرة، طريقة)؛ ولا يقل بأخذ المتوسط.
+  - en: Random error
+    ar: الخطأ العشوائي
+    fr: Erreur aléatoire
+    def:
+      en: Unpredictable scatter of repeated readings; reduced by averaging \(n\) readings as \(1/\sqrt n\).
+      ar: تشتت غير متوقع للقراءات المتكررة؛ يقل بأخذ متوسط \(n\) قراءة بنسبة \(1/\sqrt n\).
+  - en: Accuracy class
+    ar: صنف الدقة
+    fr: Classe de précision
+    def:
+      en: For an analogue meter, the maximum error as a percentage of full scale.
+      ar: في الجهاز التماثلي، الخطأ الأعظمي معبَّرًا عنه بنسبة مئوية من أقصى التدريج.
+  - en: Resolution
+    ar: دقة التمييز
+    fr: Résolution
+    def:
+      en: Smallest change an instrument can display (last digit or smallest division).
+      ar: أصغر تغيّر يستطيع الجهاز إظهاره (آخر رقم أو أصغر تدريجة).
+  - en: Significant figures
+    ar: الأرقام المعنوية
+    fr: Chiffres significatifs
+    def:
+      en: Meaningful digits of a result, fixed by the size of its uncertainty.
+      ar: أرقام النتيجة ذات المعنى، ويحددها مقدار ارتيابها.
+  - en: Propagation of uncertainty
+    ar: انتشار الارتيابات
+    fr: Propagation des incertitudes
+    def:
+      en: Computing the uncertainty of \(f(x, y,\dots)\) from those of \(x, y,\dots\), by quadrature (independent errors) or maximum-error sum.
+      ar: حساب ارتياب \(f(x, y,\dots)\) انطلاقًا من ارتيابات \(x, y,\dots\)، بالجمع التربيعي (أخطاء مستقلة) أو بجمع الأخطاء العظمى.
+  - en: Least-squares fit
+    ar: الملاءمة بطريقة المربعات الصغرى
+    fr: Ajustement par moindres carrés
+    def:
+      en: Choosing the line that minimises the sum of squared residuals; gives slope, intercept and their uncertainties.
+      ar: اختيار المستقيم الذي يجعل مجموع مربعات البواقي أصغر ما يمكن؛ ويعطي الميل والتقاطع وارتيابيهما.
+  - en: Multimeter
+    ar: جهاز القياس المتعدد
+    fr: Multimètre
+    def:
+      en: Instrument measuring voltage, current and resistance on selectable ranges.
+      ar: جهاز يقيس الجهد والتيار والمقاومة على عيارات قابلة للاختيار.
+  - en: Ammeter
+    ar: مقياس التيار (الأمبيرمتر)
+    fr: Ampèremètre
+    def:
+      en: Current meter of very low resistance, connected in series.
+      ar: جهاز لقياس التيار مقاومته صغيرة جدًا، يُربط على التسلسل.
+  - en: Voltmeter
+    ar: مقياس الجهد (الفولطمتر)
+    fr: Voltmètre
+    def:
+      en: Voltage meter of very high resistance, connected in parallel.
+      ar: جهاز لقياس الجهد مقاومته كبيرة جدًا، يُربط على التفرع.
+  - en: Internal resistance
+    ar: المقاومة الداخلية
+    fr: Résistance interne
+    def:
+      en: 'Resistance \(r\) of a real source: terminal voltage \(V = \mathcal E - rI\).'
+      ar: 'مقاومة المولد الحقيقي \(r\): الجهد بين قطبيه \(V = \mathcal E - rI\).'
+  - en: Current–voltage characteristic
+    ar: المميزة تيار-جهد
+    fr: Caractéristique courant-tension
+    def:
+      en: Graph \(I(V)\) of a two-terminal component; a straight line through the origin for an ohmic resistor.
+      ar: المنحنى \(I(V)\) لثنائي قطب؛ وهو مستقيم يمر بالمبدأ في حالة المقاومة الأومية.
+  - en: Diode
+    ar: الثنائي (الديود)
+    fr: Diode
+    def:
+      en: Semiconductor component that conducts mainly in one direction, above a threshold voltage.
+      ar: عنصر نصف ناقل يوصل أساسًا في اتجاه واحد، فوق جهد عتبة معيّن.
+  - en: Wheatstone bridge
+    ar: قنطرة ويتستون
+    fr: Pont de Wheatstone
+    def:
+      en: Four-resistor network used to measure an unknown resistance by a null method.
+      ar: شبكة من أربع مقاومات تُستعمل لقياس مقاومة مجهولة بطريقة صفرية.
+  - en: Galvanometer
+    ar: الغلفانومتر
+    fr: Galvanomètre
+    def:
+      en: Very sensitive current detector, used as a null indicator.
+      ar: كاشف تيار شديد الحساسية، يُستعمل مؤشرًا صفريًا.
+  - en: Equipotential line
+    ar: خط تساوي الكمون
+    fr: Ligne équipotentielle
+    def:
+      en: Line along which the potential is constant; perpendicular to the field.
+      ar: خط يكون الكمون على طوله ثابتًا، وهو عمودي على الحقل.
+  - en: Electrolytic tank
+    ar: الحوض الإلكتروليتي
+    fr: Cuve rhéographique
+    def:
+      en: Shallow tank of conducting liquid used to map the potential between electrodes.
+      ar: حوض ضحل يحتوي سائلًا ناقلًا يُستعمل لرسم توزيع الكمون بين الأقطاب.
+  - en: Oscilloscope
+    ar: راسم الاهتزاز المهبطي
+    fr: Oscilloscope
+    def:
+      en: Instrument displaying a voltage as a function of time (or of another voltage in XY mode).
+      ar: جهاز يعرض الجهد بدلالة الزمن (أو بدلالة جهد آخر في النمط XY).
+  - en: Time base
+    ar: القاعدة الزمنية
+    fr: Base de temps
+    def:
+      en: Horizontal scale of the oscilloscope, in time per division.
+      ar: السلّم الأفقي لراسم الاهتزاز، بوحدة الزمن لكل تدريجة.
+  - en: RMS value
+    ar: القيمة الفعالة
+    fr: Valeur efficace
+    def:
+      en: Root-mean-square value; for a sine wave \(V_{rms} = V_m/\sqrt2\).
+      ar: الجذر التربيعي لمتوسط المربع؛ وللإشارة الجيبية \(V_{rms} = V_m/\sqrt2\).
+  - en: Function generator
+    ar: مولد الإشارات
+    fr: Générateur basse fréquence (GBF)
+    def:
+      en: Source of sine, square or triangle voltages of adjustable frequency and amplitude.
+      ar: منبع لجهود جيبية أو مربعة أو مثلثية قابلة لضبط التواتر والسعة.
+  - en: Time constant
+    ar: ثابت الزمن
+    fr: Constante de temps
+    def:
+      en: \(\tau = RC\) or \(L/R\); characteristic time of an exponential transient.
+      ar: \(\tau = RC\) أو \(L/R\)؛ الزمن المميز لنظام انتقالي أسّي.
+  - en: Hall probe
+    ar: مسبار هول
+    fr: Sonde à effet Hall
+    def:
+      en: Sensor whose transverse voltage is proportional to the magnetic field component perpendicular to it.
+      ar: حسّاس يتناسب جهده العرضي مع مركّبة الحقل المغناطيسي العمودية عليه.
+  - en: Helmholtz coils
+    ar: وشيعتا هلمهولتز
+    fr: Bobines de Helmholtz
+    def:
+      en: Pair of coaxial coils separated by their radius, producing a nearly uniform field.
+      ar: وشيعتان متحدتا المحور تفصل بينهما مسافة تساوي نصف قطرهما، وتنتجان حقلًا شبه منتظم.
+  - en: Induced emf
+    ar: القوة المحركة الكهربائية المتحرَّضة
+    fr: Force électromotrice induite
+    def:
+      en: emf produced by a changing magnetic flux, \(\mathcal E = -N\,\dd\Phi_B/\dd t\).
+      ar: قوة محركة كهربائية تنشأ عن تغيّر التدفق المغناطيسي \(\mathcal E = -N\,\dd\Phi_B/\dd t\).
+  - en: Transformer
+    ar: المحوّل
+    fr: Transformateur
+    def:
+      en: Two coils coupled by an iron core; for AC, \(V_s/V_p \approx N_s/N_p\).
+      ar: وشيعتان مقترنتان بنواة حديدية؛ وفي التيار المتناوب \(V_s/V_p \approx N_s/N_p\).
+electromagnetism:
+  sims:
+  - efield
+  - waves
+  glossary:
+  - en: Electric field
+    ar: الحقل (المجال) الكهربائي
+    fr: Champ électrique
+    def:
+      en: Force per unit charge exerted on a test charge.
+      ar: القوة المؤثرة على شحنة اختبار مقسومة على قيمتها.
+  - en: Electric potential
+    ar: الكمون (الجهد) الكهربائي
+    fr: Potentiel électrique
+    def:
+      en: Scalar function with \(\vb{E} = -\nabla V\); potential energy per unit charge.
+      ar: دالة سلمية تحقق \(\vb{E} = -\nabla V\)؛ الطاقة الكامنة لوحدة الشحنة.
+  - en: Gradient
+    ar: التدرج
+    fr: Gradient
+    def:
+      en: Vector pointing in the direction of fastest increase of a scalar field.
+      ar: شعاع يتجه نحو أسرع تزايد لحقل سلمي.
+  - en: Divergence
+    ar: التباعد
+    fr: Divergence
+    def:
+      en: Net outward flux per unit volume of a vector field — its source density.
+      ar: التدفق الصافي الخارج لوحدة الحجم من حقل شعاعي — أي كثافة منابعه.
+  - en: Curl
+    ar: الدوار
+    fr: Rotationnel
+    def:
+      en: Circulation per unit area of a vector field — measures its swirling.
+      ar: الدوران لوحدة المساحة لحقل شعاعي — يقيس دورانيته.
+  - en: Dirac delta
+    ar: دالة (توزيع) ديراك
+    fr: Distribution de Dirac
+    def:
+      en: Distribution that is zero except at one point and has unit integral; models point charges.
+      ar: توزيع منعدم إلا في نقطة واحدة وتكامله يساوي الواحد؛ يُنمذج الشحنات النقطية.
+  - en: Gauss's law
+    ar: قانون (نظرية) غاوس
+    fr: Théorème de Gauss
+    def:
+      en: Flux of E through a closed surface equals enclosed charge over ε₀.
+      ar: تدفق E عبر سطح مغلق يساوي الشحنة المحتواة مقسومة على ε₀.
+  - en: Poisson's equation
+    ar: معادلة بواسون
+    fr: Équation de Poisson
+    def:
+      en: \(\nabla^2V = -\rho/\varepsilon_0\); reduces to Laplace's equation where \(\rho = 0\).
+      ar: \(\nabla^2V = -\rho/\varepsilon_0\)؛ تؤول إلى معادلة لابلاس حيث \(\rho = 0\).
+  - en: Electric dipole moment
+    ar: عزم ثنائي القطب الكهربائي
+    fr: Moment dipolaire électrique
+    def:
+      en: \(\vb{p} = q\vb{d}\) for two opposite charges separated by \(\vb{d}\).
+      ar: \(\vb{p} = q\vb{d}\) لشحنتين متعاكستين يفصل بينهما \(\vb{d}\).
+  - en: Polarisation
+    ar: الاستقطاب
+    fr: Polarisation
+    def:
+      en: Dipole moment per unit volume of a dielectric.
+      ar: عزم ثنائي القطب لوحدة الحجم في عازل.
+  - en: Bound charge
+    ar: الشحنة المقيدة
+    fr: Charge liée
+    def:
+      en: 'Charge due to polarisation: \(\sigma_b = \vb{P}\cdot\hat{\vb{n}}\), \(\rho_b = -\nabla\cdot\vb{P}\).'
+      ar: 'الشحنة الناتجة عن الاستقطاب: \(\sigma_b = \vb{P}\cdot\hat{\vb{n}}\)، \(\rho_b = -\nabla\cdot\vb{P}\).'
+  - en: Electric displacement
+    ar: شعاع الانزياح الكهربائي
+    fr: Induction (déplacement) électrique
+    def:
+      en: \(\vb{D} = \varepsilon_0\vb{E} + \vb{P}\); its sources are the free charges only.
+      ar: \(\vb{D} = \varepsilon_0\vb{E} + \vb{P}\)؛ منابعه الشحنات الحرة فقط.
+  - en: Permittivity
+    ar: السماحية
+    fr: Permittivité
+    def:
+      en: Constant \(\varepsilon = \varepsilon_0\varepsilon_r\) relating D to E in a linear dielectric.
+      ar: الثابت \(\varepsilon = \varepsilon_0\varepsilon_r\) الذي يربط D بـ E في عازل خطي.
+  - en: Lorentz force
+    ar: قوة لورنتز
+    fr: Force de Lorentz
+    def:
+      en: \(\vb{F} = q(\vb{E} + \vb{v}\times\vb{B})\).
+      ar: \(\vb{F} = q(\vb{E} + \vb{v}\times\vb{B})\).
+  - en: Biot–Savart law
+    ar: قانون بيو–سافار
+    fr: Loi de Biot et Savart
+    def:
+      en: Gives the magnetic field produced by a steady current element.
+      ar: يعطي الحقل المغناطيسي الناتج عن عنصر تيار مستقر.
+  - en: Ampère's law
+    ar: قانون (نظرية) أمبير
+    fr: Théorème d'Ampère
+    def:
+      en: Circulation of B around a closed loop equals μ₀ times the current through it.
+      ar: دوران B على حلقة مغلقة يساوي μ₀ مضروبًا في التيار المار عبرها.
+  - en: Vector potential
+    ar: الكمون الشعاعي
+    fr: Potentiel vecteur
+    def:
+      en: Field \(\vb{A}\) with \(\vb{B} = \nabla\times\vb{A}\).
+      ar: حقل \(\vb{A}\) يحقق \(\vb{B} = \nabla\times\vb{A}\).
+  - en: Magnetisation
+    ar: التمغنط
+    fr: Aimantation
+    def:
+      en: Magnetic dipole moment per unit volume.
+      ar: عزم ثنائي القطب المغناطيسي لوحدة الحجم.
+  - en: Permeability
+    ar: النفاذية المغناطيسية
+    fr: Perméabilité
+    def:
+      en: Constant \(\mu = \mu_0\mu_r\) relating B to H in a linear magnetic medium.
+      ar: الثابت \(\mu = \mu_0\mu_r\) الذي يربط B بـ H في وسط مغناطيسي خطي.
+  - en: Electromotive force (emf)
+    ar: القوة المحركة الكهربائية
+    fr: Force électromotrice
+    def:
+      en: Work per unit charge done around a circuit by the driving force.
+      ar: العمل لوحدة الشحنة الذي تنجزه القوة المحرّكة على طول الدارة.
+  - en: Faraday's law
+    ar: قانون فاراداي
+    fr: Loi de Faraday
+    def:
+      en: 'The induced emf equals minus the rate of change of magnetic flux: \(\mathcal{E} = -\dd\Phi/\dd t\).'
+      ar: 'القوة المحركة المتحرضة تساوي سالب معدل تغيّر التدفق المغناطيسي: \(\mathcal{E} = -\dd\Phi/\dd t\).'
+  - en: Lenz's rule
+    ar: قاعدة لنز
+    fr: Loi de Lenz
+    def:
+      en: The induced current opposes the change of flux that produces it.
+      ar: يعاكس التيار المتحرض تغيّر التدفق الذي سبّبه.
+  - en: Self-inductance
+    ar: الذاتية (المحاثة الذاتية)
+    fr: Inductance propre
+    def:
+      en: Ratio \(L = \Phi/I\) of the flux through a circuit to its own current.
+      ar: النسبة \(L = \Phi/I\) بين التدفق عبر دارة والتيار المار فيها.
+  - en: Displacement current
+    ar: تيار الانزياح
+    fr: Courant de déplacement
+    def:
+      en: The term \(\varepsilon_0\partial\vb{E}/\partial t\) added by Maxwell to Ampère's law.
+      ar: الحد \(\varepsilon_0\partial\vb{E}/\partial t\) الذي أضافه ماكسويل إلى قانون أمبير.
+  - en: Maxwell's equations
+    ar: معادلات ماكسويل
+    fr: Équations de Maxwell
+    def:
+      en: The four equations that govern all classical electromagnetic fields.
+      ar: المعادلات الأربع التي تحكم جميع الحقول الكهرومغناطيسية الكلاسيكية.
+  - en: Gauge transformation
+    ar: تحويل المعايرة
+    fr: Transformation de jauge
+    def:
+      en: Change of the potentials that leaves E and B unchanged.
+      ar: تغيير في الكمونين يترك E وB دون تغيير.
+  - en: Poynting vector
+    ar: شعاع بوينتينغ
+    fr: Vecteur de Poynting
+    def:
+      en: '\(\vb{S} = \vb{E}\times\vb{B}/\mu_0\): energy flux density of the field (W/m²).'
+      ar: '\(\vb{S} = \vb{E}\times\vb{B}/\mu_0\): كثافة تدفق طاقة الحقل (W/m²).'
+  - en: Plane wave
+    ar: الموجة المستوية
+    fr: Onde plane
+    def:
+      en: Wave whose fields are uniform over planes perpendicular to the propagation direction.
+      ar: موجة حقولها منتظمة على المستويات العمودية على اتجاه الانتشار.
+  - en: Refractive index
+    ar: قرينة الانكسار
+    fr: Indice de réfraction
+    def:
+      en: Ratio \(n = c/v\) of the speed of light in vacuum to that in the medium.
+      ar: النسبة \(n = c/v\) بين سرعة الضوء في الفراغ وسرعته في الوسط.
+  - en: Skin depth
+    ar: عمق القشرة (العمق الجلدي)
+    fr: Épaisseur de peau
+    def:
+      en: Distance over which a wave amplitude in a conductor falls by a factor e.
+      ar: المسافة التي تنقص عليها سعة الموجة داخل ناقل بمعامل e.
+english-for-physicists:
+  sims:
+  - vocab
+  glossary:
+  - en: displacement
+    ar: الإزاحة
+    fr: déplacement
+    def:
+      en: The change in position of an object, with direction (a vector).
+      ar: تغير موضع الجسم مع اتجاهه (مقدار متجه).
+  - en: velocity
+    ar: السرعة المتجهة
+    fr: vitesse
+    def:
+      en: Rate of change of displacement; speed together with direction.
+      ar: معدل تغير الإزاحة؛ أي السرعة مع اتجاهها.
+  - en: acceleration
+    ar: التسارع
+    fr: accélération
+    def:
+      en: Rate of change of velocity, in m s⁻².
+      ar: معدل تغير السرعة المتجهة، ويقاس بـ m s⁻².
+  - en: force
+    ar: القوة
+    fr: force
+    def:
+      en: A push or pull that changes the motion of a body, measured in newtons (N).
+      ar: دفع أو جذب يغيّر حركة الجسم، ويقاس بالنيوتن (N).
+  - en: mass
+    ar: الكتلة
+    fr: masse
+    def:
+      en: Amount of matter in a body and measure of its inertia, in kilograms.
+      ar: كمية المادة في الجسم ومقياس عطالته، وتقاس بالكيلوغرام.
+  - en: weight
+    ar: الوزن
+    fr: poids
+    def:
+      en: The gravitational force on a body, W = mg (a force, not a mass).
+      ar: قوة الجاذبية المؤثرة في الجسم W = mg (قوة لا كتلة).
+  - en: momentum
+    ar: الزخم (كمية الحركة)
+    fr: quantité de mouvement
+    def:
+      en: Product of mass and velocity, p = mv.
+      ar: جداء الكتلة في السرعة المتجهة p = mv.
+  - en: friction
+    ar: الاحتكاك
+    fr: frottement
+    def:
+      en: Force that opposes the sliding of one surface over another.
+      ar: قوة تعاكس انزلاق سطح على آخر.
+  - en: work
+    ar: الشغل
+    fr: travail
+    def:
+      en: Energy transferred by a force acting through a displacement, in joules.
+      ar: الطاقة المنقولة بقوة تنتقل نقطة تأثيرها، ويقاس بالجول.
+  - en: energy
+    ar: الطاقة
+    fr: énergie
+    def:
+      en: The capacity to do work; it is conserved and measured in joules (J).
+      ar: القدرة على إنجاز شغل؛ وهي منحفظة وتقاس بالجول (J).
+  - en: power
+    ar: القدرة
+    fr: puissance
+    def:
+      en: Rate of transfer of energy, in watts (W = J s⁻¹).
+      ar: معدل نقل الطاقة، ويقاس بالواط (W = J s⁻¹).
+  - en: gravity
+    ar: الجاذبية
+    fr: gravitation
+    def:
+      en: The attraction between all masses.
+      ar: التجاذب بين كل الكتل.
+  - en: orbit
+    ar: المدار
+    fr: orbite
+    def:
+      en: The curved path of a body around a star, planet or moon.
+      ar: المسار المنحني لجسم حول نجم أو كوكب أو قمر.
+  - en: oscillation
+    ar: الاهتزاز
+    fr: oscillation
+    def:
+      en: Repeated back-and-forth motion about an equilibrium position.
+      ar: حركة ذهاب وإياب متكررة حول وضع توازن.
+  - en: amplitude
+    ar: السعة
+    fr: amplitude
+    def:
+      en: Maximum displacement from the equilibrium position.
+      ar: أكبر إزاحة عن وضع التوازن.
+  - en: frequency
+    ar: التردد
+    fr: fréquence
+    def:
+      en: Number of cycles per second, in hertz (Hz).
+      ar: عدد الدورات في الثانية، ويقاس بالهرتز (Hz).
+  - en: period
+    ar: الدور
+    fr: période
+    def:
+      en: Time for one complete cycle, T = 1/f.
+      ar: زمن دورة كاملة T = 1/f.
+  - en: wavelength
+    ar: طول الموجة
+    fr: longueur d'onde
+    def:
+      en: Distance between two successive crests of a wave.
+      ar: المسافة بين قمتين متتاليتين للموجة.
+  - en: pitch
+    ar: حدة الصوت
+    fr: hauteur (du son)
+    def:
+      en: How high or low a sound is perceived; set by its frequency.
+      ar: مدى إدراك الصوت حادًا أو غليظًا؛ ويحدّدها التردد.
+  - en: echo
+    ar: الصدى
+    fr: écho
+    def:
+      en: A sound heard again after reflection from a surface.
+      ar: صوت يُسمع مرة أخرى بعد انعكاسه على سطح.
+  - en: ultrasound
+    ar: الموجات فوق الصوتية
+    fr: ultrason
+    def:
+      en: Sound with frequency above 20 kHz, beyond human hearing.
+      ar: صوت تردده أعلى من 20 kHz، خارج مجال السمع البشري.
+  - en: heat
+    ar: الحرارة
+    fr: chaleur
+    def:
+      en: Energy transferred because of a temperature difference.
+      ar: طاقة تنتقل بسبب فرق في درجة الحرارة.
+  - en: temperature
+    ar: درجة الحرارة
+    fr: température
+    def:
+      en: Measure of the average kinetic energy of particles, in kelvins.
+      ar: مقياس لمتوسط الطاقة الحركية للجسيمات، وتقاس بالكلفن.
+  - en: entropy
+    ar: الإنتروبيا
+    fr: entropie
+    def:
+      en: Measure of disorder; it never decreases in an isolated system (the arrow of time).
+      ar: مقياس للفوضى؛ لا تتناقص أبدًا في نظام معزول (سهم الزمن).
+  - en: electric charge
+    ar: الشحنة الكهربائية
+    fr: charge électrique
+    def:
+      en: Property of matter that causes electric forces, in coulombs (C).
+      ar: خاصية للمادة تسبب القوى الكهربائية، وتقاس بالكولوم (C).
+  - en: current
+    ar: التيار الكهربائي
+    fr: courant électrique
+    def:
+      en: Rate of flow of charge, in amperes (A).
+      ar: معدل تدفق الشحنة، ويقاس بالأمبير (A).
+  - en: voltage
+    ar: الجهد الكهربائي (فرق الجهد)
+    fr: tension
+    def:
+      en: Potential difference; energy per unit charge, in volts (V).
+      ar: فرق الجهد؛ الطاقة لكل وحدة شحنة، ويقاس بالفولط (V).
+  - en: resistance
+    ar: المقاومة
+    fr: résistance
+    def:
+      en: Opposition to current, R = V/I, in ohms (Ω).
+      ar: ممانعة مرور التيار R = V/I، وتقاس بالأوم (Ω).
+  - en: circuit
+    ar: الدارة الكهربائية
+    fr: circuit
+    def:
+      en: A closed path through which current can flow.
+      ar: مسار مغلق يمكن أن يمر عبره التيار.
+  - en: magnetic field
+    ar: المجال المغناطيسي
+    fr: champ magnétique
+    def:
+      en: Region where a magnet or moving charge feels a force, in teslas (T).
+      ar: منطقة يتأثر فيها مغناطيس أو شحنة متحركة بقوة، ويقاس بالتسلا (T).
+  - en: compass
+    ar: البوصلة
+    fr: boussole
+    def:
+      en: A small magnet that aligns with the Earth's magnetic field.
+      ar: مغناطيس صغير يصطف مع المجال المغناطيسي للأرض.
+  - en: refraction
+    ar: الانكسار
+    fr: réfraction
+    def:
+      en: Change of direction of light when it passes from one medium to another.
+      ar: تغير اتجاه الضوء عند انتقاله من وسط إلى آخر.
+  - en: laser
+    ar: الليزر
+    fr: laser
+    def:
+      en: 'Light Amplification by Stimulated Emission of Radiation: an intense, coherent, single-colour beam.'
+      ar: 'تضخيم الضوء بالانبعاث المحفَّز للإشعاع: حزمة شديدة مترابطة أحادية اللون.'
+  - en: photon
+    ar: الفوتون
+    fr: photon
+    def:
+      en: A quantum of light with energy E = hf.
+      ar: كمّ الضوء وطاقته E = hf.
+  - en: relativity
+    ar: النسبية
+    fr: relativité
+    def:
+      en: Einstein's theory of space, time and motion at high speeds and in gravity.
+      ar: نظرية أينشتاين في المكان والزمان والحركة عند السرعات العالية وفي الجاذبية.
+  - en: wave–particle duality
+    ar: ازدواجية الموجة والجسيم
+    fr: dualité onde–corpuscule
+    def:
+      en: Light and matter show both wave and particle behaviour.
+      ar: يُظهر الضوء والمادة سلوكًا موجيًا وجسيميًا معًا.
+  - en: nucleus
+    ar: النواة
+    fr: noyau
+    def:
+      en: The small, dense centre of an atom, made of protons and neutrons.
+      ar: مركز الذرة الصغير الكثيف، ويتكون من بروتونات ونيوترونات.
+  - en: isotope
+    ar: النظير
+    fr: isotope
+    def:
+      en: Atoms of the same element with different numbers of neutrons.
+      ar: ذرات العنصر نفسه بأعداد مختلفة من النيوترونات.
+  - en: half-life
+    ar: عمر النصف
+    fr: demi-vie
+    def:
+      en: Time for half of the nuclei in a radioactive sample to decay.
+      ar: الزمن اللازم لتفكك نصف أنوية عينة مشعة.
+  - en: quark
+    ar: الكوارك
+    fr: quark
+    def:
+      en: Elementary particle that makes up protons and neutrons.
+      ar: جسيم أولي تتكون منه البروتونات والنيوترونات.
+  - en: hypothesis
+    ar: الفرضية
+    fr: hypothèse
+    def:
+      en: A testable proposed explanation.
+      ar: تفسير مقترح قابل للاختبار.
+  - en: abstract
+    ar: الملخص العلمي
+    fr: résumé
+    def:
+      en: 'Short summary of a paper: aim, method, results and conclusion.'
+      ar: 'ملخص قصير للمقال: الهدف والطريقة والنتائج والخلاصة.'
+  - en: lab report
+    ar: تقرير المختبر
+    fr: compte rendu de TP
+    def:
+      en: Structured written account of an experiment (IMRaD).
+      ar: عرض مكتوب منظّم لتجربة (بنية IMRaD).
+  - en: uncertainty
+    ar: الارتياب (عدم اليقين في القياس)
+    fr: incertitude
+    def:
+      en: Range within which the true value of a measurement probably lies.
+      ar: المجال الذي تقع فيه على الأرجح القيمة الحقيقية للمقدار المقيس.
+  - en: peer review
+    ar: التحكيم العلمي
+    fr: évaluation par les pairs
+    def:
+      en: Evaluation of a manuscript by independent experts before publication.
+      ar: تقييم المخطوط من قبل خبراء مستقلين قبل نشره.
+general-physics-1:
+  sims:
+  - projectile
+  glossary:
+  - en: Displacement
+    ar: الإزاحة
+    fr: Déplacement
+    def:
+      en: Change in position vector, \(\Delta\vec r = \vec r_f - \vec r_i\); independent of the path followed.
+      ar: تغيّر متجه الموضع \(\Delta\vec r = \vec r_f - \vec r_i\)، وهو مستقل عن المسار المتّبع.
+  - en: Velocity
+    ar: السرعة المتجهة
+    fr: Vitesse
+    def:
+      en: Time derivative of the position vector, \(\vec v = \dd\vec r/\dd t\); tangent to the trajectory.
+      ar: مشتق متجه الموضع بالنسبة للزمن \(\vec v = \dd\vec r/\dd t\)، وهي مماسة للمسار.
+  - en: Acceleration
+    ar: التسارع
+    fr: Accélération
+    def:
+      en: Rate of change of velocity, \(\vec a = \dd\vec v/\dd t\).
+      ar: معدل تغيّر السرعة بالنسبة للزمن \(\vec a = \dd\vec v/\dd t\).
+  - en: Vector
+    ar: المتجه
+    fr: Vecteur
+    def:
+      en: Quantity with magnitude and direction that adds by the parallelogram rule.
+      ar: مقدار له طويلة واتجاه، ويُجمع وفق قاعدة متوازي الأضلاع.
+  - en: Scalar
+    ar: الكمية العددية
+    fr: Grandeur scalaire
+    def:
+      en: Quantity fully described by a number and a unit (mass, energy, time).
+      ar: مقدار يُعرَّف كليًا بعدد ووحدة (الكتلة، الطاقة، الزمن).
+  - en: Dimensional analysis
+    ar: التحليل البعدي
+    fr: Analyse dimensionnelle
+    def:
+      en: Checking or deriving relations by requiring both sides to have the same dimensions (M, L, T…).
+      ar: التحقق من العلاقات أو استنتاجها باشتراط تساوي أبعاد الطرفين (M وL وT…).
+  - en: Significant figures
+    ar: الأرقام المعنوية
+    fr: Chiffres significatifs
+    def:
+      en: Digits of a measured value that are known reliably, plus the first uncertain digit.
+      ar: أرقام القيمة المقيسة المعروفة بثقة، مضافًا إليها أول رقم مشكوك فيه.
+  - en: Projectile motion
+    ar: حركة المقذوفات
+    fr: Mouvement d'un projectile
+    def:
+      en: 'Motion under gravity alone: uniform horizontally, uniformly accelerated vertically; the path is a parabola.'
+      ar: 'حركة تحت تأثير الثقالة وحدها: منتظمة أفقيًا ومتغيرة بانتظام عموديًا، ومسارها قطع مكافئ.'
+  - en: Centripetal acceleration
+    ar: التسارع المركزي
+    fr: Accélération centripète
+    def:
+      en: Acceleration \(v^2/r\) directed towards the centre of a circular path.
+      ar: تسارع مقداره \(v^2/r\) يتجه نحو مركز المسار الدائري.
+  - en: Relative velocity
+    ar: السرعة النسبية
+    fr: Vitesse relative
+    def:
+      en: 'Velocity measured in a moving frame: \(\vec v_{A/B} = \vec v_{A/O} - \vec v_{B/O}\) (Galilean addition).'
+      ar: 'السرعة المقيسة في معلم متحرك: \(\vec v_{A/B} = \vec v_{A/O} - \vec v_{B/O}\) (جمع غاليليو).'
+  - en: Inertia
+    ar: القصور الذاتي
+    fr: Inertie
+    def:
+      en: Tendency of a body to keep its state of rest or uniform motion; measured by its mass.
+      ar: ميل الجسم إلى الحفاظ على حالة السكون أو الحركة المنتظمة، وتقاس بالكتلة.
+  - en: Newton's second law
+    ar: قانون نيوتن الثاني
+    fr: Principe fondamental de la dynamique
+    def:
+      en: \(\sum\vec F = \dd\vec p/\dd t = m\vec a\) in an inertial frame.
+      ar: \(\sum\vec F = \dd\vec p/\dd t = m\vec a\) في معلم عطالي.
+  - en: Normal force
+    ar: رد الفعل العمودي
+    fr: Réaction normale
+    def:
+      en: Contact force exerted by a surface, perpendicular to it.
+      ar: قوة تلامس يؤثر بها سطح على جسم، وتكون عمودية على السطح.
+  - en: Coefficient of friction
+    ar: معامل الاحتكاك
+    fr: Coefficient de frottement
+    def:
+      en: Ratio \(\mu = f/N\); static friction obeys \(f_s \le \mu_s N\), kinetic friction \(f_k = \mu_k N\).
+      ar: النسبة \(\mu = f/N\)؛ الاحتكاك السكوني يحقق \(f_s \le \mu_s N\) والحركي \(f_k = \mu_k N\).
+  - en: Free-body diagram
+    ar: مخطط الجسم الحر
+    fr: Bilan des forces
+    def:
+      en: Sketch of one isolated body showing every external force acting on it.
+      ar: رسم لجسم معزول تظهر عليه جميع القوى الخارجية المؤثرة فيه.
+  - en: Work
+    ar: الشغل
+    fr: Travail
+    def:
+      en: 'Energy transferred by a force: \(W = \int \vec F\cdot \dd\vec r\).'
+      ar: 'الطاقة المنقولة بواسطة قوة: \(W = \int \vec F\cdot \dd\vec r\).'
+  - en: Kinetic energy
+    ar: الطاقة الحركية
+    fr: Énergie cinétique
+    def:
+      en: Energy of motion, \(K = \tfrac12 m v^2\); its change equals the net work (work–energy theorem).
+      ar: طاقة الحركة \(K = \tfrac12 m v^2\)، وتغيّرها يساوي الشغل الكلي (مبرهنة الشغل والطاقة).
+  - en: Potential energy
+    ar: طاقة الوضع
+    fr: Énergie potentielle
+    def:
+      en: Energy of configuration associated with a conservative force, \(F_x = -\dd U/\dd x\).
+      ar: طاقة مرتبطة بالتشكيل وبقوة محافظة، حيث \(F_x = -\dd U/\dd x\).
+  - en: Conservative force
+    ar: القوة المحافظة
+    fr: Force conservative
+    def:
+      en: Force whose work is path-independent (gravity, spring force).
+      ar: قوة لا يتعلق شغلها بالمسار (الثقالة، قوة النابض).
+  - en: Power
+    ar: القدرة
+    fr: Puissance
+    def:
+      en: 'Rate of energy transfer, \(P = \dd W/\dd t = \vec F\cdot\vec v\); unit: watt.'
+      ar: معدل نقل الطاقة \(P = \dd W/\dd t = \vec F\cdot\vec v\)، ووحدتها الواط.
+  - en: Linear momentum
+    ar: الزخم الخطي (كمية الحركة)
+    fr: Quantité de mouvement
+    def:
+      en: \(\vec p = m\vec v\); conserved for an isolated system.
+      ar: \(\vec p = m\vec v\)، وهو محفوظ في النظام المعزول.
+  - en: Impulse
+    ar: الدفع
+    fr: Impulsion
+    def:
+      en: \(\vec J = \int\vec F\,\dd t = \Delta\vec p\).
+      ar: \(\vec J = \int\vec F\,\dd t = \Delta\vec p\).
+  - en: Elastic collision
+    ar: التصادم المرن
+    fr: Choc élastique
+    def:
+      en: Collision in which total kinetic energy as well as momentum is conserved.
+      ar: تصادم تُحفظ فيه الطاقة الحركية الكلية إضافة إلى الزخم الخطي.
+  - en: Centre of mass
+    ar: مركز الكتلة
+    fr: Centre de masse
+    def:
+      en: Point \(\vec r_{cm} = \sum m_i\vec r_i/M\) that moves as if all external forces acted on the total mass there.
+      ar: النقطة \(\vec r_{cm} = \sum m_i\vec r_i/M\) التي تتحرك كأن الكتلة الكلية متمركزة فيها وتؤثر عليها كل القوى الخارجية.
+  - en: Torque
+    ar: عزم القوة
+    fr: Moment d'une force
+    def:
+      en: \(\vec\tau = \vec r\times\vec F\); the rotational effect of a force about a point.
+      ar: \(\vec\tau = \vec r\times\vec F\)، وهو الأثر الدوراني لقوة حول نقطة.
+  - en: Moment of inertia
+    ar: عزم القصور الذاتي
+    fr: Moment d'inertie
+    def:
+      en: \(I = \sum m_i r_i^2\); resistance of a body to angular acceleration about an axis.
+      ar: \(I = \sum m_i r_i^2\)، ويقيس ممانعة الجسم للتسارع الزاوي حول محور.
+  - en: Angular momentum
+    ar: الزخم الزاوي
+    fr: Moment cinétique
+    def:
+      en: \(\vec L = \vec r\times\vec p\); for a rigid body about a fixed axis \(L = I\omega\). Conserved when the net external torque is zero.
+      ar: \(\vec L = \vec r\times\vec p\)؛ ولجسم صلب حول محور ثابت \(L = I\omega\). يُحفظ عندما ينعدم العزم الخارجي الكلي.
+  - en: Universal gravitation
+    ar: الجذب العام
+    fr: Gravitation universelle
+    def:
+      en: Attraction between any two masses, \(F = G m_1 m_2/r^2\).
+      ar: تجاذب بين أي كتلتين \(F = G m_1 m_2/r^2\).
+  - en: Escape speed
+    ar: سرعة الإفلات
+    fr: Vitesse de libération
+    def:
+      en: Minimum launch speed to escape a planet's gravity, \(v_{esc} = \sqrt{2GM/R}\) (about 11.2 km/s for Earth).
+      ar: أدنى سرعة إطلاق للإفلات من جاذبية كوكب \(v_{esc} = \sqrt{2GM/R}\) (نحو 11.2 km/s للأرض).
+  - en: Simple harmonic motion
+    ar: الحركة التوافقية البسيطة
+    fr: Mouvement harmonique simple
+    def:
+      en: Oscillation with \(x(t) = A\cos(\omega t + \phi)\), caused by a restoring force proportional to displacement; \(\omega = \sqrt{k/m}\).
+      ar: اهتزاز وفق \(x(t) = A\cos(\omega t + \phi)\) ناتج عن قوة إرجاع متناسبة مع الإزاحة؛ \(\omega = \sqrt{k/m}\).
+general-physics-2:
+  sims:
+  - efield
+  - rc-circuit
+  glossary:
+  - en: Electric charge
+    ar: الشحنة الكهربائية
+    fr: Charge électrique
+    def:
+      en: Conserved, quantised property of matter (\(e = 1.602\times10^{-19}\ \mathrm{C}\)) that is the source of electric fields.
+      ar: خاصية للمادة محفوظة ومكمّاة (\(e = 1.602\times10^{-19}\ \mathrm{C}\))، وهي مصدر الحقول الكهربائية.
+  - en: Coulomb's law
+    ar: قانون كولوم
+    fr: Loi de Coulomb
+    def:
+      en: 'Force between point charges: \(F = k|q_1q_2|/r^2\), with \(k = 1/4\pi\varepsilon_0\).'
+      ar: القوة بين شحنتين نقطيتين \(F = k|q_1q_2|/r^2\) حيث \(k = 1/4\pi\varepsilon_0\).
+  - en: Electric field
+    ar: الحقل الكهربائي
+    fr: Champ électrique
+    def:
+      en: Force per unit positive test charge, \(\vec E = \vec F/q_0\); unit N/C = V/m.
+      ar: القوة لكل وحدة شحنة اختبار موجبة \(\vec E = \vec F/q_0\)؛ وحدته N/C = V/m.
+  - en: Field line
+    ar: خط الحقل
+    fr: Ligne de champ
+    def:
+      en: Curve tangent to \(\vec E\) everywhere; lines start on positive and end on negative charges.
+      ar: منحنى يمس \(\vec E\) في كل نقطة؛ تبدأ الخطوط من الشحنات الموجبة وتنتهي عند السالبة.
+  - en: Superposition principle
+    ar: مبدأ التراكب
+    fr: Principe de superposition
+    def:
+      en: The total field (or force) is the vector sum of the contributions of each source.
+      ar: الحقل (أو القوة) الكلي هو المجموع المتجهي لمساهمات كل مصدر.
+  - en: Electric dipole moment
+    ar: عزم ثنائي القطب الكهربائي
+    fr: Moment dipolaire électrique
+    def:
+      en: \(\vec p = q\vec d\), from \(-q\) to \(+q\); in a field it feels the torque \(\vec\tau = \vec p\times\vec E\).
+      ar: \(\vec p = q\vec d\) يتجه من \(-q\) إلى \(+q\)؛ ويخضع في حقل لعزم مزدوجة \(\vec\tau = \vec p\times\vec E\).
+  - en: Electric flux
+    ar: التدفق الكهربائي
+    fr: Flux électrique
+    def:
+      en: \(\Phi_E = \int\vec E\cdot\dd\vec A\), the "number of field lines" crossing a surface.
+      ar: \(\Phi_E = \int\vec E\cdot\dd\vec A\)، ويمثل "عدد خطوط الحقل" التي تعبر سطحًا.
+  - en: Gauss's law
+    ar: قانون غاوس
+    fr: Théorème de Gauss
+    def:
+      en: \(\oint\vec E\cdot\dd\vec A = Q_{enc}/\varepsilon_0\) for any closed surface.
+      ar: \(\oint\vec E\cdot\dd\vec A = Q_{enc}/\varepsilon_0\) لأي سطح مغلق.
+  - en: Permittivity of free space
+    ar: سماحية الفراغ
+    fr: Permittivité du vide
+    def:
+      en: \(\varepsilon_0 = 8.85\times10^{-12}\ \mathrm{C^2/(N\,m^2)}\).
+      ar: \(\varepsilon_0 = 8.85\times10^{-12}\ \mathrm{C^2/(N\,m^2)}\).
+  - en: Electric potential
+    ar: الكمون الكهربائي
+    fr: Potentiel électrique
+    def:
+      en: Potential energy per unit charge, \(V = U/q_0\); \(\Delta V = -\int\vec E\cdot\dd\vec s\); unit volt.
+      ar: طاقة الوضع لكل وحدة شحنة \(V = U/q_0\)؛ \(\Delta V = -\int\vec E\cdot\dd\vec s\)؛ ووحدته الفولط.
+  - en: Equipotential surface
+    ar: سطح متساوي الكمون
+    fr: Surface équipotentielle
+    def:
+      en: Surface of constant \(V\); always perpendicular to field lines.
+      ar: سطح يكون عليه \(V\) ثابتًا، وهو دائمًا عمودي على خطوط الحقل.
+  - en: Electron-volt
+    ar: الإلكترون فولط
+    fr: Électron-volt
+    def:
+      en: 'Energy gained by charge \(e\) through 1 V: \(1\ \mathrm{eV} = 1.602\times10^{-19}\ \mathrm{J}\).'
+      ar: 'الطاقة التي تكتسبها الشحنة \(e\) عبر فرق كمون 1 V: \(1\ \mathrm{eV} = 1.602\times10^{-19}\ \mathrm{J}\).'
+  - en: Capacitance
+    ar: السعة
+    fr: Capacité
+    def:
+      en: \(C = Q/V\); for a parallel-plate capacitor \(C = \varepsilon_0A/d\); unit farad.
+      ar: \(C = Q/V\)؛ وللمكثفة المستوية \(C = \varepsilon_0A/d\)؛ ووحدتها الفاراد.
+  - en: Dielectric
+    ar: العازل الكهربائي
+    fr: Diélectrique
+    def:
+      en: Insulator that polarises in a field and multiplies capacitance by its dielectric constant \(\kappa\).
+      ar: مادة عازلة تستقطب في الحقل وتضرب السعة في ثابت العزل \(\kappa\).
+  - en: Electric current
+    ar: التيار الكهربائي
+    fr: Courant électrique
+    def:
+      en: Rate of charge flow through a cross-section, \(I = \dd q/\dd t\); unit ampere.
+      ar: معدل تدفق الشحنة عبر مقطع \(I = \dd q/\dd t\)؛ ووحدته الأمبير.
+  - en: Resistivity
+    ar: المقاومية
+    fr: Résistivité
+    def:
+      en: Material property \(\rho = E/J\); a wire has \(R = \rho L/A\).
+      ar: خاصية للمادة \(\rho = E/J\)؛ ومقاومة سلك \(R = \rho L/A\).
+  - en: Ohm's law
+    ar: قانون أوم
+    fr: Loi d'Ohm
+    def:
+      en: \(V = RI\) with \(R\) independent of \(V\) (ohmic conductor).
+      ar: \(V = RI\) حيث \(R\) لا تتعلق بـ \(V\) (ناقل أومي).
+  - en: Electromotive force (emf)
+    ar: القوة المحركة الكهربائية
+    fr: Force électromotrice
+    def:
+      en: Work per unit charge done by a source to move charge around a circuit, \(\mathcal E\); unit volt.
+      ar: الشغل لكل وحدة شحنة الذي ينجزه مولد لتحريك الشحنة في الدارة \(\mathcal E\)؛ ووحدتها الفولط.
+  - en: Kirchhoff's rules
+    ar: قانونا كيرشوف
+    fr: Lois de Kirchhoff
+    def:
+      en: Junction rule \(\sum I = 0\) (charge conservation) and loop rule \(\sum\Delta V = 0\) (energy conservation).
+      ar: قانون العقد \(\sum I = 0\) (انحفاظ الشحنة) وقانون الحلقات \(\sum\Delta V = 0\) (حفظ الطاقة).
+  - en: Time constant
+    ar: ثابت الزمن
+    fr: Constante de temps
+    def:
+      en: '\(\tau = RC\) (or \(L/R\)): time for a transient to change by a factor \(e\).'
+      ar: '\(\tau = RC\) (أو \(L/R\)): الزمن اللازم ليتغير النظام الانتقالي بمعامل \(e\).'
+  - en: Magnetic field
+    ar: الحقل المغناطيسي
+    fr: Champ magnétique
+    def:
+      en: Field \(\vec B\) defined by the force on a moving charge; unit tesla.
+      ar: حقل \(\vec B\) يُعرَّف بالقوة المؤثرة في شحنة متحركة؛ ووحدته التسلا.
+  - en: Lorentz force
+    ar: قوة لورنتز
+    fr: Force de Lorentz
+    def:
+      en: \(\vec F = q(\vec E + \vec v\times\vec B)\).
+      ar: \(\vec F = q(\vec E + \vec v\times\vec B)\).
+  - en: Biot–Savart law
+    ar: قانون بيو-سافار
+    fr: Loi de Biot et Savart
+    def:
+      en: '\(\dd\vec B = \dfrac{\mu_0}{4\pi}\dfrac{I\,\dd\vec s\times\hat r}{r^2}\): field of a current element.'
+      ar: '\(\dd\vec B = \dfrac{\mu_0}{4\pi}\dfrac{I\,\dd\vec s\times\hat r}{r^2}\): حقل عنصر تيار.'
+  - en: Ampère's law
+    ar: قانون أمبير
+    fr: Théorème d'Ampère
+    def:
+      en: \(\oint\vec B\cdot\dd\vec s = \mu_0 I_{enc}\) for any closed loop (steady currents).
+      ar: \(\oint\vec B\cdot\dd\vec s = \mu_0 I_{enc}\) لأي مسار مغلق (تيارات مستقرة).
+  - en: Magnetic flux
+    ar: التدفق المغناطيسي
+    fr: Flux magnétique
+    def:
+      en: \(\Phi_B = \int\vec B\cdot\dd\vec A\); unit weber.
+      ar: \(\Phi_B = \int\vec B\cdot\dd\vec A\)؛ ووحدته الويبر.
+  - en: Faraday's law
+    ar: قانون فاراداي
+    fr: Loi de Faraday
+    def:
+      en: Induced emf \(\mathcal E = -\dd\Phi_B/\dd t\) (times \(N\) for a coil of \(N\) turns).
+      ar: القوة المحركة الكهربائية المتحرَّضة \(\mathcal E = -\dd\Phi_B/\dd t\) (مضروبة في \(N\) لوشيعة من \(N\) لفة).
+  - en: Lenz's law
+    ar: قانون لنز
+    fr: Loi de Lenz
+    def:
+      en: The induced current flows so as to oppose the change of flux that produces it.
+      ar: يسري التيار المتحرَّض في اتجاه يعاكس تغيّر التدفق الذي أحدثه.
+  - en: Self-inductance
+    ar: الذاتية (معامل التحريض الذاتي)
+    fr: Inductance propre
+    def:
+      en: \(L = N\Phi_B/I\); a coil opposes changes of current with \(\mathcal E_L = -L\,\dd I/\dd t\); unit henry.
+      ar: \(L = N\Phi_B/I\)؛ تعاكس الوشيعة تغيرات التيار بقوة \(\mathcal E_L = -L\,\dd I/\dd t\)؛ ووحدتها الهنري.
+  - en: Hall effect
+    ar: ظاهرة هول
+    fr: Effet Hall
+    def:
+      en: Transverse voltage across a current-carrying conductor in a magnetic field; used to measure \(B\).
+      ar: فرق كمون عرضي يظهر في ناقل يحمل تيارًا داخل حقل مغناطيسي، ويُستعمل لقياس \(B\).
+mathematical-physics-2:
+  sims:
+  - fourier
+  glossary:
+  - en: Gamma function
+    ar: دالة غاما
+    fr: Fonction gamma
+    def:
+      en: '\(\Gamma(z)=\int_0^\infty t^{z-1}e^{-t}\dd t\); extends the factorial: \(\Gamma(n+1)=n!\).'
+      ar: '\(\Gamma(z)=\int_0^\infty t^{z-1}e^{-t}\dd t\)، وهي تعميم للمضروب: \(\Gamma(n+1)=n!\).'
+  - en: Beta function
+    ar: دالة بيتا
+    fr: Fonction bêta
+    def:
+      en: \(B(p,q)=\int_0^1t^{p-1}(1-t)^{q-1}\dd t=\Gamma(p)\Gamma(q)/\Gamma(p+q)\).
+      ar: \(B(p,q)=\int_0^1t^{p-1}(1-t)^{q-1}\dd t=\Gamma(p)\Gamma(q)/\Gamma(p+q)\).
+  - en: Stirling's formula
+    ar: صيغة ستيرلنغ
+    fr: Formule de Stirling
+    def:
+      en: Asymptotic form \(n!\approx\sqrt{2\pi n}\,(n/e)^n\) for large \(n\).
+      ar: الصيغة التقاربية \(n!\approx\sqrt{2\pi n}\,(n/e)^n\) من أجل \(n\) كبير.
+  - en: Error function
+    ar: دالة الخطأ
+    fr: Fonction d'erreur
+    def:
+      en: \(\operatorname{erf}x=\frac{2}{\sqrt\pi}\int_0^xe^{-t^2}\dd t\), related to the incomplete Gamma function.
+      ar: \(\operatorname{erf}x=\frac{2}{\sqrt\pi}\int_0^xe^{-t^2}\dd t\)، وترتبط بدالة غاما الناقصة.
+  - en: Ordinary point
+    ar: نقطة عادية
+    fr: Point ordinaire
+    def:
+      en: A point where the coefficients \(P, Q\) of \(y''+Py'+Qy=0\) are analytic; two power-series solutions exist there.
+      ar: نقطة تكون عندها المعاملات \(P, Q\) في \(y''+Py'+Qy=0\) تحليلية، ويوجد عندها حلّان بمتسلسلات القوى.
+  - en: Regular singular point
+    ar: نقطة شاذة منتظمة
+    fr: Point singulier régulier
+    def:
+      en: A singular point \(x_0\) where \((x-x_0)P\) and \((x-x_0)^2Q\) are analytic; the Frobenius method applies there.
+      ar: نقطة شاذة \(x_0\) تكون عندها \((x-x_0)P\) و\((x-x_0)^2Q\) تحليليتين، وتنطبق عندها طريقة فروبينيوس.
+  - en: Frobenius method
+    ar: طريقة فروبينيوس
+    fr: Méthode de Frobenius
+    def:
+      en: Series solution \(y=\sum a_nx^{n+r}\) about a regular singular point.
+      ar: حل بالمتسلسلة \(y=\sum a_nx^{n+r}\) حول نقطة شاذة منتظمة.
+  - en: Indicial equation
+    ar: المعادلة الدليلية
+    fr: Équation indicielle
+    def:
+      en: The equation for the exponent \(r\) obtained from the lowest power in the Frobenius method.
+      ar: المعادلة التي تحدد الأس \(r\)، وتُستخرج من أدنى قوة في طريقة فروبينيوس.
+  - en: Wronskian
+    ar: الرونسكيان
+    fr: Wronskien
+    def:
+      en: \(W=y_1y_2'-y_1'y_2\); non-zero if and only if the two solutions are linearly independent.
+      ar: \(W=y_1y_2'-y_1'y_2\)، ولا ينعدم إلا إذا كان الحلّان مرتبطين خطيًّا.
+  - en: Bessel function
+    ar: دالة بسل
+    fr: Fonction de Bessel
+    def:
+      en: \(J_\nu(x)\), the solution of Bessel's equation that is regular at the origin; it appears in problems with cylindrical symmetry.
+      ar: \(J_\nu(x)\)، حل معادلة بسل المنتظم عند المبدأ، ويظهر في المسائل ذات التناظر الأسطواني.
+  - en: Neumann function
+    ar: دالة نويمان
+    fr: Fonction de Neumann
+    def:
+      en: \(Y_\nu(x)\), the second solution of Bessel's equation; it is singular at \(x=0\).
+      ar: \(Y_\nu(x)\)، الحل الثاني لمعادلة بسل، وهو شاذ عند \(x=0\).
+  - en: Hankel functions
+    ar: دوال هانكل
+    fr: Fonctions de Hankel
+    def:
+      en: \(H^{(1,2)}_\nu=J_\nu\pm iY_\nu\); they describe outgoing and incoming cylindrical waves.
+      ar: \(H^{(1,2)}_\nu=J_\nu\pm iY_\nu\)، وتصف الموجات الأسطوانية الصادرة والواردة.
+  - en: Modified Bessel functions
+    ar: دوال بسل المعدّلة
+    fr: Fonctions de Bessel modifiées
+    def:
+      en: '\(I_\nu, K_\nu\): solutions of \(x^2y''''+xy''-(x^2+\nu^2)y=0\), growing or decaying exponentially.'
+      ar: '\(I_\nu, K_\nu\): حلول \(x^2y''''+xy''-(x^2+\nu^2)y=0\)، وتتزايد أو تتناقص أسيًّا.'
+  - en: Spherical Bessel functions
+    ar: دوال بسل الكروية
+    fr: Fonctions de Bessel sphériques
+    def:
+      en: \(j_\ell(x)=\sqrt{\pi/2x}\,J_{\ell+1/2}(x)\); radial solutions of the Helmholtz equation in spherical coordinates.
+      ar: \(j_\ell(x)=\sqrt{\pi/2x}\,J_{\ell+1/2}(x)\)، وهي الحلول القطرية لمعادلة هلمهولتز في الإحداثيات الكروية.
+  - en: Legendre polynomial
+    ar: كثير حدود لوجندر
+    fr: Polynôme de Legendre
+    def:
+      en: \(P_\ell(x)\), polynomial solution of Legendre's equation; orthogonal on \([-1,1]\).
+      ar: \(P_\ell(x)\)، الحل كثير الحدود لمعادلة لوجندر، وهو متعامد على \([-1,1]\).
+  - en: Rodrigues' formula
+    ar: صيغة رودريغز
+    fr: Formule de Rodrigues
+    def:
+      en: Expression of an orthogonal polynomial as a repeated derivative, e.g. \(P_\ell=\frac{1}{2^\ell\ell!}\frac{\dd^\ell}{\dd x^\ell}(x^2-1)^\ell\).
+      ar: تعبير عن كثير حدود متعامد بمشتقة متكررة، مثل \(P_\ell=\frac{1}{2^\ell\ell!}\frac{\dd^\ell}{\dd x^\ell}(x^2-1)^\ell\).
+  - en: Generating function
+    ar: الدالة المولّدة
+    fr: Fonction génératrice
+    def:
+      en: A function whose power-series coefficients are a family of functions, e.g. \((1-2xt+t^2)^{-1/2}=\sum P_\ell(x)t^\ell\).
+      ar: دالة معاملات نشرها في متسلسلة قوى هي عائلة من الدوال، مثل \((1-2xt+t^2)^{-1/2}=\sum P_\ell(x)t^\ell\).
+  - en: Orthogonality
+    ar: التعامد
+    fr: Orthogonalité
+    def:
+      en: Vanishing of \(\int f_nf_m\,w\,\dd x\) for \(n\ne m\) with a weight function \(w\); it allows expansions in series of special functions.
+      ar: انعدام \(\int f_nf_m\,w\,\dd x\) من أجل \(n\ne m\) بدالة وزن \(w\)، وهو ما يسمح بالنشر في متسلسلات من الدوال الخاصة.
+  - en: Hermite polynomial
+    ar: كثير حدود هيرميت
+    fr: Polynôme d'Hermite
+    def:
+      en: \(H_n(x)\), orthogonal with weight \(e^{-x^2}\); it appears in the quantum harmonic oscillator.
+      ar: \(H_n(x)\)، متعامد بدالة الوزن \(e^{-x^2}\)، ويظهر في المهتز التوافقي الكمومي.
+  - en: Laguerre polynomial
+    ar: كثير حدود لاغير
+    fr: Polynôme de Laguerre
+    def:
+      en: \(L_n(x)\), orthogonal on \([0,\infty)\) with weight \(e^{-x}\); its associated forms appear in the hydrogen atom.
+      ar: \(L_n(x)\)، متعامد على \([0,\infty)\) بدالة الوزن \(e^{-x}\)، وتظهر صيغه المرافقة في ذرة الهيدروجين.
+  - en: Fourier series
+    ar: متسلسلة فورييه
+    fr: Série de Fourier
+    def:
+      en: Expansion of a periodic function in sines and cosines (or complex exponentials).
+      ar: نشر دالة دورية بدلالة الجيوب وجيوب التمام (أو الأسيات المركبة).
+  - en: Gibbs phenomenon
+    ar: ظاهرة غيبس
+    fr: Phénomène de Gibbs
+    def:
+      en: Persistent overshoot (about 9% of the jump) of Fourier partial sums near a discontinuity.
+      ar: تجاوز دائم (نحو 9% من القفزة) للمجاميع الجزئية لمتسلسلة فورييه قرب نقطة انقطاع.
+  - en: Parseval's theorem
+    ar: مبرهنة بارسفال
+    fr: Théorème de Parseval
+    def:
+      en: The integral of \(|f|^2\) equals the corresponding sum or integral of the squared Fourier coefficients (energy conservation).
+      ar: تكامل \(|f|^2\) يساوي المجموع أو التكامل المقابل لمربعات معاملات فورييه (انحفاظ الطاقة).
+  - en: Fourier transform
+    ar: تحويل فورييه
+    fr: Transformée de Fourier
+    def:
+      en: \(F(k)=\int f(x)e^{-ikx}\dd x\); it decomposes a non-periodic function into plane waves.
+      ar: \(F(k)=\int f(x)e^{-ikx}\dd x\)، ويحلّل دالة غير دورية إلى موجات مستوية.
+  - en: Convolution
+    ar: الالتفاف
+    fr: Produit de convolution
+    def:
+      en: \((f*g)(x)=\int f(y)g(x-y)\dd y\); its Fourier transform is the product \(FG\).
+      ar: \((f*g)(x)=\int f(y)g(x-y)\dd y\)، وتحويل فورييه له هو الجداء \(FG\).
+  - en: Laplace transform
+    ar: تحويل لابلاس
+    fr: Transformée de Laplace
+    def:
+      en: \(F(s)=\int_0^\infty f(t)e^{-st}\dd t\); it converts linear initial-value problems into algebra.
+      ar: \(F(s)=\int_0^\infty f(t)e^{-st}\dd t\)، ويحوّل مسائل القيم الابتدائية الخطية إلى مسائل جبرية.
+  - en: Random variable
+    ar: المتغير العشوائي
+    fr: Variable aléatoire
+    def:
+      en: A quantity whose value is determined by the outcome of a random experiment.
+      ar: مقدار تتحدد قيمته بنتيجة تجربة عشوائية.
+  - en: Poisson distribution
+    ar: توزيع بواسون
+    fr: Loi de Poisson
+    def:
+      en: \(P(n)=\lambda^ne^{-\lambda}/n!\); it counts rare independent events (e.g. radioactive decays).
+      ar: \(P(n)=\lambda^ne^{-\lambda}/n!\)، ويصف عدد الأحداث النادرة المستقلة (مثل الانحلالات الإشعاعية).
+  - en: Gaussian (normal) distribution
+    ar: التوزيع الغاوسي (الطبيعي)
+    fr: Loi normale (gaussienne)
+    def:
+      en: Probability density \(\propto e^{-(x-\mu)^2/2\sigma^2}\); the limit of sums of many independent variables.
+      ar: كثافة احتمال \(\propto e^{-(x-\mu)^2/2\sigma^2}\)، وهو نهاية مجموع عدد كبير من المتغيرات المستقلة.
+  - en: Group
+    ar: الزمرة
+    fr: Groupe
+    def:
+      en: A set with an associative, closed operation that has an identity and inverses; the language of symmetry.
+      ar: مجموعة مزوّدة بعملية تجميعية مغلقة لها عنصر محايد ونظائر، وهي لغة التناظر.
+modern-physics-2:
+  sims:
+  - blackbody
+  - particles
+  glossary:
+  - en: Wavefunction
+    ar: الدالة الموجية
+    fr: Fonction d'onde
+    def:
+      en: Complex amplitude whose squared modulus gives the probability density of a particle.
+      ar: سعة مركّبة يعطي مربع طويلتها كثافة احتمال وجود الجسيم.
+  - en: Born interpretation
+    ar: تفسير بورن
+    fr: Interprétation de Born
+    def:
+      en: Statistical reading of \(|\Psi|^2\) as a probability density.
+      ar: القراءة الإحصائية لـ \(|\Psi|^2\) بوصفها كثافة احتمال.
+  - en: Normalisation
+    ar: التنظيم (الاستنظام)
+    fr: Normalisation
+    def:
+      en: Condition that the total probability of finding the particle somewhere equals one.
+      ar: شرط أن يساوي الاحتمال الكلي لوجود الجسيم في مكان ما واحدًا.
+  - en: Wave packet
+    ar: الحزمة الموجية
+    fr: Paquet d'ondes
+    def:
+      en: Localised superposition of plane waves describing a particle.
+      ar: تراكب متموضع لموجات مستوية يصف جسيمًا.
+  - en: Infinite square well
+    ar: بئر الجهد اللانهائي
+    fr: Puits de potentiel infini
+    def:
+      en: Region of zero potential bounded by infinitely high walls; the 'particle in a box'.
+      ar: منطقة جهدها صفر تحدّها جدران لانهائية الارتفاع؛ «الجسيم في صندوق».
+  - en: Zero-point energy
+    ar: طاقة نقطة الصفر
+    fr: Énergie de point zéro
+    def:
+      en: Lowest, non-zero energy of a confined quantum system, e.g. \(\hbar\omega/2\) for the oscillator.
+      ar: أدنى طاقة غير معدومة لنظام كمومي محصور، مثل \(\hbar\omega/2\) للمتذبذب.
+  - en: Expectation value
+    ar: القيمة المتوقعة
+    fr: Valeur moyenne
+    def:
+      en: Average of many measurements of an observable on identically prepared systems.
+      ar: متوسط قياسات عديدة لمقدار قابل للقياس على أنظمة محضّرة بشكل متطابق.
+  - en: Operator
+    ar: المؤثر
+    fr: Opérateur
+    def:
+      en: Mathematical object acting on wavefunctions that represents an observable.
+      ar: كائن رياضي يؤثر على الدوال الموجية ويمثّل مقدارًا قابلًا للقياس.
+  - en: Tunnelling
+    ar: النفق الكمومي
+    fr: Effet tunnel
+    def:
+      en: Passage of a particle through a classically forbidden barrier.
+      ar: عبور جسيم حاجزًا ممنوعًا كلاسيكيًا.
+  - en: Degeneracy
+    ar: الانحلال
+    fr: Dégénérescence
+    def:
+      en: Several distinct states having the same energy.
+      ar: اشتراك عدة حالات مختلفة في الطاقة نفسها.
+  - en: Principal quantum number
+    ar: العدد الكمومي الرئيسي
+    fr: Nombre quantique principal
+    def:
+      en: Integer n that fixes the hydrogen energy \(E_n = -13.6\ \text{eV}/n^2\).
+      ar: العدد الصحيح n الذي يحدد طاقة الهيدروجين \(E_n = -13.6\ \text{eV}/n^2\).
+  - en: Space quantisation
+    ar: التكميم الفضائي
+    fr: Quantification spatiale
+    def:
+      en: Restriction of \(L_z\) to the values \(m_l\hbar\), i.e. discrete orientations of angular momentum.
+      ar: اقتصار \(L_z\) على القيم \(m_l\hbar\)، أي توجهات متقطعة للزخم الزاوي.
+  - en: Radial probability density
+    ar: كثافة الاحتمال القطرية
+    fr: Densité de probabilité radiale
+    def:
+      en: Probability per unit radius, \(P(r) = r^2|R(r)|^2\).
+      ar: 'الاحتمال لكل وحدة نصف قطر: \(P(r) = r^2|R(r)|^2\).'
+  - en: Bohr magneton
+    ar: مغنطون بور
+    fr: Magnéton de Bohr
+    def:
+      en: \(\mu_B = e\hbar/2m_e\), the natural unit of atomic magnetic moments.
+      ar: \(\mu_B = e\hbar/2m_e\)، الوحدة الطبيعية للعزوم المغناطيسية الذرية.
+  - en: Zeeman effect
+    ar: ظاهرة زيمان
+    fr: Effet Zeeman
+    def:
+      en: Splitting of spectral lines in a magnetic field.
+      ar: انشطار الخطوط الطيفية في مجال مغناطيسي.
+  - en: Electron spin
+    ar: سبين الإلكترون
+    fr: Spin de l'électron
+    def:
+      en: Intrinsic angular momentum \(s = \frac12\) of the electron.
+      ar: الزخم الزاوي الذاتي \(s = \frac12\) للإلكترون.
+  - en: Spin–orbit coupling
+    ar: الاقتران المغزلي-المداري
+    fr: Couplage spin-orbite
+    def:
+      en: Interaction between the spin and the orbital motion of an electron that produces fine structure.
+      ar: تفاعل بين السبين والحركة المدارية للإلكترون ينتج البنية الدقيقة.
+  - en: Pauli exclusion principle
+    ar: مبدأ الاستبعاد لباولي
+    fr: Principe d'exclusion de Pauli
+    def:
+      en: No two electrons in an atom can have the same set of four quantum numbers.
+      ar: لا يمكن لإلكترونين في ذرة أن يملكا المجموعة نفسها من الأعداد الكمومية الأربعة.
+  - en: Moseley's law
+    ar: قانون موزلي
+    fr: Loi de Moseley
+    def:
+      en: Square root of the \(K_\alpha\) frequency is linear in \(Z-1\).
+      ar: الجذر التربيعي لتردد \(K_\alpha\) دالة خطية في \(Z-1\).
+  - en: Fermi energy
+    ar: طاقة فيرمي
+    fr: Énergie de Fermi
+    def:
+      en: Energy of the highest occupied electron state in a metal at absolute zero.
+      ar: طاقة أعلى حالة إلكترونية مشغولة في معدن عند الصفر المطلق.
+  - en: Energy band / band gap
+    ar: عصابة الطاقة / الفجوة الطاقية
+    fr: Bande d'énergie / bande interdite
+    def:
+      en: Allowed energy ranges of electrons in a crystal and the forbidden range between them.
+      ar: مجالات الطاقة المسموح بها للإلكترونات في البلورة، والمجال الممنوع بينها.
+  - en: Semiconductor
+    ar: شبه الموصل
+    fr: Semi-conducteur
+    def:
+      en: Solid with a small band gap (about 1 eV) whose conductivity rises with temperature and doping.
+      ar: جسم صلب ذو فجوة طاقية صغيرة (نحو 1 eV) تزداد ناقليته مع الحرارة والتطعيم.
+  - en: Superconductivity
+    ar: الموصلية الفائقة
+    fr: Supraconductivité
+    def:
+      en: Zero electrical resistance and expulsion of magnetic field (Meissner effect) below a critical temperature.
+      ar: انعدام المقاومة الكهربائية وطرد المجال المغناطيسي (ظاهرة مايسنر) تحت درجة حرارة حرجة.
+  - en: Nucleon
+    ar: النوكليون
+    fr: Nucléon
+    def:
+      en: A proton or a neutron.
+      ar: بروتون أو نيوترون.
+  - en: Binding energy
+    ar: طاقة الربط
+    fr: Énergie de liaison
+    def:
+      en: Energy needed to separate a nucleus into its free nucleons; equals the mass defect times c².
+      ar: الطاقة اللازمة لتفكيك النواة إلى نوكليوناتها الحرة؛ وتساوي النقص الكتلي مضروبًا في c².
+  - en: Liquid-drop model
+    ar: نموذج القطرة السائلة
+    fr: Modèle de la goutte liquide
+    def:
+      en: Model treating the nucleus as an incompressible charged drop; basis of the semi-empirical mass formula.
+      ar: نموذج يعامل النواة كقطرة مشحونة غير قابلة للانضغاط؛ وهو أساس صيغة الكتلة شبه التجريبية.
+  - en: Shell model
+    ar: نموذج الطبقات
+    fr: Modèle en couches
+    def:
+      en: Model of nucleons in quantised orbits explaining the magic numbers 2, 8, 20, 28, 50, 82, 126.
+      ar: نموذج للنوكليونات في مدارات مكمّاة يفسّر الأعداد السحرية 2، 8، 20، 28، 50، 82، 126.
+  - en: Half-life
+    ar: عمر النصف
+    fr: Demi-vie
+    def:
+      en: Time for half of the nuclei of a sample to decay, \(T_{1/2} = \ln2/\lambda\).
+      ar: 'الزمن اللازم لاضمحلال نصف أنوية العيّنة: \(T_{1/2} = \ln2/\lambda\).'
+  - en: Activity
+    ar: النشاطية الإشعاعية
+    fr: Activité
+    def:
+      en: Number of decays per second, \(A = \lambda N\), measured in becquerel.
+      ar: عدد التفككات في الثانية \(A = \lambda N\)، وتقاس بالبكريل.
+  - en: Alpha / beta / gamma decay
+    ar: اضمحلال ألفا / بيتا / غاما
+    fr: Désintégration alpha / bêta / gamma
+    def:
+      en: Emission of a helium nucleus / an electron or positron with a (anti)neutrino / a high-energy photon.
+      ar: انبعاث نواة هيليوم / إلكترون أو بوزيترون مع (ضديد) نيوترينو / فوتون عالي الطاقة.
+numerical-methods:
+  sims:
+  - ode-solver
+  glossary:
+  - en: Algorithm
+    ar: الخوارزمية
+    fr: Algorithme
+    def:
+      en: A finite, unambiguous sequence of steps that solves a problem.
+      ar: متتالية منتهية وواضحة من الخطوات تحل مسألة ما.
+  - en: Compiler
+    ar: المترجم (المُصرِّف)
+    fr: Compilateur
+    def:
+      en: Program that translates source code (e.g. Fortran) into machine code.
+      ar: برنامج يحوّل الشفرة المصدرية (مثل فورتران) إلى لغة الآلة.
+  - en: Loop
+    ar: حلقة التكرار
+    fr: Boucle
+    def:
+      en: A block of instructions executed repeatedly (Fortran <code>do ... end do</code>).
+      ar: كتلة تعليمات تُنفَّذ بشكل متكرر (في فورتران <code>do ... end do</code>).
+  - en: Subroutine
+    ar: البرنامج الفرعي
+    fr: Sous-programme
+    def:
+      en: A named, reusable block of code called with arguments.
+      ar: كتلة شفرة مسمّاة قابلة لإعادة الاستعمال تُستدعى بوسائط.
+  - en: Floating-point number
+    ar: العدد ذو الفاصلة العائمة
+    fr: Nombre à virgule flottante
+    def:
+      en: Representation \(\pm m\times2^e\) with a finite mantissa and exponent.
+      ar: تمثيل من الشكل \(\pm m\times2^e\) بجزء عشري وأس منتهيين.
+  - en: Machine epsilon
+    ar: إبسيلون الآلة
+    fr: Epsilon machine
+    def:
+      en: Smallest \(\varepsilon\) such that \(1+\varepsilon\neq1\) in the machine (\(\approx2.2\times10^{-16}\) in double precision).
+      ar: أصغر \(\varepsilon\) يحقق \(1+\varepsilon\neq1\) في الآلة (\(\approx2.2\times10^{-16}\) في الدقة المضاعفة).
+  - en: Round-off error
+    ar: خطأ التدوير
+    fr: Erreur d'arrondi
+    def:
+      en: Error due to storing numbers with a finite number of digits.
+      ar: خطأ ناتج عن تخزين الأعداد بعدد منتهٍ من الأرقام.
+  - en: Truncation error
+    ar: خطأ البتر
+    fr: Erreur de troncature
+    def:
+      en: Error due to replacing an exact mathematical process by a finite approximation (e.g. a truncated Taylor series).
+      ar: خطأ ناتج عن استبدال عملية رياضية مضبوطة بتقريب منتهٍ (مثل بتر متسلسلة تايلور).
+  - en: Relative error
+    ar: الخطأ النسبي
+    fr: Erreur relative
+    def:
+      en: \(|x-\tilde x|/|x|\); it measures the number of correct significant digits.
+      ar: \(|x-\tilde x|/|x|\)، ويقيس عدد الأرقام المعنوية الصحيحة.
+  - en: Catastrophic cancellation
+    ar: الحذف الكارثي
+    fr: Élimination catastrophique
+    def:
+      en: Loss of significant digits when subtracting two nearly equal numbers.
+      ar: ضياع الأرقام المعنوية عند طرح عددين متقاربين جدًّا.
+  - en: Order of a method
+    ar: رتبة الطريقة
+    fr: Ordre d'une méthode
+    def:
+      en: The power \(p\) in an error \(\order{h^p}\).
+      ar: القوة \(p\) في خطأ من الشكل \(\order{h^p}\).
+  - en: Convergence
+    ar: التقارب
+    fr: Convergence
+    def:
+      en: Approach of the iterates or approximations to the exact solution as iterations increase or \(h\to0\).
+      ar: اقتراب التكرارات أو التقريبات من الحل المضبوط بزيادة عدد التكرارات أو عندما \(h\to0\).
+  - en: Bisection method
+    ar: طريقة التنصيف
+    fr: Méthode de dichotomie
+    def:
+      en: Root finding by repeatedly halving an interval where the function changes sign.
+      ar: إيجاد الجذر بتنصيف متكرر لمجال تغيّر فيه الدالة إشارتها.
+  - en: Newton–Raphson method
+    ar: طريقة نيوتن-رافسون
+    fr: Méthode de Newton-Raphson
+    def:
+      en: Iteration \(x_{n+1}=x_n-f(x_n)/f'(x_n)\); quadratic convergence near a simple root.
+      ar: التكرار \(x_{n+1}=x_n-f(x_n)/f'(x_n)\)، وتقاربه تربيعي قرب الجذر البسيط.
+  - en: Secant method
+    ar: طريقة القاطع
+    fr: Méthode de la sécante
+    def:
+      en: Newton-like method in which the derivative is replaced by the slope through the last two iterates.
+      ar: طريقة شبيهة بطريقة نيوتن تُستبدل فيها المشتقة بميل المستقيم المار بآخر تكرارين.
+  - en: Trapezoidal rule
+    ar: قاعدة شبه المنحرف
+    fr: Méthode des trapèzes
+    def:
+      en: Integration by linear interpolation on each sub-interval; error \(\order{h^2}\).
+      ar: تكامل باستكمال خطي على كل مجال جزئي، وخطؤها \(\order{h^2}\).
+  - en: Simpson's rule
+    ar: قاعدة سمبسون
+    fr: Méthode de Simpson
+    def:
+      en: Integration by quadratic interpolation on pairs of sub-intervals; error \(\order{h^4}\).
+      ar: تكامل باستكمال تربيعي على كل زوج من المجالات الجزئية، وخطؤها \(\order{h^4}\).
+  - en: Interpolation
+    ar: الاستكمال الداخلي
+    fr: Interpolation
+    def:
+      en: Construction of a function (often a polynomial) passing exactly through given data points.
+      ar: إنشاء دالة (غالبًا كثير حدود) تمر تمامًا بنقاط معطاة.
+  - en: Lagrange polynomial
+    ar: كثير حدود لاغرانج
+    fr: Polynôme de Lagrange
+    def:
+      en: Interpolating polynomial written as \(\sum_i y_i\,\ell_i(x)\) with \(\ell_i(x_j)=\delta_{ij}\).
+      ar: كثير الحدود الاستكمالي المكتوب على الشكل \(\sum_i y_i\,\ell_i(x)\) حيث \(\ell_i(x_j)=\delta_{ij}\).
+  - en: Finite difference
+    ar: الفروق المنتهية
+    fr: Différences finies
+    def:
+      en: Approximation of derivatives by differences of function values at nearby points.
+      ar: تقريب المشتقات بفروق بين قيم الدالة عند نقاط متجاورة.
+  - en: Gauss elimination
+    ar: طريقة غاوس للحذف
+    fr: Méthode d'élimination de Gauss
+    def:
+      en: Reduction of a linear system to upper-triangular form followed by back substitution.
+      ar: تحويل جملة خطية إلى شكل مثلثي علوي ثم حلها بالتعويض التراجعي.
+  - en: Pivoting
+    ar: الارتكاز
+    fr: Pivotage
+    def:
+      en: Row (and column) exchanges choosing a large pivot to avoid division by small numbers.
+      ar: تبديل الأسطر (والأعمدة) لاختيار ارتكاز كبير وتجنّب القسمة على أعداد صغيرة.
+  - en: LU decomposition
+    ar: تفكيك LU
+    fr: Décomposition LU
+    def:
+      en: Factorisation \(A=LU\) into lower- and upper-triangular matrices.
+      ar: تحليل \(A=LU\) إلى جداء مصفوفة مثلثية سفلية ومصفوفة مثلثية علوية.
+  - en: Gauss–Seidel method
+    ar: طريقة غاوس-زايدل
+    fr: Méthode de Gauss-Seidel
+    def:
+      en: Iterative solver that updates each unknown using the most recent values of the others.
+      ar: طريقة تكرارية تحدّث كل مجهول باستعمال أحدث قيم المجاهيل الأخرى.
+  - en: Diagonal dominance
+    ar: الهيمنة القطرية
+    fr: Dominance diagonale
+    def:
+      en: \(|a_{ii}|>\sum_{j\neq i}|a_{ij}|\) for every row; a sufficient condition for Jacobi/Gauss–Seidel convergence.
+      ar: \(|a_{ii}|>\sum_{j\neq i}|a_{ij}|\) في كل سطر، وهو شرط كافٍ لتقارب جاكوبي وغاوس-زايدل.
+  - en: Euler method
+    ar: طريقة أويلر
+    fr: Méthode d'Euler
+    def:
+      en: \(y_{n+1}=y_n+hf(t_n,y_n)\); first-order ODE integrator.
+      ar: \(y_{n+1}=y_n+hf(t_n,y_n)\)، طريقة مكاملة من الرتبة الأولى.
+  - en: Runge–Kutta method
+    ar: طريقة رونغه-كوتا
+    fr: Méthode de Runge-Kutta
+    def:
+      en: One-step method combining several slope evaluations per step; RK4 is fourth order.
+      ar: طريقة ذات خطوة واحدة تجمع عدة حسابات للميل في كل خطوة، وRK4 من الرتبة الرابعة.
+  - en: Step size
+    ar: الخطوة
+    fr: Pas
+    def:
+      en: The increment \(h\) of the discretisation; it controls both accuracy and cost.
+      ar: مقدار \(h\) في التقطيع، وهو يتحكم في الدقة والكلفة معًا.
+  - en: Stability
+    ar: الاستقرار
+    fr: Stabilité
+    def:
+      en: Property of a method whose errors do not grow without bound from step to step.
+      ar: خاصية طريقة لا تتضخم أخطاؤها بلا حدود من خطوة إلى أخرى.
+  - en: Residual
+    ar: الباقي
+    fr: Résidu
+    def:
+      en: \(\vb r=\vb b-A\tilde{\vb x}\); it measures how well an approximate solution satisfies the system.
+      ar: \(\vb r=\vb b-A\tilde{\vb x}\)، ويقيس مدى تحقيق الحل التقريبي للجملة.
+particle-physics:
+  sims:
+  - particles
+  glossary:
+  - en: Standard Model
+    ar: النموذج القياسي
+    fr: Modèle standard
+    def:
+      en: Gauge theory SU(3)×SU(2)×U(1) of the strong, weak and electromagnetic interactions of quarks and leptons.
+      ar: نظرية معيارية SU(3)×SU(2)×U(1) للتفاعلات القوية والضعيفة والكهرومغناطيسية بين الكواركات واللبتونات.
+  - en: Quark
+    ar: الكوارك
+    fr: Quark
+    def:
+      en: Fractionally charged, coloured fermion; six flavours u, d, s, c, b, t.
+      ar: فرميون ذو شحنة كسرية ولون؛ له ست نكهات u وd وs وc وb وt.
+  - en: Lepton
+    ar: اللبتون
+    fr: Lepton
+    def:
+      en: 'Fermion without colour: e, μ, τ and their neutrinos.'
+      ar: 'فرميون بلا لون: e وμ وτ ونيوترينواتها.'
+  - en: Hadron
+    ar: الهادرون
+    fr: Hadron
+    def:
+      en: Colour-neutral bound state of quarks — a baryon (qqq) or a meson (qq̄).
+      ar: حالة مقيّدة متعادلة لونيًا من الكواركات — باريون (qqq) أو ميزون (qq̄).
+  - en: Gauge boson
+    ar: البوزون المعياري
+    fr: Boson de jauge
+    def:
+      en: 'Spin-1 carrier of an interaction: photon, W±, Z, gluons.'
+      ar: 'حامل التفاعل ذو السبين 1: الفوتون، W±، Z، الغلوونات.'
+  - en: Four-momentum
+    ar: الزخم الرباعي
+    fr: Quadri-impulsion
+    def:
+      en: \(p^\mu = (E/c, \vb{p})\), whose square \(p^2 = m^2c^2\) is invariant.
+      ar: \(p^\mu = (E/c, \vb{p})\)، ومربعه \(p^2 = m^2c^2\) لامتغير.
+  - en: Invariant mass
+    ar: الكتلة اللامتغيرة
+    fr: Masse invariante
+    def:
+      en: \(\sqrt s\), total energy in the centre-of-mass frame of a system of particles.
+      ar: \(\sqrt s\)، الطاقة الكلية لجملة جسيمات في إطار مركز كتلتها.
+  - en: Cross-section
+    ar: المقطع العرضي
+    fr: Section efficace
+    def:
+      en: Effective target area measuring the probability of an interaction; unit the barn (10⁻²⁸ m²).
+      ar: مساحة هدف فعّالة تقيس احتمال حدوث التفاعل؛ ووحدتها البارن (10⁻²⁸ m²).
+  - en: Decay width
+    ar: عرض الاضمحلال
+    fr: Largeur de désintégration
+    def:
+      en: Decay rate expressed as an energy, \(\Gamma = \hbar/\tau\).
+      ar: 'معدل الاضمحلال معبّرًا عنه بالطاقة: \(\Gamma = \hbar/\tau\).'
+  - en: Branching ratio
+    ar: نسبة التفرّع
+    fr: Rapport d'embranchement
+    def:
+      en: Fraction of decays that proceed through a given channel.
+      ar: نسبة الاضمحلالات التي تتم عبر قناة معيّنة.
+  - en: Baryon number
+    ar: العدد الباريوني
+    fr: Nombre baryonique
+    def:
+      en: +1/3 for each quark and −1/3 for each antiquark; conserved in all observed processes.
+      ar: +1/3 لكل كوارك و−1/3 لكل كوارك مضاد؛ وهو منحفظ في كل العمليات المرصودة.
+  - en: Lepton number
+    ar: العدد اللبتوني
+    fr: Nombre leptonique
+    def:
+      en: Number of leptons minus antileptons, conserved separately for each family in the Standard Model (except via neutrino oscillations).
+      ar: عدد اللبتونات ناقص عدد اللبتونات المضادة، وينحفظ لكل عائلة على حدة في النموذج القياسي (باستثناء تذبذبات النيوترينو).
+  - en: Strangeness
+    ar: الغرابة
+    fr: Étrangeté
+    def:
+      en: Quantum number counting strange antiquarks minus strange quarks; violated only by the weak interaction.
+      ar: عدد كمومي يساوي عدد الكواركات الغريبة المضادة ناقص الكواركات الغريبة؛ ولا ينتهكه إلا التفاعل الضعيف.
+  - en: Parity
+    ar: الزوجية (التماثل المكاني)
+    fr: Parité
+    def:
+      en: Symmetry under spatial inversion \(\vb{r}\to-\vb{r}\); conserved by strong and EM interactions, maximally violated by the weak one.
+      ar: التناظر بالنسبة للانعكاس المكاني \(\vb{r}\to-\vb{r}\)؛ ينحفظ في التفاعلين القوي والكهرومغناطيسي ويُنتهك انتهاكًا أعظميًا في الضعيف.
+  - en: Isospin
+    ar: اللف النظائري (الإيزوسبين)
+    fr: Isospin
+    def:
+      en: SU(2) symmetry treating u and d quarks (or proton and neutron) as two states of one particle.
+      ar: تناظر SU(2) يعامل الكواركين u وd (أو البروتون والنيوترون) كحالتين لجسيم واحد.
+  - en: Colour
+    ar: الشحنة اللونية
+    fr: Couleur
+    def:
+      en: Three-valued charge of quarks and gluons, the source of the strong interaction.
+      ar: شحنة ثلاثية القيم للكواركات والغلوونات، وهي مصدر التفاعل القوي.
+  - en: Gluon
+    ar: الغلوون
+    fr: Gluon
+    def:
+      en: Massless coloured gauge boson of QCD; there are eight.
+      ar: بوزون معياري عديم الكتلة ملوّن في الكروموديناميكا الكمومية؛ وعددها ثمانية.
+  - en: Asymptotic freedom
+    ar: الحرية التقاربية
+    fr: Liberté asymptotique
+    def:
+      en: Decrease of the strong coupling at high energies (short distances).
+      ar: تناقص ثابت الاقتران القوي عند الطاقات العالية (المسافات القصيرة).
+  - en: Confinement
+    ar: الحصر (اللوني)
+    fr: Confinement
+    def:
+      en: Impossibility of isolating colour-charged quarks or gluons; only colour singlets are observed.
+      ar: استحالة عزل الكواركات أو الغلوونات المشحونة لونيًا؛ ولا تُرصد إلا الحالات الأحادية اللون.
+  - en: Dirac equation
+    ar: معادلة ديراك
+    fr: Équation de Dirac
+    def:
+      en: Relativistic wave equation \((i\gamma^\mu\partial_\mu - m)\psi = 0\) for spin-½ particles.
+      ar: معادلة موجية نسبية \((i\gamma^\mu\partial_\mu - m)\psi = 0\) للجسيمات ذات السبين ½.
+  - en: Helicity
+    ar: الهيليسية
+    fr: Hélicité
+    def:
+      en: Projection of the spin on the direction of motion.
+      ar: إسقاط السبين على اتجاه الحركة.
+  - en: Chirality
+    ar: الكيرالية
+    fr: Chiralité
+    def:
+      en: Lorentz-invariant handedness defined by \(\gamma^5\); equals helicity for massless particles.
+      ar: اليدوية اللامتغيرة لورنتزيًا والمعرّفة بـ \(\gamma^5\)؛ وتساوي الهيليسية للجسيمات عديمة الكتلة.
+  - en: Feynman diagram
+    ar: مخطط فاينمان
+    fr: Diagramme de Feynman
+    def:
+      en: Pictorial representation of a term in the perturbative expansion of a scattering amplitude.
+      ar: تمثيل تصويري لحدّ في النشر الاضطرابي لسعة الاستطارة.
+  - en: Propagator
+    ar: المنتشر
+    fr: Propagateur
+    def:
+      en: Factor \(\propto 1/(q^2 - m^2)\) associated with a virtual exchanged particle.
+      ar: العامل \(\propto 1/(q^2 - m^2)\) المرتبط بجسيم افتراضي متبادل.
+  - en: Deep inelastic scattering
+    ar: الاستطارة العميقة غير المرنة
+    fr: Diffusion profondément inélastique
+    def:
+      en: High-momentum-transfer lepton–nucleon scattering that resolves the partons inside the nucleon.
+      ar: استطارة لبتون-نوكليون بانتقال زخم كبير تكشف البارتونات داخل النوكليون.
+  - en: CKM matrix
+    ar: مصفوفة CKM
+    fr: Matrice CKM
+    def:
+      en: Unitary 3×3 matrix of quark-flavour mixing in charged weak currents.
+      ar: مصفوفة أحادية 3×3 لخلط نكهات الكواركات في التيارات الضعيفة المشحونة.
+  - en: Neutrino oscillation
+    ar: تذبذب النيوترينو
+    fr: Oscillation des neutrinos
+    def:
+      en: Periodic change of neutrino flavour during propagation due to mixing and mass differences.
+      ar: تغيّر دوري لنكهة النيوترينو أثناء انتشاره بسبب الخلط والفروق الكتلية.
+  - en: Weak mixing angle
+    ar: زاوية الخلط الضعيفة (زاوية واينبرغ)
+    fr: Angle de mélange faible
+    def:
+      en: Angle \(\theta_W\) relating the electromagnetic and weak couplings, \(\sin^2\theta_W \approx 0.23\).
+      ar: الزاوية \(\theta_W\) التي تربط الاقترانين الكهرومغناطيسي والضعيف، \(\sin^2\theta_W \approx 0.23\).
+  - en: Higgs mechanism
+    ar: آلية هيغز
+    fr: Mécanisme de Higgs
+    def:
+      en: Spontaneous breaking of gauge symmetry by a scalar field that gives mass to the W and Z bosons and to fermions.
+      ar: كسر تلقائي للتناظر المعياري بحقل سلّمي يمنح الكتلة للبوزونين W وZ وللفرميونات.
+  - en: Higgs boson
+    ar: بوزون هيغز
+    fr: Boson de Higgs
+    def:
+      en: Spin-0 particle of the Higgs field, discovered in 2012 with mass about 125 GeV.
+      ar: جسيم الحقل الهيغزي ذو السبين 0، اكتُشف سنة 2012 بكتلة تقارب 125 GeV.
+physics-training:
+  sims: []
+  glossary:
+  - en: Placement
+    ar: فترة التدريب الميداني
+    fr: Stage
+    def:
+      en: Period of supervised work in a host organisation.
+      ar: فترة عمل تحت الإشراف في جهة مستضيفة.
+  - en: Host supervisor
+    ar: المشرف في الجهة المستضيفة
+    fr: Maître de stage
+    def:
+      en: Professional who guides the trainee on site and evaluates their work.
+      ar: مهني يوجّه المتدرب في موقع العمل ويقيّم عمله.
+  - en: Academic supervisor
+    ar: المشرف الأكاديمي
+    fr: Encadrant universitaire
+    def:
+      en: Faculty member responsible for the academic follow-up and the grading of the training.
+      ar: عضو هيئة التدريس المسؤول عن المتابعة الأكاديمية للتدريب وتقييمه.
+  - en: Placement agreement
+    ar: اتفاقية التدريب
+    fr: Convention de stage
+    def:
+      en: Signed document that sets the task, dates, rules and confidentiality of the placement.
+      ar: وثيقة موقّعة تحدد مهمة التدريب ومواعيده وقواعده وشروط السرية.
+  - en: Work plan
+    ar: خطة العمل
+    fr: Plan de travail
+    def:
+      en: Agreed list of objectives, tasks and deadlines for the placement.
+      ar: قائمة متفق عليها بأهداف التدريب ومهامه وآجاله.
+  - en: Gantt chart
+    ar: مخطط غانت
+    fr: Diagramme de Gantt
+    def:
+      en: Bar chart showing tasks against time.
+      ar: مخطط بأشرطة يبيّن المهام بدلالة الزمن.
+  - en: Logbook
+    ar: دفتر اليوميات
+    fr: Cahier de laboratoire
+    def:
+      en: Dated, permanent record of all work, settings and raw data.
+      ar: سجل مؤرخ ودائم لكل الأعمال والإعدادات والمعطيات الخام.
+  - en: Risk assessment
+    ar: تقييم المخاطر
+    fr: Évaluation des risques
+    def:
+      en: Identifying hazards, estimating their risk and deciding control measures.
+      ar: تحديد مصادر الخطر وتقدير مخاطرها وتقرير إجراءات التحكم فيها.
+  - en: Personal protective equipment (PPE)
+    ar: معدات الوقاية الشخصية
+    fr: Équipement de protection individuelle (EPI)
+    def:
+      en: Goggles, gloves, lab coat and similar items worn to reduce exposure.
+      ar: النظارات والقفازات والمئزر ونحوها مما يُلبس للحد من التعرض للخطر.
+  - en: Safety Data Sheet (SDS)
+    ar: صحيفة بيانات السلامة
+    fr: Fiche de données de sécurité (FDS)
+    def:
+      en: Document giving the hazards and safe handling of a substance.
+      ar: وثيقة تبيّن مخاطر مادة وطرق التعامل الآمن معها.
+  - en: Standard operating procedure (SOP)
+    ar: إجراء التشغيل القياسي
+    fr: Mode opératoire normalisé
+    def:
+      en: Written step-by-step instructions for a routine operation.
+      ar: تعليمات مكتوبة خطوة بخطوة لعملية روتينية.
+  - en: Calibration
+    ar: المعايرة
+    fr: Étalonnage
+    def:
+      en: Comparing an instrument with a reference standard to correct its readings.
+      ar: مقارنة جهاز بمعيار مرجعي لتصحيح قراءاته.
+  - en: Traceability
+    ar: قابلية التتبع (المترولوجي)
+    fr: Traçabilité
+    def:
+      en: Link of a measurement to national or international standards through an unbroken chain of calibrations.
+      ar: ربط القياس بالمعايير الوطنية أو الدولية عبر سلسلة متصلة من المعايرات.
+  - en: Random error
+    ar: الخطأ العشوائي
+    fr: Erreur aléatoire
+    def:
+      en: Unpredictable scatter of readings; reduced by averaging.
+      ar: تشتت غير متوقع للقراءات؛ يقلّ بأخذ المتوسط.
+  - en: Systematic error
+    ar: الخطأ المنهجي
+    fr: Erreur systématique
+    def:
+      en: Bias that shifts all readings in the same direction.
+      ar: انحياز يزيح كل القراءات في الاتجاه نفسه.
+  - en: Standard uncertainty
+    ar: الارتياب المعياري
+    fr: Incertitude-type
+    def:
+      en: Uncertainty expressed as a standard deviation.
+      ar: ارتياب يُعبَّر عنه بانحراف معياري.
+  - en: Propagation of uncertainty
+    ar: نقل الارتياب
+    fr: Propagation des incertitudes
+    def:
+      en: Calculating the uncertainty of a result from those of its inputs.
+      ar: حساب ارتياب نتيجة من ارتيابات المقادير الداخلة فيها.
+  - en: Significant figures
+    ar: الأرقام المعنوية
+    fr: Chiffres significatifs
+    def:
+      en: Digits of a number that carry meaningful information.
+      ar: أرقام العدد التي تحمل معلومات ذات معنى.
+  - en: Least-squares fit
+    ar: المطابقة بالمربعات الصغرى
+    fr: Ajustement par moindres carrés
+    def:
+      en: Choosing model parameters that minimise the sum of squared residuals.
+      ar: اختيار وسائط النموذج التي تجعل مجموع مربعات البواقي أصغريًا.
+  - en: Outlier
+    ar: القيمة الشاذة
+    fr: Valeur aberrante
+    def:
+      en: Data point far from the others; it may be excluded only for a documented reason.
+      ar: نقطة بعيدة عن البقية؛ لا يجوز استبعادها إلا لسبب موثّق.
+  - en: Reproducibility
+    ar: قابلية إعادة الإنتاج
+    fr: Reproductibilité
+    def:
+      en: Ability of independent workers to obtain the same result.
+      ar: قدرة باحثين مستقلين على الحصول على النتيجة نفسها.
+  - en: Fabrication
+    ar: اختلاق المعطيات
+    fr: Fabrication de données
+    def:
+      en: Making up data or results.
+      ar: تأليف معطيات أو نتائج وهمية.
+  - en: Falsification
+    ar: تزوير المعطيات
+    fr: Falsification
+    def:
+      en: Manipulating data, equipment or processes so that the record is not accurate.
+      ar: التلاعب بالمعطيات أو الأجهزة أو الإجراءات بحيث لا يعكس السجل الحقيقة.
+  - en: Plagiarism
+    ar: الانتحال العلمي
+    fr: Plagiat
+    def:
+      en: Using another person's words, ideas or figures without credit.
+      ar: استعمال كلمات الغير أو أفكاره أو أشكاله دون نسبتها إليه.
+  - en: Confidentiality agreement
+    ar: اتفاقية السرية
+    fr: Accord de confidentialité
+    def:
+      en: Commitment not to disclose the host's sensitive information.
+      ar: التزام بعدم إفشاء المعلومات الحساسة للجهة المستضيفة.
+  - en: Progress report
+    ar: التقرير المرحلي
+    fr: Rapport d'avancement
+    def:
+      en: Interim report on what has been done, the problems met and the plans.
+      ar: تقرير مؤقت عما أُنجز والمشكلات المصادفة والخطط.
+  - en: Technical report
+    ar: التقرير التقني
+    fr: Rapport technique
+    def:
+      en: Structured final document describing the work, methods and results.
+      ar: وثيقة نهائية منظمة تصف العمل والطرائق والنتائج.
+  - en: Poster session
+    ar: جلسة الملصقات العلمية
+    fr: Session de posters
+    def:
+      en: Presentation of work on a large printed poster, discussed one-to-one.
+      ar: عرض العمل على ملصق مطبوع كبير ومناقشته مع الزوار فرديًا.
+  - en: Oral defence
+    ar: المناقشة الشفهية
+    fr: Soutenance
+    def:
+      en: Presentation of the work followed by questions from an examining panel.
+      ar: عرض العمل تليه أسئلة لجنة الامتحان.
+  - en: Reflective statement
+    ar: البيان التأملي
+    fr: Bilan réflexif
+    def:
+      en: Short personal analysis of what was learned and how.
+      ar: تحليل شخصي قصير لما تعلّمه المتدرب وكيف تعلّمه.
+quantum-mechanics-1:
+  sims:
+  - particle-box
+  glossary:
+  - en: Wavefunction
+    ar: الدالة الموجية
+    fr: Fonction d'onde
+    def:
+      en: Complex function Ψ(x,t) that contains all the information about a quantum state.
+      ar: دالة مركبة Ψ(x,t) تحوي كل المعلومات عن الحالة الكمومية.
+  - en: Born rule
+    ar: قاعدة بورن
+    fr: Règle de Born
+    def:
+      en: '|Ψ|² is the probability density for finding the particle at a given position.'
+      ar: '|Ψ|² هي كثافة احتمال وجود الجسيم في موضع معيّن.'
+  - en: Normalisation
+    ar: الاستنظام
+    fr: Normalisation
+    def:
+      en: Requirement that the total probability ∫|Ψ|²dx equals one.
+      ar: اشتراط أن يساوي الاحتمال الكلي ∫|Ψ|²dx الواحد.
+  - en: Expectation value
+    ar: القيمة المتوقعة
+    fr: Valeur moyenne
+    def:
+      en: Average of many measurements of an observable on identically prepared systems.
+      ar: متوسط نتائج قياسات عديدة لمقدار قابل للرصد على أنظمة محضّرة بشكل متطابق.
+  - en: Uncertainty principle
+    ar: مبدأ الارتياب
+    fr: Principe d'incertitude
+    def:
+      en: The product of the standard deviations of incompatible observables has a lower bound, e.g. σxσp ≥ ħ/2.
+      ar: لجداء الانحرافين المعياريين لمقدارين غير متوافقين حدّ أدنى، مثل σxσp ≥ ħ/2.
+  - en: Schrödinger equation
+    ar: معادلة شرودنغر
+    fr: Équation de Schrödinger
+    def:
+      en: Equation iħ∂Ψ/∂t = ĤΨ governing the time evolution of the wavefunction.
+      ar: المعادلة iħ∂Ψ/∂t = ĤΨ التي تحكم التطور الزمني للدالة الموجية.
+  - en: Stationary state
+    ar: الحالة المستقرة
+    fr: État stationnaire
+    def:
+      en: Energy eigenstate whose probability density does not change in time.
+      ar: حالة ذاتية للطاقة لا تتغير كثافة احتمالها مع الزمن.
+  - en: Infinite square well
+    ar: البئر المربع اللانهائي
+    fr: Puits de potentiel infini
+    def:
+      en: Region of zero potential bounded by infinitely high walls; energies grow as n².
+      ar: منطقة جهد منعدم محصورة بجدارين لانهائيي الارتفاع؛ تتناسب طاقاتها مع n².
+  - en: Harmonic oscillator
+    ar: المهتز التوافقي
+    fr: Oscillateur harmonique
+    def:
+      en: Particle in the potential ½mω²x²; equally spaced levels (n + ½)ħω.
+      ar: جسيم في الجهد ½mω²x²؛ مستوياته متساوية التباعد (n + ½)ħω.
+  - en: Ladder operators
+    ar: مؤثرات السلّم
+    fr: Opérateurs d'échelle
+    def:
+      en: Raising and lowering operators a₊ and a₋ that step between adjacent oscillator levels.
+      ar: مؤثرا الرفع والخفض a₊ وa₋ اللذان ينقلان بين مستويات المهتز المتجاورة.
+  - en: Zero-point energy
+    ar: طاقة نقطة الصفر
+    fr: Énergie de point zéro
+    def:
+      en: Lowest possible energy of a confined quantum system, e.g. ħω/2 for the oscillator.
+      ar: أدنى طاقة ممكنة لنظام كمومي محصور، مثل ħω/2 للمهتز التوافقي.
+  - en: Wave packet
+    ar: الحزمة الموجية
+    fr: Paquet d'ondes
+    def:
+      en: Normalisable superposition of plane waves describing a localised particle.
+      ar: تراكب قابل للاستنظام من موجات مستوية يصف جسيمًا متموضعًا.
+  - en: Group velocity
+    ar: سرعة المجموعة
+    fr: Vitesse de groupe
+    def:
+      en: dω/dk, the speed of the envelope of a wave packet (equals the classical particle velocity).
+      ar: dω/dk، سرعة غلاف الحزمة الموجية (تساوي سرعة الجسيم الكلاسيكية).
+  - en: Bound state
+    ar: حالة الارتباط
+    fr: État lié
+    def:
+      en: Normalisable state with energy below the potential at infinity; discrete spectrum.
+      ar: حالة قابلة للاستنظام طاقتها أقل من قيمة الجهد في اللانهاية؛ طيفها متقطع.
+  - en: Scattering state
+    ar: حالة الاستطارة
+    fr: État de diffusion
+    def:
+      en: Non-normalisable state with energy above the potential at infinity; continuous spectrum.
+      ar: حالة غير قابلة للاستنظام طاقتها أكبر من قيمة الجهد في اللانهاية؛ طيفها متصل.
+  - en: Quantum tunnelling
+    ar: النفق الكمومي
+    fr: Effet tunnel
+    def:
+      en: Transmission of a particle through a barrier higher than its energy.
+      ar: نفاذ جسيم عبر حاجز جهد أعلى من طاقته.
+  - en: Transmission coefficient
+    ar: معامل النفاذ
+    fr: Coefficient de transmission
+    def:
+      en: Probability that an incident particle passes through a potential.
+      ar: احتمال أن يعبر جسيم ساقط منطقة الجهد.
+  - en: Hilbert space
+    ar: فضاء هيلبرت
+    fr: Espace de Hilbert
+    def:
+      en: Complete vector space with an inner product; quantum states are its vectors.
+      ar: فضاء متجهي تام مزوّد بجداء داخلي؛ الحالات الكمومية هي متجهاته.
+  - en: Hermitian operator
+    ar: المؤثر الهرميتي
+    fr: Opérateur hermitien
+    def:
+      en: Operator equal to its adjoint; it has real eigenvalues and represents an observable.
+      ar: مؤثر يساوي مرافقه؛ قيمه الذاتية حقيقية ويمثّل مقدارًا قابلًا للرصد.
+  - en: Observable
+    ar: المقدار القابل للرصد
+    fr: Observable
+    def:
+      en: Measurable physical quantity represented by a Hermitian operator.
+      ar: مقدار فيزيائي قابل للقياس يمثَّل بمؤثر هرميتي.
+  - en: Eigenvalue
+    ar: القيمة الذاتية
+    fr: Valeur propre
+    def:
+      en: Number q such that Q̂f = qf; the possible results of measuring Q.
+      ar: عدد q يحقق Q̂f = qf؛ وهي النتائج الممكنة لقياس Q.
+  - en: Commutator
+    ar: المبدّل
+    fr: Commutateur
+    def:
+      en: '[A, B] = AB − BA; observables that do not commute cannot be sharply measured together.'
+      ar: '[A, B] = AB − BA؛ المقادير غير المتبادلة لا يمكن قياسها بدقة معًا.'
+  - en: Dirac notation
+    ar: ترميز ديراك
+    fr: Notation de Dirac
+    def:
+      en: Bra–ket notation ⟨α|β⟩ for states, inner products and operators.
+      ar: ترميز البرا–كت ⟨α|β⟩ للحالات والجداءات الداخلية والمؤثرات.
+  - en: Collapse of the wavefunction
+    ar: انهيار الدالة الموجية
+    fr: Réduction du paquet d'ondes
+    def:
+      en: Abrupt change of the state to the eigenfunction corresponding to the measured value.
+      ar: تحوّل مفاجئ للحالة إلى الدالة الذاتية الموافقة للقيمة المقيسة.
+  - en: Spherical harmonics
+    ar: التوافقيات الكروية
+    fr: Harmoniques sphériques
+    def:
+      en: Functions Y_l^m(θ,φ), common eigenfunctions of L² and L_z.
+      ar: الدوال Y_l^m(θ,φ)، وهي دوال ذاتية مشتركة لـ L² وL_z.
+  - en: Bohr radius
+    ar: نصف قطر بور
+    fr: Rayon de Bohr
+    def:
+      en: a = 4πε₀ħ²/(me²) ≈ 0.529 Å, the natural length scale of hydrogen.
+      ar: a = 4πε₀ħ²/(me²) ≈ 0.529 Å، وهو مقياس الطول الطبيعي لذرة الهيدروجين.
+  - en: Degeneracy
+    ar: الانحلال
+    fr: Dégénérescence
+    def:
+      en: Several independent states sharing the same energy (n² for hydrogen without spin).
+      ar: اشتراك عدة حالات مستقلة في الطاقة نفسها (n² للهيدروجين دون اللف المغزلي).
+  - en: Orbital angular momentum
+    ar: الزخم الزاوي المداري
+    fr: Moment cinétique orbital
+    def:
+      en: L = r × p; L² has eigenvalues ħ²l(l+1) and L_z has mħ.
+      ar: L = r × p؛ القيم الذاتية لـ L² هي ħ²l(l+1) ولـ L_z هي mħ.
+  - en: Spin
+    ar: اللف المغزلي
+    fr: Spin
+    def:
+      en: Intrinsic angular momentum of a particle, with no classical analogue (s = ½ for the electron).
+      ar: زخم زاوي ذاتي للجسيم لا مقابل كلاسيكي له (s = ½ للإلكترون).
+  - en: Pauli matrices
+    ar: مصفوفات باولي
+    fr: Matrices de Pauli
+    def:
+      en: Three 2×2 matrices σx, σy, σz with S = (ħ/2)σ for spin ½.
+      ar: ثلاث مصفوفات 2×2 هي σx وσy وσz، حيث S = (ħ/2)σ للف المغزلي النصفي.
+quantum-mechanics-2:
+  sims:
+  - two-level
+  glossary:
+  - en: Hilbert space
+    ar: فضاء هيلبرت
+    fr: Espace de Hilbert
+    def:
+      en: Complete vector space with an inner product in which quantum states live.
+      ar: فضاء متجهي تام مزوّد بجداء داخلي تعيش فيه الحالات الكمومية.
+  - en: Ket / bra
+    ar: الكت / البرا
+    fr: Ket / bra
+    def:
+      en: Dirac notation for a state vector \(\ket{\psi}\) and its dual \(\bra{\psi}\).
+      ar: ترميز ديراك لمتجه الحالة \(\ket{\psi}\) ولمرافقه الثنوي \(\bra{\psi}\).
+  - en: Hermitian operator
+    ar: المؤثر الهرميتي
+    fr: Opérateur hermitien
+    def:
+      en: Operator equal to its adjoint; it has real eigenvalues and represents an observable.
+      ar: مؤثر يساوي مرافقه؛ قيمه الذاتية حقيقية ويمثّل مقدارًا قابلًا للقياس.
+  - en: Commutator
+    ar: المبدّل
+    fr: Commutateur
+    def:
+      en: \(\comm{A}{B} = AB - BA\); non-commuting observables cannot be measured simultaneously with arbitrary precision.
+      ar: \(\comm{A}{B} = AB - BA\)؛ المقادير غير المتبادلة لا يمكن قياسها معًا بدقة اعتباطية.
+  - en: Heisenberg picture
+    ar: صورة هايزنبرغ
+    fr: Représentation de Heisenberg
+    def:
+      en: Description in which operators evolve in time and state vectors are fixed.
+      ar: وصف تتطور فيه المؤثرات مع الزمن بينما تبقى متجهات الحالة ثابتة.
+  - en: Ladder operators
+    ar: مؤثرات السلّم
+    fr: Opérateurs d'échelle
+    def:
+      en: Operators such as \(a_\pm\) or \(L_\pm\) that raise or lower a quantum number by one.
+      ar: مؤثرات مثل \(a_\pm\) أو \(L_\pm\) ترفع العدد الكمومي أو تخفضه بمقدار واحد.
+  - en: Angular momentum
+    ar: الزخم الزاوي
+    fr: Moment cinétique
+    def:
+      en: Generator of rotations; its components obey \([J_i,J_j] = i\hbar\epsilon_{ijk}J_k\).
+      ar: مولِّد الدورانات؛ تحقق مركّباته \([J_i,J_j] = i\hbar\epsilon_{ijk}J_k\).
+  - en: Spherical harmonics
+    ar: التوافقيات الكروية
+    fr: Harmoniques sphériques
+    def:
+      en: Common eigenfunctions \(Y_l^m(\theta,\phi)\) of \(L^2\) and \(L_z\).
+      ar: الدوال الذاتية المشتركة \(Y_l^m(\theta,\phi)\) لـ \(L^2\) و\(L_z\).
+  - en: Spin
+    ar: السبين (اللف المغزلي)
+    fr: Spin
+    def:
+      en: Intrinsic angular momentum of a particle with no classical orbital counterpart.
+      ar: زخم زاوي ذاتي للجسيم لا مقابل مداري كلاسيكي له.
+  - en: Pauli matrices
+    ar: مصفوفات باولي
+    fr: Matrices de Pauli
+    def:
+      en: The three 2×2 matrices \(\sigma_{x,y,z}\) with \(\vb{S} = \frac{\hbar}{2}\boldsymbol{\sigma}\) for spin ½.
+      ar: المصفوفات الثلاث 2×2 \(\sigma_{x,y,z}\) حيث \(\vb{S} = \frac{\hbar}{2}\boldsymbol{\sigma}\) للسبين ½.
+  - en: Clebsch–Gordan coefficients
+    ar: معاملات كليبش–غوردن
+    fr: Coefficients de Clebsch-Gordan
+    def:
+      en: Expansion coefficients of coupled angular-momentum states on the uncoupled product basis.
+      ar: معاملات نشر حالات الزخم الزاوي المقترنة على قاعدة الجداءات غير المقترنة.
+  - en: Singlet / triplet
+    ar: الحالة الأحادية / الحالات الثلاثية
+    fr: Singulet / triplet
+    def:
+      en: The total spin 0 and total spin 1 states of two spin-½ particles.
+      ar: حالات السبين الكلي 0 والسبين الكلي 1 لجسيمين سبين كل منهما ½.
+  - en: Identical particles
+    ar: الجسيمات المتطابقة
+    fr: Particules identiques
+    def:
+      en: Particles that cannot be distinguished even in principle; their states are symmetric or antisymmetric under exchange.
+      ar: جسيمات لا يمكن تمييزها حتى من حيث المبدأ؛ وحالاتها متناظرة أو ضد متناظرة بالنسبة للتبادل.
+  - en: Boson / fermion
+    ar: البوزون / الفرميون
+    fr: Boson / fermion
+    def:
+      en: Particle with integer / half-integer spin and symmetric / antisymmetric multiparticle states.
+      ar: جسيم سبينه صحيح / نصف صحيح، وحالاته المتعددة الجسيمات متناظرة / ضد متناظرة.
+  - en: Pauli exclusion principle
+    ar: مبدأ الاستبعاد لباولي
+    fr: Principe d'exclusion de Pauli
+    def:
+      en: No two identical fermions can occupy the same one-particle state.
+      ar: لا يمكن لفرميونين متطابقين أن يشغلا الحالة الأحادية نفسها.
+  - en: Exchange force
+    ar: قوة التبادل
+    fr: Force d'échange
+    def:
+      en: Apparent attraction or repulsion between identical particles due solely to the symmetry of their wavefunction.
+      ar: تجاذب أو تنافر ظاهري بين جسيمات متطابقة ناتج فقط عن تناظر دالتها الموجية.
+  - en: Perturbation theory
+    ar: نظرية الاضطراب
+    fr: Théorie des perturbations
+    def:
+      en: Systematic expansion of energies and states in powers of a small additional Hamiltonian H′.
+      ar: نشر منهجي للطاقات والحالات بقوى هاملتوني إضافي صغير H′.
+  - en: Degeneracy
+    ar: الانحلال
+    fr: Dégénérescence
+    def:
+      en: Existence of several linearly independent states with the same energy.
+      ar: وجود عدة حالات مستقلة خطيًا لها الطاقة نفسها.
+  - en: Fine structure
+    ar: البنية الدقيقة
+    fr: Structure fine
+    def:
+      en: Splitting of hydrogen levels of order \(\alpha^2E_n\) due to relativistic and spin–orbit corrections.
+      ar: انشطار مستويات الهيدروجين من رتبة \(\alpha^2E_n\) بسبب التصحيحات النسبية وتصحيح سبين–مدار.
+  - en: Spin–orbit coupling
+    ar: الاقتران سبين–مدار
+    fr: Couplage spin-orbite
+    def:
+      en: Interaction \(\propto \vb{L}\cdot\vb{S}\) between the electron's spin and the magnetic field it sees in its rest frame.
+      ar: تفاعل \(\propto \vb{L}\cdot\vb{S}\) بين سبين الإلكترون والمجال المغناطيسي الذي يراه في إطاره السكوني.
+  - en: Zeeman effect
+    ar: ظاهرة زيمان
+    fr: Effet Zeeman
+    def:
+      en: Splitting of atomic levels in an external magnetic field.
+      ar: انشطار المستويات الذرية في مجال مغناطيسي خارجي.
+  - en: Stark effect
+    ar: ظاهرة شتارك
+    fr: Effet Stark
+    def:
+      en: Shift and splitting of atomic levels in an external electric field.
+      ar: انزياح المستويات الذرية وانشطارها في مجال كهربائي خارجي.
+  - en: Hyperfine structure
+    ar: البنية فائقة الدقة
+    fr: Structure hyperfine
+    def:
+      en: Small splitting due to the interaction between electron and nuclear magnetic moments (e.g. the 21 cm line).
+      ar: انشطار صغير ناتج عن التفاعل بين العزمين المغناطيسيين للإلكترون والنواة (مثل خط 21 سم).
+  - en: Variational principle
+    ar: المبدأ التغايري
+    fr: Principe variationnel
+    def:
+      en: The expectation value of H in any trial state is an upper bound on the ground-state energy.
+      ar: القيمة المتوقعة لـ H في أي حالة تجريبية حدّ أعلى لطاقة الحالة الأرضية.
+  - en: WKB approximation
+    ar: تقريب WKB
+    fr: Approximation BKW
+    def:
+      en: Semiclassical approximation valid when the potential varies slowly on the scale of the de Broglie wavelength.
+      ar: تقريب شبه كلاسيكي صالح حين يتغير الجهد ببطء على سلّم طول موجة دي برولي.
+  - en: Turning point
+    ar: نقطة الانعطاف
+    fr: Point de rebroussement
+    def:
+      en: Point where \(E = V(x)\) and the classical particle reverses direction.
+      ar: نقطة يتحقق فيها \(E = V(x)\) ويعكس عندها الجسيم الكلاسيكي اتجاه حركته.
+  - en: Tunnelling
+    ar: النفق الكمومي
+    fr: Effet tunnel
+    def:
+      en: Quantum penetration through a classically forbidden barrier region.
+      ar: نفاذ كمومي عبر منطقة حاجز ممنوعة كلاسيكيًا.
+  - en: Rabi oscillations
+    ar: تذبذبات رابي
+    fr: Oscillations de Rabi
+    def:
+      en: Periodic population exchange between two levels driven by an oscillating field.
+      ar: تبادل دوري للإشغال بين مستويين تحت تأثير مجال متذبذب.
+  - en: Fermi's golden rule
+    ar: قاعدة فيرمي الذهبية
+    fr: Règle d'or de Fermi
+    def:
+      en: Transition rate \(\Gamma = \frac{2\pi}{\hbar}|H'_{fi}|^2\rho(E_f)\) into a continuum of states.
+      ar: معدل الانتقال \(\Gamma = \frac{2\pi}{\hbar}|H'_{fi}|^2\rho(E_f)\) نحو متّصلة من الحالات.
+  - en: Born approximation
+    ar: تقريب بورن
+    fr: Approximation de Born
+    def:
+      en: First-order treatment of scattering in which the amplitude is the Fourier transform of the potential.
+      ar: معالجة الاستطارة في الرتبة الأولى، تكون فيها السعة تحويل فورييه للجهد.
+thermal-statistical-physics:
+  sims:
+  - boltzmann
+  glossary:
+  - en: Temperature
+    ar: درجة الحرارة
+    fr: Température
+    def:
+      en: Statistically, \(1/k_BT = \dd\ln\Omega/\dd E\); the quantity that is equal for two systems in thermal equilibrium.
+      ar: إحصائيًّا \(1/k_BT = \dd\ln\Omega/\dd E\)؛ وهي المقدار الذي يتساوى بين نظامين في حالة توازن حراري.
+  - en: Thermal equilibrium
+    ar: التوازن الحراري
+    fr: Équilibre thermique
+    def:
+      en: State in which no net heat flows between systems in thermal contact.
+      ar: حالة لا يحدث فيها انتقال صافٍ للحرارة بين نظامين في تماس حراري.
+  - en: Microstate
+    ar: الحالة المجهرية
+    fr: Micro-état
+    def:
+      en: A complete specification of the state of every particle of the system.
+      ar: تحديد كامل لحالة كل جسيم من جسيمات النظام.
+  - en: Macrostate
+    ar: الحالة العيانية
+    fr: Macro-état
+    def:
+      en: The state specified by a few macroscopic variables (\(U, V, N\)...); it corresponds to many microstates.
+      ar: الحالة المحددة بعدد قليل من المتغيرات العيانية (\(U, V, N\)...)، وتقابلها حالات مجهرية كثيرة.
+  - en: Boltzmann factor
+    ar: عامل بولتزمان
+    fr: Facteur de Boltzmann
+    def:
+      en: The factor \(e^{-E/k_BT}\) giving the relative probability of a state of energy \(E\) at temperature \(T\).
+      ar: العامل \(e^{-E/k_BT}\) الذي يعطي الاحتمال النسبي لحالة طاقتها \(E\) عند درجة الحرارة \(T\).
+  - en: Internal energy
+    ar: الطاقة الداخلية
+    fr: Énergie interne
+    def:
+      en: Total microscopic (kinetic + potential) energy \(U\) of a system; a function of state.
+      ar: مجموع الطاقة المجهرية (الحركية والكامنة) \(U\) للنظام، وهي دالة حالة.
+  - en: Heat capacity
+    ar: السعة الحرارية
+    fr: Capacité thermique
+    def:
+      en: Heat needed per unit temperature rise, e.g. \(C_V = (\partial U/\partial T)_V\).
+      ar: الحرارة اللازمة لرفع درجة الحرارة بوحدة واحدة، مثل \(C_V = (\partial U/\partial T)_V\).
+  - en: Adiabatic process
+    ar: تحول كظوم
+    fr: Transformation adiabatique
+    def:
+      en: A process with no heat exchange; if reversible it is also isentropic.
+      ar: تحول لا يحدث فيه تبادل حراري، وإن كان عكوسًا فهو أيضًا متساوي الإنتروبيا.
+  - en: Isothermal process
+    ar: تحول متساوي درجة الحرارة
+    fr: Transformation isotherme
+    def:
+      en: A process at constant temperature.
+      ar: تحول يجري عند درجة حرارة ثابتة.
+  - en: Entropy
+    ar: الإنتروبيا
+    fr: Entropie
+    def:
+      en: Function of state with \(\dd S = \dd Q_\text{rev}/T\); statistically \(S = k_B\ln\Omega\).
+      ar: دالة حالة تحقق \(\dd S = \dd Q_\text{rev}/T\)، وإحصائيًّا \(S = k_B\ln\Omega\).
+  - en: Heat engine
+    ar: آلة حرارية
+    fr: Machine thermique
+    def:
+      en: A cyclic device converting part of the heat from a hot reservoir into work and rejecting the rest to a cold one.
+      ar: جهاز دوري يحوّل جزءًا من الحرارة المأخوذة من خزان ساخن إلى شغل ويطرح الباقي إلى خزان بارد.
+  - en: Carnot cycle
+    ar: دورة كارنو
+    fr: Cycle de Carnot
+    def:
+      en: A reversible cycle of two isotherms and two adiabats; efficiency \(1-T_c/T_h\).
+      ar: دورة عكوسة مكوّنة من تحولين متساويي درجة الحرارة وتحولين كظومين، كفاءتها \(1-T_c/T_h\).
+  - en: Efficiency
+    ar: الكفاءة (المردود)
+    fr: Rendement
+    def:
+      en: Ratio of work output to heat input, \(\eta = W/Q_h\).
+      ar: نسبة الشغل الناتج إلى الحرارة المكتسبة \(\eta = W/Q_h\).
+  - en: Enthalpy
+    ar: الإنثالبي (المحتوى الحراري)
+    fr: Enthalpie
+    def:
+      en: \(H = U + pV\); the heat exchanged at constant pressure.
+      ar: \(H = U + pV\)، وتساوي الحرارة المتبادلة عند ضغط ثابت.
+  - en: Helmholtz free energy
+    ar: طاقة هلمهولتز الحرة
+    fr: Énergie libre de Helmholtz
+    def:
+      en: \(F = U - TS = -k_BT\ln Z\); minimal at equilibrium for fixed \(T, V\).
+      ar: \(F = U - TS = -k_BT\ln Z\)، وتكون صغرى عند التوازن إذا ثبتت \(T\) و\(V\).
+  - en: Gibbs free energy
+    ar: طاقة جيبس الحرة
+    fr: Enthalpie libre de Gibbs
+    def:
+      en: \(G = H - TS\); minimal at equilibrium for fixed \(T, p\); \(G = N\mu\).
+      ar: \(G = H - TS\)، وتكون صغرى عند التوازن إذا ثبتت \(T\) و\(p\)؛ و\(G = N\mu\).
+  - en: Maxwell relations
+    ar: علاقات ماكسويل
+    fr: Relations de Maxwell
+    def:
+      en: Identities between partial derivatives that follow from the equality of mixed second derivatives of the potentials.
+      ar: متطابقات بين مشتقات جزئية تنتج عن تساوي المشتقات الثانية المختلطة للكمونات.
+  - en: Third law
+    ar: القانون الثالث
+    fr: Troisième principe
+    def:
+      en: The entropy of a system in equilibrium tends to a constant (zero for a unique ground state) as \(T\to0\).
+      ar: تؤول إنتروبيا نظام في حالة توازن إلى ثابت (صفر إذا كانت الحالة الأساسية وحيدة) عندما \(T\to0\).
+  - en: Equipartition theorem
+    ar: مبرهنة تساوي توزيع الطاقة
+    fr: Théorème d'équipartition
+    def:
+      en: Classically, each quadratic term in the energy contributes \(\tfrac12k_BT\) to the mean energy.
+      ar: كلاسيكيًّا، يسهم كل حد تربيعي في الطاقة بـ \(\tfrac12k_BT\) في الطاقة المتوسطة.
+  - en: Partition function
+    ar: دالة التجزئة
+    fr: Fonction de partition
+    def:
+      en: \(Z = \sum_i e^{-\beta E_i}\); the normalisation of the Boltzmann distribution, from which all thermodynamics follows.
+      ar: \(Z = \sum_i e^{-\beta E_i}\)، ثابت تقييس توزيع بولتزمان، ومنها تُستخرج كل المقادير الترموديناميكية.
+  - en: Canonical ensemble
+    ar: المجموعة القانونية
+    fr: Ensemble canonique
+    def:
+      en: Systems at fixed \(N, V\) in contact with a heat bath at temperature \(T\).
+      ar: مجموعة أنظمة ذات \(N\) و\(V\) ثابتين في تماس مع حمّام حراري عند درجة الحرارة \(T\).
+  - en: Grand canonical ensemble
+    ar: المجموعة القانونية الكبرى
+    fr: Ensemble grand-canonique
+    def:
+      en: Systems exchanging both energy and particles with a reservoir at fixed \(T\) and \(\mu\).
+      ar: مجموعة أنظمة تتبادل الطاقة والجسيمات مع خزان عند \(T\) و\(\mu\) ثابتين.
+  - en: Chemical potential
+    ar: الكمون الكيميائي
+    fr: Potentiel chimique
+    def:
+      en: \(\mu = (\partial G/\partial N)_{T,p}\); particles flow from high to low \(\mu\).
+      ar: \(\mu = (\partial G/\partial N)_{T,p}\)، وتنتقل الجسيمات من \(\mu\) الأعلى إلى الأدنى.
+  - en: Thermal de Broglie wavelength
+    ar: طول موجة دي برولي الحراري
+    fr: Longueur d'onde thermique de de Broglie
+    def:
+      en: \(\lambda = h/\sqrt{2\pi mk_BT}\); quantum effects matter when \(n\lambda^3\gtrsim1\).
+      ar: \(\lambda = h/\sqrt{2\pi mk_BT}\)، وتصبح الآثار الكمومية مهمة عندما \(n\lambda^3\gtrsim1\).
+  - en: Black-body radiation
+    ar: إشعاع الجسم الأسود
+    fr: Rayonnement du corps noir
+    def:
+      en: Equilibrium electromagnetic radiation in a cavity; its spectrum is given by Planck's law.
+      ar: إشعاع كهرومغناطيسي في حالة توازن داخل تجويف، يعطى طيفه بقانون بلانك.
+  - en: Phonon
+    ar: الفونون
+    fr: Phonon
+    def:
+      en: A quantum of lattice vibration; phonons are bosons with zero chemical potential.
+      ar: كمّ اهتزاز الشبكة البلورية، وهو بوزون كمونه الكيميائي معدوم.
+  - en: Fermi–Dirac distribution
+    ar: توزيع فيرمي-ديراك
+    fr: Distribution de Fermi-Dirac
+    def:
+      en: '\(\bar n = 1/(e^{\beta(E-\mu)}+1)\): mean occupation of a single-particle state by fermions.'
+      ar: '\(\bar n = 1/(e^{\beta(E-\mu)}+1)\): متوسط إشغال حالة جسيم واحد بالفرميونات.'
+  - en: Bose–Einstein distribution
+    ar: توزيع بوز-أينشتاين
+    fr: Distribution de Bose-Einstein
+    def:
+      en: '\(\bar n = 1/(e^{\beta(E-\mu)}-1)\): mean occupation of a single-particle state by bosons.'
+      ar: '\(\bar n = 1/(e^{\beta(E-\mu)}-1)\): متوسط إشغال حالة جسيم واحد بالبوزونات.'
+  - en: Fermi energy
+    ar: طاقة فيرمي
+    fr: Énergie de Fermi
+    def:
+      en: Energy of the highest occupied state of an ideal Fermi gas at \(T=0\).
+      ar: طاقة أعلى حالة مشغولة في غاز فيرمي مثالي عند \(T=0\).
+  - en: Bose–Einstein condensation
+    ar: تكاثف بوز-أينشتاين
+    fr: Condensation de Bose-Einstein
+    def:
+      en: Macroscopic occupation of the ground state by bosons below a critical temperature \(T_c\).
+      ar: إشغال عياني للحالة الأساسية بالبوزونات تحت درجة حرارة حرجة \(T_c\).
+vibrations-waves:
+  sims:
+  - oscillator
+  - waves
+  glossary:
+  - en: Degree of freedom
+    ar: درجة الحرية
+    fr: Degré de liberté
+    def:
+      en: An independent coordinate needed to specify the configuration of a system.
+      ar: إحداثية مستقلة لازمة لتحديد هيئة الجملة.
+  - en: Generalised coordinate
+    ar: الإحداثية المعممة
+    fr: Coordonnée généralisée
+    def:
+      en: Any set of independent variables (lengths or angles) that fixes the configuration.
+      ar: أي مجموعة من المتغيرات المستقلة (أطوال أو زوايا) تحدد هيئة الجملة.
+  - en: Lagrangian
+    ar: دالة لاغرانج (اللاغرانجي)
+    fr: Lagrangien
+    def:
+      en: The function \(L = T - U\) from which the equations of motion follow.
+      ar: الدالة \(L = T - U\) التي تُستنتج منها معادلات الحركة.
+  - en: Simple harmonic motion
+    ar: الحركة التوافقية البسيطة
+    fr: Mouvement harmonique simple
+    def:
+      en: Motion obeying \(\ddot x + \omega_0^2x = 0\), i.e. sinusoidal in time.
+      ar: حركة تحقق \(\ddot x + \omega_0^2x = 0\)، أي جيبية بالنسبة إلى الزمن.
+  - en: Natural angular frequency
+    ar: النبض الذاتي
+    fr: Pulsation propre
+    def:
+      en: The angular frequency at which an undamped system oscillates freely.
+      ar: النبض الذي تهتز به الجملة حرةً في غياب التخامد.
+  - en: Amplitude
+    ar: السعة
+    fr: Amplitude
+    def:
+      en: The maximum displacement from equilibrium.
+      ar: أقصى انتقال عن وضع التوازن.
+  - en: Phase
+    ar: الطور
+    fr: Phase
+    def:
+      en: The argument \(\omega t+\varphi\) of the sinusoid; it fixes the state within a cycle.
+      ar: وسيط الدالة الجيبية \(\omega t+\varphi\)؛ يحدد حالة الجملة خلال الدورة.
+  - en: Damping
+    ar: التخامد
+    fr: Amortissement
+    def:
+      en: Loss of mechanical energy by friction, which makes free oscillations decay.
+      ar: ضياع الطاقة الميكانيكية بالاحتكاك ما يجعل الاهتزازات الحرة تتناقص.
+  - en: Critical damping
+    ar: التخامد الحرج
+    fr: Amortissement critique
+    def:
+      en: 'The case \(\lambda = \omega_0\): fastest return to equilibrium without oscillation.'
+      ar: 'الحالة \(\lambda = \omega_0\): أسرع عودة إلى التوازن دون اهتزاز.'
+  - en: Logarithmic decrement
+    ar: التناقص اللوغاريتمي
+    fr: Décrément logarithmique
+    def:
+      en: Natural log of the ratio of two successive maxima, \(\delta = \lambda T_d\).
+      ar: اللوغاريتم الطبيعي لنسبة قيمتين عظميين متتاليتين، \(\delta = \lambda T_d\).
+  - en: Quality factor
+    ar: معامل الجودة
+    fr: Facteur de qualité
+    def:
+      en: \(Q = \omega_0/2\lambda\); \(2\pi\) times the energy stored divided by the energy lost per cycle.
+      ar: \(Q = \omega_0/2\lambda\)؛ يساوي \(2\pi\) مضروبًا في نسبة الطاقة المخزنة إلى الطاقة الضائعة في كل دورة.
+  - en: Forced oscillation
+    ar: الاهتزاز القسري
+    fr: Oscillation forcée
+    def:
+      en: Oscillation maintained by an external periodic force; in steady state it follows the driving frequency.
+      ar: اهتزاز تحافظ عليه قوة خارجية دورية؛ وفي النظام الدائم يتبع تواتر الإثارة.
+  - en: Transient regime
+    ar: النظام الانتقالي
+    fr: Régime transitoire
+    def:
+      en: The decaying free part of the motion of a driven oscillator.
+      ar: الجزء الحر المتناقص من حركة هزاز قسري.
+  - en: Resonance
+    ar: التجاوب (الرنين)
+    fr: Résonance
+    def:
+      en: Large response of a driven system when the driving frequency is close to a natural frequency.
+      ar: استجابة كبيرة لجملة قسرية عندما يقترب تواتر الإثارة من تواتر ذاتي.
+  - en: Bandwidth
+    ar: عرض المجال (عرض النطاق)
+    fr: Bande passante
+    def:
+      en: Width of the power-resonance curve between its half-maximum points.
+      ar: عرض منحنى تجاوب الاستطاعة بين نقطتي نصف القيمة العظمى.
+  - en: Mechanical impedance
+    ar: الممانعة الميكانيكية
+    fr: Impédance mécanique
+    def:
+      en: Ratio of complex force amplitude to complex velocity amplitude.
+      ar: نسبة السعة المركبة للقوة إلى السعة المركبة للسرعة.
+  - en: Coupling
+    ar: التقارن
+    fr: Couplage
+    def:
+      en: An interaction (spring, mass, resistor…) through which oscillators exchange energy.
+      ar: تفاعل (نابض، كتلة، مقاومة…) تتبادل الهزازات الطاقة عبره.
+  - en: Normal mode
+    ar: النمط الذاتي
+    fr: Mode propre
+    def:
+      en: A motion in which all parts oscillate at the same frequency with fixed amplitude ratios.
+      ar: حركة تهتز فيها كل أجزاء الجملة بالتواتر نفسه وبنسب سعات ثابتة.
+  - en: Normal coordinates
+    ar: الإحداثيات الطبيعية
+    fr: Coordonnées normales
+    def:
+      en: Combinations of the coordinates in which the equations of motion decouple.
+      ar: تركيبات من الإحداثيات تصبح فيها معادلات الحركة مستقلة.
+  - en: Beats
+    ar: الضربات (الخفقان)
+    fr: Battements
+    def:
+      en: Slow periodic modulation of amplitude produced by two close frequencies.
+      ar: تغيّر دوري بطيء للسعة ينتج عن تراكب تواترين متقاربين.
+  - en: Wave equation
+    ar: معادلة الموجة (معادلة الانتشار)
+    fr: Équation de d'Alembert
+    def:
+      en: \(\partial_t^2 y = v^2\nabla^2 y\); its solutions propagate at speed \(v\) without change of shape.
+      ar: \(\partial_t^2 y = v^2\nabla^2 y\)؛ تنتشر حلولها بالسرعة \(v\) دون تغيير شكلها.
+  - en: Travelling wave
+    ar: الموجة المتنقلة
+    fr: Onde progressive
+    def:
+      en: A disturbance \(f(x \mp vt)\) that carries energy along the medium.
+      ar: اضطراب من الشكل \(f(x \mp vt)\) ينقل الطاقة عبر الوسط.
+  - en: Standing wave
+    ar: الموجة المستقرة
+    fr: Onde stationnaire
+    def:
+      en: Superposition of two opposite travelling waves with fixed nodes and antinodes.
+      ar: تراكب موجتين متنقلتين متعاكستين له عقد وبطون ثابتة.
+  - en: Node / antinode
+    ar: العقدة / البطن
+    fr: Nœud / ventre
+    def:
+      en: Points of zero / maximum amplitude in a standing wave.
+      ar: نقاط السعة المنعدمة / العظمى في موجة مستقرة.
+  - en: Characteristic impedance
+    ar: الممانعة المميزة
+    fr: Impédance caractéristique
+    def:
+      en: Ratio of driving force (or pressure) to velocity for a travelling wave, e.g. \(Z = \sqrt{T\mu}\) or \(Z = \rho c\).
+      ar: نسبة القوة (أو الضغط) إلى السرعة في موجة متنقلة، مثل \(Z = \sqrt{T\mu}\) أو \(Z = \rho c\).
+  - en: Reflection coefficient
+    ar: معامل الانعكاس
+    fr: Coefficient de réflexion
+    def:
+      en: Ratio of reflected to incident amplitude at a boundary.
+      ar: نسبة السعة المنعكسة إلى السعة الواردة عند الحد الفاصل.
+  - en: Transmission coefficient
+    ar: معامل النفاذ
+    fr: Coefficient de transmission
+    def:
+      en: Ratio of transmitted to incident amplitude at a boundary.
+      ar: نسبة السعة النافذة إلى السعة الواردة عند الحد الفاصل.
+  - en: Dispersion
+    ar: التبدد
+    fr: Dispersion
+    def:
+      en: Dependence of phase velocity on frequency; wave packets then change shape as they travel.
+      ar: تعلّق سرعة الطور بالتواتر؛ فتتغير أشكال الحزم الموجية أثناء انتشارها.
+  - en: Group velocity
+    ar: سرعة المجموعة
+    fr: Vitesse de groupe
+    def:
+      en: '\(v_g = \dv{\omega}{k}\): the speed of a wave packet and of the energy it carries.'
+      ar: '\(v_g = \dv{\omega}{k}\): سرعة الحزمة الموجية والطاقة التي تحملها.'
+  - en: Doppler effect
+    ar: ظاهرة دوبلر
+    fr: Effet Doppler
+    def:
+      en: Change of the observed frequency due to motion of the source or the observer.
+      ar: تغيّر التواتر المرصود بسبب حركة المنبع أو الراصد.

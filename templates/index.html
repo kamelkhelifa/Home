@@ -128,7 +128,7 @@
       </div>
       <div class="now-courses">
         {% for c in teaching.current.courses %}
-        <a class="course-tile" href="{{ teachweb(c.teachweb) }}" target="_blank" rel="noopener">
+        <a class="course-tile" href="{{ link('teaching/' ~ c.course) }}">
           <span class="course-code" dir="ltr">{{ c.code }}</span>
           <span class="course-title">{{ t(c.title) }}</span>
           <span class="course-kind">{{ t(c.kind) }}</span>

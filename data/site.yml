@@ -10,10 +10,10 @@ short_name: { en: K. Khelifa-Kerfa, ar: ك. خليفة كرفة }
 monogram: KK
 title:       { en: Associate Professor of Physics, ar: أستاذ مشارك في الفيزياء }
 role_line:   { en: "Theoretical physicist · Educator", ar: "فيزيائي نظري · معلّم" }
-brand_sub:   { en: Personal homepage, ar: الصفحة الشخصية }
-affiliation: { en: Department of Physics and Materials Sciences, ar: قسم الفيزياء وعلوم المواد }
-institution: { en: Qatar University, ar: جامعة قطر }
-institution_detail: { en: "College of Arts & Sciences · Doha, Qatar", ar: "كلية الآداب والعلوم · الدوحة، قطر" }
+brand_sub:   { en: Personal homepage, ar: الصفحة الشخصية, fr: Page personnelle }
+affiliation: { en: Department of Physics and Materials Sciences, ar: قسم الفيزياء وعلوم المواد, fr: Département de physique et des sciences des matériaux }
+institution: { en: Qatar University, ar: جامعة قطر, fr: Université du Qatar }
+institution_detail: { en: "College of Arts & Sciences · Doha, Qatar", ar: "كلية الآداب والعلوم · الدوحة، قطر", fr: "Faculté des arts et des sciences · Doha, Qatar" }
 email: kamel.kkhelifa@gmail.com            # principal
 email_secondary: kkerfa@qu.edu.qa         # Qatar University
 base_url: https://kamelkhelifa.github.io/Home   # change if you add a custom domain
@@ -22,7 +22,7 @@ base_url: https://kamelkhelifa.github.io/Home   # change if you add a custom dom
 # (the site stays reachable for anyone who has the link). Set to true on launch day.
 launched: false
 teachweb: { en: "https://kamelkhelifa.github.io/TeachWeb/", ar: "https://kamelkhelifa.github.io/TeachWeb/ar/" }
-last_updated: { en: October 2026, ar: أكتوبر 2026 }
+last_updated: { en: October 2026, ar: أكتوبر 2026, fr: octobre 2026 }
 
 tagline:
   en: >
@@ -65,8 +65,8 @@ social:
   - { label: { en: X (Twitter) · @KamelKhelifa7, ar: إكس (تويتر) · ‎@KamelKhelifa7 }, url: "https://twitter.com/KamelKhelifa7" }
 
 nav:
-  - { id: studying,  label: { en: Studying,  ar: الدراسة } }
-  - { id: teaching,  label: { en: Teaching,  ar: التدريس } }
-  - { id: research,  label: { en: Research,  ar: البحث } }
-  - { id: books,     label: { en: Books,     ar: الكتب } }
-  - { id: resources, label: { en: Resources, ar: موارد } }
+  - { id: studying,  label: { en: Studying, ar: الدراسة, fr: Études } }
+  - { id: teaching,  label: { en: Teaching, ar: التدريس, fr: Enseignement } }
+  - { id: research,  label: { en: Research, ar: البحث, fr: Recherche } }
+  - { id: books,     label: { en: Books, ar: الكتب, fr: Livres } }
+  - { id: resources, label: { en: Resources, ar: موارد, fr: Ressources } }

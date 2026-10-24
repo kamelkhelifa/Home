@@ -29,6 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   {% endif %}
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  {% block head_extra %}{% endblock %}
   <script>
     (function () {
       try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -60,13 +61,21 @@
           <li><a href="{{ link(item.id) }}" {% if section == item.id %}aria-current="page"{% endif %}>
             <span class="nav-idx">0{{ loop.index }}</span>{{ t(item.label) }}</a></li>
           {% endfor %}
-          <li class="nav-lang-mobile"><a href="{{ switch_url }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}">{{ ui("switch_label") }}</a></li>
+          {% for s in switches %}<li class="nav-lang-mobile"><a href="{{ s.url }}" hreflang="{{ s.lang }}" lang="{{ s.lang }}">{{ s.name }}</a></li>{% endfor %}
         </ul>
       </nav>
       <div class="header-actions">
-        <a class="lang-switch" href="{{ switch_url }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}" aria-label="{{ ui('switch_aria') }}">
-          {{ icon("globe") }}<span>{{ ui("switch_label") }}</span>
+        {% if switches | length == 1 %}
+        <a class="lang-switch" href="{{ switches[0].url }}" hreflang="{{ switches[0].lang }}" lang="{{ switches[0].lang }}" aria-label="{{ ui('switch_aria') }}">
+          {{ icon("globe") }}<span>{{ switches[0].name }}</span>
         </a>
+        {% else %}
+        {% set short = {"en": "EN", "ar": "ع", "fr": "FR"} %}
+        <div class="lang-seg" role="group" aria-label="Language · اللغة · Langue">
+          {{ icon("globe") }}
+          {% for lg in page_langs_all %}{% if lg == lang %}<span class="is-on" lang="{{ lg }}" aria-current="true">{{ short[lg] }}</span>{% else %}{% for sw in switches if sw.lang == lg %}<a href="{{ sw.url }}" hreflang="{{ lg }}" lang="{{ lg }}" title="{{ sw.name }}">{{ short[lg] }}</a>{% endfor %}{% endif %}{% endfor %}
+        </div>
+        {% endif %}
         <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="{{ ui('theme') }}">
           {{ icon("sun", "icon i-sun") }}{{ icon("moon", "icon i-moon") }}
         </button>
@@ -108,7 +117,7 @@
           <p class="footer-h">{{ ui("elsewhere") }}</p>
           <ul class="footer-links">
             {% for s in site.social %}<li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ t(s.label) }}</a></li>{% endfor %}
-            <li><a href="{{ switch_url }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}">{{ ui("switch_label") }}</a></li>
+            {% for s in switches %}<li><a href="{{ s.url }}" hreflang="{{ s.lang }}" lang="{{ s.lang }}">{{ s.name }}</a></li>{% endfor %}
           </ul>
         </div>
         <div class="footer-note">
@@ -120,5 +129,6 @@
   </footer>
 
   <script src="{{ asset('assets/js/main.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>

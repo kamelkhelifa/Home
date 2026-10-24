@@ -1,13 +1,13 @@
 # Kamel Khelifa-Kerfa: academic website · الموقع الأكاديمي
 
 The bilingual (English / العربية) personal website of Dr Kamel Khelifa-Kerfa, Associate Professor of Physics at Qatar University.
-It replaces the WordPress site [khelifak.wordpress.com](https://khelifak.wordpress.com/). Course pages live on the companion site
-[TeachWeb](https://kamelkhelifa.github.io/TeachWeb/); everything else from the old site has been migrated here.
+It replaces the WordPress site [khelifak.wordpress.com](https://khelifak.wordpress.com/). University-independent open courses live on the companion site
+[TeachWeb](https://kamelkhelifa.github.io/TeachWeb/); everything else, including every course as taught at each university, is here.
 
 - **English:** `https://kamelkhelifa.github.io/Home/`
 - **العربية:** `https://kamelkhelifa.github.io/Home/ar/`
 
-**Sections:** Home · Studying (Physics at Manchester, Medicine at Chlef) · Teaching (every course, linked to TeachWeb) ·
+**Sections:** Home · Studying (Physics at Manchester, Medicine at Chlef) · Teaching (a full page for every course taught, per university) ·
 Research · Books · Resources (websites, channels, HEP software guides, articles).
 
 It is a static site: plain HTML and CSS plus a little vanilla JavaScript, with no frameworks and no tracking. It supports light and dark themes,
@@ -30,8 +30,14 @@ Open a file, click ✏️, edit, then **Commit changes**. The site rebuilds and 
 - **Add a paper:** copy an entry at the top of `publications:` in `data/research.yml`. Paper titles stay in English.
   `type` is `journal` or `proceedings`; `area` is `qcd`, `materials` or `ew`; add `status: accepted` if it applies.
 - **New semester:** edit `current:` in `data/teaching.yml`.
-- **Add a course:** add it to the right university in `data/teaching.yml` with `teachweb: taught/<university>/<course>`.
-  This is the course's path on TeachWeb. The course card then opens that page, in the reader's language.
+- **Course pages:** every course as taught at each university is one file, `data/taught/<university>/<course>.yml`
+  (format in **COURSE_FORMAT.md**; universities and their colours in `data/universities.yml`). Each becomes a page at
+  `teaching/<university>/<course>.html`, in English and Arabic, plus French for courses taught in Algeria. Pages have
+  the same 11 sections: overview, outcomes, weekly plan, assessment, materials, exams, worked problems, quizzes,
+  interactive lab, textbooks and glossary. Anything missing shows a discreet "to be added".
+  Items under `pending:`, plus `notes:` and `sources:`, are **never published**. A file listed as pending in any
+  course is withheld everywhere. In `data/teaching.yml`, link a course card with `course: <university>/<course>`.
+  The lab and glossary come from `data/companions.yml`, which is shared with TeachWeb's open courses.
 - **Add a full page** (notes, guide, article): write `content/en/<section>/<name>.html` and `content/ar/<section>/<name>.html`
   (plain HTML starting at `<h2>`; headings become the table of contents), then reference it with `page: <section>/<name>`
   in `data/studying.yml` or `data/resources.yml`. Inside a page, link to another page with `href="@@resources/herwig"`.

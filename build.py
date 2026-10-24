@@ -25,8 +25,9 @@ from markupsafe import Markup
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "_site"
-LANGS = ["en", "ar"]
-PREFIX = {"en": "", "ar": "ar/"}
+LANGS = ["en", "ar"]                       # every page; French exists only for courses taught in Algeria
+PREFIX = {"en": "", "ar": "ar/", "fr": "fr/"}
+LANG_NAMES = {"en": "English", "ar": "العربية", "fr": "Français"}
 SECTIONS = ["index", "studying", "teaching", "research", "books", "resources", "404"]
 
 # Pages whose original is Arabic, or that exist as two independent originals.
@@ -87,6 +88,95 @@ def relative(target, current):
     """Relative URL from the page at `current` to the site path `target`."""
     rel = posixpath.relpath(target, posixpath.dirname(current) or ".")
     return rel
+
+
+# ---------------------------------------------------------------- courses taught (data/taught/)
+
+LINEBREAK_SPACING = re.compile(r"\\\\\[\s*-?[\d.]+\s*(?:mm|cm|pt|em|ex)\s*\]")
+MATH = re.compile(r"\\\((.*?)\\\)|\\\[(.*?)\\\]", re.S)
+ARABIC = re.compile(r"[\u0600-\u06FF]")
+BLOCK_TAG = re.compile(r"^\s*<(p|ul|ol|div|table|pre|h\d|blockquote|figure)\b", re.I)
+ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI"]
+EDITOR_ONLY = ("pending", "notes", "sources")   # never published (see COURSE_FORMAT.md)
+
+
+def tidy(v):
+    """Clean course text for KaTeX: drop `\\\\[2mm]` spacing and escape < > inside maths."""
+    if isinstance(v, str):
+        v = LINEBREAK_SPACING.sub(r"\\\\ ", v)
+        return MATH.sub(lambda m: m.group(0).replace("<", "&lt;").replace(">", "&gt;"), v)
+    if isinstance(v, dict):
+        return {k: tidy(x) for k, x in v.items()}
+    if isinstance(v, list):
+        return [tidy(x) for x in v]
+    return v
+
+
+def paragraphs(text):
+    """Blank-line separated text → <p> paragraphs (HTML blocks are left alone)."""
+    if text is None:
+        return Markup("")
+    out = []
+    for block in re.split(r"\n\s*\n", str(text).strip()):
+        block = block.strip()
+        if block:
+            out.append(block if BLOCK_TAG.match(block) else f"<p>{' '.join(l.strip() for l in block.splitlines())}</p>")
+    return Markup("\n".join(out))
+
+
+def ltr(s):
+    """Keep numeric ranges such as 2019–2020 in reading order inside Arabic text."""
+    s = str(s or "")
+    return Markup(html.escape(s)) if ARABIC.search(s) else Markup(f'<bdi dir="ltr">{html.escape(s)}</bdi>')
+
+
+def pct(w):
+    return int(w) if float(w).is_integer() else w
+
+
+def load_courses():
+    """Universities (display order) with their courses, ready for the templates."""
+    companions = load("companions")
+    # Safety net: a file held back (`pending:`) in any course is never published, in any course.
+    withheld = set()
+    for f in (ROOT / "data" / "taught").glob("*/*.yml"):
+        with open(f, encoding="utf-8") as fh:
+            withheld |= {p.get("url") for p in (yaml.safe_load(fh).get("pending") or []) if p.get("url")}
+    unis = []
+    for u in load("universities"):
+        u["langs"] = LANGS + (["fr"] if u.get("french") else [])
+        courses = []
+        for f in sorted((ROOT / "data" / "taught" / u["id"]).glob("*.yml")):
+            with open(f, encoding="utf-8") as fh:
+                c = tidy(yaml.safe_load(fh))
+            for k in EDITOR_ONLY:
+                c.pop(k, None)
+            comp = companions.get(c.get("companion")) or {}
+            c.setdefault("sims", list(comp.get("sims") or []))
+            c.setdefault("glossary", comp.get("glossary") or [])
+            c["materials"] = [m for m in c.get("materials") or [] if m.get("url") not in withheld]
+            c["exams"] = [e for e in c.get("exams") or [] if not ({e.get("paper"), e.get("solution")} & withheld)]
+            c.setdefault("taught", [])
+            c["n_materials"] = len(c["materials"]) + len(c["exams"])
+            h = c.get("hours") or {}
+            total = sum(h.get(k, 0) or 0 for k in ("lecture", "tutorial", "lab"))
+            c["contact_hours"] = pct(total) if total else 0
+            weights = [a.get("weight") for a in c.get("assessment") or []]
+            c["weights_ok"] = bool(weights) and all(isinstance(w, (int, float)) for w in weights) and abs(sum(weights) - 100) < 1e-6
+            for i, w in enumerate(c.get("schedule") or []):
+                if w.get("week") in (None, ""):          # a chapter plan without weeks: number it I, II, III…
+                    w["week"] = ROMAN[i] if i < len(ROMAN) else str(i + 1)
+                w["wid"] = re.sub(r"[^\w-]", "", str(w["week"]).replace("–", "-")) or str(i + 1)
+                w["numeric"] = str(w["week"])[:1].isdigit()
+            c["prerequisites_text"] = c.pop("prerequisites", None)
+            c["uni"] = u
+            c["key"] = f"{u['id']}/{c['slug']}"
+            c["page"] = f"teaching/{u['id']}/{c['slug']}"
+            courses.append(c)
+        courses.sort(key=lambda c: (c.get("order", 999), c["slug"]))
+        u["courses"] = courses
+        unis.append(u)
+    return unis
 
 
 # ---------------------------------------------------------------- content pages
@@ -171,6 +261,14 @@ def render_fragment(key, lang, current):
 def build():
     data = {n: load(n) for n in ["site", "i18n", "studying", "teaching", "research", "books", "resources"]}
     site, i18n = data["site"], data["i18n"]
+    course_ui = load("course_ui")
+    unis = load_courses()
+    courses = {c["page"]: c for u in unis for c in u["courses"]}
+    page_langs = {c["page"]: c["uni"]["langs"] for c in courses.values()}
+    for uni in data["teaching"]["archive"] + [{"courses": data["teaching"]["current"]["courses"]}]:
+        for item in uni["courses"]:
+            if item.get("course") and f"teaching/{item['course']}" not in courses:
+                raise SystemExit(f"data/teaching.yml links to a course that does not exist: {item['course']}")
 
     pubs = data["research"]["publications"]
     years = sorted({p["year"] for p in pubs}, reverse=True)
@@ -195,7 +293,7 @@ def build():
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    env.filters.update(phys=phys, authors=authors, domain=domain)
+    env.filters.update(phys=phys, authors=authors, domain=domain, para=paragraphs, ltr=ltr, pct=pct)
 
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -204,7 +302,7 @@ def build():
         shutil.copy(ROOT / "CNAME", OUT / "CNAME")
     (OUT / ".nojekyll").touch()
 
-    def render(template, key, lang, **extra):
+    def render(template, key, lang, langs=LANGS, **extra):
         current = out_path(key, lang)
         other = "ar" if lang == "en" else "en"
 
@@ -215,7 +313,16 @@ def build():
             return Markup(pick(i18n[name], lang))
 
         def link(target, to_lang=None):
-            return relative(out_path(target, to_lang or lang), current)
+            to_lang = to_lang or lang
+            if to_lang not in page_langs.get(target, LANGS):   # French exists only for some course pages
+                to_lang = "en"
+            return relative(out_path(target, to_lang), current)
+
+        def cui(name):
+            return pick(course_ui["ui"][name], lang)
+
+        def cui_has(name):
+            return name in course_ui["ui"]
 
         def asset(path):
             return relative(path, current)
@@ -228,10 +335,12 @@ def build():
             data,
             page=key, section=key.split("/")[0], lang=lang, other_lang=other,
             dir="rtl" if lang == "ar" else "ltr",
-            t=t, ui=ui, link=link, asset=asset, teachweb=teachweb,
+            t=t, ui=ui, link=link, asset=asset, teachweb=teachweb, cui=cui, cui_has=cui_has,
+            labels=course_ui, unis=unis, page_langs_all=langs,
             switch_url=link(key, other),
+            switches=[{"lang": lg, "name": LANG_NAMES[lg], "url": relative(out_path(key, lg), current)} for lg in langs if lg != lang],
             canonical=f"{site['base_url'].rstrip('/')}/{current.removesuffix('index.html')}",
-            alternates={lg: f"{site['base_url'].rstrip('/')}/{out_path(key, lg).removesuffix('index.html')}" for lg in LANGS},
+            alternates={lg: f"{site['base_url'].rstrip('/')}/{out_path(key, lg).removesuffix('index.html')}" for lg in langs},
             stats=stats, pub_years=years, portrait=portrait, cv=cv, year=dt.date.today().year,
             **extra,
         )
@@ -251,15 +360,20 @@ def build():
             render("doc.html", key, lang, doc=page_meta[key], body=body, toc=toc,
                    translated_from=orig if orig and orig != lang else None)
             count += 1
+    for key, c in courses.items():
+        for lang in c["uni"]["langs"]:
+            render("course.html", key, lang, langs=c["uni"]["langs"], c=c)
+            count += 1
 
     base = site["base_url"].rstrip("/")
     urls = []
-    for key in [k for k in SECTIONS if k != "404"] + content_keys:
+    for key in [k for k in SECTIONS if k != "404"] + content_keys + list(courses):
+        langs = page_langs.get(key, LANGS)
         links = "".join(
             f'<xhtml:link rel="alternate" hreflang="{lg}" href="{base}/{out_path(key, lg).removesuffix("index.html")}"/>'
-            for lg in LANGS
+            for lg in langs
         )
-        for lang in LANGS:
+        for lang in langs:
             urls.append(f"  <url><loc>{base}/{out_path(key, lang).removesuffix('index.html')}</loc>{links}</url>")
     (OUT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -271,7 +385,7 @@ def build():
         (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
     else:  # pre-launch: pages carry a noindex tag; robots.txt itself only counts on a custom domain
         (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
-    print(f"Built {count} pages ({len(LANGS)} languages) into {OUT.relative_to(ROOT)}/"
+    print(f"Built {count} pages ({len(courses)} course pages, French for Algerian courses) into {OUT.relative_to(ROOT)}/"
           + ("" if site.get("launched") else "  [pre-launch: hidden from search engines]"))
 
 

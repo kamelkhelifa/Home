@@ -1,0 +1,418 @@
+{% extends "base.html" %}
+{# A course as taught at one university, with that university's own syllabus (data/taught/<uni>/<course>.yml). #}
+{% macro ic(name, cls="ic") %}<svg class="{{ cls }}" aria-hidden="true"><use href="#i-{{ name }}"/></svg>{% endmacro %}
+{% macro sec_head(id, ico, num) %}
+<header class="sec-head">
+  <span class="sec-icon">{{ ic(ico) }}</span>
+  <div>
+    <p class="sec-num">{{ '%02d' % num }}</p>
+    <h2 id="{{ id }}-title">{{ cui('sec_' ~ id) }}</h2>
+    <p class="sec-lead">{{ cui('tsec_' ~ id ~ '_d') if cui_has('tsec_' ~ id ~ '_d') else cui('sec_' ~ id ~ '_d') }}</p>
+  </div>
+</header>
+{% endmacro %}
+{% macro placeholder(key='placeholder_text') %}
+<div class="placeholder" role="note">
+  <span class="ph-icon">{{ ic('clock', 'ic xs') }}</span>
+  <div><strong>{{ cui('placeholder') }}</strong><span>{{ cui(key) }}</span></div>
+</div>
+{% endmacro %}
+{% set type_icon = {'notes':'notes','slides':'slides','summary':'summary','problems':'problems','solutions':'solutions','video':'video','sim':'lab','lab':'lab','formula':'formula','code':'code','reading':'library','link':'link'} %}
+{% set a_icon = {'quiz':'quizzes','homework':'problems','midterm':'exams','final':'exams','lab':'lab','project':'layers','presentation':'users','participation':'users','report':'notes','oral':'users','portfolio':'materials'} %}
+{% set sections = [('overview','overview'), ('outcomes','outcomes'), ('schedule','schedule'), ('assessment','assessment'), ('materials','materials'), ('exams','exams'),
+   ('problems','problems'), ('quizzes','quizzes'), ('lab','lab'), ('library','library'), ('glossary','glossary')] %}
+
+{% block title %}{{ c.codes | join(' / ') }} {{ t(c.title) }} · {{ t(c.uni.name) }} · {{ t(site.name) }}{% endblock %}
+{% block description %}{% if c.tagline %}{{ t(c.tagline) }}{% else %}{{ t(c.title) }} · {{ t(c.uni.name) }}{% endif %}{% endblock %}
+{% block head_extra %}
+  <link rel="stylesheet" href="{{ asset('assets/vendor/katex/katex.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/course.css') }}">
+{% endblock %}
+
+{% block content %}
+{% include "_sprite.html" %}
+<div class="course" style="--hue: {{ c.uni.hue }}" data-course="{{ c.key }}">
+
+<section class="course-hero">
+  <div class="course-hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav class="tw-crumbs" aria-label="Breadcrumb">
+      <a href="{{ link('index') }}">{{ ui('home') }}</a><span>/</span>
+      <a href="{{ link('teaching') }}">{{ t(site.nav[1].label) }}</a><span>/</span>
+      <a href="{{ link('teaching') }}#archive">{{ t(c.uni.name) }}</a><span>/</span>
+      <span aria-current="page">{{ c.codes | join(' / ') or t(c.title) }}</span>
+    </nav>
+    <div class="course-hero-grid">
+      <div>
+        <p class="course-kicker"><span class="uni-chip"><i></i>{{ t(c.uni.name) }}</span>{% if c.uni.current %}<span class="badge-current">{{ cui('current') }}</span>{% endif %}</p>
+        {% if c.codes %}<p class="course-codes">{% for code in c.codes %}<code><bdi>{{ code }}</bdi></code>{% endfor %}</p>{% endif %}
+        <h1 class="tw-course-title">{{ t(c.title) }}</h1>
+        {% if c.tagline %}<p class="course-tagline">{{ t(c.tagline) }}</p>{% endif %}
+        <div class="course-actions">
+          {% if c.schedule %}<a class="tw-btn tw-btn-primary" href="#schedule">{{ ic('play') }} {{ cui('start_learning') }}</a>{% endif %}
+          {% if c.n_materials %}<a class="tw-btn tw-btn-ghost" href="#materials">{{ ic('materials') }} {{ cui('sec_materials') }}</a>{% endif %}
+          <button class="tw-btn tw-btn-ghost" type="button" data-print>{{ ic('print') }} {{ cui('print_syllabus') }}</button>
+        </div>
+      </div>
+      <dl class="tw-facts">
+        <div class="wide"><dt>{{ cui('taught_in') }}</dt><dd class="offerings">{% for o in c.taught %}<span class="offering"><span class="lang-tag l-{{ o.lang }}">{{ o.lang | upper }}</span>{{ cui('lang_' ~ o.lang) }}<small>{{ o.years | ltr }}{% if o.code and c.codes | length > 1 %} · <bdi>{{ o.code }}</bdi>{% endif %}</small></span>{% else %}<span class="muted">{{ cui('placeholder') }}</span>{% endfor %}</dd></div>
+        {% if c.level %}<div class="wide"><dt>{{ cui('level') }}</dt><dd>{{ t(c.level) }}</dd></div>{% endif %}
+        {% if c.kind %}<div class="wide"><dt>{{ cui('format') }}</dt><dd>{{ t(c.kind) }}</dd></div>{% endif %}
+        {% if c.credits or c.contact_hours or c.weeks %}
+        <div><dt>{{ cui('credits') }}</dt><dd>{{ c.credits or '—' }}</dd></div>
+        <div><dt>{{ cui('weekly_hours') }}</dt><dd>{{ c.contact_hours or '—' }}</dd></div>
+        <div><dt>{{ cui('weeks') }}</dt><dd>{{ c.weeks or '—' }}</dd></div>
+        <div><dt>{{ cui('sec_materials') }}</dt><dd>{{ c.n_materials }}</dd></div>
+        {% endif %}
+      </dl>
+    </div>
+  </div>
+</section>
+
+<div class="wrap course-layout">
+  <aside class="course-toc" aria-label="{{ cui('on_this_page') }}">
+    <div class="toc-inner">
+      {% if c.schedule %}
+      <div class="toc-progress" data-week-progress>
+        <svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5"/><circle class="ring-val" cx="18" cy="18" r="15.5" pathLength="100" stroke-dasharray="0 100"/></svg>
+        <div><strong data-week-count>0 / {{ c.schedule | length }}</strong><span>{{ cui('completed_weeks') }}</span></div>
+      </div>
+      {% endif %}
+      <p class="toc-title">{{ cui('on_this_page') }}</p>
+      <ol class="tw-toc-list">
+        {% for id, ico in sections %}<li><a href="#{{ id }}" data-toc="{{ id }}">{{ ic(ico, 'ic xs') }}<span>{{ cui('sec_' ~ id) }}</span></a></li>{% endfor %}
+      </ol>
+    </div>
+  </aside>
+
+  <div class="course-main">
+
+  {# 1. Overview #}
+  <section class="sec" id="overview" aria-labelledby="overview-title">
+    {{ sec_head('overview', 'overview', 1) }}
+    {% if c.description %}<div class="tw-prose">{{ t(c.description) | para }}</div>{% else %}{{ placeholder() }}{% endif %}
+    {% if c.objectives %}
+    <h3 class="sub">{{ cui('objectives') }}</h3>
+    <ol class="obj-list">{% for o in c.objectives %}<li>{{ t(o) }}</li>{% endfor %}</ol>
+    {% endif %}
+    <div class="overview-grid">
+      <div class="panel">
+        <h3 class="panel-title">{{ ic('path', 'ic xs') }} {{ cui('prerequisites') }}</h3>
+        {% if c.prerequisites_text %}<p>{{ t(c.prerequisites_text) }}</p>{% else %}<p class="muted">—</p>{% endif %}
+        {% if c.corequisites %}<h3 class="panel-title mt">{{ ic('layers', 'ic xs') }} {{ cui('corequisites') }}</h3><p>{{ t(c.corequisites) }}</p>{% endif %}
+      </div>
+      {% if c.contact_hours %}
+      <div class="panel">
+        <h3 class="panel-title">{{ ic('clock', 'ic xs') }} {{ cui('workload') }}</h3>
+        {% set self_study = c.contact_hours * 2 %}
+        {% set maxh = [c.hours.lecture or 0, c.hours.tutorial or 0, c.hours.lab or 0, self_study] | max %}
+        <ul class="bars">
+          {% for key, val in [('lecture', c.hours.lecture), ('tutorial', c.hours.tutorial), ('lab', c.hours.lab), ('self_study', self_study)] if val %}
+          <li><span class="bar-label">{{ cui(key) }}</span><span class="bar"><i style="--w: {{ (val / maxh * 100) | round(1) }}%"></i></span><span class="bar-val">{{ val }} {{ cui('hours_short') }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% elif c.methods %}
+      <div class="panel"><h3 class="panel-title">{{ ic('users', 'ic xs') }} {{ cui('methods') }}</h3><ul class="tips">{% for m in c.methods %}<li>{{ t(m) }}</li>{% endfor %}</ul></div>
+      {% endif %}
+    </div>
+    {% if c.methods and c.contact_hours %}
+    <div class="panel mt-panel"><h3 class="panel-title">{{ ic('users', 'ic xs') }} {{ cui('methods') }}</h3><ul class="tips">{% for m in c.methods %}<li>{{ t(m) }}</li>{% endfor %}</ul></div>
+    {% endif %}
+    {% if c.safety %}
+    <div class="panel mt-panel safety"><h3 class="panel-title">{{ ic('lab', 'ic xs') }} {{ cui('safety') }}</h3><ul class="tips">{% for m in c.safety %}<li>{{ t(m) }}</li>{% endfor %}</ul></div>
+    {% endif %}
+  </section>
+
+  {# 2. Learning outcomes #}
+  <section class="sec" id="outcomes" aria-labelledby="outcomes-title">
+    {{ sec_head('outcomes', 'outcomes', 2) }}
+    {% if not c.outcomes %}{{ placeholder() }}{% else %}
+    <ol class="clo-list">
+      {% for o in c.outcomes %}
+      <li class="clo">
+        <div class="clo-id">{{ o.id or ('CLO' ~ loop.index) }}</div>
+        <div class="clo-body">
+          <p class="clo-text">{{ t(o.text) }}</p>
+          {% if o.assessed_by %}<div class="clo-tags"><span class="assessed">{{ cui('assessed_by') }}: {{ t(o.assessed_by) }}</span></div>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+  </section>
+
+  {# 3. Weekly plan #}
+  <section class="sec" id="schedule" aria-labelledby="schedule-title">
+    {{ sec_head('schedule', 'schedule', 3) }}
+    {% if not c.schedule %}{{ placeholder() }}{% else %}
+    <div class="week-tools">
+      <div class="week-meter" aria-hidden="true"><i data-week-bar></i></div>
+      <button class="link-btn" type="button" data-weeks-toggle="open">{{ cui('expand_all') }}</button>
+      <button class="link-btn" type="button" data-weeks-toggle="close">{{ cui('collapse_all') }}</button>
+      <button class="link-btn danger" type="button" data-weeks-reset>{{ ic('refresh', 'ic xs') }} {{ cui('reset_progress') }}</button>
+    </div>
+    <ol class="weeks">
+      {% for w in c.schedule %}
+      {% set wid = w.wid %}
+      {% set wm = c.materials | selectattr('week', 'defined') | selectattr('week', 'equalto', w.week) | list %}
+      {% set has_body = w.topics or w.reading or w.activity or wm %}
+      <li class="week{% if w.milestone == 'break' %} is-break{% endif %}" id="week-{{ wid }}" data-week="{{ wid }}">
+        <div class="week-head">
+          <label class="week-check" title="{{ cui('mark_done') }}">
+            <input type="checkbox" data-week-done="{{ wid }}" aria-label="{{ cui('mark_done') }}: {{ cui('week') }} {{ w.week }}"{% if w.milestone == 'break' %} disabled{% endif %}>
+            <span class="box">{{ ic('check', 'ic xs') }}</span>
+          </label>
+          <button class="week-toggle" type="button" aria-expanded="false" aria-controls="week-panel-{{ wid }}"{% if not has_body %} disabled{% endif %}>
+            <span class="week-num{% if not w.numeric %} is-label{% endif %}">{% if w.numeric %}<small>{{ cui('week') }}</small>{% endif %}<bdi>{{ w.week }}</bdi></span>
+            <span class="week-title">{{ t(w.title) }}</span>
+            {% if w.milestone %}<span class="milestone m-{{ w.milestone }}">{{ t(labels.milestones[w.milestone]) }}</span>{% endif %}
+            {% if wm %}<span class="week-mcount" title="{{ cui('week_materials') }}">{{ ic('materials', 'ic xs') }}{{ wm | length }}</span>{% endif %}
+            {% if has_body %}{{ ic('chevron', 'ic chev') }}{% endif %}
+          </button>
+        </div>
+        {% if has_body %}
+        <div class="week-panel" id="week-panel-{{ wid }}" hidden>
+          {% if w.topics %}<ul class="week-topics">{% for tp in (w.topics[lang] or w.topics.en) %}<li>{{ tp }}</li>{% endfor %}</ul>{% endif %}
+          {% if w.reading or w.activity %}
+          <dl class="week-meta">
+            {% if w.reading %}<div><dt>{{ ic('library', 'ic xs') }} {{ cui('reading') }}</dt><dd>{{ t(w.reading) }}</dd></div>{% endif %}
+            {% if w.activity %}<div><dt>{{ ic('problems', 'ic xs') }} {{ cui('activity') }}</dt><dd>{{ t(w.activity) }}</dd></div>{% endif %}
+          </dl>
+          {% endif %}
+          {% if wm %}
+          <div class="week-mats">
+            <p class="mini-title">{{ cui('week_materials') }}</p>
+            {% for m in wm %}<a class="mat-chip" href="{{ m.url }}" target="_blank" rel="noopener">{{ ic(type_icon[m.type] or 'notes', 'ic xs') }}{{ t(m.title) }}</a>{% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+  </section>
+
+  {# 4. Assessment #}
+  <section class="sec" id="assessment" aria-labelledby="assessment-title">
+    {{ sec_head('assessment', 'assessment', 4) }}
+    {% if not c.assessment %}
+      {% if c.assessment_note %}<div class="panel"><div class="tw-prose">{{ t(c.assessment_note) | para }}</div></div>{% else %}{{ placeholder() }}{% endif %}
+    {% else %}
+    <div class="assess-grid{% if not c.weights_ok %} no-donut{% endif %}">
+      {% if c.weights_ok %}
+      <figure class="donut" aria-hidden="true">
+        <svg viewBox="0 0 42 42">
+          {% set ns = namespace(off=25) %}
+          {% for a in c.assessment %}
+          <circle class="seg" cx="21" cy="21" r="15.915" pathLength="100" data-seg="{{ loop.index0 }}"
+                  style="--i: {{ loop.index0 }}; --n: {{ c.assessment | length }}"
+                  stroke-dasharray="{{ a.weight - 0.6 }} {{ 100 - a.weight + 0.6 }}" stroke-dashoffset="{{ ns.off }}"/>
+          {% set ns.off = ns.off - a.weight %}
+          {% endfor %}
+        </svg>
+        <figcaption><strong>100%</strong><span>{{ c.assessment | length }} {{ cui('components') }}</span></figcaption>
+      </figure>
+      {% endif %}
+      <ul class="assess-list">
+        {% for a in c.assessment %}
+        <li class="assess" data-seg-hover="{{ loop.index0 }}" style="--i: {{ loop.index0 }}; --n: {{ c.assessment | length }}">
+          <span class="assess-swatch"></span>
+          <div class="assess-body">
+            <div class="assess-top">
+              <h3>{{ ic(a_icon[a.type] or 'exams', 'ic xs') }} {{ t(a.title) }}</h3>
+              {% if a.weight is not none %}<span class="assess-weight">{{ a.weight | pct }}%</span>{% endif %}
+            </div>
+            {% if a.detail %}<p>{{ t(a.detail) }}</p>{% endif %}
+            {% if a.when %}<p class="assess-when">{{ ic('clock', 'ic xs') }} {{ t(a.when) }}</p>{% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% if c.assessment_note %}<p class="note">{{ t(c.assessment_note) }}</p>{% endif %}
+    {% if c.weights_ok %}
+    <div class="calc panel" data-calc>
+      <h3 class="panel-title">{{ ic('calc', 'ic xs') }} {{ cui('calculator') }}</h3>
+      <p class="muted small">{{ cui('calculator_lead') }}</p>
+      <div class="calc-grid">
+        {% for a in c.assessment %}
+        <label class="calc-row"><span>{{ t(a.title) }} <em>{{ a.weight | pct }}%</em></span>
+          <input type="number" min="0" max="100" step="0.5" inputmode="decimal" data-weight="{{ a.weight }}" placeholder="—"></label>
+        {% endfor %}
+      </div>
+      <div class="calc-out">
+        <div><span>{{ cui('total') }}</span><strong data-calc-total>—</strong><small>/ 100</small></div>
+        <div><span>{{ cui('out_of_20') }}</span><strong data-calc-20>—</strong><small>/ 20</small></div>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
+  </section>
+
+  {# 5. Materials #}
+  <section class="sec" id="materials" aria-labelledby="materials-title">
+    {{ sec_head('materials', 'materials', 5) }}
+    {% if c.materials %}
+    {% set types = [] %}{% for m in c.materials %}{% if m.type not in types %}{% set _ = types.append(m.type) %}{% endif %}{% endfor %}
+    <div class="mat-tools">
+      <div class="chips" role="group">
+        <button class="tw-chip is-on" type="button" data-mat-type="">{{ cui('all_types') }} <b>{{ c.materials | length }}</b></button>
+        {% for ty in labels.material_types if ty in types %}
+        <button class="tw-chip" type="button" data-mat-type="{{ ty }}">{{ t(labels.material_types[ty]) }} <b>{{ c.materials | selectattr('type', 'equalto', ty) | list | length }}</b></button>
+        {% endfor %}
+      </div>
+      <label class="mat-search">{{ ic('search', 'ic xs') }}<input type="search" placeholder="{{ cui('filter_materials') }}" data-mat-search></label>
+    </div>
+    <ul class="mat-grid" data-mat-grid>
+      {% for m in c.materials %}
+      <li data-type="{{ m.type }}">
+        <a class="mat" href="{{ m.url }}" target="_blank" rel="noopener">
+          <span class="mat-icon t-{{ m.type }}">{{ ic(type_icon[m.type] or 'notes') }}</span>
+          <span class="mat-body">
+            <span class="mat-title">{{ t(m.title) }}</span>
+            <span class="mat-meta">{{ t(labels.material_types[m.type]) if m.type in labels.material_types else m.type }}{% if m.week %} · {{ cui('week') }} <bdi>{{ m.week }}</bdi>{% endif %}{% if m.lang %} · <span class="lang-tag">{{ m.lang | upper }}</span>{% endif %}</span>
+          </span>
+          {{ ic('external', 'ic xs mat-ext') }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}{{ placeholder('placeholder_materials') }}{% endif %}
+  </section>
+
+  {# 6. Exams #}
+  <section class="sec" id="exams" aria-labelledby="exams-title">
+    {{ sec_head('exams', 'exams', 6) }}
+    {% if c.exams %}
+    <div class="tw-table-wrap">
+      <table class="papers">
+        <tbody>
+        {% for e in c.exams %}
+          <tr>
+            <th scope="row">{{ t(e.title) }}{% if e.session %} <span class="muted">· {{ e.session | ltr }}</span>{% endif %}{% if e.lang %} <span class="lang-tag">{{ e.lang | upper }}</span>{% endif %}</th>
+            <td>{% if e.paper %}<a class="btn-sm" href="{{ e.paper }}" target="_blank" rel="noopener">{{ ic('exams', 'ic xs') }} {{ cui('paper') }}</a>{% endif %}</td>
+            <td>{% if e.solution %}<a class="btn-sm" href="{{ e.solution }}" target="_blank" rel="noopener">{{ ic('solutions', 'ic xs') }} {{ cui('solution') }}</a>{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}{{ placeholder('placeholder_exams') }}{% endif %}
+  </section>
+
+  {# 7. Worked problems and 8. Quizzes: not yet published for courses taught #}
+  <section class="sec" id="problems" aria-labelledby="problems-title">
+    {{ sec_head('problems', 'problems', 7) }}
+    {{ placeholder('placeholder_problems') }}
+  </section>
+  <section class="sec" id="quizzes" aria-labelledby="quizzes-title">
+    {{ sec_head('quizzes', 'quizzes', 8) }}
+    {{ placeholder('placeholder_quizzes') }}
+  </section>
+
+  {# 9. Interactive lab (from the companion open course) #}
+  <section class="sec" id="lab" aria-labelledby="lab-title">
+    {{ sec_head('lab', 'lab', 9) }}
+    {% for s in c.sims %}<div class="sim" data-sim="{{ s }}"></div>{% else %}{{ placeholder('placeholder_lab') }}{% endfor %}
+  </section>
+
+  {# 10. Textbooks & resources #}
+  {% set tb = c.textbooks or {} %}
+  <section class="sec" id="library" aria-labelledby="library-title">
+    {{ sec_head('library', 'library', 10) }}
+    {% if not (tb.required or tb.recommended or tb.online) %}{{ placeholder() }}{% endif %}
+    {% if tb.required %}
+    <h3 class="sub">{{ cui('required') }}</h3>
+    <ul class="lib-books">
+      {% for b in tb.required %}
+      <li class="lib-book is-main">
+        <span class="lib-spine" aria-hidden="true"><i>{{ ((b.authors or b.title).split(',')[0].split('&')[0].split(' and ')[0]) | trim }}</i></span>
+        <div><p class="lib-title">{{ b.title }}</p><p class="lib-meta">{{ b.authors or '' }}{% if b.edition %} · {{ b.edition }}{% endif %}{% if b.publisher %} · {{ b.publisher }}{% endif %}{% if b.year %} · {{ b.year }}{% endif %}</p></div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if tb.recommended %}
+    <h3 class="sub">{{ cui('recommended') }}</h3>
+    <ul class="lib-books compact">
+      {% for b in tb.recommended %}
+      <li class="lib-book"><div><p class="lib-title">{{ b.title }}</p><p class="lib-meta">{{ b.authors or '' }}{% if b.edition %} · {{ b.edition }}{% endif %}{% if b.publisher %} · {{ b.publisher }}{% endif %}{% if b.year %} · {{ b.year }}{% endif %}</p></div></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if tb.online %}
+    <h3 class="sub">{{ cui('online') }}</h3>
+    <ul class="lib-online">
+      {% for o in tb.online %}
+      <li><a href="{{ o.url }}" target="_blank" rel="noopener"><span class="online-title">{{ t(o.title) }} {{ ic('external', 'ic xs') }}</span>{% if o.note %}<span class="online-note">{{ t(o.note) }}</span>{% endif %}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </section>
+
+  {# 11. Glossary (from the companion open course) #}
+  <section class="sec" id="glossary" aria-labelledby="glossary-title">
+    {{ sec_head('glossary', 'glossary', 11) }}
+    {% if c.glossary %}
+    <div class="gloss" data-gloss>
+      <div class="gloss-tools">
+        <label class="mat-search">{{ ic('search', 'ic xs') }}<input type="search" placeholder="{{ cui('glossary_search') }}" data-gloss-search></label>
+        <div class="seg-toggle" role="group">
+          <button type="button" class="is-on" data-gloss-view="table">{{ ic('summary', 'ic xs') }} {{ cui('table_view') }}</button>
+          <button type="button" data-gloss-view="cards">{{ ic('cards', 'ic xs') }} {{ cui('flashcards') }}</button>
+        </div>
+        <span class="gloss-count"><b data-gloss-count>{{ c.glossary | length }}</b> {{ cui('term_count') }}</span>
+      </div>
+      <div class="tw-table-wrap gloss-table" data-gloss-pane="table">
+        <table>
+          <thead><tr><th scope="col">{{ cui('english') }}</th><th scope="col">{{ cui('arabic') }}</th><th scope="col">{{ cui('french') }}</th><th scope="col">{{ cui('definition') }}</th></tr></thead>
+          <tbody>
+          {% for g in c.glossary %}
+            <tr data-term data-en="{{ g.en }}" data-ar="{{ g.ar }}" data-fr="{{ g.fr or '' }}">
+              <td class="g-en" lang="en"><button type="button" class="speak" data-speak="{{ g.en }}" aria-label="{{ cui('listen') }}: {{ g.en }}">{{ ic('volume', 'ic xs') }}</button>{{ g.en }}</td>
+              <td class="g-ar" lang="ar" dir="rtl">{{ g.ar }}</td>
+              <td class="g-fr" lang="fr">{{ g.fr or '' }}</td>
+              <td class="g-def">{% if g.def %}{{ t(g.def) }}{% endif %}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="flash" data-gloss-pane="cards" hidden>
+        <button class="flash-card" type="button" data-flash-card aria-live="polite">
+          <span class="flash-inner">
+            <span class="flash-face front"><small data-flash-lang-front></small><strong data-flash-front></strong></span>
+            <span class="flash-face back"><small data-flash-lang-back></small><strong data-flash-back></strong><span class="flash-def" data-flash-def></span></span>
+          </span>
+        </button>
+        <p class="muted small center">{{ cui('flip') }}</p>
+        <div class="flash-nav">
+          <button class="tw-btn tw-btn-ghost" type="button" data-flash-prev>{{ ic('arrow', 'ic flip rev') }} {{ cui('prev') }}</button>
+          <span class="flash-pos" data-flash-pos></span>
+          <button class="tw-btn tw-btn-ghost" type="button" data-flash-speak>{{ ic('volume') }} {{ cui('listen') }}</button>
+          <button class="tw-btn tw-btn-ghost" type="button" data-flash-shuffle>{{ ic('shuffle') }} {{ cui('shuffle') }}</button>
+          <button class="tw-btn tw-btn-primary" type="button" data-flash-next>{{ cui('next') }} {{ ic('arrow', 'ic flip') }}</button>
+        </div>
+      </div>
+    </div>
+    {% else %}{{ placeholder('placeholder_glossary') }}{% endif %}
+  </section>
+
+  <div class="back-row">
+    <a href="{{ link('teaching') }}#archive">{{ ic('arrow', 'ic xs flip rev') }} {{ ui('back_to') }} {{ t(site.nav[1].label) }}</a>
+    <a href="{{ teachweb() }}" target="_blank" rel="noopener">{{ ui('teachweb_open') }} {{ ic('external', 'ic xs') }}</a>
+  </div>
+
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script defer src="{{ asset('assets/vendor/katex/katex.min.js') }}"></script>
+<script defer src="{{ asset('assets/vendor/katex/contrib/auto-render.min.js') }}"></script>
+<script defer src="{{ asset('assets/js/course.js') }}"></script>
+{% if c.sims %}<script defer src="{{ asset('assets/js/sims.js') }}"></script>{% endif %}
+{% endblock %}

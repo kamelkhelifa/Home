@@ -1,0 +1,480 @@
+# Interface strings and label sets for the course pages (en / ar / fr).
+ui:
+  activity:
+    en: Activity
+    ar: النشاط
+    fr: Activité
+  all_types:
+    en: All
+    ar: الكل
+    fr: Tous
+  arabic:
+    en: Arabic
+    ar: العربية
+    fr: Arabe
+  assessed_by:
+    en: Assessed by
+    ar: يُقيَّم عبر
+    fr: Évalué par
+  calculator:
+    en: Grade calculator
+    ar: حاسبة المعدل
+    fr: Calculateur de note
+  calculator_lead:
+    en: Enter your marks (out of 100) to see your weighted total.
+    ar: أدخل علاماتك (من 100) لترى مجموعك الموزون.
+    fr: Saisissez vos notes (sur 100) pour obtenir la moyenne pondérée.
+  collapse_all:
+    en: Collapse all
+    ar: طيّ الكل
+    fr: Tout replier
+  completed_weeks:
+    en: weeks completed
+    ar: أسابيع منجزة
+    fr: semaines terminées
+  components:
+    en: components
+    ar: مكوّنات
+    fr: composantes
+  corequisites:
+    en: Co-requisites
+    ar: المتطلبات المتزامنة
+    fr: Corequis
+  credits:
+    en: Credits
+    ar: الساعات المعتمدة
+    fr: Crédits
+  current:
+    en: Current
+    ar: حاليًا
+    fr: Actuelle
+  definition:
+    en: Definition
+    ar: التعريف
+    fr: Définition
+  edition:
+    en: ed.
+    ar: ط.
+    fr: éd.
+  english:
+    en: English
+    ar: الإنجليزية
+    fr: Anglais
+  expand_all:
+    en: Expand all
+    ar: توسيع الكل
+    fr: Tout déplier
+  filter_materials:
+    en: Filter materials…
+    ar: صفِّ المواد…
+    fr: Filtrer les documents…
+  flashcards:
+    en: Flashcards
+    ar: بطاقات المراجعة
+    fr: Cartes mémoire
+  flip:
+    en: Tap the card to flip it
+    ar: انقر البطاقة لقلبها
+    fr: Touchez la carte pour la retourner
+  format:
+    en: Format
+    ar: نمط التدريس
+    fr: Format
+  french:
+    en: French
+    ar: الفرنسية
+    fr: Français
+  glossary_search:
+    en: Search the glossary…
+    ar: ابحث في المعجم…
+    fr: Rechercher dans le glossaire…
+  hours_short:
+    en: h
+    ar: سا
+    fr: h
+  lang_ar:
+    en: Arabic
+    ar: العربية
+    fr: Arabe
+  lang_en:
+    en: English
+    ar: الإنجليزية
+    fr: Anglais
+  lang_fr:
+    en: French
+    ar: الفرنسية
+    fr: Français
+  level:
+    en: Level
+    ar: المستوى
+    fr: Niveau
+  listen:
+    en: Listen
+    ar: استمع
+    fr: Écouter
+  mark_done:
+    en: Mark as studied
+    ar: تمّت دراسته
+    fr: Marquer comme étudiée
+  methods:
+    en: Teaching methods
+    ar: طرق التدريس
+    fr: Méthodes d'enseignement
+  next:
+    en: Next
+    ar: التالي
+    fr: Suivant
+  objectives:
+    en: Course objectives
+    ar: أهداف المقرر
+    fr: Objectifs du cours
+  on_this_page:
+    en: On this page
+    ar: في هذه الصفحة
+    fr: Sur cette page
+  online:
+    en: Free online resources
+    ar: موارد مجانية على الإنترنت
+    fr: Ressources libres en ligne
+  out_of_20:
+    en: on a 20-point scale
+    ar: على سلّم من 20
+    fr: sur 20
+  paper:
+    en: Paper
+    ar: الأسئلة
+    fr: Sujet
+  past_papers:
+    en: Past papers
+    ar: اختبارات سابقة
+    fr: Sujets des années passées
+  placeholder:
+    en: To be added
+    ar: سيُضاف لاحقًا
+    fr: À compléter
+  placeholder_exams:
+    en: No past papers have been published for this course yet.
+    ar: لم تُنشر اختبارات سابقة لهذا المقرر بعد.
+    fr: Aucun sujet d'examen n'est encore publié pour ce cours.
+  placeholder_glossary:
+    en: The glossary for this course has not been published yet.
+    ar: لم يُنشر بعد معجم هذا المقرر.
+    fr: Le glossaire de ce cours n'est pas encore publié.
+  placeholder_lab:
+    en: No interactive lab has been published for this course yet.
+    ar: لم يُنشر بعد مختبر تفاعلي لهذا المقرر.
+    fr: Aucun laboratoire interactif n'est encore publié pour ce cours.
+  placeholder_materials:
+    en: No materials have been published for this course yet.
+    ar: لم تُنشر مواد لهذا المقرر بعد.
+    fr: Aucun document n'est encore publié pour ce cours.
+  placeholder_problems:
+    en: Worked problems for this course have not been published yet.
+    ar: لم تُنشر بعد مسائل محلولة لهذا المقرر.
+    fr: Les problèmes corrigés de ce cours ne sont pas encore publiés.
+  placeholder_quizzes:
+    en: Self-check quizzes for this course have not been published yet.
+    ar: لم تُنشر بعد أسئلة تقويم ذاتي لهذا المقرر.
+    fr: Les quiz d'auto-évaluation de ce cours ne sont pas encore publiés.
+  placeholder_text:
+    en: This part of the syllabus has not been published yet.
+    ar: لم يُنشر هذا الجزء من المفردات بعد.
+    fr: Cette partie du programme n'est pas encore publiée.
+  prerequisites:
+    en: Prerequisites
+    ar: المتطلبات السابقة
+    fr: Prérequis
+  prev:
+    en: Previous
+    ar: السابق
+    fr: Précédent
+  print_syllabus:
+    en: Print syllabus
+    ar: اطبع المفردات
+    fr: Imprimer le programme
+  reading:
+    en: Reading
+    ar: القراءة
+    fr: Lecture
+  recommended:
+    en: Further reading
+    ar: قراءات إضافية
+    fr: Lectures complémentaires
+  required:
+    en: Required textbook
+    ar: المرجع المقرر
+    fr: Ouvrage de référence
+  reset_progress:
+    en: Reset progress
+    ar: إعادة ضبط التقدّم
+    fr: Réinitialiser
+  safety:
+    en: Laboratory safety
+    ar: السلامة في المختبر
+    fr: Sécurité au laboratoire
+  shuffle:
+    en: Shuffle
+    ar: خلط
+    fr: Mélanger
+  solution:
+    en: Solution
+    ar: الحل
+    fr: Corrigé
+  start_learning:
+    en: Start the weekly plan
+    ar: ابدأ الخطة الأسبوعية
+    fr: Voir le plan hebdomadaire
+  table_view:
+    en: Table
+    ar: جدول
+    fr: Tableau
+  taught_in:
+    en: Taught in
+    ar: لغة التدريس
+    fr: Enseigné en
+  term_count:
+    en: terms
+    ar: مصطلح
+    fr: termes
+  topics_glance:
+    en: Topics at a glance
+    ar: المحاور الرئيسية
+    fr: Thèmes principaux
+  total:
+    en: Weighted total
+    ar: المجموع الموزون
+    fr: Moyenne pondérée
+  university:
+    en: University
+    ar: الجامعة
+    fr: Université
+  week:
+    en: Week
+    ar: الأسبوع
+    fr: Semaine
+  week_materials:
+    en: This week's materials
+    ar: مواد هذا الأسبوع
+    fr: Documents de la semaine
+  weekly_hours:
+    en: Hours / week
+    ar: ساعة / أسبوع
+    fr: Heures / semaine
+  weeks:
+    en: Weeks
+    ar: الأسابيع
+    fr: Semaines
+  workload:
+    en: Weekly workload
+    ar: العبء الأسبوعي
+    fr: Charge hebdomadaire
+  lecture:
+    en: Lectures
+    ar: محاضرات
+    fr: Cours magistral
+  tutorial:
+    en: Tutorials
+    ar: أعمال موجّهة
+    fr: Travaux dirigés
+  lab:
+    en: Lab
+    ar: أعمال تطبيقية
+    fr: Travaux pratiques
+  self_study:
+    en: Self-study (recommended)
+    ar: دراسة ذاتية (مقترحة)
+    fr: Travail personnel (conseillé)
+  sec_overview:
+    en: Overview
+    ar: نظرة عامة
+    fr: Présentation
+  sec_outcomes:
+    en: Learning outcomes
+    ar: مخرجات التعلّم
+    fr: Acquis d'apprentissage
+  sec_schedule:
+    en: Weekly plan
+    ar: الخطة الأسبوعية
+    fr: Plan hebdomadaire
+  sec_assessment:
+    en: Assessment
+    ar: التقويم
+    fr: Évaluation
+  sec_materials:
+    en: Materials
+    ar: المواد التعليمية
+    fr: Documents
+  sec_exams:
+    en: Exams
+    ar: الاختبارات
+    fr: Examens
+  sec_problems:
+    en: Worked problems
+    ar: مسائل محلولة
+    fr: Problèmes corrigés
+  sec_quizzes:
+    en: Self-check quizzes
+    ar: التقويم الذاتي
+    fr: Auto-évaluation
+  sec_lab:
+    en: Interactive lab
+    ar: المختبر التفاعلي
+    fr: Laboratoire interactif
+  sec_library:
+    en: Textbooks & resources
+    ar: المراجع والموارد
+    fr: Ouvrages et ressources
+  sec_glossary:
+    en: Glossary
+    ar: المعجم
+    fr: Glossaire
+  sec_overview_d:
+    en: What the course is about and what you need before starting.
+    ar: موضوع المقرر وما تحتاجه قبل البدء.
+    fr: Le contenu du cours et les prérequis.
+  sec_outcomes_d:
+    en: What you will be able to do, and how each outcome is assessed.
+    ar: ما ستكون قادرًا على فعله، وكيف يُقيَّم كل مخرج.
+    fr: Ce que vous saurez faire, et comment chaque acquis est évalué.
+  sec_schedule_d:
+    en: Fourteen weeks, step by step. Tick a week when you have studied it.
+    ar: الأسابيع خطوةً بخطوة. أشِّر على الأسبوع بعد دراسته.
+    fr: Semaine après semaine. Cochez une semaine une fois étudiée.
+  sec_assessment_d:
+    en: A varied scheme so that every outcome is measured more than once.
+    ar: أساليب متنوعة حتى يُقاس كل مخرج أكثر من مرة.
+    fr: Un dispositif d'évaluation varié.
+  sec_materials_d:
+    en: Notes, problem sets, solutions, videos and more.
+    ar: المذكرات وسلاسل التمارين والحلول والمقاطع المرئية وغيرها.
+    fr: Polycopiés, séries d'exercices, corrigés, vidéos…
+  sec_exams_d:
+    en: What to expect on exam day, and past papers to practise with.
+    ar: ما تتوقعه يوم الاختبار، واختبارات سابقة للتدرّب.
+    fr: Le déroulement des examens et les sujets des années passées.
+  sec_problems_d:
+    en: Exam-style problems. Try first, then reveal the hint and the full solution.
+    ar: مسائل على نمط الاختبارات. حاول أولًا، ثم اكشف التلميح والحل الكامل.
+    fr: Problèmes de type examen. Cherchez d'abord, puis affichez l'indice et la solution.
+  sec_quizzes_d:
+    en: Instant feedback with an explanation for every answer. Your best score is saved.
+    ar: تصحيح فوري مع شرح لكل إجابة. تُحفظ أفضل نتيجة لك.
+    fr: Correction immédiate avec une explication pour chaque réponse.
+  sec_lab_d:
+    en: Change the parameters and watch the physics respond.
+    ar: غيّر المعاملات وشاهد استجابة الظاهرة الفيزيائية.
+    fr: Modifiez les paramètres et observez la physique.
+  sec_library_d:
+    en: Required and recommended books, and the best free resources online.
+    ar: الكتب المقررة والمقترحة، وأفضل الموارد المجانية على الإنترنت.
+    fr: Ouvrages de référence et ressources libres en ligne.
+  sec_glossary_d:
+    en: Key terms in English and Arabic (and French), with flashcards.
+    ar: المصطلحات الأساسية بالإنجليزية والعربية (والفرنسية)، مع بطاقات للمراجعة.
+    fr: Les termes clés en anglais, arabe et français.
+  tsec_overview_d:
+    en: The course as described in its syllabus.
+    ar: المقرر كما وُصف في مفرداته.
+    fr: Le cours tel que décrit dans son programme.
+  tsec_outcomes_d:
+    en: The learning outcomes stated in the syllabus.
+    ar: مخرجات التعلّم كما وردت في المفردات.
+    fr: Les acquis d'apprentissage indiqués dans le programme.
+  tsec_schedule_d:
+    en: The weekly plan followed in class. Tick a week once you have studied it.
+    ar: الخطة الأسبوعية المتّبعة في القسم. أشِّر على الأسبوع بعد دراسته.
+    fr: Le plan suivi en classe. Cochez une semaine une fois étudiée.
+  tsec_assessment_d:
+    en: The assessment scheme and weights used for this course.
+    ar: نظام التقويم والأوزان المعتمدة في هذا المقرر.
+    fr: Le dispositif d'évaluation et les pondérations de ce cours.
+  tsec_materials_d:
+    en: Lecture notes, problem sets, solutions and other documents prepared for this course.
+    ar: المذكرات وسلاسل التمارين والحلول وغيرها من الوثائق المعدّة لهذا المقرر.
+    fr: Polycopiés, séries d'exercices, corrigés et autres documents préparés pour ce cours.
+  tsec_exams_d:
+    en: Past exams set in this course, with their solutions.
+    ar: اختبارات سابقة لهذا المقرر مع حلولها.
+    fr: Les sujets d'examen de ce cours, avec leurs corrigés.
+  tsec_library_d:
+    en: Textbooks and resources listed for this course.
+    ar: الكتب والموارد المعتمدة في هذا المقرر.
+    fr: Ouvrages et ressources indiqués pour ce cours.
+material_types:
+  notes:
+    en: Lecture notes
+    ar: مذكرات المحاضرات
+    fr: Cours
+  slides:
+    en: Slides
+    ar: شرائح العرض
+    fr: Diapositives
+  summary:
+    en: Summaries
+    ar: ملخصات
+    fr: Résumés
+  problems:
+    en: Problem sets
+    ar: سلاسل التمارين
+    fr: Séries d'exercices
+  solutions:
+    en: Solutions
+    ar: الحلول
+    fr: Corrigés
+  video:
+    en: Videos
+    ar: مقاطع مرئية
+    fr: Vidéos
+  sim:
+    en: Simulations
+    ar: محاكاة
+    fr: Simulations
+  lab:
+    en: Lab sheets
+    ar: أوراق العمل المخبري
+    fr: Fiches de TP
+  formula:
+    en: Formula sheets
+    ar: جداول القوانين
+    fr: Formulaires
+  code:
+    en: Code
+    ar: شيفرات برمجية
+    fr: Code
+  reading:
+    en: Readings
+    ar: قراءات
+    fr: Lectures
+  link:
+    en: Links
+    ar: روابط
+    fr: Liens
+milestones:
+  quiz:
+    en: Quiz
+    ar: اختبار قصير
+    fr: Interrogation
+  midterm:
+    en: Midterm
+    ar: اختبار فصلي
+    fr: Examen partiel
+  final:
+    en: Final
+    ar: نهائي
+    fr: Examen final
+  project:
+    en: Project
+    ar: مشروع
+    fr: Projet
+  lab:
+    en: Lab
+    ar: مختبر
+    fr: TP
+  review:
+    en: Review
+    ar: مراجعة
+    fr: Révision
+  break:
+    en: Break
+    ar: عطلة
+    fr: Vacances
