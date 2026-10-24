@@ -3,14 +3,15 @@ order: 10
 codes: [UEF223, وت أ 223]
 title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1, fr: Mécanique quantique I }
 level:
-  en: "Licence 3 (L3) · Semester 4"
-  ar: "ليسانس (ل3) · الفصل 4"
-  fr: "Licence 3 (L3) · Semestre 4"
+  en: "Licence 2 (L2) · Semester 4"
+  ar: "ليسانس (ل2) · الفصل 4"
+  fr: "Licence 2 (L2) · Semestre 4"
 area: quantum
 companion: quantum-mechanics-1   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة, fr: Cours et travaux dirigés }
 taught:
-  - { years: 2020–2024, code: UEF223, lang: ar }
+  - { years: 2023–2024, code: UEF223, lang: en }
+  - { years: 2021–2023, code: UEF223, lang: ar }
 hours: { lecture: 1.5, tutorial: 1.5 }
 prerequisites: { en: Classical mechanics, ar: الميكانيكا الكلاسيكية, fr: Mécanique classique }
 
@@ -398,3 +399,5 @@ notes: >
   Video-solution links 0-3 were duplicates of the PDF solutions and were dropped. Summaries 1-5, solutions 5-10
   videos, and the current-year midterm/final/resit PDFs were never uploaded. Not kept: room and timetable, office
   hours, student-portal marks link, course questionnaire.
+  UPDATE 24-10-2026: the faculty's distance-teaching attestation gives L2, S4, lecture + tutorials, taught in Arabic, 2022/2023: level corrected to L2.
+  UPDATE 24-10-2026 (Kamel's answers): started at Relizane in September 2021: taught in Arabic 2021–2023 (2022–2023 attested), then in English (2023–2024, the year of the last past exam). Videos 01–18 are all from his YouTube channel.

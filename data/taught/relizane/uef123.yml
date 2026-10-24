@@ -146,9 +146,9 @@ assessment:
     detail: { en: 1 h 30 min, ar: ساعة ونصف, fr: 1 h 30 }
     when: { en: Final exam period, ar: فترة الاختبارات النهائية, fr: Période des examens finaux }
 assessment_note:
-  en: "Continuous assessment counts for 33% (13.2 + 8.25 + 3.3 + 8.25). A separate laboratory (TP) exam is also held; its weight is not stated on the course page."
-  ar: "يمثل التقييم المستمر 33% (13.2 + 8.25 + 3.3 + 8.25). ويُجرى كذلك اختبار منفصل في الأعمال التطبيقية، ولم يُذكر وزنه في صفحة المقرر."
-  fr: "Le contrôle continu compte pour 33 % (13,2 + 8,25 + 3,3 + 8,25). Un examen de travaux pratiques distinct est également organisé ; son poids n'est pas précisé sur la page du cours."
+  en: "Continuous assessment counts for 33% (13.2 + 8.25 + 3.3 + 8.25). The laboratory (TP) is a separate one-credit unit in the national L2 programme, graded 50% continuous assessment (lab sessions and reports) and 50% lab exam; it is not part of the 33/67 above."
+  ar: "يُحتسب التقييم المستمر بنسبة 33% (13.2 + 8.25 + 3.3 + 8.25). أما الأعمال التطبيقية فهي في البرنامج الوطني للسنة الثانية وحدة مستقلة بساعة معتمدة واحدة، تُقيَّم بنسبة 50% تقييمًا مستمرًا (الحصص والتقارير) و50% اختبارًا تطبيقيًا، ولا تدخل في نسبة 33/67 أعلاه."
+  fr: "Le contrôle continu compte pour 33 % (13,2 + 8,25 + 3,3 + 8,25). Les travaux pratiques forment une unité distincte d'un crédit dans le programme national de L2, évaluée à 50 % en contrôle continu (séances et comptes rendus) et 50 % à l'examen de TP ; ils n'entrent pas dans le 33/67 ci-dessus."
 
 schedule:
   - week: 1
@@ -279,10 +279,10 @@ exams:
     paper: https://drive.google.com/file/d/187XfnTXKZaQ7pkVzXhDJ5HOutkAeLsrE/view?usp=drive_link
     solution: https://drive.google.com/file/d/1mbppjtPV5hMIKWe1N6tqUBoGiUz_7eLM/view?usp=drive_link
   - title: { en: Past exam, ar: اختبار سابق, fr: Examen antérieur }
-    session: '2024'
+    session: 2023–2024
     paper: https://drive.google.com/file/d/1_CoFC-feutMlU_C5zoikHblkEJt4pzFw/view?usp=sharing
   - title: { en: Past laboratory (TP) exam, ar: اختبار سابق في الأعمال التطبيقية, fr: Examen de TP antérieur }
-    session: '2024'
+    session: 2023–2024
     paper: https://drive.google.com/file/d/1STlvc7KJr7qvA_KBX4CS2oaoNxnEt98B/view?usp=sharing
 
 sources:
@@ -302,3 +302,6 @@ notes: >
   Drive files is unknown (left unset). The "Vibration and Waves by C.G. King @ UoM" supplementary item had no link and
   was dropped; the "Supplementary (Arabic)" list was empty placeholders. Summaries, video lectures, PS0 and PS8-11
   were never uploaded. Not kept: rooms, timetable, office hours, student-portal marks link, questionnaire.
+  UPDATE 24-10-2026: the faculty's distance-teaching attestation confirms L2, S3, lecture + tutorials + lab, taught in English, 2024/2025. Taught set to 2024–2025 (2023–2024 only if Kamel confirms; see the 2024 past papers).
+  UPDATE 24-10-2026 (Kamel's answers): taught in English in 2023–2024 and 2024–2025 (2024–2025 attested); all exams are his, so the "2024" past exam and TP exam
+  are from 2023–2024. Lab exam weight: per the national L2 SM programme the TP is a separate unit, 50 % continuous / 50 % exam.

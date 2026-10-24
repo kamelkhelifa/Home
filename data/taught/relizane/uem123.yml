@@ -1,6 +1,6 @@
 slug: uem123
 order: 30
-codes: [UEM123, وت ن 123]
+codes: [UEM123]
 title: { en: Numerical Methods & Programming, ar: الطرق العددية والبرمجة, fr: Méthodes numériques et programmation }
 level:
   en: "Licence 2 (L2) · Semester 3"
@@ -8,10 +8,9 @@ level:
   fr: "Licence 2 (L2) · Semestre 3"
 area: computational
 companion: numerical-methods   # Part 2 course whose interactive lab and glossary this page shows
-kind: { en: Lecture & computer lab, ar: محاضرات وأعمال تطبيقية, fr: Cours et travaux pratiques sur ordinateur }
+kind: { en: "Lecture & computer lab (taught here: the computer-lab sessions)", ar: "محاضرات وأعمال تطبيقية على الحاسوب (المدرَّس هنا: حصص الأعمال التطبيقية)", fr: "Cours et TP sur ordinateur (assuré ici : les séances de TP)" }
 taught:
-  - { years: 2020–2021, code: وت ن 123, lang: ar }
-  - { years: 2021–2022, code: UEM123, lang: en }
+  - { years: 2021–2022, code: UEM123, lang: fr }
 hours: { lecture: 1.5, lab: 1.5 }
 
 description:
@@ -49,28 +48,37 @@ description:
     </ol>
     <p>Chaque méthode est programmée en Fortran lors des séances de TP sur ordinateur.</p>
 
+# DRAFTED outcomes (Kamel to review): from the course outline, which follows the national L2 SM programme (Méthodes numériques et programmation, S3).
+outcomes:
+  - id: CLO1
+    text: { en: "Write, compile and debug simple Fortran programs that implement numerical algorithms.", ar: "يكتب برامج فورتران بسيطة تنفّذ خوارزميات عددية، ويترجمها ويصحّح أخطاءها.", fr: "Écrire, compiler et déboguer des programmes Fortran simples qui implémentent des algorithmes numériques." }
+    assessed_by: { en: "Problem sets and final exam", ar: "المسائل والاختبار النهائي", fr: "Séries d’exercices et examen final" }
+  - id: CLO2
+    text: { en: "Compute definite integrals numerically with the trapezoidal and Simpson methods, and estimate the error.", ar: "يحسب التكاملات المحدودة عدديًا بطريقتي شبه المنحرف وسمبسون، ويقدّر الخطأ.", fr: "Calculer numériquement des intégrales définies par les méthodes des trapèzes et de Simpson, et estimer l'erreur." }
+    assessed_by: { en: "Problem sets and final exam", ar: "المسائل والاختبار النهائي", fr: "Séries d’exercices et examen final" }
+  - id: CLO3
+    text: { en: "Find the roots of non-linear equations with the bisection and Newton methods, and compare their convergence.", ar: "يجد جذور المعادلات غير الخطية بطريقتي التنصيف ونيوتن، ويقارن تقاربهما.", fr: "Trouver les racines d'équations non linéaires par les méthodes de dichotomie et de Newton, et comparer leur convergence." }
+    assessed_by: { en: "Problem sets and final exam", ar: "المسائل والاختبار النهائي", fr: "Séries d’exercices et examen final" }
+  - id: CLO4
+    text: { en: "Solve systems of linear equations with Gauss elimination and the Gauss–Seidel iteration.", ar: "يحلّ جمل المعادلات الخطية بطريقة الحذف لغاوس وبتكرار غاوس-سايدل.", fr: "Résoudre des systèmes d'équations linéaires par l'élimination de Gauss et l'itération de Gauss–Seidel." }
+    assessed_by: { en: "Problem sets and final exam", ar: "المسائل والاختبار النهائي", fr: "Séries d’exercices et examen final" }
+  - id: CLO5
+    text: { en: "Solve initial-value problems for ordinary differential equations with the Euler and Runge–Kutta methods, and study the effect of the step size.", ar: "يحلّ مسائل القيم الابتدائية للمعادلات التفاضلية العادية بطريقتي أويلر ورونغ-كوتا، ويدرس أثر الخطوة.", fr: "Résoudre des problèmes aux valeurs initiales d'équations différentielles ordinaires par les méthodes d'Euler et de Runge–Kutta, et étudier l'effet du pas." }
+    assessed_by: { en: "Problem sets and final exam", ar: "المسائل والاختبار النهائي", fr: "Séries d’exercices et examen final" }
+  - id: CLO6
+    text: { en: "Choose a suitable method for a physics problem and judge the accuracy of the numerical result.", ar: "يختار طريقة مناسبة لمسألة فيزيائية ويحكم على دقة النتيجة العددية.", fr: "Choisir une méthode adaptée à un problème de physique et juger de la précision du résultat numérique." }
+    assessed_by: { en: "Problem sets and final exam", ar: "المسائل والاختبار النهائي", fr: "Séries d’exercices et examen final" }
+
 assessment:
   - type: homework
-    weight: 10
-    title: { en: Problem sets, ar: المسائل والواجبات, fr: Séries d'exercices }
-    detail:
-      en: One assignment at a time, due one week later in class.
-      ar: تُسلَّم حلول كل واجب بعد أسبوع واحد.
-      fr: Chaque devoir est à rendre une semaine plus tard, en séance.
-  - type: midterm
     weight: 33
-    title: { en: First periodic exam, ar: الاختبار الدوري الأول, fr: Premier examen périodique }
-    detail: { en: "1 hour, during normal lecture time", ar: ساعة واحدة في وقت المحاضرة, fr: "1 heure, pendant l'horaire normal du cours" }
-    when: { en: Week 6 or 7, ar: الأسبوع 6 أو 7, fr: Semaine 6 ou 7 }
+    title: { en: "Problem sets and assignments", ar: "المسائل والواجبات", fr: "Séries d'exercices et devoirs" }
+    detail: { en: "One sheet a week, due one week later in class.", ar: "سلسلة كل أسبوع، تُسلَّم حلولها بعد أسبوع واحد.", fr: "Une série par semaine, à rendre une semaine plus tard, en séance." }
   - type: final
     weight: 67
-    title: { en: Final exam, ar: الاختبار النهائي, fr: Examen final }
-    detail: { en: 2 hours, ar: ساعتان, fr: 2 heures }
-    when: { en: Final exam period, ar: فترة الاختبارات النهائية, fr: Période des examens finaux }
-assessment_note:
-  en: "These are the weights given on the English-taught page. On the Arabic-taught page the evaluation was: problem sets and assignments 33% (one sheet a week, with the usual advice: work it out yourself, ask for help, write up your own solutions honestly) and final exam 67% (2 hours)."
-  ar: "هذه هي الأوزان الواردة في صفحة النسخة المدرَّسة بالإنجليزية. أما في صفحة النسخة المدرَّسة بالعربية فكان التقييم: المسائل والواجبات 33% (ورقة مسائل كل أسبوع، مع النصائح المعتادة: حلّها بنفسك، واطلب المساعدة، واكتب حلولك بنفسك بنزاهة) والاختبار النهائي 67% (ساعتان)."
-  fr: "Ces pondérations sont celles de la page de la version enseignée en anglais. Sur la page de la version enseignée en arabe, l'évaluation était : séries d'exercices et devoirs 33 % (une série par semaine, avec les conseils habituels : chercher soi-même, demander de l'aide, rédiger honnêtement ses propres solutions) et examen final 67 % (2 heures)."
+    title: { en: "Final exam", ar: "الاختبار النهائي", fr: "Examen final" }
+    detail: { en: "2 hours", ar: "ساعتان", fr: "2 heures" }
+    when: { en: "Final exam period", ar: "فترة الاختبارات النهائية", fr: "Période des examens finaux" }
 
 schedule:
   - week: 1
@@ -178,3 +186,6 @@ notes: >
   The Arabic page's only book (Feynman Vol. 3) is a template leftover and was not kept. Language of the Drive
   files is unknown (lang left unset). Summaries 1, 3-5, assignments 6-11, exams and past papers were never uploaded.
   Not kept: room/timetable, office hours, questionnaire.
+  UPDATE 24-10-2026 (Kamel's answers): taught only in 2021–2022, in French, and only the computer-lab (TP) sessions (the lectures were given by a colleague);
+  the Arabic 2020–2021 offering and the English label are removed. Weights: the Arabic page's scheme (problem sets 33 %, final 67 %),
+  as Kamel chose (the national programme gives 50/50 for this unit). DRAFTED: 6 outcomes from the course outline.

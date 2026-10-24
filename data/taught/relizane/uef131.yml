@@ -202,7 +202,7 @@ schedule:
 
 textbooks:
   required:
-    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 2nd, publisher: McGraw Hill, year: 1992 }
+    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 2nd, publisher: Pearson Prentice Hall, year: 2005 }
   recommended:
     - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 3rd, publisher: Cambridge University Press, year: 2018, note: { en: "Arabic translation: \u2068مقدمة في ميكانيكا الكم\u2069", ar: "الترجمة العربية: مقدمة في ميكانيكا الكم", fr: "traduction arabe : \u2068مقدمة في ميكانيكا الكم\u2069" } }
     - { authors: R. P. Feynman, title: "The Feynman Lectures on Physics, Vol. 3", publisher: Paperback, year: 2003 }
@@ -341,3 +341,5 @@ notes: >
   3j/6j notes PDF and of the exams is unknown (left unset). Videos 01-08 are from the Arabic page; 09-10 were never
   uploaded. Not kept: rooms, timetable, office hours, student-portal marks links, course questionnaire, link to the
   previous PHYS402 version.
+  UPDATE 24-10-2026: the distance-teaching attestation confirms S5, lecture + tutorials, taught in Arabic, 2022/2023 (it writes "L2", but S5 is L3: level kept as L3). Griffiths corrected to 2nd ed., Pearson Prentice Hall, 2005.
+  UPDATE 24-10-2026 (Kamel's answers): Arabic 2021–2023 and English 2023–2024 confirmed. Videos 01–08 are from his YouTube channel.

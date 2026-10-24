@@ -8,7 +8,7 @@ level:
   fr: "Licence 2, Licence 3 et Master 1 (L2, L3, M1)"
 area: skills
 companion: english-for-physicists   # Part 2 course whose interactive lab and glossary this page shows
-kind: { en: Lecture, ar: محاضرات, fr: Cours magistral }
+kind: { en: "Lecture (a separate class for each level: L2, L3 and M1)", ar: "محاضرات (فوج مستقل لكل مستوى: ل2، ل3، م1)", fr: "Cours (une classe distincte pour chaque niveau : L2, L3 et M1)" }
 taught:
   - { years: 2021–2024, code: UET, lang: en }
 credits: 1
@@ -202,3 +202,4 @@ notes: >
   to BBC Learning English and British Council LearnEnglish. "Einsenberg" corrected to Eisenberg.
   Not kept: online timetable, office hours, assignment-submission Google Forms (L2/L3/M1), student-portal marks
   links, course-evaluation questionnaire. M1 papers, resit papers and the 2023-2024 past papers were never uploaded.
+  UPDATE 24-10-2026 (Kamel's answers): taught 2021–2024 to L2, L3 and M1, each level in its own class and time slot. The lecture notes are his.
