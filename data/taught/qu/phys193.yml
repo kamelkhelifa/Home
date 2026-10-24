@@ -5,6 +5,7 @@ title: { en: "General Physics for Engineering II", ar: "الفيزياء الع�
 tagline:
   en: "Calculus-based electricity and magnetism for engineers: from Coulomb's law to electromagnetic waves."
   ar: الكهرباء والمغناطيسية المعتمدة على التفاضل والتكامل لطلبة الهندسة، من قانون كولوم إلى الأمواج الكهرومغناطيسية.
+level: { en: "Service course for the College of Engineering", ar: "مقرر خدمي لكلية الهندسة" }
 area: electromagnetism
 companion: general-physics-2   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: "Lecture & recitation", ar: "محاضرات وحصص تطبيقية" }
@@ -207,8 +208,6 @@ textbooks:
       url: https://ocw.mit.edu/courses/8-02-physics-ii-electricity-and-magnetism-spring-2007/
     - title: { en: "Wolfram Demonstrations: electrostatics", ar: "عروض Wolfram التوضيحية: الكهرباء الساكنة" }
       url: https://demonstrations.wolfram.com/topic.html?topic=Electrostatics&limit=20
-    - title: { en: "Freelance-teacher video lessons", ar: "دروس مرئية من موقع Freelance-teacher" }
-      url: http://www.freelance-teacher.com/videos.htm
 
 materials: []
 exams: []
@@ -220,3 +219,4 @@ notes: >
   contacts, education-excellence themes, graduate-attribute and PLO tables, letter-grade table.
   The syllabus places the midterm on Saturday 10 October (week 7); it is listed in week 7.
   Materials: none yet — add your own notes, homework and exams here.
+  UPDATE 24-10-2026 (Kamel): level shown as a service course for the College of Engineering ; freelance-teacher.com dropped from online resources. Kamel will add his own materials and exams during the semester.

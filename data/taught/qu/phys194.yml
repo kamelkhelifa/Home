@@ -5,6 +5,7 @@ title: { en: "Experimental General Physics for Engineering II", ar: "الفيز�
 tagline:
   en: "The laboratory companion of PHYS 193: measuring fields, circuits and induction, and reporting results with their uncertainties."
   ar: المختبر المرافق للمقرر PHYS 193، لقياس المجالات والدارات والحث، وعرض النتائج مع ارتياباتها.
+level: { en: "Service course for the College of Engineering", ar: "مقرر خدمي لكلية الهندسة" }
 area: laboratory
 companion: electricity-lab   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: "Laboratory", ar: "مختبر" }
@@ -151,3 +152,4 @@ notes: >
   university policies, support-centre contacts, education-excellence themes, graduate-attribute table, letter grades.
   The lab manual is a department document: only its title is cited, it is not published.
   Materials: none yet — add your own report templates, worked analyses, etc.
+  UPDATE 24-10-2026 (Kamel): level shown as a service course for the College of Engineering. Kamel will add his own materials and exams during the semester.
