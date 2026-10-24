@@ -1,15 +1,14 @@
 slug: phys321
 order: 40
-codes: [PHYS 321, فيز 321]
+codes: [PHYS 321]
 title: { en: Thermal & Statistical Physics, ar: الفيزياء الحرارية والإحصائية }
-level: { en: "Undergraduate · Level 5", ar: "مرحلة البكالوريوس · المستوى الخامس" }
+level: { en: "Level 7", ar: "المستوى السابع" }
 area: thermal
 companion: thermal-statistical-physics   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture, ar: محاضرات }
 taught:
   - { years: 2019–2020, code: PHYS 321, lang: en }
-  - { years: 2018–2019, code: فيز 321, lang: ar }
-  - { years: 2017–2018, code: PHYS 321, lang: en }
+  - { years: 2018–2019, code: PHYS 321, lang: en }
 hours: { lecture: 3, tutorial: 1 }
 weeks: 15
 prerequisites: { en: Modern Physics I (PHYS 241), ar: الفيزياء الحديثة 1 (PHYS 241) }
@@ -174,6 +173,15 @@ textbooks:
       url: https://faculty.kfupm.edu.sa/PHYS/imnasser/SM_Chapter_All.pdf
       note: { en: Lecture notes in Arabic., ar: مذكرات محاضرات باللغة العربية. }
 
+    - title: { en: "Rüchardt's experiment (measuring the adiabatic index γ)", ar: "تجربة روخارت (قياس الأس الأديباتي γ)" }
+      url: https://en.wikipedia.org/wiki/R%C3%BCchardt_experiment
+      note: { en: "Real application shown in class (demonstration by others, cited).", ar: "تطبيق حقيقي عُرض في المحاضرة (عرض من إعداد آخرين، مذكور مع مصدره)." }
+    - title: { en: "Hero's engine (aeolipile), an early heat engine", ar: "محرّك هيرون (الأيوليبيل)، من أقدم المحركات الحرارية" }
+      url: https://en.wikipedia.org/wiki/Aeolipile
+      note: { en: "Real application shown in class (demonstration by others, cited).", ar: "تطبيق حقيقي عُرض في المحاضرة (عرض من إعداد آخرين، مذكور مع مصدره)." }
+    - title: { en: "The Carnot cycle (gas–piston simulation shown in class)", ar: "دورة كارنو (محاكاة غاز ومكبس عُرضت في المحاضرة)" }
+      url: https://en.wikipedia.org/wiki/Carnot_cycle
+      note: { en: "The simulation used in class was made by others; this is the reference.", ar: "المحاكاة المستعملة في المحاضرة من إعداد آخرين، وهذا مرجعها." }
 materials:
   # Lecture notes (weeks follow the course calendar)
   - { type: notes, title: { en: Basic concepts (part 1), ar: مفاهيم أساسية (الجزء 1) }, url: "https://drive.google.com/open?id=15ryXnWJpLxnj-ZqpLXROeIQ4rPA1WAlc", week: 1, lang: en }
@@ -209,25 +217,25 @@ exams:
   - { title: { en: First periodic exam, ar: الاختبار الدوري الأول }, session: 2019–2020, paper: "https://drive.google.com/open?id=1QGz2xqX31OkYxwsotok-LrgM90XHG4YH", solution: "https://drive.google.com/open?id=1RXT3n9Kk92nTDW5s9VGvkTp8P4WK9pq6", lang: en }
   - { title: { en: Second periodic exam, ar: الاختبار الدوري الثاني }, session: 2019–2020, paper: "https://drive.google.com/open?id=1a1bM8SZ0s_UxseaqZ7HqqiFTUuLJ5o9l", solution: "https://drive.google.com/open?id=1qF0d1I--b8cW9OfrJJEPED2NkgiXy6mj", lang: en }
   - { title: { en: Final exam, ar: الاختبار النهائي }, session: 2019–2020, paper: "https://drive.google.com/open?id=1z8kSx6Yzf6Vx8Ixr3wdz8h0d3fYbInyy", solution: "https://drive.google.com/open?id=1rTL9ZHB9i4h7hOPvESysmpNtt49TX9rt", lang: en }
-  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: "2017–2018 · 1439 (S1)", paper: "https://drive.google.com/open?id=1xiSI1fkwDCua0hrdjYan0PXjAs7nABov", lang: en }
-  - { title: { en: "Past exam (semester 2)", ar: "اختبار سابق (الفصل الثاني)" }, session: 2017–2018, paper: "https://drive.google.com/open?id=15tdcWdgSFrWg3tz6VMDv6EM0zGIScmsW", lang: en }
+  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: "2018–2019 · 1439 (S1)", paper: "https://drive.google.com/open?id=1xiSI1fkwDCua0hrdjYan0PXjAs7nABov", lang: en }
+  - { title: { en: "Past exam (semester 2)", ar: "اختبار سابق (الفصل الثاني)" }, session: "2018–2019 · 1439 (S2)", paper: "https://drive.google.com/open?id=15tdcWdgSFrWg3tz6VMDv6EM0zGIScmsW", lang: en }
 
 pending:
   - what: "Rüchardt's experiment (measuring the adiabatic index γ = Cp/Cv)"
     url: "https://drive.google.com/open?id=129Q5W93xEBYnnghvPHeTwdguKCA7PhVr"
-    why: "Listed under 'Experiments/Real applications'; authorship unknown (may be a third-party video or animation)."
+    why: "Kamel 24-10-2026: not his. Never link this copy; the phenomenon is cited under textbooks.online instead."
   - what: "Hero engine (an old toy heat engine)"
     url: "https://drive.google.com/open?id=1x9G2d0qOzRWNEr59oFIAKm8CjlppNw-u"
-    why: "Listed under 'Experiments/Real applications'; authorship unknown (may be a third-party video or animation)."
+    why: "Kamel 24-10-2026: not his. Never link this copy; the phenomenon is cited under textbooks.online instead."
   - what: "Carnot cycle simulation (gas-piston system)"
     url: "https://drive.google.com/open?id=1buWtNO6LDETJfwdlUvdi6yRDhqRdr7BQ"
-    why: "Simulation file of unknown origin; publish only if he made it."
+    why: "Kamel 24-10-2026: not his. Never link this copy; the phenomenon is cited under textbooks.online instead."
   - what: "Thermodynamics notes in Arabic (University of Babylon, .doc)"
     url: "http://www.uobabylon.edu.iq/eprints/pubdoc_3_14399_1405.doc"
-    why: "File written by someone else, linked on the page through a Google redirect; not a well-known open resource."
+    why: "Not written by Kamel: never publish (his rule: anything not written by him stays off)."
   - what: "Collection of translated thermodynamics books (alfreed-ph.com)"
     url: "https://www.alfreed-ph.com/2017/09/Books-thermodynamics-pdf.html"
-    why: "Translated textbooks offered for download; copyright status unclear."
+    why: "Not written by Kamel: never publish (his rule: anything not written by him stays off)."
 
 sources:
   - teaching/phys321 (en, ar) (https://khelifak.wordpress.com/studying/teaching-2/iu/phys321-thermal-and-statistical-physics/)
@@ -249,3 +257,7 @@ notes: >
   source (left out): summaries Sum. 1–4, exercise solutions Sol. 1–4, problem sets 9–11, solutions 2–11, formula sheets
   for the exams, the QM-gases notes (weeks 11–14). Dropped silently: time/venue, office hours, marks (BlackBoard) and the
   questionnaires (Google Forms).
+  UPDATE 24-10-2026 (Kamel's answers + the department attestation of courses taught 2016–2020): taught in English only, in 2018–2019 (both semesters) and 2019–2020 (first semester), level 7. The 2018–2019
+  Arabic page was only a translated information page; the course was taught in English (Arabic code removed). 2017–2018 removed
+  (not taught). Past exams 1439 (S1/S2) = 2018–2019. Rüchardt, Hero engine and Carnot simulation are not his: cited (online
+  resources) instead of linking the Drive copies. T. L. Hill confirmed.

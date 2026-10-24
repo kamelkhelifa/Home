@@ -3,7 +3,7 @@ order: 90
 codes: [PHYS 402]
 title: { en: Quantum Mechanics II (MIT-based), ar: ميكانيكا الكم 2 (وفق مقرر MIT) }
 tagline: { en: A version of PHYS 402 built on MIT's 8.05 Quantum Physics II., ar: نسخة من المقرر PHYS 402 مبنية على مقرر MIT 8.05 فيزياء الكم 2. }
-level: { en: "Undergraduate · Level 6", ar: "مرحلة البكالوريوس · المستوى السادس" }
+level: { en: "Level 8", ar: "المستوى الثامن" }
 area: quantum
 companion: quantum-mechanics-2   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }
@@ -139,7 +139,7 @@ schedule:
 
 textbooks:
   required:
-    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 2nd, publisher: McGraw Hill, year: 1992 }
+    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 2nd, publisher: Pearson Prentice Hall, year: 2005 }
   recommended:
     - { authors: R. Shankar, title: Principles of Quantum Mechanics, publisher: Springer, year: 2013 }
     - { authors: C. Cohen-Tannoudji, title: "Quantum Mechanics, Vol. 2", publisher: Wiley-VCH, year: 1991 }
@@ -178,34 +178,34 @@ exams:
 pending:
   - what: "Lecture notes: Schrödinger equation, stationary solutions, energy eigenstates"
     url: https://drive.google.com/open?id=1bPbyQOM51t2_P-IheXpJa-98c-thImAk
-    why: "Title and order match the 'Wave mechanics' chapter of MIT 8.05 (Fall 2013) lecture notes; probably MIT's notes re-hosted on his Drive. If they are his own, move to materials."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Lecture notes: Variational principle"
     url: https://drive.google.com/open?id=1CdWRZQOQHAd5FWNk77vURMEG_jxzy5FS
-    why: "Same as above (MIT 8.05 'Wave mechanics' notes, section on the variational principle)."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Lecture notes: Position and momentum"
     url: https://drive.google.com/open?id=18R2dxtBdte4qL1XnEJCs2qC2j7gtAQhP
-    why: "Same as above (MIT 8.05 'Wave mechanics' notes)."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Problem set 1 (solutions: https://drive.google.com/open?id=12_3jMD3BTvXN75Lv8l3TXLqUqtpuGQS0)"
     url: https://drive.google.com/open?id=12xpbnDzcXk8Nvw-aoajfVlOZdp_rANMn
-    why: "In an MIT 8.05-based course the weekly sets and solutions are probably MIT's own; confirm authorship before publishing."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Problem set 2 (solutions: https://drive.google.com/open?id=1UqLzNKwLdaPAwEsz02bEVJFfzsQRIyRC)"
     url: https://drive.google.com/open?id=1azIHALQIpfgZiBr8i_TZzqTWA_3L4USx
-    why: "Possibly MIT 8.05 material; see problem set 1."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Problem set 3 (solutions: https://drive.google.com/open?id=1PIKDxOyME-HM5IymeuRe7Fi_-dounfkR)"
     url: https://drive.google.com/open?id=17nUnG-PW3KNeT9T2r1u8icioY1FiuHpW
-    why: "Possibly MIT 8.05 material; see problem set 1."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Problem set 4 (solutions: https://drive.google.com/open?id=1qe9t5V7MMZpoXGNXmEHILhgP6NXCTUTi)"
     url: https://drive.google.com/open?id=1Iu-ev63wfBj2zeAi8XX7HgG8ZE6cg4YH
-    why: "Possibly MIT 8.05 material; see problem set 1."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Problem set 5 (solutions: https://drive.google.com/open?id=1jLx8dBbHc5tHHzBLnHotcds3nJPNFtsC)"
     url: https://drive.google.com/open?id=1mx3SyDpe17dvnbVze9_xNttrPzKh7xXx
-    why: "Possibly MIT 8.05 material; see problem set 1."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Problem set 6 (solutions: https://drive.google.com/open?id=1iTI5hMreJU71G0-FoJtDHWbTdiedtAhs)"
     url: https://drive.google.com/open?id=1wwYZn-9hsKbTjsw5FKTQL2L6YqWJ5apH
-    why: "Possibly MIT 8.05 material; see problem set 1."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
   - what: "Problem set 7 (solutions: https://drive.google.com/open?id=1mqkJh3RX_MsPEXqoh4KfZ-LlDVTGKTYN)"
     url: https://drive.google.com/open?id=1VPKomWxiN6a6NII-jCmoAWd4adb3rthr
-    why: "Possibly MIT 8.05 material; see problem set 1."
+    why: "Kamel 24-10-2026: based on MIT 8.05 or taken from it (he cannot remember), so not published; MIT OCW 8.05 is linked under online resources instead."
 
 sources:
   - teaching/phys402-mit (en, ar) — PHYS 402, MIT-based version
@@ -223,3 +223,5 @@ notes: >
   Exams and the exam formula sheet are kept as his own (exams set at Madinah); confirm none is copied from MIT 8.05 exams.
   The 1439(S2) past exam (2017–2018) listed on this page is recorded in phys402.yml. Problem sets 8–11, solutions 8–11,
   summaries and exercise solutions had no links. Dropped: time/venue, office hours, marks (Blackboard), questionnaire.
+  UPDATE 24-10-2026 (Kamel's answers + the department attestation of courses taught 2016–2020): taught in the second semester of 2018–2019 (level 8). The exams are his. The lecture notes and problem sets are
+  based on MIT 8.05 or taken from it, so they stay withheld; MIT OCW 8.05 is linked. Griffiths corrected (Pearson 2005).

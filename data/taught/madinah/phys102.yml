@@ -2,12 +2,12 @@ slug: phys102
 order: 20
 codes: [PHYS 102]
 title: { en: General Physics II, ar: الفيزياء العامة 2 }
-level: { en: Semester 2, ar: الفصل الدراسي الثاني }
+level: { en: "Level 2", ar: "المستوى الثاني" }
 area: electromagnetism
 companion: general-physics-2   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture, ar: محاضرات }
 taught:
-  - { years: 2017–2018, code: PHYS 102, lang: en }
+  - { years: 2018–2019, code: PHYS 102, lang: en }
 hours: { lecture: 3, tutorial: 0 }
 prerequisites: { en: PHYS 101, ar: PHYS 101 }
 
@@ -141,11 +141,11 @@ materials:
   - { type: formula, title: { en: Table of mathematical formulae, ar: جدول الصيغ الرياضية }, url: "https://khelifak.wordpress.com/wp-content/uploads/2016/11/formulas_table.pdf", lang: en }
 
 exams:
-  - { title: { en: Quiz 1, ar: الاختبار القصير 1 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1jW5ifGCleFTGYT_XYdOZldZ3Pka79jqm", solution: "https://drive.google.com/open?id=1D8ANf5uO1owtl27hLN20sjJxbTQ62Qcy", lang: en }
-  - { title: { en: Midterm exam 1, ar: الاختبار النصفي 1 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1NRzs2DOCetojyWCcI-mbmU30mGEub0SF", solution: "https://drive.google.com/open?id=1XaQxThoORQOLUm9o2pZdupksLkk2rtI8", lang: en }
-  - { title: { en: Quiz 2, ar: الاختبار القصير 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1YJIjbLqlarHUjNmB1bCzMcat_ROk2nvd", solution: "https://drive.google.com/open?id=1p76pAhXONiAR3qcp7_oVgjSHiAbvOn72", lang: en }
-  - { title: { en: Midterm exam 2, ar: الاختبار النصفي 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1p19LyP1tvP1tH4A2di4Isix6-5pggTj8", solution: "https://drive.google.com/open?id=1EdhWSdS2nbdwyuU635nb5Rc4vUC68Qqv", lang: en }
-  - { title: { en: Final exam, ar: الاختبار النهائي }, session: 2017–2018, paper: "https://drive.google.com/open?id=1zBPU5ctOQ4uqkjs-Mwuo-z1uPb4SpXL9", solution: "https://drive.google.com/open?id=1NIHHZHKw6hnmeOF566tqlUUshZ_FgASC", lang: en }
+  - { title: { en: Quiz 1, ar: الاختبار القصير 1 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1jW5ifGCleFTGYT_XYdOZldZ3Pka79jqm", solution: "https://drive.google.com/open?id=1D8ANf5uO1owtl27hLN20sjJxbTQ62Qcy", lang: en }
+  - { title: { en: Midterm exam 1, ar: الاختبار النصفي 1 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1NRzs2DOCetojyWCcI-mbmU30mGEub0SF", solution: "https://drive.google.com/open?id=1XaQxThoORQOLUm9o2pZdupksLkk2rtI8", lang: en }
+  - { title: { en: Quiz 2, ar: الاختبار القصير 2 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1YJIjbLqlarHUjNmB1bCzMcat_ROk2nvd", solution: "https://drive.google.com/open?id=1p76pAhXONiAR3qcp7_oVgjSHiAbvOn72", lang: en }
+  - { title: { en: Midterm exam 2, ar: الاختبار النصفي 2 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1p19LyP1tvP1tH4A2di4Isix6-5pggTj8", solution: "https://drive.google.com/open?id=1EdhWSdS2nbdwyuU635nb5Rc4vUC68Qqv", lang: en }
+  - { title: { en: Final exam, ar: الاختبار النهائي }, session: 2018–2019, paper: "https://drive.google.com/open?id=1zBPU5ctOQ4uqkjs-Mwuo-z1uPb4SpXL9", solution: "https://drive.google.com/open?id=1NIHHZHKw6hnmeOF566tqlUUshZ_FgASC", lang: en }
 
 sources:
   - teaching/phys102 (https://khelifak.wordpress.com/studying/teaching-2/iu/phys102-general-physicsii/)
@@ -161,3 +161,4 @@ notes: >
   thermodynamics (Halliday Ch. 16–20). Not linked in the source (left out): summaries, problem sheets 5–14, all
   solutions of the problem sheets, the laboratory manual ("pdf" without link), the "Passed exams 1438(S1)" label.
   Dropped silently: the marks links (student grades). The formula table is assumed to be the professor's own.
+  UPDATE 24-10-2026 (Kamel's answers + the department attestation of courses taught 2016–2020): taught once, in the second semester of 2018–2019 (level 2); the page's "2017/18" was a slip, so the offering and its exams are now 2018–2019.

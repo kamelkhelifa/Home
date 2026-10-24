@@ -2,11 +2,12 @@ slug: phys101
 order: 10
 codes: [PHYS 101]
 title: { en: General Physics I, ar: الفيزياء العامة 1 }
-level: { en: Semester 1, ar: الفصل الدراسي الأول }
+level: { en: "Level 1", ar: "المستوى الأول" }
 area: mechanics
 companion: general-physics-1   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture, ar: محاضرات }
 taught:
+  - { years: 2017–2018, code: PHYS 101, lang: en }
   - { years: 2016–2017, code: PHYS 101, lang: en }
 hours: { lecture: 3, tutorial: 0 }
 prerequisites: { en: PHYS 100, ar: PHYS 100 }
@@ -21,6 +22,45 @@ description:
 
 objectives:
   - { en: The course provides a general introduction to the fundamental concepts of mechanics and fluids., ar: يقدّم هذا المقرر مدخلًا عامًا إلى المفاهيم الأساسية في الميكانيكا وميكانيكا الموائع. }
+
+# Course learning outcomes and assessment: department course specification of PHYS 101 (NCAAA form, 1439/1440 H).
+outcomes:
+  - id: CLO1
+    text: { en: "Recognise the principles of general physics.", ar: "يتعرّف على مبادئ الفيزياء العامة." }
+    assessed_by: { en: "Class questions during teaching", ar: "أسئلة صفية أثناء التدريس" }
+  - id: CLO2
+    text: { en: "Illustrate the ways of analysing the laws of motion, starting from Newton's first law.", ar: "يوضّح طرق تحليل قوانين الحركة انطلاقًا من قانون نيوتن الأول." }
+    assessed_by: { en: "Class questions during teaching", ar: "أسئلة صفية أثناء التدريس" }
+  - id: CLO3
+    text: { en: "Use the laws of physics in examples such as the work done by a constant force and the scalar product of two vectors.", ar: "يستخدم قوانين الفيزياء في أمثلة مثل الشغل المبذول بقوة ثابتة والضرب القياسي لمتجهين." }
+    assessed_by: { en: "Class questions during teaching", ar: "أسئلة صفية أثناء التدريس" }
+  - id: CLO4
+    text: { en: "Use linear momentum and collisions to analyse real-life examples.", ar: "يستخدم الزخم الخطي والتصادمات لتحليل أمثلة من الواقع." }
+    assessed_by: { en: "Written tests", ar: "الاختبارات الكتابية" }
+  - id: CLO5
+    text: { en: "Explain how to solve exercises on kinetic energy and the work–kinetic energy theorem.", ar: "يشرح طريقة حل تمارين الطاقة الحركية ومبرهنة الشغل والطاقة الحركية." }
+    assessed_by: { en: "Problem-solving exercises", ar: "تمارين حل المسائل" }
+  - id: CLO6
+    text: { en: "Contribute to solving exercises on kinetic energy and the work–kinetic energy theorem in class.", ar: "يسهم في حل تمارين الطاقة الحركية ومبرهنة الشغل والطاقة الحركية داخل القاعة." }
+    assessed_by: { en: "Class questions during teaching", ar: "أسئلة صفية أثناء التدريس" }
+
+assessment:
+  - type: midterm
+    weight: 20
+    title: { en: "First exam", ar: "الاختبار الأول" }
+    when: { en: "Week 7", ar: "الأسبوع 7" }
+  - type: midterm
+    weight: 20
+    title: { en: "Second exam", ar: "الاختبار الثاني" }
+    when: { en: "Week 12", ar: "الأسبوع 12" }
+  - type: lab
+    weight: 20
+    title: { en: "Experiments (laboratory)", ar: "التجارب (العمل المخبري)" }
+    when: { en: "Week 14", ar: "الأسبوع 14" }
+  - type: final
+    weight: 40
+    title: { en: "Final exam", ar: "الاختبار النهائي" }
+    when: { en: "Week 15", ar: "الأسبوع 15" }
 
 # The source lists the chapters in teaching order, without week numbers.
 schedule:
@@ -111,3 +151,6 @@ notes: >
   (left out): summaries Sum1–11, PS11, Soln9–11, final exam paper and solution, the "Passed exams 1438(S1)" label.
   Dropped silently: the three marks links (student grades). The formula table is assumed to be the professor's own
   (please confirm).
+  UPDATE 24-10-2026 (Kamel's answers + the department attestation of courses taught 2016–2020): taught in English in 2016–2017 and 2017–2018 (level 1). Outcomes and assessment (20/20/20/40: two exams,
+  experiments, final) are taken from the department's course specification (1439/1440 H); the outcomes are lightly edited
+  for English. The quizzes/midterms on the 2016–2017 page are kept as they are. Lab manual: department document, still withheld.

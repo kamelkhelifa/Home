@@ -2,12 +2,13 @@ slug: phys342
 order: 50
 codes: [PHYS 342]
 title: { en: Modern Physics II, ar: الفيزياء الحديثة 2 }
-level: { en: Semester 3, ar: الفصل الدراسي الثالث }
+level: { en: "Level 6", ar: "المستوى السادس" }
 area: modern
 companion: modern-physics-2   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture, ar: محاضرات }
 taught:
   - { years: 2017–2018, code: PHYS 342, lang: en }
+  - { years: 2016–2017, code: PHYS 342, lang: en }
 hours: { lecture: 3, tutorial: 0 }
 weeks: 15
 prerequisites: { en: PHYS 241, ar: PHYS 241 }
@@ -26,6 +27,37 @@ description:
 objectives:
   - en: The course is intended to take the student from the classical (Newtonian) to the modern (quantum) view of physics. It teaches the fundamentals of quantum physics and other main features of modern physics.
     ar: يهدف هذا المقرر إلى نقل الطالب من التصور الكلاسيكي (النيوتوني) للفيزياء إلى تصورها الحديث (الكمومي)، إذ يقدّم أسس فيزياء الكم وغيرها من السمات الرئيسة للفيزياء الحديثة.
+
+outcomes:
+  - id: CLO1
+    text: { en: "Explain why classical physics fails for atoms and radiation, and summarise the results of the old quantum theory.", ar: "يشرح أسباب فشل الفيزياء الكلاسيكية في وصف الذرات والإشعاع، ويلخّص نتائج نظرية الكم القديمة." }
+    assessed_by: { en: "Quizzes, midterm tests and final exam", ar: "الاختبارات القصيرة والنصفية والاختبار النهائي" }
+  - id: CLO2
+    text: { en: "Apply the Born interpretation and solve the Schrödinger equation for simple one-dimensional systems (free particle, infinite well, quantum oscillator), and compute expectation values.", ar: "يطبّق تفسير بورن ويحلّ معادلة شرودنغر لأنظمة بسيطة في بعد واحد (الجسيم الحر، البئر اللانهائي، المهتز الكمومي)، ويحسب القيم المتوقعة." }
+    assessed_by: { en: "Quizzes, midterm tests and final exam", ar: "الاختبارات القصيرة والنصفية والاختبار النهائي" }
+  - id: CLO3
+    text: { en: "Solve the Schrödinger equation in three dimensions for a box and for central forces, and describe the hydrogen atom with its quantum numbers and space quantization.", ar: "يحلّ معادلة شرودنغر في ثلاثة أبعاد لصندوق وللقوى المركزية، ويصف ذرة الهيدروجين بأعدادها الكمومية وتكميمها الفضائي." }
+    assessed_by: { en: "Quizzes, midterm tests and final exam", ar: "الاختبارات القصيرة والنصفية والاختبار النهائي" }
+  - id: CLO4
+    text: { en: "Describe orbital magnetism, the Zeeman effect, electron spin and spin–orbit coupling, and use the exclusion principle to explain the periodic table.", ar: "يصف المغناطيسية المدارية وظاهرة زيمان واللف المغزلي للإلكترون والاقتران المغزلي-المداري، ويستخدم مبدأ الاستبعاد لتفسير الجدول الدوري." }
+    assessed_by: { en: "Quizzes, midterm tests and final exam", ar: "الاختبارات القصيرة والنصفية والاختبار النهائي" }
+  - id: CLO5
+    text: { en: "Describe the free-electron and band models of solids and the main features of superconductivity.", ar: "يصف نموذجي الإلكترون الحر والعصابات في الأجسام الصلبة والسمات الرئيسة للموصلية الفائقة." }
+    assessed_by: { en: "Quizzes, midterm tests and final exam", ar: "الاختبارات القصيرة والنصفية والاختبار النهائي" }
+  - id: CLO6
+    text: { en: "Describe the properties and models of nuclei, binding energy and radioactive decay, and carry out simple calculations on them.", ar: "يصف خصائص الأنوية ونماذجها وطاقة الربط والاضمحلال الإشعاعي، ويُجري حسابات بسيطة عليها." }
+    assessed_by: { en: "Quizzes, midterm tests and final exam", ar: "الاختبارات القصيرة والنصفية والاختبار النهائي" }
+
+assessment:
+  - type: quiz
+    weight: 10
+    title: { en: "Quizzes 1 and 2", ar: "الاختباران القصيران 1 و2" }
+  - type: midterm
+    weight: 50
+    title: { en: "Midterm tests 1 and 2", ar: "الاختباران النصفيان 1 و2" }
+  - type: final
+    weight: 40
+    title: { en: "Final exam", ar: "الاختبار النهائي" }
 
 # Chapters 0–5 of the source syllabus, with the weeks given there.
 schedule:
@@ -123,27 +155,19 @@ materials:
   # Formula sheet
   - { type: formula, title: { en: Table of mathematical formulae, ar: جدول الصيغ الرياضية }, url: "https://khelifak.wordpress.com/wp-content/uploads/2016/11/formulas_table.pdf", lang: en }
 
+  # Animations (his own, Mathematica)
+  - { type: sim, title: { en: "Animation — time evolution of a free-electron wave packet (1D)", ar: "رسم متحرك — التطور الزمني لحزمة موجية لإلكترون حر (بعد واحد)" }, url: "https://drive.google.com/open?id=0B-lXQB4vCJCNRi05Q21aTmVXTk0", week: "2–4" }
+  - { type: sim, title: { en: "Animation — time evolution of the probability density of a free electron (1D)", ar: "رسم متحرك — التطور الزمني لكثافة الاحتمال لإلكترون حر (بعد واحد)" }, url: "https://drive.google.com/open?id=0B-lXQB4vCJCNdUFYcEJ6RTF1Rzg", week: "2–4" }
 exams:
   - { title: { en: Quiz 1, ar: الاختبار القصير 1 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1iXpbb3WgBnT0SWriKLg7HlFKY4JvBxE5", solution: "https://drive.google.com/open?id=1eTXgdh8r5VSZHz_RQxB1k_7A2s470OGK", lang: en }
   - { title: { en: Midterm test 1, ar: الاختبار النصفي 1 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1nPEKueKopqbfhoNBtTox_Pj5rU9Py6I4", solution: "https://drive.google.com/open?id=1VJygxYuBpn7FyH10kDZdyfsFBLmKnZfj", lang: en }
   - { title: { en: Quiz 2, ar: الاختبار القصير 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=15-IZkOTQ8OUsbSkmnPfRHS9bslJZaHfV", solution: "https://drive.google.com/open?id=1c0zeWZJgnFhoK71R_KDZtiG1QdKw1aua", lang: en }
   - { title: { en: Midterm test 2, ar: الاختبار النصفي 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1SUtW6T0zttBy8XXP_LntHlfsRBWlqvjW", solution: "https://drive.google.com/open?id=14TGuWt9UflpBsNZyiN_QOYdQxFHv3WJr", lang: en }
   - { title: { en: Final exam, ar: الاختبار النهائي }, session: 2017–2018, paper: "https://drive.google.com/open?id=1KODy8_Du-PqeAgZWLTU4ziUN3FrgdbFV", solution: "https://drive.google.com/open?id=1SH0xqWnVWvo1FyUf3n7eevLVysPwGUgZ", lang: en }
-  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: "2016–2017 · 1438 (S1)", paper: "https://drive.google.com/open?id=1SjVvv6DMYXq0_Yl3V4T0eqI7VY3t1dYu", lang: en }
+  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: "2017–2018 · 1438 (S1)", paper: "https://drive.google.com/open?id=1SjVvv6DMYXq0_Yl3V4T0eqI7VY3t1dYu", lang: en }
+  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: "2016–2017 · 1437 (S1)", paper: "https://drive.google.com/open?id=0B-lXQB4vCJCNbS1PR1JRMzhnbjQ", lang: en }
+  - { title: { en: "Past exam (semester 2)", ar: "اختبار سابق (الفصل الثاني)" }, session: "2016–2017 · 1437 (S2)", paper: "https://drive.google.com/open?id=0B-lXQB4vCJCNSTY1Rk1YLWUtWGM", lang: en }
 
-pending:
-  - what: "Past exam 1437 AH, semester 1 (2015–2016)"
-    url: "https://drive.google.com/open?id=0B-lXQB4vCJCNbS1PR1JRMzhnbjQ"
-    why: "1437 AH (2015–2016) predates his appointment at Madinah (2016); possibly set by a previous instructor. Publish only if he wrote it."
-  - what: "Past exam 1437 AH, semester 2 (2015–2016)"
-    url: "https://drive.google.com/open?id=0B-lXQB4vCJCNSTY1Rk1YLWUtWGM"
-    why: "1437 AH (2015–2016) predates or coincides with his arrival at Madinah; author unclear. Publish only if he wrote it."
-  - what: "Animation Wavepacket_evol.gif (time evolution of a free-electron wave packet in 1D)"
-    url: "https://drive.google.com/open?id=0B-lXQB4vCJCNRi05Q21aTmVXTk0"
-    why: "GIF animation of unknown origin (may be third-party); publish only if he made it."
-  - what: "Animation WavePacket_prob_evol.gif (time evolution of the probability density of a free electron in 1D)"
-    url: "https://drive.google.com/open?id=0B-lXQB4vCJCNdUFYcEJ6RTF1Rzg"
-    why: "GIF animation of unknown origin (may be third-party); publish only if he made it."
 
 sources:
   - teaching/phys342 (en, ar) (https://khelifak.wordpress.com/studying/teaching-2/iu/modern-physics-2/)
@@ -160,3 +184,9 @@ notes: >
   confirm (and add it if so). The 1438(S1) past exam is kept as session 2016–2017 on that assumption; the 1437 papers are
   pending. Not linked in the source (left out): summaries W1–W15, HW1, solutions 7–15. Dropped silently: the marks link
   (student grades) and "IU website" marks.
+  UPDATE 24-10-2026 (Kamel's answers + the department attestation of courses taught 2016–2020): taught in 2016–2017 and 2017–2018 (both semesters), level 6. The 1437 (S1/S2) past exams are his (1437 = 2016–2017)
+  and are published; 1438 (S1) = 2017–2018. The two wave-packet GIFs are his: published as sims (weeks 2–4).
+  DRAFTED for Kamel's review: the 6 outcomes (from the page's description and chapter plan) and the assessment. The
+  assessment components are the exams actually given in 2017–2018 (2 quizzes, 2 midterms, final); the weights 10/50/40 are
+  those of his PHYS 353 page with the same structure. The PHYS 342 course specification Kamel sent (1439/1440 H) is for an
+  elective "Special Relativity" with the same code, i.e. a later course: not used.

@@ -2,7 +2,7 @@ slug: phys401
 order: 70
 codes: [PHYS 401, PHYS 354]
 title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }
-level: { en: "Undergraduate · Level 5", ar: "مرحلة البكالوريوس · المستوى الخامس" }
+level: { en: "Level 6", ar: "المستوى السادس" }
 area: quantum
 companion: quantum-mechanics-1   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture & tutorials, ar: محاضرات وأعمال موجهة }
@@ -10,6 +10,7 @@ taught:
   - { years: 2019–2020, code: PHYS 401, lang: en }
   - { years: 2018–2019, code: PHYS 401, lang: en }
   - { years: 2017–2018, code: PHYS 354, lang: en }
+  - { years: 2016–2017, code: PHYS 354, lang: en }
 hours: { lecture: 3, tutorial: 1 }
 weeks: 15
 prerequisites: { en: "Modern Physics I (PHYS 241), Mathematical Physics I (PHYS 251)", ar: "الفيزياء الحديثة 1 (PHYS 241)، الفيزياء الرياضية 1 (PHYS 251)" }
@@ -143,7 +144,7 @@ schedule:
 
 textbooks:
   required:
-    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 2nd, publisher: McGraw Hill, year: 1992 }
+    - { authors: D. J. Griffiths, title: Introduction to Quantum Mechanics, edition: 2nd, publisher: Pearson Prentice Hall, year: 2005 }
   recommended:
     - { authors: R. P. Feynman, title: "The Feynman Lectures on Physics, Vol. 3", publisher: Paperback, year: 2003 }
     - { authors: P. A. M. Dirac, title: The Principles of Quantum Mechanics, publisher: Oxford University Press, year: 1947 }
@@ -221,6 +222,9 @@ materials:
   - { type: problems, title: { en: "Problem sheet 2: Time-independent Schrödinger equation (PHYS 354, 2017–2018)", ar: "ورقة المسائل 2: معادلة شرودنغر المستقلة عن الزمن (PHYS 354، 2017–2018)" }, url: "https://drive.google.com/open?id=19faKVv9k41DmLqQkqwsGVCjRGbe446K1", lang: en }
   - { type: problems, title: { en: "Problem sheet 3: Formalism (PHYS 354, 2017–2018)", ar: "ورقة المسائل 3: الصياغة الرياضية (PHYS 354، 2017–2018)" }, url: "https://drive.google.com/open?id=1bFUdnhTWrV625QCgRFK1lzXq0UL86o6W", lang: en }
 
+  # Animations (his own, Mathematica): Griffiths Prob. 2.6
+  - { type: sim, title: { en: "Animation — ⟨x⟩(t) in the infinite square well (Griffiths Prob. 2.6, phases 0, π/2, π)", ar: "رسم متحرك — ⟨x⟩(t) في البئر اللانهائي (مسألة غريفيث 2.6، الأطوار 0 وπ/2 وπ)" }, url: "https://drive.google.com/open?id=1Dzf5MZgoWrpSCuxKZK407wfmmDRxlAsY", week: 4 }
+  - { type: sim, title: { en: "Animation — infinite square well, Griffiths Prob. 2.6 (second animation)", ar: "رسم متحرك — البئر اللانهائي، مسألة غريفيث 2.6 (الرسم الثاني)" }, url: "https://drive.google.com/open?id=1XM7pF917mMaFYm5PESBXMp8kIHa-VJHi", week: 4 }
 exams:
   - title: { en: "Quiz 1 (PHYS 354)", ar: "الاختبار القصير 1 (PHYS 354)" }
     session: 2017–2018
@@ -242,46 +246,42 @@ exams:
     paper: https://drive.google.com/open?id=1M43Rh0Rxl9EPb_rSx53WL02x83Ym-th0
     solution: https://drive.google.com/open?id=1YGRKAK6dvlJsRPhDHD_UGU6RMM2ENLEo
     lang: en
+  - title: { en: "Past exam (1437 AH, semester 1)", ar: "اختبار سابق (1437هـ، الفصل الأول)" }
+    session: "2016–2017 · 1437 (S1)"
+    paper: https://drive.google.com/open?id=0B-lXQB4vCJCNWXZTdkVhQ2VfY1E
+    lang: en
+  - title: { en: "Past exam (1437 AH, semester 2)", ar: "اختبار سابق (1437هـ، الفصل الثاني)" }
+    session: "2016–2017 · 1437 (S2)"
+    paper: https://drive.google.com/open?id=1EF32Fh_hQcspJy0sYVjs46VfO-75MYUW
+    lang: en
   - title: { en: "Past exam (1438 AH, semester 1)", ar: "اختبار سابق (1438هـ، الفصل الأول)" }
-    session: "2016–2017 · 1438 (S1)"
+    session: "2017–2018 · 1438 (S1)"
     paper: https://drive.google.com/open?id=1dTd8_bcNbjeXOM4plNA_OUbMrOjoTtNk
     lang: en
   - title: { en: "Past exam (1438 AH, semester 2)", ar: "اختبار سابق (1438هـ، الفصل الثاني)" }
-    session: "2016–2017 · 1438 (S2)"
+    session: "2017–2018 · 1438 (S2)"
     paper: https://drive.google.com/open?id=168utvBDfqHl-e1k_bipUweRC184c0UzM
     lang: en
   - title: { en: "Past exam (1439 AH, semester 1)", ar: "اختبار سابق (1439هـ، الفصل الأول)" }
-    session: "2017–2018 · 1439 (S1)"
+    session: "2018–2019 · 1439 (S1)"
     paper: https://drive.google.com/open?id=1Qtw6cWW-HYUZMzmCGw514lYPFUCyzPq9
     lang: en
   - title: { en: "Past exam (1439 AH, semester 2)", ar: "اختبار سابق (1439هـ، الفصل الثاني)" }
-    session: "2017–2018 · 1439 (S2)"
+    session: "2018–2019 · 1439 (S2)"
     paper: https://drive.google.com/open?id=1R4OeoVtDK2841Sj9V69NdYmtIa7DYvDS
     lang: en
   - title: { en: "Past exam (1440 AH, semester 1)", ar: "اختبار سابق (1440هـ، الفصل الأول)" }
-    session: "2018–2019 · 1440 (S1)"
+    session: "2019–2020 · 1440 (S1)"
     paper: https://drive.google.com/open?id=1tWSvxlJ6fLpcTvEEFhKX4Lz3oIkkKNb0
     lang: en
 
 pending:
-  - what: "Past exam 1437 AH, semester 1 (2015–2016)"
-    url: https://drive.google.com/open?id=0B-lXQB4vCJCNWXZTdkVhQ2VfY1E
-    why: "1437 AH (2015–2016) predates his appointment at Madinah (2016); possibly set by a previous instructor."
-  - what: "Past exam 1437 AH, semester 2 (2015–2016)"
-    url: https://drive.google.com/open?id=1EF32Fh_hQcspJy0sYVjs46VfO-75MYUW
-    why: "Same as above: predates his appointment; authorship unclear."
-  - what: "ISW1.gif: animation of <x>(t) in the infinite square well, Griffiths Prob. 2.6 (phase 0, pi/2, pi)"
-    url: https://drive.google.com/open?id=1Dzf5MZgoWrpSCuxKZK407wfmmDRxlAsY
-    why: "Animated GIF on his Drive; probably his own (Mathematica), but the page does not say who made it. Confirm before publishing as a sim/video."
-  - what: "ISW2.gif: second animation for Griffiths Prob. 2.6"
-    url: https://drive.google.com/open?id=1XM7pF917mMaFYm5PESBXMp8kIHa-VJHi
-    why: "Same as above."
   - what: "Arabic quantum-mechanics lecture notes (University of Batna 1)"
     url: https://delenda.files.wordpress.com/2015/01/qm1.pdf
-    why: "Written by another author (Batna 1); listed as Arabic supplementary reading. Could go under textbooks.online if he wants to keep the link."
+    why: "Not written by Kamel: never publish."
   - what: "Collections of translated quantum-mechanics books (two links)"
     url: https://www.alfreed-ph.com/2017/10/Books-in-quantum-mechanics-pdf.html
-    why: "Download sites for translated textbooks (second link: https://zoom-teach.blogspot.com/2018/07/Quantum-mechanics-for-beginners-pdf.html); copyright doubtful."
+    why: "Not written by Kamel, copyright doubtful: never publish (second link: https://zoom-teach.blogspot.com/2018/07/Quantum-mechanics-for-beginners-pdf.html)."
 
 sources:
   - teaching/phys401 (en, ar) — PHYS 401, 2019–2020 (semester 5, 1440/41)
@@ -305,3 +305,7 @@ notes: >
   formula sheets, PHYS 354 PS4 and the FreeParticle1D.nb simulation had no links. Dropped: marks (BlackBoard and a
   marks PDF), questionnaires, time/venue, office hours. Hijri years: 1437 → 2015–2016 … 1440 → 2018–2019; 1440(S2)
   had no link. PHYS 354 notes have no week numbers on the page, so none were assigned.
+  UPDATE 24-10-2026 (Kamel's answers + the department attestation of courses taught 2016–2020): taught every year 2016–2017 to 2019–2020, both semesters (level 6; PHYS 354 in the old plan, PHYS 401 from
+  2018–2019; the code of 2016–2017 is assumed PHYS 354). Hijri exam labels: 1437 = 2016–2017 … 1440 = 2019–2020; the 1437
+  papers are his and are published. ISW1/ISW2 animations are his: published as sims (week 4, Sec. 2.2). Griffiths corrected
+  to 2nd ed., Pearson Prentice Hall, 2005. Batna notes and translated-book sites: never published.

@@ -55,17 +55,17 @@ archive:
     role: { en: Associate Professor, ar: أستاذ مشارك }
     note: { en: "Teaching Excellence Award (2018), Faculty of Science, for my interactive teaching website khelifak.wordpress.com.", ar: "جائزة التميز في التدريس (2018) من كلية العلوم، عن موقعي التعليمي التفاعلي khelifak.wordpress.com." }
     courses:
-      - { code: PHYS101, title: { en: General Physics I, ar: الفيزياء العامة 1 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys101, year: 2016 – 2017 }
-      - { code: PHYS102, title: { en: General Physics II, ar: الفيزياء العامة 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys102, year: 2017 – 2018 }
-      - { code: PHYS302, title: { en: Classical Mechanics II, ar: الميكانيكا الكلاسيكية 2 }, kind: { en: Lecture & lab, ar: محاضرات ومختبر }, course: madinah/phys302 }
-      - { code: PHYS321, title: { en: Thermal & Statistical Physics, ar: الفيزياء الحرارية والإحصائية }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys321, year: 2019 – 2020 }
-      - { code: PHYS342, title: { en: Modern Physics II, ar: الفيزياء الحديثة 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys342, year: 2017 – 2018 }
-      - { code: PHYS352, title: { en: Mathematical Physics II, ar: الفيزياء الرياضية 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys352, year: 2019 – 2020 }
-      - { code: PHYS354, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys401, year: 2017 – 2018 }
-      - { code: PHYS401, title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys401, year: 2019 – 2020 }
+      - { code: PHYS101, title: { en: General Physics I, ar: الفيزياء العامة 1 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys101, year: 2016 – 2018 }
+      - { code: PHYS102, title: { en: General Physics II, ar: الفيزياء العامة 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys102, year: 2018 – 2019 }
+      - { code: PHYS352, title: { en: Mathematical Physics II, ar: الفيزياء الرياضية 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys352, year: 2016 – 2020 }
+      - { code: PHYS342, title: { en: Modern Physics II, ar: الفيزياء الحديثة 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys342, year: 2016 – 2018 }
+      - { code: "PHYS354 · PHYS401", title: { en: Quantum Mechanics I, ar: ميكانيكا الكم 1 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys401, year: 2016 – 2020 }
+      - { code: PHYS353, title: { en: Classical Mechanics II, ar: الميكانيكا الكلاسيكية 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys353, year: 2018 – 2019 }
+      - { code: PHYS321, title: { en: Thermal & Statistical Physics, ar: الفيزياء الحرارية والإحصائية }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys321, year: 2018 – 2020 }
+      - { code: PHYS402, title: { en: "Quantum Mechanics II (MIT-based)", ar: "ميكانيكا الكم 2 (وفق مقرر MIT)" }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys402-mit, year: 2018 – 2019 }
       - { code: PHYS402, title: { en: Quantum Mechanics II, ar: ميكانيكا الكم 2 }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys402, year: 2019 – 2020 }
-      - { code: PHYS402, title: { en: "Quantum Mechanics II (MIT-based)", ar: "ميكانيكا الكم 2 (وفق مقرر MIT)" }, kind: { en: Lecture, ar: محاضرات }, course: madinah/phys402-mit, year: 2019 – 2020 }
-      - { code: PHYS390, title: { en: Training, ar: التدريب الميداني }, kind: { en: Supervised training, ar: تدريب مُشرَف عليه }, course: madinah/phys390, year: 2018 – 2019 }
+      - { code: PHYS482, title: { en: Graduation Project, ar: مشروع التخرج }, kind: { en: Supervised project, ar: مشروع تحت الإشراف }, course: madinah/phys482, year: 2017 – 2019 }
+      - { code: PHYS390, title: { en: Field Training, ar: التدريب الميداني }, kind: { en: Supervised training, ar: تدريب مُشرَف عليه }, course: madinah/phys390, year: 2018 – 2019 }
 
   - id: chlef
     institution: { en: University of Chlef (UHBC), ar: جامعة حسيبة بن بوعلي بالشلف }
@@ -91,7 +91,6 @@ archive:
       - { code: UEF212, title: { en: Electricity, ar: الكهرباء }, kind: { en: Lab, ar: أعمال تطبيقية }, course: usthb/electricity-lab, year: 2013 – 2014, taught_in: fr }
       - { code: PHYS7001, title: { en: Particle Physics, ar: فيزياء الجسيمات }, kind: { en: Lecture, ar: محاضرات }, course: usthb/phys7001, year: 2013 – 2014 }
       - { code: PHYS4001, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, course: usthb/english, year: 2012 – 2013, taught_in: en }
-      - { title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture, ar: محاضرات }, course: usthb/vibrations-waves }
 
 beyond:
   - when: { en: 2025 – present, ar: 2025 – حاليًا }

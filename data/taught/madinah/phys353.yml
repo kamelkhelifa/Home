@@ -1,13 +1,13 @@
-slug: phys302
+slug: phys353
 order: 30
-codes: [PHYS 302]
+codes: [PHYS 353, PHYS 302]
 title: { en: Classical Mechanics II, ar: الميكانيكا الكلاسيكية 2 }
-level: { en: Semester 4, ar: الفصل الدراسي الرابع }
+level: { en: "Level 6", ar: "المستوى السادس" }
 area: mechanics
 companion: classical-mechanics-2   # Part 2 course whose interactive lab and glossary this page shows
-kind: { en: Lecture & lab, ar: محاضرات ومختبر }
+kind: { en: "Lecture", ar: "محاضرات" }
 taught:
-  - { years: 2017–2018, code: PHYS 302, lang: en }
+  - { years: 2018–2019, code: PHYS 353, lang: en }
 hours: { lecture: 3, tutorial: 0 }
 prerequisites: { en: Classical Mechanics I (PHYS 301), ar: الميكانيكا الكلاسيكية 1 (PHYS 301) }
 
@@ -99,10 +99,10 @@ materials:
   - { type: formula, title: { en: Table of mathematical formulae, ar: جدول الصيغ الرياضية }, url: "https://khelifak.wordpress.com/wp-content/uploads/2016/11/formulas_table.pdf", lang: en }
 
 exams:
-  - { title: { en: Quiz 1, ar: الاختبار القصير 1 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1SRzrrnut3TmQPE-aVWBWeMGyUz2W46Bb", solution: "https://drive.google.com/open?id=1K_smOlnrUNy1SCG0IIHCE8lcIBAprvtE", lang: en }
-  - { title: { en: Midterm test 1, ar: الاختبار النصفي 1 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1rteHCUSNT2OMtKoiBTFfBRD4mP5CX7y6", solution: "https://drive.google.com/open?id=1b9Gd53UUcFWSpLlnO_fUhKYQbRl-l3CY", lang: en }
-  - { title: { en: Quiz 2, ar: الاختبار القصير 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1jV8IiUa2VRR4Fr7QUlCXN2JDkIwX7WwR", solution: "https://drive.google.com/open?id=1pfwj_gLMFN65kNY3yrh1BfPucTjEv498", lang: en }
-  - { title: { en: Midterm test 2, ar: الاختبار النصفي 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1iMT6YHNkpaYgSw2j0-9uUTPzd26dCZmz", solution: "https://drive.google.com/open?id=1ZLtfr8_Y69oEB_Z5TySEAm-q3OpHLx2C", lang: en }
+  - { title: { en: Quiz 1, ar: الاختبار القصير 1 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1SRzrrnut3TmQPE-aVWBWeMGyUz2W46Bb", solution: "https://drive.google.com/open?id=1K_smOlnrUNy1SCG0IIHCE8lcIBAprvtE", lang: en }
+  - { title: { en: Midterm test 1, ar: الاختبار النصفي 1 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1rteHCUSNT2OMtKoiBTFfBRD4mP5CX7y6", solution: "https://drive.google.com/open?id=1b9Gd53UUcFWSpLlnO_fUhKYQbRl-l3CY", lang: en }
+  - { title: { en: Quiz 2, ar: الاختبار القصير 2 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1jV8IiUa2VRR4Fr7QUlCXN2JDkIwX7WwR", solution: "https://drive.google.com/open?id=1pfwj_gLMFN65kNY3yrh1BfPucTjEv498", lang: en }
+  - { title: { en: Midterm test 2, ar: الاختبار النصفي 2 }, session: 2018–2019, paper: "https://drive.google.com/open?id=1iMT6YHNkpaYgSw2j0-9uUTPzd26dCZmz", solution: "https://drive.google.com/open?id=1ZLtfr8_Y69oEB_Z5TySEAm-q3OpHLx2C", lang: en }
 
 sources:
   - teaching/phys302 (https://khelifak.wordpress.com/studying/teaching-2/iu/phys302-classical-mechanics-ii/)
@@ -120,3 +120,6 @@ notes: >
   PS4, all problem-set solutions, final exam, the empty animations table, "tbd" supplementary items and the "Passed exams
   1437(S1), 1437(S2), 1438(S1)" labels. Dropped silently: the marks links and the course questionnaire (Google Form).
   The formula table is assumed to be the professor's own.
+  UPDATE 24-10-2026 (Kamel's answers + the department attestation of courses taught 2016–2020): the department lists this course as PHYS 353 Classical Mechanics (2), taught in the first semester of 2018–2019
+  (level 6), which matches the "1439-S1" questionnaire (Hijri labels on his pages name the year by its first Hijri year:
+  1439 = 2018–2019). File renamed phys302 → phys353; PHYS 302 (the code written on the page) kept in codes for search. Kind set to Lecture.
