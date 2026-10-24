@@ -161,7 +161,7 @@ materials:
 
 exams:
   - title: { en: "Past exam (1439 AH, semester 2)", ar: "اختبار سابق (1439هـ، الفصل الثاني)" }
-    session: 2017–2018
+    session: "2017–2018 · 1439 (S2)"
     paper: https://drive.google.com/open?id=1Y6bkBEjJM6534A6XnYTPdkrMbrJDkcI5
     lang: en
 

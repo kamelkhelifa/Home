@@ -129,7 +129,7 @@ exams:
   - { title: { en: Quiz 2, ar: الاختبار القصير 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=15-IZkOTQ8OUsbSkmnPfRHS9bslJZaHfV", solution: "https://drive.google.com/open?id=1c0zeWZJgnFhoK71R_KDZtiG1QdKw1aua", lang: en }
   - { title: { en: Midterm test 2, ar: الاختبار النصفي 2 }, session: 2017–2018, paper: "https://drive.google.com/open?id=1SUtW6T0zttBy8XXP_LntHlfsRBWlqvjW", solution: "https://drive.google.com/open?id=14TGuWt9UflpBsNZyiN_QOYdQxFHv3WJr", lang: en }
   - { title: { en: Final exam, ar: الاختبار النهائي }, session: 2017–2018, paper: "https://drive.google.com/open?id=1KODy8_Du-PqeAgZWLTU4ziUN3FrgdbFV", solution: "https://drive.google.com/open?id=1SH0xqWnVWvo1FyUf3n7eevLVysPwGUgZ", lang: en }
-  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: 2016–2017, paper: "https://drive.google.com/open?id=1SjVvv6DMYXq0_Yl3V4T0eqI7VY3t1dYu", lang: en }
+  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: "2016–2017 · 1438 (S1)", paper: "https://drive.google.com/open?id=1SjVvv6DMYXq0_Yl3V4T0eqI7VY3t1dYu", lang: en }
 
 pending:
   - what: "Past exam 1437 AH, semester 1 (2015–2016)"

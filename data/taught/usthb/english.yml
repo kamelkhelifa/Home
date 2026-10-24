@@ -1,6 +1,6 @@
 slug: english
 order: 40
-codes: []
+codes: [PHYS 4001]
 title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين, fr: Anglais pour physiciens }
 level:
   en: "Licence (BSc) in Physics (Electricity) · second year · Semester S4"
@@ -10,7 +10,7 @@ area: skills
 companion: english-for-physicists   # Part 2 course whose interactive lab and glossary this page shows
 kind: { en: Lecture, ar: محاضرات, fr: Cours }
 taught:
-  - { years: 2012–2013, lang: en }
+  - { years: 2012–2013, code: PHYS 4001, lang: en }
 hours: { lecture: 1.5 }
 
 description:

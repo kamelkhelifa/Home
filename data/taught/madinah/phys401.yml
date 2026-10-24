@@ -243,23 +243,23 @@ exams:
     solution: https://drive.google.com/open?id=1YGRKAK6dvlJsRPhDHD_UGU6RMM2ENLEo
     lang: en
   - title: { en: "Past exam (1438 AH, semester 1)", ar: "اختبار سابق (1438هـ، الفصل الأول)" }
-    session: 2016–2017
+    session: "2016–2017 · 1438 (S1)"
     paper: https://drive.google.com/open?id=1dTd8_bcNbjeXOM4plNA_OUbMrOjoTtNk
     lang: en
   - title: { en: "Past exam (1438 AH, semester 2)", ar: "اختبار سابق (1438هـ، الفصل الثاني)" }
-    session: 2016–2017
+    session: "2016–2017 · 1438 (S2)"
     paper: https://drive.google.com/open?id=168utvBDfqHl-e1k_bipUweRC184c0UzM
     lang: en
   - title: { en: "Past exam (1439 AH, semester 1)", ar: "اختبار سابق (1439هـ، الفصل الأول)" }
-    session: 2017–2018
+    session: "2017–2018 · 1439 (S1)"
     paper: https://drive.google.com/open?id=1Qtw6cWW-HYUZMzmCGw514lYPFUCyzPq9
     lang: en
   - title: { en: "Past exam (1439 AH, semester 2)", ar: "اختبار سابق (1439هـ، الفصل الثاني)" }
-    session: 2017–2018
+    session: "2017–2018 · 1439 (S2)"
     paper: https://drive.google.com/open?id=1R4OeoVtDK2841Sj9V69NdYmtIa7DYvDS
     lang: en
   - title: { en: "Past exam (1440 AH, semester 1)", ar: "اختبار سابق (1440هـ، الفصل الأول)" }
-    session: 2018–2019
+    session: "2018–2019 · 1440 (S1)"
     paper: https://drive.google.com/open?id=1tWSvxlJ6fLpcTvEEFhKX4Lz3oIkkKNb0
     lang: en
 

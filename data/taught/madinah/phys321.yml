@@ -209,7 +209,7 @@ exams:
   - { title: { en: First periodic exam, ar: الاختبار الدوري الأول }, session: 2019–2020, paper: "https://drive.google.com/open?id=1QGz2xqX31OkYxwsotok-LrgM90XHG4YH", solution: "https://drive.google.com/open?id=1RXT3n9Kk92nTDW5s9VGvkTp8P4WK9pq6", lang: en }
   - { title: { en: Second periodic exam, ar: الاختبار الدوري الثاني }, session: 2019–2020, paper: "https://drive.google.com/open?id=1a1bM8SZ0s_UxseaqZ7HqqiFTUuLJ5o9l", solution: "https://drive.google.com/open?id=1qF0d1I--b8cW9OfrJJEPED2NkgiXy6mj", lang: en }
   - { title: { en: Final exam, ar: الاختبار النهائي }, session: 2019–2020, paper: "https://drive.google.com/open?id=1z8kSx6Yzf6Vx8Ixr3wdz8h0d3fYbInyy", solution: "https://drive.google.com/open?id=1rTL9ZHB9i4h7hOPvESysmpNtt49TX9rt", lang: en }
-  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: 2017–2018, paper: "https://drive.google.com/open?id=1xiSI1fkwDCua0hrdjYan0PXjAs7nABov", lang: en }
+  - { title: { en: "Past exam (semester 1)", ar: "اختبار سابق (الفصل الأول)" }, session: "2017–2018 · 1439 (S1)", paper: "https://drive.google.com/open?id=1xiSI1fkwDCua0hrdjYan0PXjAs7nABov", lang: en }
   - { title: { en: "Past exam (semester 2)", ar: "اختبار سابق (الفصل الثاني)" }, session: 2017–2018, paper: "https://drive.google.com/open?id=15tdcWdgSFrWg3tz6VMDv6EM0zGIScmsW", lang: en }
 
 pending:

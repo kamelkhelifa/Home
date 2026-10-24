@@ -369,7 +369,7 @@ exams:
 pending:
   - what: "Arabic translation of Griffiths, Introduction to Quantum Mechanics (3rd ed.), PDF"
     url: https://drive.google.com/file/d/1PJIUZnoNkGPogNrcQpQAwptzGFkOU3U5/view?usp=sharing
-    why: "translated textbook (copyright of the publisher/translator); the book is still cited as the required text"
+    why: "Translation by Kamel himself, but he asked to keep it off the site for now (decision of 24 Oct 2026)."
   - what: "الميكانيك الكمي (University of Batna 1), PDF"
     url: https://delenda.files.wordpress.com/2015/01/qm1.pdf
     why: "lecture notes written by another author, hosted on a third-party blog"

@@ -93,7 +93,7 @@ archive:
       - { code: UEF112, title: { en: Mechanics, ar: الميكانيكا }, kind: { en: Lecture, tutorials & lab, ar: محاضرات وأعمال موجهة وتطبيقية }, course: usthb/mechanics, year: 2013 – 2014, taught_in: fr }
       - { code: UEF212, title: { en: Electricity, ar: الكهرباء }, kind: { en: Lab, ar: أعمال تطبيقية }, course: usthb/electricity-lab, year: 2013 – 2014, taught_in: fr }
       - { code: PHYS7001, title: { en: Particle Physics, ar: فيزياء الجسيمات }, kind: { en: Lecture, ar: محاضرات }, course: usthb/phys7001, year: 2013 – 2014 }
-      - { title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, course: usthb/english, year: 2012 – 2013, taught_in: en }
+      - { code: PHYS4001, title: { en: English for Physicists, ar: الإنجليزية للفيزيائيين }, kind: { en: Lecture, ar: محاضرات }, course: usthb/english, year: 2012 – 2013, taught_in: en }
       - { title: { en: Vibrations & Waves, ar: الاهتزازات والأمواج }, kind: { en: Lecture, ar: محاضرات }, course: usthb/vibrations-waves }
 
 beyond:

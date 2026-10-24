@@ -169,11 +169,11 @@ exams:
     solution: https://drive.google.com/open?id=13hnQFiW1sjhSBZFYr_NMVr9B8PAMZDdW
     lang: en
   - title: { en: "Past exam (1438 AH, semester 1)", ar: "اختبار سابق (1438هـ، الفصل الأول)" }
-    session: 2016–2017
+    session: "2016–2017 · 1438 (S1)"
     paper: https://drive.google.com/open?id=1IT_k5uV4mL-ARSdpUuBzs_6PlzdiwO7Z
     lang: en
   - title: { en: "Past exam (1438 AH, semester 2)", ar: "اختبار سابق (1438هـ، الفصل الثاني)" }
-    session: 2016–2017
+    session: "2016–2017 · 1438 (S2)"
     paper: https://drive.google.com/open?id=1g_xjJX6ZrNr_Nod9JTrvIx40N3q7KiQc
     lang: en
 
