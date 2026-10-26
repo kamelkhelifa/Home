@@ -569,3 +569,48 @@ html[lang="ar"] .course .badge-current { letter-spacing: 0; font-size: .8rem; }
 .course .formula-note { font-size: .86rem; color: var(--muted); }
 .course .formula-card > .ic { color: var(--accent); }
 .course .lib-note { margin: 4px 0 0; font-size: .84rem; color: var(--muted); }
+
+/* ---------- Interactive solutions tree (Interactive lab) ---------- */
+.course .sol-tree { margin-bottom: 26px; }
+.course .sol-title { font: 500 1.15rem/1.3 var(--serif); margin: 0 0 6px; }
+.course .sims-title { margin-top: 8px; margin-bottom: 14px; }
+.course .sol-lead { color: var(--muted); font-size: .92rem; margin: 0 0 14px; max-width: 70ch; }
+.course .sol-tree details > summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.course .sol-tree details > summary::-webkit-details-marker { display: none; }
+.course .sol-caret { width: .7em; flex: none; display: inline-block; transition: transform .2s var(--ease); }
+.course .sol-caret::before { content: "▸"; color: var(--accent); }
+.course .sol-tree details[open] > summary > .sol-caret { transform: rotate(90deg); }
+[dir="rtl"] .course .sol-caret::before { content: "◂"; }
+[dir="rtl"] .course .sol-tree details[open] > summary > .sol-caret { transform: rotate(-90deg); }
+.course .sol-book { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); padding: 4px 18px 10px; }
+.course .sol-book > summary { padding: 12px 0; font-weight: 600; }
+.course .sol-book > summary .ic { align-self: center; }
+.course .sol-chapter { border-top: 1px solid var(--line); }
+.course .sol-chapter > summary { padding: 12px 0; }
+.course .sol-chapter > summary .sol-name { font: 500 1.02rem/1.35 var(--serif); }
+.course .sol-section { margin-inline-start: 22px; border-top: 1px dashed var(--line); }
+.course .sol-section > summary { padding: 9px 0; font-size: .95rem; }
+.course .sol-num { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+.course .sol-name { flex: 1 1 18ch; }
+.course .sol-meta { font: 400 .78rem var(--mono); color: var(--muted); white-space: nowrap; }
+.course .sol-list { list-style: none; margin: 0 0 10px; padding: 0 0 0 22px; }
+[dir="rtl"] .course .sol-list { padding: 0 22px 0 0; }
+.course .sol-list li { display: flex; align-items: stretch; gap: 8px; margin: 6px 0; }
+.course .sol-ex { flex: 1; display: grid; grid-template-columns: auto 1fr auto; gap: 4px 12px; align-items: baseline; padding: 9px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); text-decoration: none; color: var(--ink); transition: border-color .2s, background-color .2s; }
+.course .sol-ex:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.course .sol-kind { font: 600 .8rem var(--sans); color: var(--accent); white-space: nowrap; }
+.course .sol-ex-title { font-size: .93rem; }
+.course .sol-slide { font: 500 .74rem var(--mono); color: var(--muted); padding: 2px 8px; border: 1px solid var(--line-strong); border-radius: 999px; white-space: nowrap; }
+.course .sol-nb { display: flex; align-items: center; padding: 0 10px; font: 500 .78rem var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: var(--radius-sm); text-decoration: none; }
+.course .sol-nb:hover { color: var(--accent); border-color: var(--accent); }
+.course .sol-all { margin: 4px 0 12px 22px; font-size: .88rem; }
+.course .sol-all a { color: var(--accent); }
+@media (max-width: 600px) {
+  .course .sol-ex { grid-template-columns: 1fr auto; }
+  .course .sol-ex-title { grid-column: 1 / -1; grid-row: 2; }
+  .course .sol-section { margin-inline-start: 8px; }
+  .course .sol-list { padding-left: 4px; }
+}
+@media print { .course .sol-tree details { display: block; } }
+.course .sol-book-name { flex: 1 1 0; min-width: 0; }
+.course .sol-book > summary { flex-wrap: nowrap; }

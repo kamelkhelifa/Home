@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 23.6 · A Spherically Symmetric Charge Distribution — PHYS 193</title>
+<meta name="description" content="Interactive solution of Example 23.6: A Spherically Symmetric Charge Distribution (Serway &amp; Jewett, Ch. 23).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 3 · Chapter 23</a> / Example 23.6</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.5 · Applying Gauss’s law</span><span>Lecture slide 48</span></div><h1>Example 23.6 · A Spherically Symmetric Charge Distribution</h1></header>
+<p class="lead">Grow a spherical gaussian surface from the centre outwards. Gauss’s law turns the field into simple bookkeeping: how much charge is inside,
+divided by the area. Then the same field is computed the long way — by adding up the Coulomb fields of the whole sphere — and the two agree.</p>
+
+<section class="card problem">
+  <span class="tag">Problem</span>
+  <p>An insulating solid sphere of radius \(a\) has a uniform volume charge density \(\rho\) and carries a total positive charge \(Q\). (A) Calculate the magnitude of the
+  electric field at a point outside the sphere. (B) Find the magnitude of the electric field at a point inside the sphere.</p>
+</section>
+
+<section class="card">
+  <h2>Grow the gaussian surface</h2>
+  <div class="lab">
+    <div class="controls" id="ctl"></div>
+    <div class="figs">
+      <figure class="fig"><canvas id="geo" aria-label="Charged sphere with a gaussian sphere of radius r"></canvas>
+        <figcaption>Cross-section. The dashed circle is the gaussian sphere of radius \(r\); the shaded charge is \(q_{\text{in}}\). Arrows: \(\vec E\) on the gaussian surface, same length everywhere and along \(\hat n\).</figcaption></figure>
+      <figure class="fig"><canvas id="plotE" aria-label="E versus r"></canvas>
+        <figcaption>\(E(r)\) — Figure 23.15. Linear inside, \(1/r^2\) outside. Dots: field found by direct Coulomb integration (no Gauss’s law).</figcaption></figure>
+    </div>
+  </div>
+  <div id="ro"></div>
+  <ol class="try">
+    <li>Start at \(r=0\) and grow \(r\). Inside, \(q_{\text{in}}\propto r^3\) while the area \(\propto r^2\), so \(E\propto r\).</li>
+    <li>Pass \(r=a\). Now \(q_{\text{in}}=Q\) stays fixed and \(E\propto1/r^2\): exactly a point charge at the centre.</li>
+    <li>Where is the field strongest? Is there anywhere it jumps?</li>
+  </ol>
+</section>
+
+<section class="card">
+  <details class="solution">
+    <summary>Show the full solution (as on the slides)</summary>
+    <p class="phase">Conceptualize &amp; Categorize</p>
+    <p>The charge is spread uniformly through the volume, so the distribution has spherical symmetry and Gauss’s law can give the field.</p>
+    <p class="phase">(A) Analyze — outside the sphere, \(r&gt;a\)</p>
+    <ol class="steps">
+      <li>Choose a spherical gaussian surface of radius \(r\), concentric with the sphere. \(\vec E\) is along \(d\vec A\) everywhere: \[\Phi_E=\oint\vec E\cdot d\vec A=\oint E\,dA=\frac{Q}{\epsilon_0}.\]</li>
+      <li>By symmetry \(E\) is the same everywhere on the surface: \[\oint E\,dA=E\oint dA=E(4\pi r^2)=\frac{Q}{\epsilon_0}.\]</li>
+      <li>Solve for \(E\): \[E=\frac{Q}{4\pi\epsilon_0r^2}=k_e\frac{Q}{r^2}\quad(r&gt;a).\qquad(1)\]</li>
+    </ol>
+    <p class="phase">(A) Finalize</p>
+    <p>This is the field of a point charge: outside, the uniformly charged sphere is equivalent to a point charge \(Q\) at its centre.</p>
+    <p class="phase">(B) Analyze — inside the sphere, \(r&lt;a\)</p>
+    <ol class="steps">
+      <li>Gaussian sphere of radius \(r&lt;a\) and volume \(V'\). It encloses less than \(Q\): \[q_{\text{in}}=\rho V'=\rho\left(\tfrac43\pi r^3\right).\]</li>
+      <li>Conditions (1) and (2) hold everywhere on the surface: \[\oint E\,dA=E\oint dA=E(4\pi r^2)=\frac{q_{\text{in}}}{\epsilon_0}.\]</li>
+      <li>Solve for \(E\) and substitute \(q_{\text{in}}\): \[E=\frac{q_{\text{in}}}{4\pi\epsilon_0r^2}=\frac{\rho\left(\tfrac43\pi r^3\right)}{4\pi\epsilon_0r^2}=\frac{\rho}{3\epsilon_0}\,r.\qquad(2)\]</li>
+      <li>With \(\rho=Q/\left(\tfrac43\pi a^3\right)\) and \(\epsilon_0=1/4\pi k_e\): \[E=\frac{Q/\tfrac43\pi a^3}{3\,(1/4\pi k_e)}\,r=k_e\frac{Q}{a^3}\,r\quad(r&lt;a).\]</li>
+    </ol>
+    <p class="phase">(B) Finalize</p>
+    <p>\(E\to0\) as \(r\to0\). If \(E\) varied as \(1/r^2\) inside too, it would be infinite at the centre, which is physically impossible.</p>
+  </details>
+</section>
+
+<section class="card whatif">
+  <span class="tag">What if?</span>
+  <p><strong>Suppose the radial position \(r=a\) is approached from inside the sphere and from outside. Do we obtain the same value of the electric field from both
+  directions?</strong></p>
+  <p>From outside, (1) gives \(\displaystyle\lim_{r\to a}\Big(k_e\frac{Q}{r^2}\Big)=k_e\frac{Q}{a^2}\). From inside, (2) gives
+  \(\displaystyle\lim_{r\to a}\Big(k_e\frac{Q}{a^3}\,r\Big)=k_e\frac{Q}{a^3}\,a=k_e\frac{Q}{a^2}\). The same value: the magnitude of the field is continuous.
+  Squeeze the window below and watch both formulas close in on the same number.</p>
+  <div class="lab">
+    <div class="controls" id="ctl2"></div>
+    <figure class="fig"><canvas id="plotZ" aria-label="Zoom on r = a"></canvas>
+      <figcaption>Zoom on \(r=a\): the inside formula (2) and the outside formula (1), each drawn on its own side and continued (faint) across the boundary.</figcaption></figure>
+  </div>
+  <div id="ro2"></div>
+</section>
+
+<section class="card">
+  <h2>Check the numbers — the long way</h2>
+  <p>Without Gauss’s law: slice the sphere into thin disks perpendicular to the line from the centre to the field point, and add the on-axis field of each disk
+  (Example 23.3) — that is, Coulomb’s law integrated over the whole volume:
+  \[E(r)=\int_{-a}^{a}2\pi k_e\,\rho\left[\operatorname{sgn}(r-z)-\frac{r-z}{\sqrt{(r-z)^2+a^2-z^2}}\right]dz .\]</p>
+  <div class="scroll-x"><table class="t" id="tbl"></table></div>
+  <p class="note">Rings (23.2) → disks (23.3) → sphere: the integral the chapter started with, finished by brute force, gives exactly what Gauss’s law gives in one line.</p>
+</section>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Example 23.6 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 48 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.6.nb" download>Example-23.6.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) return;
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const bx = left ? m.l + 8 : m.l + pw - lw - 8, by = bottom ? m.t + ph - items.length * lh - 12 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+</script>
+<script>
+(() => {
+  const ctl = D.$("ctl");
+  const sa = D.slider(ctl, { label: "Sphere radius a", min: 0.05, max: 0.5, step: 0.005, value: 0.20, unit: "m", fmt: v => v.toFixed(3), onInput: update });
+  const sQ = D.slider(ctl, { label: "Total charge Q", min: 0.1, max: 30, step: 0.1, value: 10.0, unit: "μC", fmt: v => v.toFixed(1), onInput: update });
+  const sr = D.slider(ctl, { label: "Gaussian radius r / a", min: 0, max: 3, step: 0.005, value: 0.6, fmt: v => v.toFixed(3), onInput: update });
+  const ro = D.readout(D.$("ro"), [["qin", "q_in"], ["phi", "Φ = q_in/ε₀"], ["A", "area 4πr²"], ["E", "E = Φ / 4πr²"], ["rho", "ρ = Q / (4⁄3)πa³"]]);
+
+  const Egauss = (Q, a, r) => (r < a ? KE * Q * r / (a * a * a) : KE * Q / (r * r));
+  // direct Coulomb integration: stack of disks along the line from the centre to the field point
+  function Ebrute(Q, a, r) {
+    const rho = Q / (4 / 3 * Math.PI * a * a * a);
+    // disk at height z, radius √(a² − z²), seen from distance d = r − z; sgn(d) is passed explicitly so that
+    // the end points of each piece take the correct one-sided limit (sgn(0) would be wrong there)
+    const f = (z, sg) => { const d = r - z, R2 = a * a - z * z; return 2 * Math.PI * KE * rho * (sg - d / Math.sqrt(d * d + Math.max(R2, 0))); };
+    // substitute z = −a cos t (dz = a sin t dt) to remove the square-root end-point behaviour of √(a² − z²)
+    const g = sg => t => f(-a * Math.cos(t), sg) * a * Math.sin(t);
+    if (r > -a && r < a) { const tr = Math.acos(-r / a); return D.simpson(g(+1), 0, tr, 4000) + D.simpson(g(-1), tr, Math.PI, 4000); }   // split at z = r
+    return D.simpson(g(Math.sign(r)), 0, Math.PI, 8000);
+  }
+  const S = () => ({ a: sa.get(), Q: sQ.get() * 1e-6, r: sr.get() * sa.get() });
+
+  // fixed pseudo-random dots inside a unit disc (the charge), drawn once per size
+  const dots = []; { let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647; while (dots.length < 420) { const x = 2 * rnd() - 1, y = 2 * rnd() - 1; if (x * x + y * y < 0.97) dots.push([x, y]); } }
+
+  const geo = D.canvas(D.$("geo"), w => (w < 520 ? 1.0 : 0.85), (ctx, w, h, c) => {
+    const { a, Q, r } = S(), span = Math.max(1.25 * a, 1.35 * r + 0.1 * a);
+    const V = D.view(w, h, [-span, span], [-span, span], { equal: true, pad: 8 });
+    D.circle(ctx, V.X(0), V.Y(0), a * V.sx, { fill: c.dark ? "rgba(255,123,123,.10)" : "rgba(198,47,58,.07)", color: c.pos, width: 1.5 });
+    for (const [x, y] of dots) {
+      const inside = Math.hypot(x, y) * a < r;
+      D.circle(ctx, V.X(x * a), V.Y(y * a), 1.6, { fill: inside ? c.pos : c.dark ? "rgba(255,123,123,.35)" : "rgba(198,47,58,.32)" });
+    }
+    if (r > 0) D.circle(ctx, V.X(0), V.Y(0), r * V.sx, { color: c.accent, width: 2, dash: [6, 4] });
+    const E = Egauss(Q, a, r), Emax = KE * Q / (a * a), L = 0.45 * a * V.sx * (E / Emax);
+    if (r > 0.02 * a) for (let k = 0; k < 12; k++) {
+      const t = 2 * Math.PI * k / 12, x0 = V.X(r * Math.cos(t)), y0 = V.Y(r * Math.sin(t));
+      D.arrow(ctx, x0, y0, x0 + L * Math.cos(t), y0 - L * Math.sin(t), { color: c.c1, width: 2 });
+    }
+    D.line(ctx, [[V.X(0), V.Y(0)], [V.X(a * Math.cos(-0.6)), V.Y(a * Math.sin(-0.6))]], { color: c.ink2, width: 1 });
+    D.text(ctx, "a", V.X(0.55 * a * Math.cos(-0.6)) + 8, V.Y(0.55 * a * Math.sin(-0.6)) + 8, { color: c.ink2, italic: true });
+    if (r > 0.05 * a) { D.line(ctx, [[V.X(0), V.Y(0)], [V.X(r * Math.cos(2.3)), V.Y(r * Math.sin(2.3))]], { color: c.accent, width: 1 }); D.text(ctx, "r", V.X(0.5 * r * Math.cos(2.3)) - 8, V.Y(0.5 * r * Math.sin(2.3)) - 6, { color: c.accent, italic: true, bold: true }); }
+    D.text(ctx, r < a ? "inside: q_in < Q" : "outside: q_in = Q", 10, 14, { color: c.ink2, size: 12, align: "left", halo: c.surface2 });
+  });
+
+  const plotE = D.canvas(D.$("plotE"), w => (w < 520 ? 0.8 : 0.62), (ctx, w, h, c) => {
+    const { a, Q, r } = S(), Em = KE * Q / (a * a);
+    const bp = []; for (let k = 1; k <= 15; k++) { const u = 0.2 * k; bp.push([u, Ebrute(Q, a, u * a)]); }
+    D.plot(ctx, w, h, c, {
+      x: [0, 3], y: [0, 1.15 * Em], xlabel: "r / a", ylabel: "E (N/C)", legend: "tr",
+      series: [
+        { f: u => Egauss(Q, a, u * a), color: c.accent, width: 2.5, label: "Gauss: kₑQr/a³ , kₑQ/r²" },
+        { pts: bp, dots: 4, color: c.c1, label: "direct Coulomb integral" }
+      ],
+      vlines: [{ x: 1, label: "r = a", color: c.muted }],
+      points: [{ x: r / a, y: Egauss(Q, a, r), color: c.accent }]
+    });
+  });
+
+  function table() {
+    const { a, Q } = S();
+    let html = "<tr><th>r / a</th><th>Gauss’s law (N/C)</th><th>direct integral (N/C)</th><th>ratio</th></tr>";
+    for (const u of [0.25, 0.5, 0.9, 1.0, 1.5, 3.0]) {
+      const g = Egauss(Q, a, u * a), b = Ebrute(Q, a, u * a);
+      html += `<tr><td>${u.toFixed(2)}</td><td>${D.fmt(g, 6)}</td><td>${D.fmt(b, 6)}</td><td>${(b / g).toFixed(6)}</td></tr>`;
+    }
+    D.$("tbl").innerHTML = html;
+  }
+
+  /* ---- what if: continuity at r = a ---- */
+  const ctl2 = D.$("ctl2");
+  const sw = D.slider(ctl2, { label: "Half-width of the window, δ/a", min: 0.0001, max: 0.5, log: true, value: 0.2, onInput: whatif });
+  const ro2 = D.readout(D.$("ro2"), [["in", "inside, r = a − δ"], ["out", "outside, r = a + δ"], ["lim", "both limits: kₑQ/a²"]]);
+  const plotZ = D.canvas(D.$("plotZ"), w => (w < 520 ? 0.75 : 0.5), (ctx, w, h, c) => {
+    const { a, Q } = S(), d = sw.get(), Em = KE * Q / (a * a);
+    const Ein = u => KE * Q * u * a / (a * a * a), Eout = u => KE * Q / (u * u * a * a);
+    const ylo = Math.min(Ein(1 - d), Eout(1 + d)), yhi = Math.max(Ein(1 + d), Eout(1 - d));
+    D.plot(ctx, w, h, c, {
+      x: [1 - d, 1 + d], y: [ylo - 0.05 * (yhi - ylo), yhi + 0.05 * (yhi - ylo)], xlabel: "r / a", ylabel: "E (N/C)", legend: "tl",
+      series: [
+        { f: u => (u > 1 ? Ein(u) : NaN), color: c.c2, width: 1, dash: [3, 4] },
+        { f: u => (u < 1 ? Eout(u) : NaN), color: c.c1, width: 1, dash: [3, 4] },
+        { f: u => (u <= 1 ? Ein(u) : NaN), color: c.c2, width: 2.5, label: "inside, Eq. (2)" },
+        { f: u => (u >= 1 ? Eout(u) : NaN), color: c.c1, width: 2.5, label: "outside, Eq. (1)" }
+      ],
+      vlines: [{ x: 1, color: c.muted }],
+      points: [{ x: 1, y: Em, color: c.accent, label: "kₑQ/a²" }]
+    });
+  });
+  function whatif() {
+    const { a, Q } = S(), d = sw.get();
+    ro2("in", D.fmt(KE * Q * (1 - d) / (a * a), 6) + " N/C");
+    ro2("out", D.fmt(KE * Q / ((1 + d) * (1 + d) * a * a), 6) + " N/C");
+    ro2("lim", D.fmt(KE * Q / (a * a), 6) + " N/C");
+    plotZ.render();
+  }
+
+  function update() {
+    const { a, Q, r } = S(), rho = Q / (4 / 3 * Math.PI * a ** 3);
+    const qin = r < a ? Q * (r / a) ** 3 : Q, E = Egauss(Q, a, r);
+    ro("qin", D.fmt(qin * 1e6, 4) + " μC");
+    ro("phi", D.fmt(qin / EPS0, 4) + " N·m²/C");
+    ro("A", D.fmt(4 * Math.PI * r * r, 4) + " m²");
+    ro("E", D.fmt(E, 4) + " N/C");
+    ro("rho", D.fmt(rho, 4) + " C/m³");
+    geo.render(); plotE.render(); table(); whatif();
+    window.__check = { g05: Egauss(Q, a, 0.5 * a), b05: Ebrute(Q, a, 0.5 * a), g2: Egauss(Q, a, 2 * a), b2: Ebrute(Q, a, 2 * a) };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

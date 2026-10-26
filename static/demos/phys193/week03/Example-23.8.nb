@@ -1,0 +1,79 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 23.8 - A Plane of Charge", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 58 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Find the electric field due to an infinite plane of positive charge with uniform surface charge density sigma.", "Text"],
+
+Cell["A cylindrical gaussian \"pillbox\" crosses the plane; flux E A leaves through each end and none through the side, so 2 E A = sigma A/eps0 and E = sigma/2 eps0, whatever the distance. The What If? puts two planes side by side (any densities, including +sigma and -sigma) and compares with finite plates.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9; eps0 = 1/(4 Pi kE);
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31];
+
+ePlane[s_] := s/(2 eps0);                                               (* Eq. 23.9 *)
+(* x-component of the field of a plane at x = x0 (infinite) or of a disk of radius R there (on its axis, Example 23.3) *)
+exInf[s_, x_, x0_] := s/(2 eps0) Sign[x - x0];
+exDisk[s_, x_, x0_, R_] := 2 Pi kE s (Sign[x - x0] - (x - x0)/Sqrt[(x - x0)^2 + R^2]);", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{s = ss 10.^-6, e},
+  e = ePlane[s];
+  Column[{
+    Graphics[{
+      {GrayLevel[0.7], Arrowheads[0.02], Table[{Arrow[{{0.03, y}, {1.2, y}}], Arrow[{{-0.03, y}, {-1.2, y}}]}, {y, -0.48, 0.48, 0.12}]},
+      {Red, Rectangle[{-0.015, -0.55}, {0.015, 0.55}]},
+      {maroon, Thick, FaceForm[Opacity[0.07, maroon]], EdgeForm[Directive[maroon, Thick]], Rectangle[{-Min[d, 1.05], -0.2}, {Min[d, 1.05], 0.2}]},
+      {blue, Thickness[0.006], Arrowheads[0.04], Arrow[{{Min[d, 1.05], 0}, {Min[d, 1.05] + 0.3, 0}}], Arrow[{{-Min[d, 1.05], 0}, {-Min[d, 1.05] - 0.3, 0}}]},
+      Text[Style[\"A\", Italic, 13, maroon], {Min[d, 1.05] + 0.06, 0.26}], Text[Style[\"E\", Italic, Bold, 14, blue], {Min[d, 1.05] + 0.38, 0.08}],
+      Text[Style[Row[{NumberForm[d, 3], \" m\"}], 11, Gray], {Min[d, 1.05]/2, -0.27}]},
+     PlotRange -> {{-1.3, 1.3}, {-0.6, 0.6}}, ImageSize -> 620],
+    Grid[{{\"q_in = \\[Sigma]A\", Row[{NumberForm[s A 10^9, 4], \" nC\"}]}, {\"flux through each end, EA\", Row[{ScientificForm[e A, 4], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"flux through the side\", \"0\"}, {\"total = q_in/\\[Epsilon]\\:2080\", Row[{ScientificForm[2 e A, 4], \" = \", ScientificForm[s A/eps0, 4], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"E = \\[Sigma]/2\\[Epsilon]\\:2080\", Row[{ScientificForm[e, 5], \" N/C  (independent of the distance)\"}]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{ss, 5.0, \"surface density \\[Sigma] (\\[Mu]C/m\\.b2)\"}, 0.1, 20, 0.1, Appearance -> \"Labeled\"},
+ {{d, 0.30, \"distance of each end from the plane (m)\"}, 0.01, 1, 0.01, Appearance -> \"Labeled\"},
+ {{A, 0.010, \"end area A (m\\.b2)\"}, 0.001, 0.05, 0.001, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left]", "Input"],
+
+Cell["What if? Two parallel planes", "Section"],
+
+Cell["(* E_x = sigma1/(2 eps0) Sign[x - x1] + sigma2/(2 eps0) Sign[x - x2]: +sigma and -sigma give sigma/eps0 between, 0 outside. *)
+Manipulate[
+ Module[{a = s1 10.^-6, b = s2 10.^-6, ex, X, em},
+  ex[x_] := If[finite, exDisk[a, x, -g/2, R] + exDisk[b, x, g/2, R], exInf[a, x, -g/2] + exInf[b, x, g/2]];
+  X = Max[4 g, If[finite, 1.5 R, 0]]; em = Max[(Abs[a] + Abs[b])/(2 eps0), 10.^-6];
+  Column[{
+    Plot[ex[x], {x, -X, X}, PlotRange -> {-1.15 em, 1.15 em}, PlotStyle -> Directive[maroon, Thick], Exclusions -> {-g/2, g/2}, PlotPoints -> 200,
+     Frame -> True, FrameLabel -> {\"x (m)\", \"E\:2093 (N/C)\"}, ImageSize -> 600, GridLines -> {{-g/2, g/2}, {0}}, GridLinesStyle -> Directive[Gray, Dashed],
+     Prolog -> {Opacity[0.1], gold, Rectangle[{-g/2, -2 em}, {g/2, 2 em}]},
+     PlotLabel -> If[finite, \"finite plates (on the axis)\", \"infinite planes\"]],
+    Grid[{{\"left of both\", Row[{ScientificForm[ex[-g/2 - 0.25 g], 4], \" N/C\"}]}, {\"between\", Row[{ScientificForm[ex[0], 4], \" N/C\"}]},
+      {\"right of both\", Row[{ScientificForm[ex[g/2 + 0.25 g], 4], \" N/C\"}]}, {\"\\[Sigma]/\\[Epsilon]\\:2080 for \\[Sigma] = 5 \\[Mu]C/m\\.b2\", Row[{ScientificForm[5.*^-6/eps0, 4], \" N/C\"}]}},
+     Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{s1, 5.0, \"\\[Sigma]\\:2081, left plane (\\[Mu]C/m\\.b2)\"}, -10, 10, 0.1, Appearance -> \"Labeled\"},
+ {{s2, -5.0, \"\\[Sigma]\\:2082, right plane (\\[Mu]C/m\\.b2)\"}, -10, 10, 0.1, Appearance -> \"Labeled\"},
+ {{g, 0.10, \"separation (m)\"}, 0.005, 0.5, 0.005, Appearance -> \"Labeled\"},
+ {{finite, False, \"finite plates: disks of radius R\"}, {False, True}},
+ {{R, 0.5, \"plate radius R (m)\"}, 0.05, 2, 0.01, Appearance -> \"Labeled\"},
+ Row[{Button[\"+\\[Sigma] and \\[Minus]\\[Sigma] (book)\", s1 = 5.; s2 = -5.], Button[\"+\\[Sigma] and +\\[Sigma]\", s1 = 5.; s2 = 5.]}],
+ ControlPlacement -> Left]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["Grid[{{\"E from Gauss, (\\[Sigma]A/\\[Epsilon]\\:2080)/(2A), \\[Sigma] = 5 \\[Mu]C/m\\.b2\", ScientificForm[(5.*^-6 0.01/eps0)/(2 0.01), 8]},
+  {\"\\[Sigma]/2\\[Epsilon]\\:2080 = 2\\[Pi]k\:2091\\[Sigma]\", ScientificForm[2 Pi kE 5.*^-6, 8]},
+  {\"disk of radius 1000 m at 0.30 m (Example 23.3) / \\[Sigma]/2\\[Epsilon]\\:2080\", NumberForm[exDisk[5.*^-6, 0.30, 0, 1000.]/ePlane[5.*^-6], 8]},
+  {\"+\\[Sigma], \\[Minus]\\[Sigma]: between / outside (N/C)\", Row[{ScientificForm[exInf[5.*^-6, 0, -0.05] + exInf[-5.*^-6, 0, 0.05], 5], \"  /  \", exInf[5.*^-6, 0.2, -0.05] + exInf[-5.*^-6, 0.2, 0.05]}]}},
+ Frame -> All, Alignment -> Left]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

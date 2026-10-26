@@ -1,0 +1,83 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Conceptual Example 23.9 - Don't Use Gauss's Law Here!", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 62 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Explain why Gauss's law cannot be used to calculate the electric field near an electric dipole, a charged disk, or a triangle with a point charge at each corner.", "Text"],
+
+Cell["Pick a distribution and a spherical gaussian surface. The field on the surface is computed from Coulomb's law (the disk is replaced by 1152 small charge elements) and E.dA is integrated over the whole sphere. The total always equals q_in/eps0 - Gauss's law holds - but E is neither constant nor perpendicular on the surface (conditions 1 and 2 fail), so the law cannot be solved for E.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9; eps0 = 1/(4 Pi kE);
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18]; blue = RGBColor[0.14, 0.34, 0.72];
+
+qn = 1.*^-9;
+(* each charge is {x, y, z, q} *)
+config[\"dipole\"] = {{0.05, 0, 0, qn}, {-0.05, 0, 0, -qn}};
+config[\"triangle\"] = With[{R = 0.12/Sqrt[3]}, Table[{R Cos[Pi/2 + 2 Pi k/3], R Sin[Pi/2 + 2 Pi k/3], 0, qn}, {k, 0, 2}]];
+config[\"disk\"] = With[{Rd = 0.08, nr = 24, np = 48}, Flatten[Table[With[{r = (i - 1/2) Rd/nr, p = 2 Pi (j - 1/2)/np},
+      {0, r Cos[p], r Sin[p], qn/(Pi Rd^2) r (Rd/nr) (2 Pi/np)}], {i, nr}, {j, np}], 1]] // N;   (* disk in the y-z plane, axis along x *)
+
+(* field at many points at once: pts is an n x 3 array; returns n x 3 *)
+fieldAt[list_, pts_] := Module[{x = pts[[All, 1]], y = pts[[All, 2]], z = pts[[All, 3]], ex = 0., ey = 0., ez = 0., dx, dy, dz, r3},
+   Do[dx = x - c[[1]]; dy = y - c[[2]]; dz = z - c[[3]]; r3 = (dx^2 + dy^2 + dz^2)^1.5;
+    ex += kE c[[4]] dx/r3; ey += kE c[[4]] dy/r3; ez += kE c[[4]] dz/r3, {c, list}];
+   Transpose[{ex, ey, ez}]];
+
+(* flux through a sphere (centre c0, radius R): Gauss-Legendre in u = Cos[theta] (48 points) x 96 equal steps in phi *)
+{glx, glw} = Module[{u}, With[{roots = Sort[u /. NSolve[LegendreP[48, u] == 0, u, WorkingPrecision -> 30]]},
+    {N[roots], N[2/((1 - roots^2) (D[LegendreP[48, u], u] /. u -> roots)^2)]}]];
+sphereAnalysis[list_, c0_, R_] := Module[{nphi = 96, nrm, w, ev, en, mag},
+   nrm = Flatten[Table[{Sqrt[1 - u^2] Cos[p], Sqrt[1 - u^2] Sin[p], u}, {u, glx}, {p, 2 Pi (Range[nphi] - 1/2)/nphi}], 1];
+   w = Flatten[Table[wu (2 Pi/nphi) R^2, {wu, glw}, {nphi}]];
+   ev = fieldAt[list, Map[c0 + R # &, nrm]];
+   en = Total[ev nrm, {2}]; mag = Norm /@ ev;
+   <|\"flux\" -> w.en, \"enMin\" -> Min[en], \"enMax\" -> Max[en], \"tilt\" -> Max[ArcCos[Clip[Abs[en]/mag, {0, 1}]]]/Degree,
+     \"qin\" -> Total[Select[list, Norm[#[[;; 3]] - c0] < R &][[All, 4]]]|>];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{list = config[kind], c0 = {cx, cy, 0.}, an, ring, Ering, en, span, pic},
+  an = sphereAnalysis[list, c0, R];
+  ring = Table[c0 + R {Cos[t], Sin[t], 0}, {t, 0., 2 Pi, 2 Pi/360}];
+  Ering = fieldAt[list, ring];
+  en = MapThread[#1.{Cos[#2], Sin[#2], 0} &, {Ering, Range[0., 2 Pi, 2 Pi/360]}];
+  span = Max[0.2, Norm[c0] + R + 0.04];
+  pic = Graphics[{
+     If[kind == \"disk\", {Red, Thickness[0.012], Line[{{0, -0.08}, {0, 0.08}}]}, Table[{If[c[[4]] > 0, Red, Blue], PointSize[0.03], Point[c[[;; 2]]]}, {c, list}]],
+     {maroon, Dashed, Thick, Circle[c0[[;; 2]], R]},
+     {blue, Arrowheads[0.02], With[{mags = Sort[Norm /@ Ering[[1 ;; -1 ;; 12, ;; 2]]]}, With[{ref = mags[[Ceiling[0.6 Length[mags]]]]},
+        Table[With[{p = ring[[k, ;; 2]], v = Ering[[k, ;; 2]]}, If[Norm[v] > 0, Arrow[{p, p + Min[0.55 R, 0.35 R Norm[v]/ref] Normalize[v]}], {}]], {k, 1, 360, 12}]]]}},
+    PlotRange -> span {{-1, 1}, {-1, 1}}, ImageSize -> 380, Frame -> True];
+  Column[{Row[{pic,
+      ListLinePlot[{Transpose[{Range[0, 360], en}], Transpose[{Range[0, 360], Norm /@ Ering}]}, PlotStyle -> {Directive[maroon, Thick], Directive[blue, Dashed]},
+       Frame -> True, FrameLabel -> {\"angle around the slice (\\[Degree])\", \"field on the sphere (N/C)\"}, ImageSize -> 440,
+       GridLines -> {None, {an[\"qin\"]/(eps0 4 Pi R^2)}}, GridLinesStyle -> Directive[gold, Dashed],
+       PlotLegends -> Placed[{\"E\:2099 = E\\[CenterDot]n\\:0302\", \"|E|\"}, {Right, Top}], PlotLabel -> \"dashed gold: q_in/(4\\[Pi]\\[Epsilon]\\:2080R\\.b2)\"]}],
+    Grid[{{\"\\[Integral] E\\[CenterDot]dA (computed)\", Row[{NumberForm[Chop[an[\"flux\"], 10.^-6 qn/eps0], 6], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"q_in/\\[Epsilon]\\:2080\", Row[{NumberForm[an[\"qin\"]/eps0, 6], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"E\:2099 on the sphere: min / max\", Row[{ScientificForm[an[\"enMin\"], 3], \" / \", ScientificForm[an[\"enMax\"], 3], \" N/C\"}]},
+      {\"largest angle between E and n\\:0302\", Row[{NumberForm[an[\"tilt\"], 3], \"\\[Degree]\"}]},
+      {\"condition (1), E constant?\", If[an[\"enMax\"] - an[\"enMin\"] <= 0.02 Max[Abs[{an[\"enMax\"], an[\"enMin\"]}]], \"nearly\", \"no\"]},
+      {\"condition (2), E \\[DoubleVerticalBar] n\\:0302?\", If[an[\"tilt\"] < 2, \"nearly\", \"no\"]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{kind, \"dipole\", \"distribution\"}, {\"dipole\", \"disk\", \"triangle\"}, ControlType -> SetterBar},
+ {{R, 0.10, \"gaussian sphere radius (m)\"}, 0.02, 0.4, 0.002, Appearance -> \"Labeled\"},
+ {{cx, 0., \"sphere centre x (m)\"}, -0.15, 0.15, 0.002, Appearance -> \"Labeled\"},
+ {{cy, 0., \"sphere centre y (m)\"}, -0.15, 0.15, 0.002, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, ContinuousAction -> False]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Gauss's law holds for all three, for spheres that clearly enclose or exclude the charge. *)
+Grid[Prepend[Flatten[Table[With[{an = sphereAnalysis[config[k], cs[[1]], cs[[2]]]}, {k, cs[[2]], cs[[1, ;; 2]], ScientificForm[Chop[an[\"flux\"], 10.^-9], 6], ScientificForm[an[\"qin\"]/eps0, 6]}],
+     {k, {\"dipole\", \"disk\", \"triangle\"}}, {cs, {{{0., 0., 0.}, 0.15}, {{0.03, -0.02, 0.}, 0.30}, {{0.4, 0., 0.}, 0.15}}}], 1],
+  {\"distribution\", \"R (m)\", \"centre (m)\", \"\\[Integral] E\\[CenterDot]dA\", \"q_in/\\[Epsilon]\\:2080\"}], Frame -> All, Alignment -> Right]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

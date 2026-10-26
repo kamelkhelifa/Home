@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 23.2 · The Electric Field of a Uniform Ring of Charge — PHYS 193</title>
+<meta name="description" content="Interactive solution of Example 23.2: The Electric Field of a Uniform Ring of Charge (Serway &amp; Jewett, Ch. 23).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 3 · Chapter 23</a> / Example 23.2</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.2 · Continuous charge distribution</span><span>Lecture slide 16</span></div><h1>Example 23.2 · The Electric Field of a Uniform Ring of Charge</h1></header>
+<p class="lead">Every piece of the ring is the same distance from \(P\), and every piece has a partner on the opposite side whose sideways field cancels its own.
+Rotate the chosen pair around the ring and see the cancellation happen, then release a negative charge near the centre for the What If?.</p>
+
+<section class="card problem">
+  <span class="tag">Problem</span>
+  <p>A ring of radius \(a\) carries a uniformly distributed positive total charge \(Q\). Calculate the electric field due to the ring at a point \(P\) lying a
+  distance \(x\) from its center along the central axis perpendicular to the plane of the ring.</p>
+</section>
+
+<section class="card">
+  <h2>Why only the axial component survives</h2>
+  <div class="lab">
+    <div class="controls" id="ctl"></div>
+    <div class="figs">
+      <figure class="fig"><canvas id="geo" aria-label="Ring, point P, and the fields of two opposite segments"></canvas>
+        <figcaption>Segments 1 and 2 sit on opposite sides of the ring. Their perpendicular components \(dE_\perp\) (dashed) are equal and opposite; their axial components \(dE_x\) add.</figcaption></figure>
+      <figure class="fig"><canvas id="plotE" aria-label="Axial field versus x"></canvas>
+        <figcaption>\(E_x\) along the axis. It is zero at the centre, largest at \(x=\pm a/\sqrt2\), and approaches the point-charge field far away.</figcaption></figure>
+    </div>
+  </div>
+  <div id="ro"></div>
+  <ol class="try">
+    <li>Drag “pair position φ” all the way round. The axial parts never change; the perpendicular parts always cancel.</li>
+    <li>Put \(P\) at the centre (\(x=0\)). Every \(d\vec E\) lies in the plane of the ring and they all cancel — is that consistent with the symmetry?</li>
+    <li>Find the largest field. Does its position depend on \(Q\)? On \(a\)?</li>
+  </ol>
+</section>
+
+<section class="card">
+  <details class="solution">
+    <summary>Show the full solution (as on the slides)</summary>
+    <p class="phase">Conceptualize</p>
+    <p>Resolve the field \(d\vec E\) of one segment into \(dE_x\) along the axis and \(dE_\perp\) perpendicular to it. The segment on the opposite side of the
+    ring produces an equal and opposite \(dE_\perp\). That is true for every pair, so only the parallel components \(dE_x\) remain, and they simply add.</p>
+    <p class="phase">Categorize</p>
+    <p>The ring is continuous, so this is a continuous charge distribution.</p>
+    <p class="phase">Analyze</p>
+    <ol class="steps">
+      <li>Parallel component of the field of a segment \(dq\): \[dE_x=k_e\frac{dq}{r^2}\cos\theta=k_e\frac{dq}{a^2+x^2}\cos\theta.\qquad(1)\]</li>
+      <li>From the geometry: \[\cos\theta=\frac{x}{r}=\frac{x}{(a^2+x^2)^{1/2}}.\qquad(2)\]</li>
+      <li>Substitute (2) into (1): \[dE_x=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,dq.\]</li>
+      <li>All segments are equidistant from \(P\), so they contribute equally. Integrate over the ring: \[E_x=\int\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,dq=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\int dq.\]</li>
+      <li>With \(\int dq=Q\): \[E_x=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,Q.\qquad(3)\]</li>
+    </ol>
+    <p class="phase">Finalize</p>
+    <p>The field points along the axis, away from the ring. It is zero at \(x=0\), consistent with the symmetry, and reduces to \(k_eQ/x^2\) when \(x\gg a\): from
+    far away the ring looks like a point charge. Setting \(dE_x/dx=0\) gives the maximum, at \(x=\pm a/\sqrt2\), where \(E_{\max}=\dfrac{2k_eQ}{3\sqrt3\,a^2}\).</p>
+  </details>
+</section>
+
+<section class="card whatif">
+  <span class="tag">What if?</span>
+  <p><strong>A negative charge is placed at the center of the ring and displaced slightly by a distance \(x\ll a\) along the \(x\) axis. When the charge is released,
+  what type of motion does it exhibit?</strong></p>
+  <p>For \(x\ll a\), Equation (3) becomes \(E_x\approx k_eQx/a^3\), so the force on a charge \(-q\) is
+  \[F_x=-qE_x=-\frac{k_eqQ}{a^3}\,x .\]
+  That is Hooke’s law with \(k=k_eqQ/a^3\): simple harmonic motion with \(\omega=\sqrt{k_eqQ/(ma^3)}\). Below, the charge’s motion is computed from the
+  <em>exact</em> force (3) step by step (velocity-Verlet) and compared with the SHM prediction. Small release → identical. Large release → the exact motion is slower.</p>
+  <div class="lab">
+    <div class="controls" id="ctl2"></div>
+    <div class="figs">
+      <figure class="fig"><canvas id="anim" aria-label="Side view of ring and the oscillating charge"></canvas>
+        <figcaption>Side view: the ring (edge-on) and the released charge \(-q\) on the axis.</figcaption></figure>
+      <figure class="fig"><canvas id="plotX" aria-label="Position versus time"></canvas>
+        <figcaption>Position against time: exact motion (solid) and simple harmonic motion with the same \(\omega\) (dashed).</figcaption></figure>
+    </div>
+  </div>
+  <div id="ro2"></div>
+</section>
+
+<section class="card">
+  <h2>Check the numbers</h2>
+  <p>Replace the ring by \(N\) equal point charges and add their fields <em>as vectors</em> in three dimensions, at the present \(P\):</p>
+  <div class="scroll-x"><table class="t" id="tbl"></table></div>
+  <p class="note">Two things to notice. The perpendicular part is zero to rounding error for every \(N\ge2\): opposite pieces cancel exactly. And the axial sum equals
+  Equation (3) for <em>every</em> \(N\), not just in the limit — every piece is the same distance \(r\) from \(P\) and makes the same angle \(\theta\), which is why step 4
+  of the solution can take \(k_ex/(a^2+x^2)^{3/2}\) outside the integral. (Compare Example 23.1, where the pieces are at different distances and the sum only converges.)</p>
+</section>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Example 23.2 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 16 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.2.nb" download>Example-23.2.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) return;
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const bx = left ? m.l + 8 : m.l + pw - lw - 8, by = bottom ? m.t + ph - items.length * lh - 12 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+</script>
+<script>
+(() => {
+  const ctl = D.$("ctl");
+  const sa = D.slider(ctl, { label: "Ring radius a", min: 0.02, max: 0.5, step: 0.005, value: 0.10, unit: "m", fmt: v => v.toFixed(3), onInput: update });
+  const sQ = D.slider(ctl, { label: "Ring charge Q", min: -10, max: 10, step: 0.1, value: 5.0, unit: "μC", fmt: v => v.toFixed(1), onInput: update });
+  const sx = D.slider(ctl, { label: "Position of P, x / a", min: -4, max: 4, step: 0.01, value: 1.2, fmt: v => v.toFixed(2), onInput: update });
+  const sp = D.slider(ctl, { label: "Pair position φ", min: 0, max: 360, step: 1, value: 60, unit: "°", fmt: v => v.toFixed(0), onInput: update });
+  const ro = D.readout(D.$("ro"), [["Ex", "Eₓ at P, Eq. (3)"], ["Emax", "E max (at x = ±a/√2)"], ["Ept", "point charge kₑQ/x²"], ["cos", "cos θ = x/r"]]);
+
+  const Ex = (Q, a, x) => KE * Q * x / Math.pow(a * a + x * x, 1.5);
+  const S = () => ({ a: sa.get(), Q: sQ.get() * 1e-6, x: sx.get() * sa.get(), phi: sp.get() * Math.PI / 180 });
+  function ringSum(Q, a, x, N) {          // 3-D vector sum over N point charges on the ring
+    let ex = 0, ey = 0, ez = 0;
+    for (let i = 0; i < N; i++) {
+      const p = 2 * Math.PI * i / N, ry = -a * Math.cos(p), rz = -a * Math.sin(p);   // vector from segment to P = (x, -y_s, -z_s)
+      const r3 = Math.pow(x * x + a * a, 1.5), dq = Q / N;
+      ex += KE * dq * x / r3; ey += KE * dq * ry / r3; ez += KE * dq * rz / r3;
+    }
+    return { ex, eperp: Math.hypot(ey, ez) };
+  }
+
+  // oblique projection: ring in the y–z plane, axis = x
+  const K = 0.5, AL = 215 * Math.PI / 180;
+  const proj = (x, y, z) => [x + K * z * Math.cos(AL), y + K * z * Math.sin(AL)];
+
+  const geo = D.canvas(D.$("geo"), w => (w < 520 ? 0.85 : 0.62), (ctx, w, h, c) => {
+    const { a, Q, x, phi } = S();
+    const span = Math.max(1.6 * a, Math.abs(x) + 1.9 * a);
+    const V = D.view(w, h, [Math.min(-1.5 * a, x - 1.7 * a), Math.max(1.5 * a, x + 1.9 * a)], [-1.3 * a, 1.3 * a], { equal: true, pad: 16 });
+    const P2 = (X, Y, Z) => { const [u, v] = proj(X, Y, Z); return [V.X(u), V.Y(v)]; };
+    // axis
+    D.line(ctx, [P2(-span, 0, 0), P2(span, 0, 0)], { color: c.line2, width: 1, dash: [5, 4] });
+    D.text(ctx, "x", ...P2(Math.max(1.4 * a, x + 1.8 * a), 0.08 * a, 0), { color: c.muted, italic: true });
+    // ring: back half, then dots, front half drawn later
+    const ring = []; for (let i = 0; i <= 120; i++) { const p = 2 * Math.PI * i / 120; ring.push(P2(0, a * Math.cos(p), a * Math.sin(p))); }
+    D.line(ctx, ring, { color: Q >= 0 ? c.pos : c.neg, width: 3 });
+    for (let i = 0; i < 24; i++) { const p = 2 * Math.PI * i / 24; const [u, v] = P2(0, a * Math.cos(p), a * Math.sin(p)); D.text(ctx, Q >= 0 ? "+" : "−", u, v, { color: c.surface, size: 10, bold: true }); }
+    // P
+    const PP = P2(x, 0, 0);
+    D.circle(ctx, PP[0], PP[1], 4.5, { fill: c.ink });
+    D.text(ctx, "P", PP[0] + 4, PP[1] + 15, { color: c.ink, italic: true, bold: true });
+    // chosen pair
+    const L0 = 1.15 * a, sgn = Q >= 0 ? 1 : -1;
+    const segs = [phi, phi + Math.PI].map((p, k) => ({ y: a * Math.cos(p), z: a * Math.sin(p), k }));
+    let sumx = 0;
+    for (const s of segs) {
+      const col = s.k ? c.c2 : c.c1;
+      const SP = P2(0, s.y, s.z);
+      D.line(ctx, [SP, PP], { color: col, width: 1, dash: [3, 3] });
+      D.circle(ctx, SP[0], SP[1], 6, { fill: col });
+      D.text(ctx, String(s.k + 1), SP[0], SP[1], { color: "#fff", size: 9, bold: true });
+      // unit vector from segment to P, times L0
+      const r = Math.hypot(x, a), ux = x / r, uy = -s.y / r, uz = -s.z / r;
+      const dE = [sgn * L0 * ux, sgn * L0 * uy, sgn * L0 * uz];
+      const tip = P2(x + dE[0], dE[1], dE[2]);
+      D.arrow(ctx, PP[0], PP[1], tip[0], tip[1], { color: col, width: 2.2 });
+      const perpTip = P2(x, dE[1], dE[2]);
+      D.arrow(ctx, PP[0], PP[1], perpTip[0], perpTip[1], { color: col, width: 1.5, dash: [4, 3], head: 7 });
+      sumx += dE[0];
+    }
+    const tot = P2(x + sumx, 0, 0);
+    D.arrow(ctx, PP[0], PP[1] - 0, tot[0], tot[1], { color: c.accent, width: 3.5, head: 12 });
+    if (Math.abs(sumx) > 0.05 * a) D.text(ctx, "dEₓ,₁ + dEₓ,₂", (PP[0] + tot[0]) / 2, PP[1] - 12, { color: c.accent, size: 12, bold: true, halo: c.surface2 });
+    else D.text(ctx, "axial parts cancel too at x = 0", PP[0], PP[1] - 14, { color: c.accent, size: 12, bold: true, halo: c.surface2 });
+    // radius label
+    const top = P2(0, a, 0), cen = P2(0, 0, 0);
+    D.line(ctx, [cen, top], { color: c.muted, width: 1 });
+    D.text(ctx, "a", (cen[0] + top[0]) / 2 - 8, (cen[1] + top[1]) / 2, { color: c.muted, italic: true });
+  });
+
+  const plotE = D.canvas(D.$("plotE"), w => (w < 520 ? 0.8 : 0.56), (ctx, w, h, c) => {
+    const { a, Q, x } = S();
+    const Em = 2 * KE * Math.abs(Q) / (3 * Math.sqrt(3) * a * a) || 1;
+    const sg = Q >= 0 ? 1 : -1;
+    D.plot(ctx, w, h, c, {
+      x: [-4, 4], y: [-1.35 * Em, 1.35 * Em], xlabel: "x / a", ylabel: "Eₓ (N/C)", legend: "tl",
+      series: [
+        { f: u => (Math.abs(u) > 1.3 ? sg * Math.sign(u) * KE * Math.abs(Q) / (u * u * a * a) : NaN), color: c.gold, dash: [6, 5], label: "point charge ±kₑQ/x²" },
+        { f: u => Ex(Q, a, u * a), color: c.accent, width: 2.5, label: "exact, Eq. (3)" }
+      ],
+      vlines: [{ x: 1 / Math.SQRT2, label: "a/√2", color: c.c3 }, { x: -1 / Math.SQRT2, color: c.c3 }],
+      points: [{ x: x / a, y: Ex(Q, a, x), color: c.accent }]
+    });
+  });
+
+  function table() {
+    const { a, Q, x } = S(), ex = Ex(Q, a, x);
+    let html = "<tr><th>N point charges</th><th>Σ Eₓ (N/C)</th><th>Eq. (3) (N/C)</th><th>|Σ E⊥| (N/C)</th></tr>";
+    for (const N of [2, 4, 12, 36, 360]) {
+      const r = ringSum(Q, a, x, N);
+      html += `<tr><td>${N}</td><td>${D.fmt(r.ex, 6)}</td><td>${D.fmt(ex, 6)}</td><td>${D.fmt(r.eperp, 2)}</td></tr>`;
+    }
+    D.$("tbl").innerHTML = html;
+  }
+
+  /* ---------------- What if: release a negative charge ---------------- */
+  const ctl2 = D.$("ctl2");
+  const sx0 = D.slider(ctl2, { label: "Release point x₀ / a", min: 0.02, max: 3, step: 0.01, value: 0.15, fmt: v => v.toFixed(2), onInput: resetMotion });
+  const sq = D.slider(ctl2, { label: "Charge −q, with q =", min: 0.1, max: 5, step: 0.1, value: 1.0, unit: "μC", fmt: v => v.toFixed(1), onInput: resetMotion });
+  const sm = D.slider(ctl2, { label: "Mass m", min: 0.1, max: 10, step: 0.1, value: 1.0, unit: "g", fmt: v => v.toFixed(1), onInput: resetMotion });
+  const bx = D.el("div", { class: "btns" }); ctl2.appendChild(bx);
+  const bPlay = D.button(bx, "▶ Release", () => { if (anim.running()) { anim.stop(); bPlay.textContent = "▶ Release"; } else { if (tNow >= traj.T) tNow = 0; anim.start(); bPlay.textContent = "❚❚ Pause"; } });
+  D.button(bx, "↺ Reset", () => { anim.stop(); tNow = 0; bPlay.textContent = "▶ Release"; drawMotion(); }, true);
+  const ro2 = D.readout(D.$("ro2"), [["w", "ω = √(kₑqQ/ma³)"], ["Tshm", "T, simple harmonic"], ["Tnum", "T, exact motion"], ["diff", "difference"]]);
+
+  let traj = { t: [], x: [], T: 1 }, tNow = 0;
+  function computeMotion() {
+    const { a, Q } = S();
+    const q = sq.get() * 1e-6, m = sm.get() * 1e-3, x0 = sx0.get() * a;
+    const w = Math.sqrt(KE * q * Math.abs(Q) / (m * a * a * a));
+    const Tshm = 2 * Math.PI / w;
+    const acc = x => -q * Ex(Q, a, x) / m;              // force on −q is −q E
+    const tEnd = 3 * Tshm, dt = Tshm / 4000;
+    let x = x0, v = 0, A = acc(x), t = 0, tHalf = null, ts = [0], xs = [x0];
+    while (t < tEnd) {
+      const xn = x + v * dt + 0.5 * A * dt * dt, An = acc(xn), vn = v + 0.5 * (A + An) * dt;
+      if (tHalf === null && v < 0 && vn >= 0) tHalf = t + dt * (-v) / (vn - v);   // first turning point = half a period
+      x = xn; v = vn; A = An; t += dt;
+      ts.push(t); xs.push(x);
+      if (Math.abs(x) > 50 * a) break;
+    }
+    traj = { t: ts, x: xs, T: t, Tshm, w, Tnum: tHalf ? 2 * tHalf : NaN, a, x0, Q };
+  }
+  function xAt(t) {
+    const { t: ts, x: xs } = traj; if (t <= 0) return xs[0];
+    const i = Math.min(ts.length - 2, Math.floor(t / (ts[1] - ts[0])));
+    return xs[i] + (xs[i + 1] - xs[i]) * (t - ts[i]) / (ts[i + 1] - ts[i]);
+  }
+  const animC = D.canvas(D.$("anim"), w => (w < 520 ? 0.6 : 0.45), (ctx, w, h, c) => {
+    const { a, Q, x0 } = traj; const span = Math.max(3.4 * a, 1.3 * Math.abs(x0) + a);
+    const V = D.view(w, h, [-span, span], [-1.3 * a, 1.3 * a], { equal: true, pad: 14 });
+    D.line(ctx, [[V.X(-span), V.Y(0)], [V.X(span), V.Y(0)]], { color: c.line2, width: 1, dash: [5, 4] });
+    D.line(ctx, [[V.X(0), V.Y(a)], [V.X(0), V.Y(-a)]], { color: Q >= 0 ? c.pos : c.neg, width: 1, dash: [2, 3] });
+    D.charge(ctx, V.X(0), V.Y(a), 7, Q, c); D.charge(ctx, V.X(0), V.Y(-a), 7, Q, c);
+    D.text(ctx, "ring (edge-on)", V.X(0), V.Y(a) - 16, { color: c.muted, size: 11 });
+    D.line(ctx, [[V.X(x0), V.Y(0) - 10], [V.X(x0), V.Y(0) + 10]], { color: c.muted, width: 1 });
+    D.text(ctx, "x₀", V.X(x0), V.Y(0) + 20, { color: c.muted, size: 11 });
+    const xp = xAt(tNow);
+    D.charge(ctx, V.X(xp), V.Y(0), 7, -1, c);
+    D.text(ctx, `t = ${(1000 * tNow).toFixed(1)} ms   (slow motion: one SHM period lasts 2.5 s on screen)`, 10, 14, { color: c.ink2, size: 12, align: "left" });
+  });
+  const plotX = D.canvas(D.$("plotX"), w => (w < 520 ? 0.75 : 0.5), (ctx, w, h, c) => {
+    const { t, x, T, Tshm, w: om, a, x0, Q } = traj;
+    const pts = []; const stride = Math.max(1, Math.floor(t.length / 800));
+    for (let i = 0; i < t.length; i += stride) pts.push([1000 * t[i], x[i] / a]);
+    const ymax = Math.max(1.2 * x0 / a, 0.1);
+    D.plot(ctx, w, h, c, {
+      x: [0, 1000 * T], y: [-ymax, ymax], xlabel: "t (ms)", ylabel: "x / a", legend: "br",
+      series: [
+        { f: tt => (Q > 0 ? (x0 / a) * Math.cos(om * tt / 1000) : NaN), color: c.gold, dash: [6, 5], label: "SHM: x₀ cos ωt" },
+        { pts, color: c.accent, width: 2.5, label: "exact force, Eq. (3)" }
+      ],
+      vlines: [{ x: 1000 * tNow, color: c.c1, dash: [2, 3] }]
+    });
+  });
+  function drawMotion() {
+    animC.render(); plotX.render();
+    ro2("w", D.fmt(traj.w) + " rad/s");
+    ro2("Tshm", D.fmt(1000 * traj.Tshm, 4) + " ms");
+    if (traj.Q > 0) {
+      ro2("Tnum", D.fmt(1000 * traj.Tnum, 4) + " ms");
+      ro2("diff", (100 * (traj.Tnum - traj.Tshm) / traj.Tshm).toFixed(2) + " %");
+    } else { ro2("Tnum", "no oscillation"); ro2("diff", "Q < 0 repels −q"); }
+  }
+  const anim = D.animator(dt => { tNow += dt * traj.Tshm / 2.5; if (tNow >= traj.T) { tNow = traj.T; drawMotion(); bPlay.textContent = "▶ Release"; return false; } drawMotion(); });
+  function resetMotion() { anim.stop(); bPlay.textContent = "▶ Release"; tNow = 0; computeMotion(); drawMotion(); }
+
+  function update() {
+    const { a, Q, x } = S(), ex = Ex(Q, a, x);
+    ro("Ex", D.fmt(ex) + " N/C");
+    ro("Emax", D.fmt(2 * KE * Math.abs(Q) / (3 * Math.sqrt(3) * a * a)) + " N/C");
+    ro("Ept", x ? D.fmt(KE * Q / (x * x)) + " N/C" : "∞");
+    ro("cos", (x / Math.hypot(x, a)).toFixed(4));
+    geo.render(); plotE.render(); table();
+    resetMotion();
+    const r = ringSum(Q, a, x, 360);
+    window.__check = { ex, ringEx: r.ex, ringEperp: r.eperp, Tshm: traj.Tshm, Tnum: traj.Tnum };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

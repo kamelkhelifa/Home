@@ -1,0 +1,82 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 23.3 - The Electric Field of a Uniformly Charged Disk", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 20 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A disk of radius R has a uniform surface charge density sigma. Calculate the electric field at a point P that lies along the central perpendicular axis of the disk and a distance x from the center of the disk.", "Text"],
+
+Cell["The disk is assembled from N concentric rings, each with the field of Example 23.2. The result E = 2 Pi k_e sigma [1 - x/Sqrt[R^2 + x^2]] is compared with its near-field limit sigma/2 eps0 and far-field limit k_e Q/x^2. The What If? lets R grow without bound.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9; eps0 = 1/(4 Pi kE);
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31];
+
+eDisk[s_, R_, x_] := 2 Pi kE s (1 - x/Sqrt[R^2 + x^2]);
+ringE[dq_, r_, x_] := kE dq x/(r^2 + x^2)^(3/2);                    (* Eq. (3) of Example 23.2 *)
+ringSum[s_, R_, x_, n_Integer] := Sum[ringE[2 Pi s ((i - 1/2) R/n) (R/n), (i - 1/2) R/n, x], {i, 1, n}];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{s = ss 10.^-6, x = 10.^lx, sa, Q, disk, build, loglog, x0, x1, pts},
+  sa = Max[Abs[s], 10.^-15]; Q = s Pi R^2;
+  disk = Graphics3D[{
+     Table[{If[OddQ[i], Opacity[0.55], Opacity[0.3]], If[s >= 0, Red, Blue],
+       Polygon[Join[Table[{0, (i R/n) Cos[t], (i R/n) Sin[t]}, {t, 0, 2 Pi, 2 Pi/60}], Reverse[Table[{0, ((i - 1) R/n) Cos[t], ((i - 1) R/n) Sin[t]}, {t, 0, 2 Pi, 2 Pi/60}]]]]}, {i, n}],
+     {GrayLevel[0.5], Dashed, Line[{{-0.6 R, 0, 0}, {2.8 R, 0, 0}}]},
+     {Black, Sphere[{Min[x, 2.4 R], 0, 0}, 0.03 R], Text[Style[\"P\", Italic, Bold, 14], {Min[x, 2.4 R], 0, -0.18 R}]},
+     If[s != 0, {maroon, Arrowheads[0.04], Arrow[Tube[{{Min[x, 2.4 R], 0, 0}, {Min[x, 2.4 R] + 0.55 R Sign[s], 0, 0}}, 0.015 R]]}, {}]},
+    Boxed -> False, ViewPoint -> {1.6, -2.6, 0.9}, Lighting -> \"Neutral\", ImageSize -> 420];
+  pts = Prepend[Table[{i R/n, Sum[ringE[2 Pi sa ((j - 1/2) R/n) (R/n), (j - 1/2) R/n, x], {j, 1, i}]}, {i, n}], {0, 0}];
+  build = Show[Plot[eDisk[sa, r, x], {r, 0, R}, PlotStyle -> Directive[maroon, Thick], Frame -> True,
+     FrameLabel -> {\"outer radius of the rings added so far (m)\", \"|E| at P (N/C)\"}, ImageSize -> 420,
+     PlotRange -> {0, 1.12 Max[eDisk[sa, R, x], Last[pts][[2]]]}, GridLines -> {If[x < R, {x}, {}], {2 Pi kE sa}}, GridLinesStyle -> Directive[green, Dashed]],
+    ListPlot[pts, PlotStyle -> {blue, PointSize[0.018]}]];
+  x0 = Min[R/1000, x/3]; x1 = Max[100 R, 3 x];
+  loglog = LogLogPlot[{eDisk[sa, R, xx], kE sa Pi R^2/xx^2, 2 Pi kE sa}, {xx, x0, x1},
+    PlotStyle -> {Directive[maroon, Thick], Directive[blue, Dashed], Directive[gold, Dashed]},
+    PlotRange -> {eDisk[sa, R, x1]/3, 6 Pi kE sa}, Frame -> True, FrameLabel -> {\"x (m)\", \"E (N/C)\"}, ImageSize -> 840, AspectRatio -> 0.42,
+    PlotLegends -> Placed[{\"exact\", \"far field k\:2091Q/x\:00b2\", \"near field \:03c3/2\:03b5\:2080\"}, {Left, Bottom}],
+    Epilog -> {maroon, PointSize[0.012], Point[{Log[x], Log[eDisk[sa, R, x]]}]}];
+  Column[{Row[{disk, build}], loglog,
+    Grid[{{\"E exact\", Row[{ScientificForm[eDisk[s, R, x], 4], \" N/C\"}]},
+      {Row[{\"sum of \", n, \" rings\"}], Row[{ScientificForm[ringSum[s, R, x, n], 4], \" N/C\"}]},
+      {\"near field \:03c3/2\:03b5\:2080\", Row[{ScientificForm[s/(2 eps0), 4], \" N/C\"}]},
+      {\"far field k\:2091Q/x\:00b2\", Row[{ScientificForm[kE Q/x^2, 4], \" N/C\"}]},
+      {\"Q = \:03c3\:03c0R\:00b2\", Row[{NumberForm[Q 10^9, 4], \" nC\"}]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{R, 0.10, \"disk radius R (m)\"}, 0.01, 0.5, 0.005, Appearance -> \"Labeled\"},
+ {{ss, 5.0, \"surface density \:03c3 (\\[Mu]C/m\:00b2)\"}, -20, 20, 0.1, Appearance -> \"Labeled\"},
+ {{lx, Log10[0.05], \"log\:2081\:2080(x / m)\"}, Log10[0.0005], 1, Appearance -> \"Labeled\"},
+ {{n, 8, \"number of rings N\"}, 1, 30, 1, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, TrackedSymbols :> {R, ss, lx, n}]", "Input"],
+
+Cell["What if? The disk becomes an infinite plane", "Section"],
+
+Cell["(* E/(sigma/2 eps0) = 1 - 1/Sqrt[1 + (R/x)^2] -> 1 as R -> infinity: everywhere is near field. *)
+Manipulate[
+ With[{u = 10.^lu},
+  Column[{LogLinearPlot[1 - 1/Sqrt[1 + r^2], {r, 0.1, 1000}, PlotRange -> {0, 1.08}, PlotStyle -> Directive[maroon, Thick],
+     Frame -> True, FrameLabel -> {\"R / x\", \"E / (\:03c3/2\:03b5\:2080)\"}, ImageSize -> 560, GridLines -> {None, {1}}, GridLinesStyle -> Directive[gold, Dashed],
+     Epilog -> {maroon, PointSize[0.02], Point[{Log[u], 1 - 1/Sqrt[1 + u^2]}]}],
+    Grid[{{\"R / x\", NumberForm[u, 4]}, {\"E / (\:03c3/2\:03b5\:2080)\", NumberForm[1 - 1/Sqrt[1 + u^2], 6]},
+      {\"short of the infinite-plane value by\", Row[{NumberForm[100/Sqrt[1 + u^2], 3], \" %\"}]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{lu, Log10[2.], \"log\:2081\:2080(R / x)\"}, -1, 3, Appearance -> \"Labeled\"}]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Rings converge to the formula; near- and far-field limits at a near and a far point. R = 0.10 m, sigma = 5.0 uC/m^2. *)
+With[{s = 5.0*^-6, R = 0.10},
+ Column[{
+   Grid[Prepend[Table[{n, ScientificForm[ringSum[s, R, 0.05, n], 7], NumberForm[ringSum[s, R, 0.05, n]/eDisk[s, R, 0.05], 7]}, {n, {1, 10, 100, 1000}}],
+     {\"rings (x = 0.05 m)\", \"E (N/C)\", \"ratio to formula\"}], Frame -> All, Alignment -> Right],
+   Grid[{{\"x = 0.001 m: E / (\:03c3/2\:03b5\:2080)\", NumberForm[eDisk[s, R, 0.001]/(s/(2 eps0)), 7]},
+     {\"x = 1 m: E / (k\:2091Q/x\:00b2)\", NumberForm[eDisk[s, R, 1.]/(kE s Pi R^2/1.^2), 7]}}, Frame -> All]}]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

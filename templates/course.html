@@ -315,7 +315,51 @@
   {# 9. Interactive lab (from the companion open course) #}
   <section class="sec" id="lab" aria-labelledby="lab-title">
     {{ sec_head('lab', 'lab', 9) }}
-    {% for s in c.sims %}<div class="sim" data-sim="{{ s }}"></div>{% else %}{{ placeholder('placeholder_lab') }}{% endfor %}
+    {% if c.interactive %}
+    <div class="sol-tree">
+      <h3 class="sol-title">{{ cui('lab_solutions') }}</h3>
+      <p class="sol-lead">{{ cui('lab_solutions_d') }}</p>
+      {% for b in c.interactive %}
+      <details class="sol-book" open>
+        <summary><span class="sol-caret" aria-hidden="true"></span>{{ ic('library', 'ic xs') }} <span class="sol-book-name">{{ t(b.book) }}</span></summary>
+        {% for ch in b.chapters %}
+        {% set nex = ch.sections | map(attribute='examples') | map('length') | sum %}
+        <details class="sol-chapter" id="ch-{{ ch.chapter }}">
+          <summary><span class="sol-caret" aria-hidden="true"></span>
+            <span class="sol-num">{{ cui('chapter') }} <bdi>{{ ch.chapter }}</bdi></span>
+            <span class="sol-name">{{ t(ch.title) }}</span>
+            <span class="sol-meta">{% if ch.week %}{{ cui('week') }} <bdi>{{ ch.week }}</bdi> · {% endif %}<bdi>{{ nex }}</bdi> {{ cui('lab_examples') }}</span>
+          </summary>
+          {% for sec in ch.sections %}
+          <details class="sol-section">
+            <summary><span class="sol-caret" aria-hidden="true"></span>
+              <span class="sol-num"><bdi dir="ltr">§{{ sec.section }}</bdi></span>
+              <span class="sol-name">{{ t(sec.title) }}</span>
+              <span class="sol-meta"><bdi>{{ sec.examples | length }}</bdi></span>
+            </summary>
+            <ul class="sol-list">
+              {% for ex in sec.examples %}
+              <li id="ex-{{ ex.num | replace('.', '-') }}">
+                <a class="sol-ex" href="{{ asset(ch.path ~ '/Example-' ~ ex.num ~ '.html') }}">
+                  <span class="sol-kind">{{ cui('lab_conceptual') if ex.conceptual else cui('lab_example') }} <bdi>{{ ex.num }}</bdi></span>
+                  <span class="sol-ex-title">{{ t(ex.title) }}</span>
+                  <span class="sol-slide">{{ cui('lab_slide') }} <bdi>{{ ex.slide }}</bdi></span>
+                </a>
+                <a class="sol-nb" href="{{ asset(ch.path ~ '/Example-' ~ ex.num ~ '.nb') }}" download title="Mathematica notebook" dir="ltr">.nb</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </details>
+          {% endfor %}
+          {% if ch.index %}<p class="sol-all"><a href="{{ asset(ch.index) }}">{{ cui('lab_all_week') }} →</a></p>{% endif %}
+        </details>
+        {% endfor %}
+      </details>
+      {% endfor %}
+    </div>
+    {% if c.sims %}<h3 class="sol-title sims-title">{{ cui('lab_sims') }}</h3>{% endif %}
+    {% endif %}
+    {% for s in c.sims %}<div class="sim" data-sim="{{ s }}"></div>{% else %}{% if not c.interactive %}{{ placeholder('placeholder_lab') }}{% endif %}{% endfor %}
   </section>
 
   {# 10. Textbooks & resources #}
