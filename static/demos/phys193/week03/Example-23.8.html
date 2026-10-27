@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 23.8 · A Plane of Charge — PHYS 193</title>
+<meta name="description" content="Interactive solution of Example 23.8: A Plane of Charge (Serway &amp; Jewett, Ch. 23).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 3 · Chapter 23</a> / Example 23.8</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.5 · Applying Gauss’s law</span><span>Lecture slide 58</span></div><h1>Example 23.8 · A Plane of Charge</h1></header>
+<p class="lead">For an infinite plane the gaussian “pillbox” can be as long or as short as you like: the flux through it never changes, and so neither does the
+field. Then put two planes side by side and let superposition do the rest.</p>
+
+<section class="card problem">
+  <span class="tag">Problem</span>
+  <p>Find the electric field due to an infinite plane of positive charge with uniform surface charge density \(\sigma\).</p>
+</section>
+
+<section class="card">
+  <h2>Stretch the pillbox</h2>
+  <div class="lab">
+    <div class="controls" id="ctl"></div>
+    <div class="figs">
+      <figure class="fig"><canvas id="geo" aria-label="Plane of charge and gaussian pillbox"></canvas>
+        <figcaption>The plane edge-on with a cylindrical gaussian surface through it. Flux \(EA\) leaves through each end; none crosses the curved side.</figcaption></figure>
+    </div>
+  </div>
+  <div id="ro"></div>
+  <ol class="try">
+    <li>Move the ends of the pillbox further from the plane. Which numbers change? Which do not?</li>
+    <li>Change the end area \(A\). The enclosed charge and the flux both scale with \(A\) — so \(E\) cannot depend on \(A\).</li>
+  </ol>
+</section>
+
+<section class="card">
+  <details class="solution">
+    <summary>Show the full solution (as on the slides)</summary>
+    <p class="phase">Conceptualize &amp; Categorize</p>
+    <p>The plane is infinitely large, so the field is the same at all points equidistant from it; the distribution is symmetric, so Gauss’s law applies.</p>
+    <p class="phase">Analyze</p>
+    <ol class="steps">
+      <li>By symmetry \(\vec E\) is perpendicular to the plane, away from it on both sides. Choose a small cylinder whose axis is perpendicular to the plane, with ends of
+      area \(A\) equidistant from the plane.</li>
+      <li>\(\vec E\) is parallel to the curved side, so no flux crosses it (condition 3). Through each flat end the flux is \(EA\) (conditions 1 and 2): \[\Phi_E=2EA\quad(\text{zero through the curved surface}).\]</li>
+      <li>Gauss’s law with \(q_{\text{in}}=\sigma A\): \[\Phi_E=2EA=\frac{q_{\text{in}}}{\epsilon_0}=\frac{\sigma A}{\epsilon_0}.\]</li>
+      <li>Solve for \(E\): \[E=\frac{\sigma}{2\epsilon_0}.\qquad(23.9)\]</li>
+    </ol>
+    <p class="phase">Finalize</p>
+    <p>The distance from the ends to the plane does not appear in Equation 23.9, so \(E=\sigma/2\epsilon_0\) at any distance: the field is uniform everywhere. It is the same
+    result as Example 23.3 when the disk’s radius becomes infinite.</p>
+  </details>
+</section>
+
+<section class="card whatif">
+  <span class="tag">What if?</span>
+  <p><strong>Two infinite planes of charge are parallel to each other, one positively charged and the other negatively charged, with surface charge densities of the same
+  magnitude. What does the electric field look like?</strong></p>
+  <p>Each plane alone gives \(\sigma/2\epsilon_0\) on both sides. Between the planes the two fields point the same way and add to \(\sigma/\epsilon_0\); outside they point in
+  opposite directions and cancel. Set the two densities independently below to see the general rule
+  \(E_x=\dfrac{\sigma_1}{2\epsilon_0}\operatorname{sgn}(x-x_1)+\dfrac{\sigma_2}{2\epsilon_0}\operatorname{sgn}(x-x_2)\). Switch on “finite plates” to see why real, finite
+  plates close together give an almost uniform field between them and almost none outside.</p>
+  <div class="lab">
+    <div class="controls" id="ctl2"></div>
+    <div class="figs">
+      <figure class="fig"><canvas id="geo2" aria-label="Two planes and the field in each region"></canvas>
+        <figcaption>Field arrows in the three regions (common scale). Faint arrows: each plane’s own field.</figcaption></figure>
+      <figure class="fig"><canvas id="plotX" aria-label="Field along the line through both planes"></canvas>
+        <figcaption>\(E_x\) along the line perpendicular to both planes.</figcaption></figure>
+    </div>
+  </div>
+  <div id="ro2"></div>
+</section>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Example 23.8 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 58 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.8.nb" download>Example-23.8.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) return;
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const bx = left ? m.l + 8 : m.l + pw - lw - 8, by = bottom ? m.t + ph - items.length * lh - 12 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+</script>
+<script>
+(() => {
+  const ctl = D.$("ctl");
+  const ss = D.slider(ctl, { label: "Surface density σ", min: 0.1, max: 20, step: 0.1, value: 5.0, unit: "μC/m²", fmt: v => v.toFixed(1), onInput: update });
+  const sd = D.slider(ctl, { label: "Distance of each end from the plane", min: 0.01, max: 1, step: 0.01, value: 0.30, unit: "m", fmt: v => v.toFixed(2), onInput: update });
+  const sA = D.slider(ctl, { label: "End area A", min: 0.001, max: 0.05, step: 0.001, value: 0.010, unit: "m²", fmt: v => v.toFixed(3), onInput: update });
+  const ro = D.readout(D.$("ro"), [["qin", "q_in = σA"], ["end", "flux through each end"], ["side", "flux through the side"], ["tot", "total = q_in/ε₀"], ["E", "E = σ/2ε₀"]]);
+  const S = () => ({ s: ss.get() * 1e-6, d: sd.get(), A: sA.get() });
+
+  const geo = D.canvas(D.$("geo"), w => (w < 520 ? 0.75 : 0.45), (ctx, w, h, c) => {
+    const { s, d, A } = S(), half = Math.sqrt(A / Math.PI);           // pillbox radius
+    const V = D.view(w, h, [-1.25, 1.25], [-0.55, 0.55], { pad: 10 });
+    // field lines (uniform) on both sides
+    for (let k = -4; k <= 4; k++) { const y = k * 0.12; D.arrow(ctx, V.X(0.02), V.Y(y), V.X(1.2), V.Y(y), { color: c.line2, width: 1, head: 7 }); D.arrow(ctx, V.X(-0.02), V.Y(y), V.X(-1.2), V.Y(y), { color: c.line2, width: 1, head: 7 }); }
+    ctx.fillStyle = c.pos; ctx.fillRect(V.X(0) - 3, V.Y(0.55), 6, V.Y(-0.55) - V.Y(0.55));
+    for (let k = -5; k <= 5; k++) D.text(ctx, "+", V.X(0), V.Y(k * 0.1), { color: "#fff", size: 9, bold: true });
+    const hy = Math.min(0.35, Math.max(0.05, half * 3)), dx = Math.min(d, 1.05);
+    D.line(ctx, [[V.X(-dx), V.Y(-hy)], [V.X(dx), V.Y(-hy)], [V.X(dx), V.Y(hy)], [V.X(-dx), V.Y(hy)]], { color: c.accent, width: 2, close: true, fill: "rgba(138,21,56,.07)" });
+    D.ellipse(ctx, V.X(dx), V.Y(0), 7, (V.Y(-hy) - V.Y(hy)) / 2, { color: c.accent, width: 2 });
+    D.ellipse(ctx, V.X(-dx), V.Y(0), 7, (V.Y(-hy) - V.Y(hy)) / 2, { color: c.accent, width: 2 });
+    D.arrow(ctx, V.X(dx), V.Y(0), V.X(dx) + 48, V.Y(0), { color: c.c1, width: 3 });
+    D.arrow(ctx, V.X(-dx), V.Y(0), V.X(-dx) - 48, V.Y(0), { color: c.c1, width: 3 });
+    D.text(ctx, "E", V.X(dx) + 56, V.Y(0) - 10, { color: c.c1, italic: true, bold: true });
+    D.text(ctx, "E", V.X(-dx) - 56, V.Y(0) - 10, { color: c.c1, italic: true, bold: true });
+    D.text(ctx, "A", V.X(dx) + 14, V.Y(hy) - 8, { color: c.accent, italic: true });
+    D.text(ctx, `${d.toFixed(2)} m`, V.X(dx / 2), V.Y(-hy) + 14, { color: c.muted, size: 11 });
+    D.text(ctx, "pillbox drawn not to scale", V.X(-1.2), V.Y(0.5), { color: c.muted, size: 11, align: "left" });
+  });
+
+  /* ---- two planes ---- */
+  const ctl2 = D.$("ctl2");
+  const s1 = D.slider(ctl2, { label: "σ₁ (left plane)", min: -10, max: 10, step: 0.1, value: 5.0, unit: "μC/m²", fmt: v => v.toFixed(1), onInput: whatif });
+  const s2 = D.slider(ctl2, { label: "σ₂ (right plane)", min: -10, max: 10, step: 0.1, value: -5.0, unit: "μC/m²", fmt: v => v.toFixed(1), onInput: whatif });
+  const sgap = D.slider(ctl2, { label: "Separation", min: 0.005, max: 0.5, step: 0.005, value: 0.10, unit: "m", fmt: v => v.toFixed(3), onInput: whatif });
+  const fin = D.check(ctl2, { label: "Finite plates: disks of radius R", value: false, onChange: whatif });
+  const sR = D.slider(ctl2, { label: "Plate radius R", min: 0.05, max: 2, step: 0.01, value: 0.5, unit: "m", fmt: v => v.toFixed(2), onInput: whatif });
+  const bb = D.el("div", { class: "btns" }); ctl2.appendChild(bb);
+  D.button(bb, "+σ and −σ (book)", () => { s1.set(5); s2.set(-5); whatif(); }, true);
+  D.button(bb, "+σ and +σ", () => { s1.set(5); s2.set(5); whatif(); }, true);
+  const ro2 = D.readout(D.$("ro2"), [["L", "left of both"], ["M", "between"], ["R", "right of both"]]);
+
+  const Einf = (sg, x, x0) => sg / (2 * EPS0) * Math.sign(x - x0);
+  const Edisk = (sg, x, x0, R) => { const d = x - x0; return 2 * Math.PI * KE * sg * (Math.sign(d) - d / Math.sqrt(d * d + R * R)); };
+  function Ex(x) {
+    const g = sgap.get(), a = s1.get() * 1e-6, b = s2.get() * 1e-6;
+    if (fin.get()) return Edisk(a, x, -g / 2, sR.get()) + Edisk(b, x, g / 2, sR.get());
+    return Einf(a, x, -g / 2) + Einf(b, x, g / 2);
+  }
+  const geo2 = D.canvas(D.$("geo2"), w => (w < 520 ? 0.75 : 0.62), (ctx, w, h, c) => {
+    const g = sgap.get(), a = s1.get() * 1e-6, b = s2.get() * 1e-6;
+    const V = D.view(w, h, [-1, 1], [-0.6, 0.6], { pad: 10 });
+    const xL = -0.25, xR = 0.25;                                 // drawn positions (schematic spacing)
+    for (const [xp, sg] of [[xL, a], [xR, b]]) {
+      ctx.fillStyle = sg > 0 ? c.pos : sg < 0 ? c.neg : c.muted; ctx.fillRect(V.X(xp) - 3, V.Y(0.55), 6, V.Y(-0.55) - V.Y(0.55));
+      D.text(ctx, (sg >= 0 ? "+" : "−") + Math.abs(sg * 1e6).toFixed(1), V.X(xp), V.Y(0.58) + 2, { color: c.ink2, size: 11 });
+    }
+    const Emax = (Math.abs(a) + Math.abs(b)) / (2 * EPS0) || 1, L = 0.32 * (V.X(1) - V.X(0));
+    const mids = [[-0.62, -1], [0, 0], [0.62, 1]];
+    mids.forEach(([xm, region]) => {
+      const xs = region < 0 ? -g : region > 0 ? g : 0;               // a physical x in that region
+      const e = Ex(xs), e1 = fin.get() ? Edisk(a, xs, -g / 2, sR.get()) : Einf(a, xs, -g / 2), e2 = fin.get() ? Edisk(b, xs, g / 2, sR.get()) : Einf(b, xs, g / 2);
+      for (const [ee, yy, col] of [[e1, 0.32, c.c2], [e2, 0.2, c.c3]]) if (Math.abs(ee) > 1e-9 * Emax) D.arrow(ctx, V.X(xm) - ee / Emax * L / 2, V.Y(yy), V.X(xm) + ee / Emax * L / 2, V.Y(yy), { color: col, width: 1.4, head: 6 });
+      if (Math.abs(e) > 1e-3 * Emax) D.arrow(ctx, V.X(xm) - e / Emax * L / 2, V.Y(-0.12), V.X(xm) + e / Emax * L / 2, V.Y(-0.12), { color: c.accent, width: 3.2 });
+      else D.text(ctx, "E ≈ 0", V.X(xm), V.Y(-0.12), { color: c.accent, bold: true });
+    });
+    D.text(ctx, "from plane 1", V.X(-0.98), V.Y(0.32), { color: c.c2, size: 10, align: "left" });
+    D.text(ctx, "from plane 2", V.X(-0.98), V.Y(0.2), { color: c.c3, size: 10, align: "left" });
+    D.text(ctx, "total", V.X(-0.98), V.Y(-0.24), { color: c.accent, size: 10, align: "left", bold: true });
+    D.text(ctx, "spacing drawn not to scale", V.X(0), V.Y(-0.5), { color: c.muted, size: 10 });
+  });
+  const plotX = D.canvas(D.$("plotX"), w => (w < 520 ? 0.75 : 0.62), (ctx, w, h, c) => {
+    const g = sgap.get(), a = Math.abs(s1.get()), b = Math.abs(s2.get()), Em = (a + b) * 1e-6 / (2 * EPS0) || 1, X = Math.max(4 * g, fin.get() ? 1.5 * sR.get() : 0);
+    D.plot(ctx, w, h, c, {
+      x: [-X, X], y: [-1.15 * Em, 1.15 * Em], xlabel: "x (m)", ylabel: "Eₓ (N/C)", legend: "bl",
+      bands: [{ x0: -g / 2, x1: g / 2, fill: "rgba(168,123,47,.10)" }],
+      series: [{ f: Ex, color: c.accent, width: 2.5, n: 1200, label: fin.get() ? "finite plates (on the axis)" : "infinite planes" }],
+      vlines: [{ x: -g / 2, color: c.muted }, { x: g / 2, color: c.muted }]
+    });
+  });
+  function whatif() {
+    const g = sgap.get();
+    ro2("L", D.fmt(Ex(-g / 2 - 0.25 * g), 4) + " N/C"); ro2("M", D.fmt(Ex(0), 4) + " N/C"); ro2("R", D.fmt(Ex(g / 2 + 0.25 * g), 4) + " N/C");
+    geo2.render(); plotX.render();
+    window.__check2 = { between: Ex(0), sigmaOverEps: 5e-6 / EPS0 };
+  }
+
+  function update() {
+    const { s, A } = S(), E = s / (2 * EPS0);
+    ro("qin", D.fmt(s * A * 1e9, 4) + " nC"); ro("end", D.fmt(E * A, 4) + " N·m²/C");
+    ro("side", "0"); ro("tot", D.fmt(2 * E * A, 4) + " N·m²/C"); ro("E", D.fmt(E, 4) + " N/C");
+    geo.render(); whatif();
+    window.__check = { E, fromGauss: (s * A / EPS0) / (2 * A) };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

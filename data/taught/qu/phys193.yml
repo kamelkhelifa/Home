@@ -209,6 +209,40 @@ textbooks:
     - title: { en: "Wolfram Demonstrations: electrostatics", ar: "عروض Wolfram التوضيحية: الكهرباء الساكنة" }
       url: https://demonstrations.wolfram.com/topic.html?topic=Electrostatics&limit=20
 
+# Interactive solutions of the lecture's worked examples, shown as a foldable tree in the "Interactive lab"
+# section: textbook > chapter > section > example (lecture slide). Pages live in static/demos/phys193/week<NN>/.
+# To add a week: copy a chapter block, change the numbers, and list its examples.
+interactive:
+  - book: { en: "Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", ar: "سيرواي وجيويت، «الفيزياء للعلماء والمهندسين»، الطبعة 11" }
+    chapters:
+      - chapter: 23
+        week: 3
+        title: { en: "Continuous Charge Distributions and Gauss’s Law", ar: "توزيعات الشحنة المتصلة وقانون غاوس" }
+        path: assets/demos/phys193/week03
+        index: assets/demos/phys193/week03/index.html
+        sections:
+          - section: "23.2"
+            title: { en: Electric Field of a Continuous Charge Distribution, ar: المجال الكهربائي لتوزيع شحنة متصل }
+            examples:
+              - { num: "23.1", slide: 12, title: { en: The Electric Field Due to a Charged Rod, ar: المجال الكهربائي الناتج عن قضيب مشحون } }
+              - { num: "23.2", slide: 16, title: { en: The Electric Field of a Uniform Ring of Charge, ar: المجال الكهربائي لحلقة مشحونة بانتظام } }
+              - { num: "23.3", slide: 20, title: { en: The Electric Field of a Uniformly Charged Disk, ar: المجال الكهربائي لقرص مشحون بانتظام } }
+          - section: "23.3"
+            title: { en: Electric Flux, ar: التدفق الكهربائي }
+            examples:
+              - { num: "23.4", slide: 33, title: { en: Flux Through a Cube, ar: التدفق عبر مكعب } }
+          - section: "23.4"
+            title: { en: Gauss’s Law, ar: قانون غاوس }
+            examples:
+              - { num: "23.5", slide: 44, conceptual: true, title: { en: Flux Due to a Point Charge, ar: التدفق الناتج عن شحنة نقطية } }
+          - section: "23.5"
+            title: { en: Application of Gauss’s Law to Various Charge Distributions, ar: تطبيق قانون غاوس على توزيعات شحنة مختلفة }
+            examples:
+              - { num: "23.6", slide: 48, title: { en: A Spherically Symmetric Charge Distribution, ar: توزيع شحنة متماثل كرويًا } }
+              - { num: "23.7", slide: 54, title: { en: A Cylindrically Symmetric Charge Distribution, ar: توزيع شحنة متماثل أسطوانيًا } }
+              - { num: "23.8", slide: 58, title: { en: A Plane of Charge, ar: مستوٍ مشحون } }
+              - { num: "23.9", slide: 62, conceptual: true, title: { en: Don’t Use Gauss’s Law Here!, ar: لا تستخدم قانون غاوس هنا! } }
+
 materials: []
 exams: []
 

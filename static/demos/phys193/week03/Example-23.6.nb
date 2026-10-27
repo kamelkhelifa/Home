@@ -1,0 +1,82 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 23.6 - A Spherically Symmetric Charge Distribution", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 48 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["An insulating solid sphere of radius a has a uniform volume charge density rho and carries a total positive charge Q. (A) Calculate the magnitude of the electric field at a point outside the sphere. (B) Find the magnitude of the electric field at a point inside the sphere.", "Text"],
+
+Cell["A spherical gaussian surface of radius r is grown from the centre: E = q_in/(4 Pi eps0 r^2) gives k_e Q r/a^3 inside and k_e Q/r^2 outside. The same field is then computed the long way - by stacking the disks of Example 23.3 through the whole sphere, i.e. integrating Coulomb's law - and the two agree. The What If? checks continuity at r = a.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9; eps0 = 1/(4 Pi kE);
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31];
+
+eGauss[q_, a_, r_] := If[r < a, kE q r/a^3, kE q/r^2];
+(* without Gauss's law: the sphere sliced into disks perpendicular to the line from the centre to the field point,
+   each with the on-axis field of Example 23.3; split at z = r where Sign[r - z] jumps *)
+eBrute[q_, a_, r_] := Module[{rho = q/(4/3 Pi a^3), f},
+   f[z_, sg_] := 2 Pi kE rho (sg - (r - z)/Sqrt[(r - z)^2 + a^2 - z^2]);
+   If[r < a,
+    NIntegrate[f[z, 1], {z, -a, r}, PrecisionGoal -> 10] + NIntegrate[f[z, -1], {z, r, a}, PrecisionGoal -> 10],
+    NIntegrate[f[z, 1], {z, -a, a}, PrecisionGoal -> 10]]];
+
+SeedRandom[7]; chargeDots = RandomPoint[Disk[{0, 0}, 0.985], 420];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{q = qq 10.^-6, r = ra a, qin, e, emax, geo, plot, brute},
+  qin = If[r < a, q (r/a)^3, q]; e = eGauss[q, a, r]; emax = kE q/a^2;
+  geo = Graphics[{
+     {Opacity[0.08], Red, Disk[{0, 0}, a]}, {Red, Circle[{0, 0}, a]},
+     {PointSize[0.006], Table[{If[Norm[p] a < r, Red, Opacity[0.35, Red]], Point[a p]}, {p, chargeDots}]},
+     If[r > 0, {maroon, Dashed, Thick, Circle[{0, 0}, r]}, {}],
+     If[r > 0.02 a, {blue, Arrowheads[0.025], Table[Arrow[{r {Cos[t], Sin[t]}, (r + 0.45 a e/emax) {Cos[t], Sin[t]}}], {t, 0, 2 Pi - 0.01, Pi/6}]}, {}],
+     Text[Style[If[r < a, \"inside: q_in < Q\", \"outside: q_in = Q\"], 12], {-0.95, 1.0} Max[1.25 a, 1.35 r + 0.1 a]]},
+    PlotRange -> Max[1.25 a, 1.35 r + 0.1 a] {{-1, 1}, {-1, 1}}, ImageSize -> 380];
+  brute = Table[{u, eBrute[q, a, u a]}, {u, 0.2, 3, 0.2}];
+  plot = Show[Plot[eGauss[q, a, u a], {u, 0, 3}, PlotStyle -> Directive[maroon, Thick], PlotRange -> {0, 1.15 emax},
+     Frame -> True, FrameLabel -> {\"r / a\", \"E (N/C)\"}, ImageSize -> 440, GridLines -> {{1}, None}, GridLinesStyle -> Directive[Gray, Dashed],
+     Epilog -> {maroon, PointSize[0.02], Point[{ra, e}]}],
+    ListPlot[brute, PlotStyle -> {blue, PointSize[0.016]}], PlotLabel -> \"line: Gauss's law;  dots: direct Coulomb integral\"];
+  Column[{Row[{geo, plot}],
+    Grid[{{\"q_in\", Row[{NumberForm[qin 10^6, 4], \" \\[Mu]C\"}]}, {\"\\[CapitalPhi] = q_in/\\[Epsilon]\\:2080\", Row[{ScientificForm[qin/eps0, 4], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"area 4\\[Pi]r\\.b2\", Row[{NumberForm[4 Pi r^2, 4], \" m\\.b2\"}]}, {\"E = \\[CapitalPhi]/4\\[Pi]r\\.b2\", Row[{ScientificForm[e, 4], \" N/C\"}]},
+      {\"\\[Rho] = Q/(4/3)\\[Pi]a\\.b3\", Row[{ScientificForm[q/(4/3 Pi a^3), 4], \" C/m\\.b3\"}]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{a, 0.20, \"sphere radius a (m)\"}, 0.05, 0.5, 0.005, Appearance -> \"Labeled\"},
+ {{qq, 10.0, \"total charge Q (\\[Mu]C)\"}, 0.1, 30, 0.1, Appearance -> \"Labeled\"},
+ {{ra, 0.6, \"gaussian radius r / a\"}, 0, 3, 0.005, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, ContinuousAction -> False]", "Input"],
+
+Cell["What if? Is the field continuous at r = a?", "Section"],
+
+Cell["Manipulate[
+ Module[{q = qq 10.^-6, d = 10.^ld, ein, eout, lo, hi},
+  ein[u_] := kE q u a/a^3; eout[u_] := kE q/(u a)^2;
+  lo = Min[ein[1 - d], eout[1 + d]]; hi = Max[ein[1 + d], eout[1 - d]];
+  Column[{
+    Plot[{If[u <= 1, ein[u], None], If[u >= 1, eout[u], None], If[u > 1, ein[u], None], If[u < 1, eout[u], None]}, {u, 1 - d, 1 + d},
+     PlotStyle -> {Directive[gold, Thick], Directive[blue, Thick], Directive[gold, Dotted], Directive[blue, Dotted]},
+     PlotRange -> {lo - 0.05 (hi - lo), hi + 0.05 (hi - lo)}, Frame -> True, FrameLabel -> {\"r / a\", \"E (N/C)\"}, ImageSize -> 560,
+     PlotLegends -> Placed[{\"inside, Eq. (2)\", \"outside, Eq. (1)\"}, {Left, Top}], Epilog -> {maroon, PointSize[0.02], Point[{1, kE q/a^2}]}],
+    Grid[{{\"inside, r = a \\[Minus] \\[Delta]\", Row[{ScientificForm[ein[1 - d], 7], \" N/C\"}]}, {\"outside, r = a + \\[Delta]\", Row[{ScientificForm[eout[1 + d], 7], \" N/C\"}]},
+      {\"both limits: k\:2091Q/a\\.b2\", Row[{ScientificForm[kE q/a^2, 7], \" N/C\"}]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{a, 0.20, \"sphere radius a (m)\"}, 0.05, 0.5, 0.005, Appearance -> \"Labeled\"},
+ {{qq, 10.0, \"total charge Q (\\[Mu]C)\"}, 0.1, 30, 0.1, Appearance -> \"Labeled\"},
+ {{ld, Log10[0.2], \"log\:2081\:2080(\\[Delta] / a)\"}, -4, Log10[0.5], Appearance -> \"Labeled\"},
+ ControlPlacement -> Left]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Gauss's law against direct Coulomb integration, a = 0.20 m, Q = 10.0 uC. *)
+Grid[Prepend[Table[With[{g = eGauss[10.*^-6, 0.20, u 0.20], b = eBrute[10.*^-6, 0.20, u 0.20]}, {u, ScientificForm[g, 8], ScientificForm[b, 8], NumberForm[b/g, 10]}], {u, {0.25, 0.5, 0.9, 1.0, 1.5, 3.0}}],
+  {\"r / a\", \"Gauss (N/C)\", \"direct integral (N/C)\", \"ratio\"}], Frame -> All, Alignment -> Right]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

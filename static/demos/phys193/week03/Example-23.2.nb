@@ -1,0 +1,106 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 23.2 - The Electric Field of a Uniform Ring of Charge", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 16 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A ring of radius a carries a uniformly distributed positive total charge Q. Calculate the electric field due to the ring at a point P lying a distance x from its center along the central axis perpendicular to the plane of the ring.", "Text"],
+
+Cell["Panel 1 shows two opposite segments of the ring: their perpendicular field components cancel and their axial components add, giving E_x = k_e x Q/(a^2 + x^2)^(3/2). Panel 2 answers the What If?: a negative charge released near the centre, integrated with the exact force and compared with simple harmonic motion.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9;
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31];
+
+(* Eq. (3) of the slide *)
+eRing[q_, a_, x_] := kE q x/(a^2 + x^2)^(3/2);
+(* the ring as n point charges, fields added as 3-D vectors; returns {E_x, |E_perp|} *)
+ringSum[q_, a_, x_, n_Integer] := Module[{v},
+   v = Total[Table[kE (q/n) ({x, 0, 0} - {0, a Cos[2 Pi i/n], a Sin[2 Pi i/n]})/(a^2 + x^2)^(3/2), {i, 0, n - 1}]];
+   {v[[1]], Norm[v[[2 ;; 3]]]}];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{q = qq 10.^-6, x = xa a, ph = phi Degree, segs, pP, L0, sg, arrows, perp, sumx, geo, plot, em},
+  pP = {x, 0, 0}; L0 = 1.15 a; sg = If[q >= 0, 1, -1];
+  segs = {{0, a Cos[ph], a Sin[ph]}, {0, -a Cos[ph], -a Sin[ph]}};
+  arrows = Table[sg L0 Normalize[pP - s], {s, segs}];
+  sumx = Total[arrows[[All, 1]]];
+  geo = Graphics3D[{
+     {GrayLevel[0.6], Dashed, Line[{{-2 a, 0, 0}, {Max[2 a, x + 2 a], 0, 0}}]},
+     {If[q >= 0, Red, Blue], Thickness[0.008], Line[Table[{0, a Cos[t], a Sin[t]}, {t, 0, 2 Pi, 2 Pi/120}]]},
+     {Black, Sphere[pP, 0.04 a], Text[Style[\"P\", Italic, Bold, 14], pP + {0, 0, -0.2 a}]},
+     Table[{{blue, gold}[[k]], Sphere[segs[[k]], 0.06 a], Dashed, Line[{segs[[k]], pP}],
+       Arrowheads[0.03], Arrow[Tube[{pP, pP + arrows[[k]]}, 0.012 a]],
+       Opacity[0.7], Arrow[{pP, pP + {0, arrows[[k, 2]], arrows[[k, 3]]}}]}, {k, 2}],
+     {maroon, Arrowheads[0.04], Arrow[Tube[{pP, pP + {sumx, 0, 0}}, 0.02 a]]},
+     Text[Style[\"1\", Bold, White], segs[[1]]], Text[Style[\"2\", Bold, White], segs[[2]]]},
+    Boxed -> False, ViewPoint -> {1.3, -2.4, 1.0}, ImageSize -> 520, Lighting -> \"Neutral\"];
+  em = 2 kE Abs[q]/(3 Sqrt[3] a^2);
+  plot = Plot[{eRing[q, a, u a], If[Abs[u] > 1.3, kE q Sign[u]/(u a)^2, None]}, {u, -4, 4},
+    PlotStyle -> {Directive[maroon, Thick], Directive[gold, Dashed]}, PlotRange -> {-1.35 em - 1, 1.35 em + 1},
+    Frame -> True, FrameLabel -> {\"x / a\", \"E\:2093 (N/C)\"}, ImageSize -> 520,
+    GridLines -> {{-1/Sqrt[2], 1/Sqrt[2]}, {0}}, GridLinesStyle -> Directive[green, Dashed],
+    PlotLegends -> Placed[{\"exact, Eq. (3)\", \"point charge \:00b1k\:2091Q/x\:00b2\"}, {Left, Top}],
+    Epilog -> {maroon, PointSize[0.02], Point[{xa, eRing[q, a, x]}]}];
+  Column[{geo, plot,
+    Grid[{{\"E\:2093 at P, Eq. (3)\", Row[{ScientificForm[eRing[q, a, x], 4], \" N/C\"}]},
+      {\"E max, at x = \:00b1a/\:221a2\", Row[{ScientificForm[em, 4], \" N/C\"}]},
+      {\"cos \:03b8 = x/r\", NumberForm[x/Sqrt[x^2 + a^2], 4]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{a, 0.10, \"ring radius a (m)\"}, 0.02, 0.5, 0.005, Appearance -> \"Labeled\"},
+ {{qq, 5.0, \"ring charge Q (\\[Mu]C)\"}, -10, 10, 0.1, Appearance -> \"Labeled\"},
+ {{xa, 1.2, \"position of P, x/a\"}, -4, 4, 0.01, Appearance -> \"Labeled\"},
+ {{phi, 60, \"pair position \\[CurlyPhi] (\\[Degree])\"}, 0, 360, 1, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, TrackedSymbols :> {a, qq, xa, phi}]", "Input"],
+
+Cell["What if? A negative charge released near the centre", "Section"],
+
+Cell["(* For x << a: E_x ~ k_e Q x/a^3, so F_x = -k_e q Q x/a^3: Hooke's law, omega = Sqrt[k_e q Q/(m a^3)].
+   Below the motion is computed with the EXACT force of Eq. (3) and compared with x0 Cos[omega t]. *)
+Manipulate[
+ Module[{q = qq 10.^-6, Q = QQ 10.^-6, m = mg 10.^-3, x0 = x0a a, w, T, sol, ev, tt, Tnum, ring, y, t, time},
+  w = Sqrt[kE q Abs[Q]/(m a^3)]; T = 2 Pi/w; time = tf 3 T;
+  {sol, ev} = Reap[NDSolveValue[{m y''[t] == -q eRing[Q, a, y[t]], y[0] == x0, y'[0] == 0,
+      WhenEvent[y'[t] == 0, Sow[t]]}, y, {t, 0, 3 T}, Method -> {\"StiffnessSwitching\"}, MaxSteps -> 10^6]];
+  tt = Select[Flatten[ev], # > 0.1 T &];
+  Tnum = If[Q > 0 && tt =!= {}, 2 First[tt], Indeterminate];
+  ring = Graphics[{{GrayLevel[0.6], Dashed, Line[{{-3.2 a, 0}, {3.2 a, 0}}]},
+     {If[Q >= 0, Red, Blue], PointSize[0.03], Point[{{0, a}, {0, -a}}], Dotted, Line[{{0, a}, {0, -a}}]},
+     {Blue, PointSize[0.035], Point[{Clip[sol[Min[time, 3 T]], {-3.2 a, 3.2 a}], 0}]},
+     Text[Style[\"ring (edge-on)\", 10, Gray], {0, 1.25 a}],
+     Text[Style[Row[{\"t = \", NumberForm[1000 Min[time, 3 T], 4], \" ms\"}], 11], {-2.6 a, 1.1 a}]},
+    PlotRange -> {{-3.3 a, 3.3 a}, {-1.4 a, 1.4 a}}, ImageSize -> 520];
+  Column[{ring,
+    Plot[{sol[s]/a, If[Q > 0, x0a Cos[w s], None]}, {s, 0, 3 T},
+     PlotStyle -> {Directive[maroon, Thick], Directive[gold, Dashed]}, PlotRange -> {-1.2 x0a - 0.01, 1.2 x0a + 0.01},
+     Frame -> True, FrameLabel -> {\"t (s)\", \"x / a\"}, ImageSize -> 520,
+     PlotLegends -> Placed[{\"exact force, Eq. (3)\", \"SHM: x\:2080 cos \:03c9t\"}, Below],
+     Epilog -> {blue, Dashed, Line[{{Min[time, 3 T], -2 x0a}, {Min[time, 3 T], 2 x0a}}]}],
+    Grid[{{\"\:03c9 = \:221a(k\:2091qQ/ma\:00b3)\", Row[{NumberForm[w, 4], \" rad/s\"}]},
+      {\"T, simple harmonic\", Row[{NumberForm[1000 T, 5], \" ms\"}]},
+      {\"T, exact motion\", If[Q > 0, Row[{NumberForm[1000 Tnum, 5], \" ms\"}], \"no oscillation: Q < 0 repels \\[Minus]q\"]},
+      {\"difference\", If[Q > 0, Row[{NumberForm[100 (Tnum - T)/T, 3], \" %\"}], \"\\[LongDash]\"]}},
+     Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{a, 0.10, \"ring radius a (m)\"}, 0.02, 0.5, 0.005, Appearance -> \"Labeled\"},
+ {{QQ, 5.0, \"ring charge Q (\\[Mu]C)\"}, -10, 10, 0.1, Appearance -> \"Labeled\"},
+ {{x0a, 0.15, \"release point x\:2080/a\"}, 0.02, 3, 0.01, Appearance -> \"Labeled\"},
+ {{qq, 1.0, \"charge \\[Minus]q, q (\\[Mu]C)\"}, 0.1, 5, 0.1, Appearance -> \"Labeled\"},
+ {{mg, 1.0, \"mass m (g)\"}, 0.1, 10, 0.1, Appearance -> \"Labeled\"},
+ {{tf, 0, \"time (0 \\[Rule] 3 periods)\"}, 0, 1, ControlType -> Animator, AnimationRate -> 0.12, AnimationRunning -> False},
+ ControlPlacement -> Left]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* The axial sum equals Eq. (3) for EVERY N (all pieces are equidistant from P); the perpendicular part cancels exactly. *)
+With[{q = 5.0*^-6, a = 0.10, x = 0.12},
+ Grid[Prepend[Table[With[{r = ringSum[q, a, x, n]}, {n, ScientificForm[r[[1]], 8], ScientificForm[eRing[q, a, x], 8], ScientificForm[r[[2]], 2]}], {n, {2, 4, 12, 36, 360}}],
+   {\"N point charges\", \"\:03a3 E\:2093 (N/C)\", \"Eq. (3) (N/C)\", \"|\:03a3 E\:22a5| (N/C)\"}], Frame -> All, Alignment -> Right]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

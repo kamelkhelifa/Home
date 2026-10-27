@@ -1,0 +1,79 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Conceptual Example 23.5 - Flux Due to a Point Charge", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 44 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A spherical gaussian surface surrounds a point charge q. Describe what happens to the total flux through the surface if (A) the charge is tripled, (B) the radius of the sphere is doubled, (C) the surface is changed to a cube, and (D) the charge is moved to another location inside the surface.", "Text"],
+
+Cell["Each button makes one of the four changes. The flux is then computed by integrating E.dA over the surface (sphere: a one-dimensional integral after rotating the charge onto the z axis; cube: the exact solid angle of each face) - no Gauss's law assumed. Answers: (A) tripled; (B), (C), (D) unchanged.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9; eps0 = 1/(4 Pi kE);
+maroon = RGBColor[0.54, 0.08, 0.22]; blue = RGBColor[0.14, 0.34, 0.72];
+
+(* sphere of radius R, charge at distance s from the centre (put on the z axis, u = Cos[theta]) *)
+fluxSphere[q_, R_, s_] := 2 Pi R^2 kE q NIntegrate[(R - s u)/(R^2 + s^2 - 2 R s u)^(3/2), {u, -1, 1},
+    Method -> \"GlobalAdaptive\", MaxRecursion -> 30, PrecisionGoal -> 10];
+
+normals = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
+solidAngle[n_, h_, p_] := Module[{k = First[Flatten[Position[Abs[n], 1]]], i, j, d, F},
+   i = Mod[k, 3] + 1; j = Mod[k + 1, 3] + 1;
+   d = h - n[[k]] p[[k]]; If[Abs[d] < 10.^-12 h, d = 10.^-12 h];
+   F[u_, v_] := ArcTan[u v/(d Sqrt[u^2 + v^2 + d^2])];
+   F[h - p[[i]], h - p[[j]]] - F[-h - p[[i]], h - p[[j]]] - F[h - p[[i]], -h - p[[j]]] + F[-h - p[[i]], -h - p[[j]]]];
+fluxCube[q_, h_, p_] := q/eps0 Total[solidAngle[#, h, p] & /@ normals]/(4 Pi);", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{q = qn 10.^-9, p = {px, py, 0.}, s, phi, inside, qin, lines, surf, en, slice},
+  s = Norm[p];
+  inside = If[shape == \"sphere\", s < R, Max[Abs[{px, py}]] < R];
+  phi = If[shape == \"sphere\", fluxSphere[q, R, s], fluxCube[q, R, p]];
+  qin = If[inside, q, 0];
+  lines = Table[{GrayLevel[0.65], Arrowheads[{{0.015, 0.75}}], Arrow[{p[[;; 2]], p[[;; 2]] + 3 {Cos[t], Sin[t]}}]}, {t, Pi/24, 2 Pi, Pi/12}];
+  surf = If[shape == \"sphere\", {maroon, Thick, Circle[{0, 0}, R]}, {maroon, Thick, FaceForm[], EdgeForm[Directive[maroon, Thick]], Rectangle[{-R, -R}, {R, R}]}];
+  (* normal field along the slice of the surface *)
+  slice = If[shape == \"sphere\",
+    Table[{t/Degree, With[{r = R {Cos[t], Sin[t]}}, kE q (r - p[[;; 2]]).{Cos[t], Sin[t]}/Norm[r - p[[;; 2]]]^3]}, {t, 0., 2 Pi, 2 Pi/720}],
+    With[{edges = {{{R, -R}, {R, R}, {1, 0}}, {{R, R}, {-R, R}, {0, 1}}, {{-R, R}, {-R, -R}, {-1, 0}}, {{-R, -R}, {R, -R}, {0, -1}}}},
+     Flatten[Table[With[{r = edges[[k, 1]] + f (edges[[k, 2]] - edges[[k, 1]])},
+        {90 (k - 1 + f), kE q (r - p[[;; 2]]).edges[[k, 3]]/Norm[r - p[[;; 2]]]^3}], {k, 4}, {f, 0., 0.995, 0.005}], 1]]];
+  Column[{
+    Row[{
+      Graphics[{lines, surf, {If[q >= 0, Red, Blue], PointSize[0.03], Point[p[[;; 2]]]}},
+       PlotRange -> 1.6 Max[R, Norm[p] + 0.1] {{-1, 1}, {-1, 1}}, ImageSize -> 380, Frame -> True, FrameLabel -> {\"x (m)\", \"y (m)\"}],
+      ListLinePlot[slice, PlotStyle -> Directive[maroon, Thick], Frame -> True, ImageSize -> 420,
+       FrameLabel -> {If[shape == \"sphere\", \"position around the circle (\\[Degree])\", \"around the square (90\\[Degree] per side)\"], \"E\:2099 = E\\[CenterDot]n\\:0302 (N/C)\"}]}],
+    Grid[{{\"charge enclosed\", Row[{NumberForm[qin 10^9, 4], \" nC\"}]},
+      {\"\\[CapitalPhi] = \\[Integral] E\\[CenterDot]dA (computed)\", Row[{NumberForm[Chop[phi, 10.^-6 Abs[q/eps0] + 10.^-300], 6], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"q_in / \\[Epsilon]\\:2080\", Row[{NumberForm[qin/eps0, 6], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"ratio\", If[qin != 0, NumberForm[phi/(qin/eps0), 8], \"\\[LongDash]\"]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{shape, \"sphere\", \"gaussian surface\"}, {\"sphere\", \"cube\"}, ControlType -> SetterBar},
+ {{R, 0.30, \"size: sphere radius / cube half-edge (m)\"}, 0.1, 1, 0.01, Appearance -> \"Labeled\"},
+ {{qn, 1.0, \"charge q (nC)\"}, -9, 9, 0.1, Appearance -> \"Labeled\"},
+ {{px, 0., \"charge x (m)\"}, -0.9, 0.9, 0.005, Appearance -> \"Labeled\"},
+ {{py, 0., \"charge y (m)\"}, -0.9, 0.9, 0.005, Appearance -> \"Labeled\"},
+ Delimiter,
+ Row[{Button[\"(A) \\[Times]3 charge\", qn = 3.0], Button[\"(B) \\[Times]2 radius\", R = 0.60], Button[\"(C) cube\", shape = \"cube\"],
+   Button[\"(D) move q\", px = 0.62 R; py = -0.45 R], Button[\"start\", shape = \"sphere\"; R = 0.30; qn = 1.0; px = 0.; py = 0.]}],
+ ControlPlacement -> Left]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["Grid[{
+  {\"case\", \"computed flux (N\\[CenterDot]m\\.b2/C)\", \"q_in/\\[Epsilon]\\:2080\"},
+  {\"start: sphere R = 0.30 m, q = 1 nC at centre\", fluxSphere[1.*^-9, 0.30, 0.], 1.*^-9/eps0},
+  {\"(A) q = 3 nC\", fluxSphere[3.*^-9, 0.30, 0.], 3.*^-9/eps0},
+  {\"(B) R = 0.60 m\", fluxSphere[1.*^-9, 0.60, 0.], 1.*^-9/eps0},
+  {\"(C) cube, half-edge 0.30 m\", fluxCube[1.*^-9, 0.30, {0., 0., 0.}], 1.*^-9/eps0},
+  {\"(D) q moved to (0.186, -0.135) m\", fluxSphere[1.*^-9, 0.30, Norm[{0.186, -0.135}]], 1.*^-9/eps0},
+  {\"charge outside, s = 0.45 m\", Chop[fluxSphere[1.*^-9, 0.30, 0.45], 10^-9], 0}}, Frame -> All, Alignment -> Left]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

@@ -1,0 +1,102 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 23.4 - Flux Through a Cube", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 33 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Consider a uniform electric field E oriented in the x direction in empty space. A cube of edge length l is placed in the field, oriented as shown in Figure 23.9. Find the net electric flux through the surface of the cube.", "Text"],
+
+Cell["The cube can be turned to any orientation; the six face fluxes Phi = E l^2 cos(theta) change, their sum stays zero. Going further: a point charge is added, its flux through each face is computed exactly from the solid angle the face subtends, and the six add to q/eps0 when the charge is inside and to 0 when it is outside - Gauss's law by brute force.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9; eps0 = 1/(4 Pi kE);
+maroon = RGBColor[0.54, 0.08, 0.22];
+
+faces = {{\"\\:2460\", {-1, 0, 0}}, {\"\\:2461\", {1, 0, 0}}, {\"\\:2462\", {0, 1, 0}}, {\"\\:2463\", {0, -1, 0}}, {\"front\", {0, 0, 1}}, {\"back\", {0, 0, -1}}};
+
+(* the four corners of the face with outward normal n, cube of half-edge h centred at the origin *)
+faceCorners[n_, h_] := Module[{k = First[Flatten[Position[Abs[n], 1]]], i, j, mk},
+   i = Mod[k, 3] + 1; j = Mod[k + 1, 3] + 1;
+   mk[s1_, s2_] := ReplacePart[{0., 0., 0.}, {k -> n[[k]] h, i -> s1 h, j -> s2 h}];
+   {mk[-1, -1], mk[1, -1], mk[1, 1], mk[-1, 1]}];
+
+(* exact solid angle subtended at point p by the face with outward normal n (cube half-edge h) *)
+solidAngle[n_, h_, p_] := Module[{k = First[Flatten[Position[Abs[n], 1]]], i, j, d, F},
+   i = Mod[k, 3] + 1; j = Mod[k + 1, 3] + 1;
+   d = h - n[[k]] p[[k]]; If[Abs[d] < 10.^-12 h, d = 10.^-12 h];    (* d > 0: p on the inner side *)
+   F[u_, v_] := ArcTan[u v/(d Sqrt[u^2 + v^2 + d^2])];
+   F[h - p[[i]], h - p[[j]]] - F[-h - p[[i]], h - p[[j]]] - F[h - p[[i]], -h - p[[j]]] + F[-h - p[[i]], -h - p[[j]]]];
+
+faceColor[f_, fmax_] := Which[Abs[f] < 10.^-9 fmax, Opacity[0.12, GrayLevel[0.5]], f > 0, Opacity[0.25 + 0.4 Abs[f]/fmax, Red], True, Opacity[0.25 + 0.4 Abs[f]/fmax, Blue]];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{rot, h = l/2, nw, flux, fmax, net, g},
+  rot = RotationMatrix[tilt Degree, {0, 0, 1}].RotationMatrix[yaw Degree, {0, 1, 0}];
+  nw = rot.#[[2]] & /@ faces;
+  flux = E0 l^2 nw[[All, 1]];                              (* Phi = E.n A, E along +x *)
+  fmax = Max[Abs[flux], 10.^-30]; net = Total[flux];
+  g = Graphics3D[{
+     {GrayLevel[0.6], Arrowheads[0.02], Table[Arrow[{{-1.3 l, y, z}, {1.3 l, y, z}}], {y, {-0.6 l, 0, 0.6 l}}, {z, {-0.6 l, 0.6 l}}]},
+     Table[{EdgeForm[Directive[GrayLevel[0.2], Thin]], faceColor[flux[[i]], fmax], Polygon[rot.# & /@ faceCorners[faces[[i, 2]], h]],
+       Text[Style[faces[[i, 1]], 14, Bold], rot.(1.12 faces[[i, 2]] h)]}, {i, 6}],
+     Text[Style[\"E\", Italic, Bold, 16], {1.35 l, 0.6 l, 0.6 l}]},
+    Boxed -> False, ViewPoint -> {1.4, 1.0, 2.6}, ViewVertical -> {0, 1, 0}, Lighting -> \"Neutral\", ImageSize -> 480,
+    PlotRange -> 1.3 l {{-1, 1}, {-1, 1}, {-1, 1}}];
+  Column[{g,
+    Grid[Join[{{\"face\", \"outward n\\:0302\", \"\\[Theta] (\\[Degree])\", \"\\[CapitalPhi] = E\\[ScriptL]\\.b2 cos\\[Theta] (N\\[CenterDot]m\\.b2/C)\"}},
+      Table[{faces[[i, 1]], NumberForm[Chop[nw[[i]]], {4, 3}], NumberForm[ArcCos[Clip[nw[[i, 1]], {-1, 1}]]/Degree, {4, 1}], NumberForm[Chop[flux[[i]], 10.^-9 E0 l^2], 5]}, {i, 6}],
+      {{Style[\"net\", Bold], \"\", \"\", Style[NumberForm[Chop[net, 10.^-9 E0 l^2 + 10.^-300], 5], Bold]}}], Frame -> All, Alignment -> {{Left, Right, Right, Right}}, FrameStyle -> GrayLevel[0.8]]}]],
+ {{E0, 1000, \"field magnitude E (N/C)\"}, 0, 2000, 10, Appearance -> \"Labeled\"},
+ {{l, 0.50, \"edge length \\[ScriptL] (m)\"}, 0.05, 1, 0.01, Appearance -> \"Labeled\"},
+ {{yaw, 0, \"turn about the vertical axis (\\[Degree])\"}, -90, 90, 1, Appearance -> \"Labeled\"},
+ {{tilt, 0, \"tilt about the line of sight (\\[Degree])\"}, -90, 90, 1, Appearance -> \"Labeled\"},
+ Button[\"textbook orientation\", yaw = 0; tilt = 0],
+ ControlPlacement -> Left]", "Input"],
+
+Cell["Going further - a point charge and Gauss's law", "Section"],
+
+Cell["Manipulate[
+ Module[{h = l/2, p = {px, py, pz} l/2, q = qn 10.^-9, uni, om, chg, tot, inside, g},
+  uni = E0 l^2 faces[[All, 2, 1]];
+  om = solidAngle[#[[2]], h, p] & /@ faces;
+  chg = q/eps0 om/(4 Pi);
+  tot = uni + chg;
+  inside = Max[Abs[{px, py, pz}]] < 1;
+  g = Graphics3D[{
+     Table[{EdgeForm[Directive[GrayLevel[0.2], Thin]], faceColor[tot[[i]], Max[Abs[tot], 10.^-30]], Polygon[faceCorners[faces[[i, 2]], h]],
+       Text[Style[faces[[i, 1]], 14, Bold], 1.12 faces[[i, 2]] h]}, {i, 6}],
+     {If[q >= 0, Red, Blue], Sphere[p, 0.04 l]}},
+    Boxed -> False, ViewPoint -> {1.4, 1.0, 2.6}, ViewVertical -> {0, 1, 0}, Lighting -> \"Neutral\", ImageSize -> 420, PlotRange -> 1.1 l {{-1, 1}, {-1, 1}, {-1, 1}}];
+  Column[{g,
+    Grid[Join[{{\"face\", \"uniform E\", \"solid angle \\[CapitalOmega] (sr)\", \"q\\[CapitalOmega]/4\\[Pi]\\[Epsilon]\\:2080\", \"total\"}},
+      Table[{faces[[i, 1]], NumberForm[Chop[uni[[i]]], 5], NumberForm[om[[i]], 5], NumberForm[chg[[i]], 5], NumberForm[Chop[tot[[i]], 10.^-9], 5]}, {i, 6}],
+      {Style[#, Bold] & /@ {\"net\", NumberForm[Chop[Total[uni]], 5], NumberForm[Total[om], 7], NumberForm[Chop[Total[chg], 10.^-9], 6], NumberForm[Chop[Total[tot], 10.^-9], 6]}}],
+     Frame -> All, FrameStyle -> GrayLevel[0.8], Alignment -> Right],
+    Style[If[inside, Row[{\"Charge inside: \\[CapitalSigma]\\[CapitalOmega] = 4\\[Pi], so the net flux is q/\\[Epsilon]\\:2080 = \", NumberForm[q/eps0, 5], \" N\\[CenterDot]m\\.b2/C wherever it sits.\"}],
+      \"Charge outside: \\[CapitalSigma]\\[CapitalOmega] = 0 and the net flux is zero.\"], 12]}]],
+ {{E0, 1000, \"uniform field E (N/C)\"}, 0, 2000, 10, Appearance -> \"Labeled\"},
+ {{l, 0.50, \"edge length \\[ScriptL] (m)\"}, 0.05, 1, 0.01, Appearance -> \"Labeled\"},
+ {{qn, 1.0, \"charge q (nC)\"}, -5, 5, 0.1, Appearance -> \"Labeled\"},
+ {{px, 0.3, \"x of q (units of \\[ScriptL]/2)\"}, -2, 2, 0.01, Appearance -> \"Labeled\"},
+ {{py, -0.4, \"y of q (units of \\[ScriptL]/2)\"}, -2, 2, 0.01, Appearance -> \"Labeled\"},
+ {{pz, 0.2, \"z of q (units of \\[ScriptL]/2)\"}, -2, 2, 0.01, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Net flux of the uniform field through a cube in 200 random orientations, and the solid-angle sum for a charge inside/outside. *)
+Module[{nets, rots},
+ SeedRandom[1];
+ nets = Table[With[{r = RotationMatrix[RandomReal[{0, 2 Pi}], Normalize[RandomReal[{-1, 1}, 3]]]}, Total[1000 0.5^2 ((r.#[[2]])[[1]] & /@ faces)]], {200}];
+ Grid[{{\"largest |net flux| over 200 random orientations (N\\[CenterDot]m\\.b2/C)\", ScientificForm[Max[Abs[nets]], 2]},
+   {\"\\[CapitalSigma]\\[CapitalOmega], charge at (0.3, \\[Minus]0.4, 0.2) h  (should be 4\\[Pi] = 12.56637)\", NumberForm[Total[solidAngle[#[[2]], 1., {0.3, -0.4, 0.2}] & /@ faces], 8]},
+   {\"\\[CapitalSigma]\\[CapitalOmega], charge at (1.7, 0.2, \\[Minus]0.5) h  (should be 0)\", ScientificForm[Chop[Total[solidAngle[#[[2]], 1., {1.7, 0.2, -0.5}] & /@ faces], 10^-12], 2]}}, Frame -> All, Alignment -> Left]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

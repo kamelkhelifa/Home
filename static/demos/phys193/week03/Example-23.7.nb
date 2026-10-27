@@ -1,0 +1,94 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 23.7 - A Cylindrically Symmetric Charge Distribution", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 3 \:00b7 Chapter 23 \:00b7 Lecture slide 54 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Find the electric field a distance r from a line of positive charge of infinite length and constant charge per unit length lambda.", "Text"],
+
+Cell["A coaxial gaussian cylinder of radius r and length l gives E (2 Pi r l) = lambda l/eps0, so E = 2 k_e lambda/r. The What If? makes the line finite: the exact field of a finite line is integrated over the gaussian cylinder. The total flux still equals q_in/eps0 (Gauss's law holds), but E is neither constant nor perpendicular on the surface, so the law no longer gives E.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation \[Rule] Evaluate Notebook). Every number and figure is computed from Coulomb's law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["kE = 8.9875517873681764*^9; eps0 = 1/(4 Pi kE);
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31];
+
+eLine[lam_, r_] := 2 kE lam/r;                                   (* Eq. 23.8 *)
+(* exact field of a line of length L centred at the origin on the z axis, at (r, z) *)
+eR[lam_, L_, r_, z_] := kE lam/r ((L/2 - z)/Sqrt[r^2 + (L/2 - z)^2] + (L/2 + z)/Sqrt[r^2 + (L/2 + z)^2]);
+eZ[lam_, L_, r_, z_] := kE lam (1/Sqrt[r^2 + (z - L/2)^2] - 1/Sqrt[r^2 + (z + L/2)^2]);
+(* flux through a gaussian cylinder of radius r and length h: curved side + two end caps (equal by symmetry) *)
+cylFlux[lam_, L_, r_, h_] := Module[{curved, cap},
+   curved = 2 Pi r NIntegrate[eR[lam, L, r, z], {z, -h/2, h/2}, PrecisionGoal -> 10];
+   cap = 2 Pi NIntegrate[eZ[lam, L, rho, h/2] rho, {rho, 0, r}, PrecisionGoal -> 10];
+   {curved, 2 cap, curved + 2 cap}];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{lam = ll 10.^-6, e},
+  e = eLine[lam, r];
+  Column[{
+    Row[{
+      Graphics3D[{{Red, Thickness[0.01], Line[{{0, 0, -1.4}, {0, 0, 1.4}}]},
+        {Opacity[0.12], maroon, Cylinder[{{0, 0, -0.9}, {0, 0, 0.9}}, 0.6]},
+        {blue, Arrowheads[0.025], Table[Arrow[{{0.6 Cos[t], 0.6 Sin[t], z}, {1.05 Cos[t], 1.05 Sin[t], z}}], {t, 0, 2 Pi - 0.1, Pi/3}, {z, {-0.55, 0, 0.55}}]},
+        Text[Style[\"curved side: E \\[Perpendicular] surface, same size\", 11, blue], {0, 0, -1.25}],
+        Text[Style[\"end caps: E in the surface \\[Rule] no flux\", 11, green], {0, 0, 1.25}]},
+       Boxed -> False, ViewPoint -> {2.4, -1.6, 0.9}, Lighting -> \"Neutral\", ImageSize -> 360],
+      LogLogPlot[{2 kE lam/x, e (r/x)^2}, {x, 0.005, 2}, PlotStyle -> {Directive[maroon, Thick], Directive[gold, Dashed]},
+       Frame -> True, FrameLabel -> {\"r (m)\", \"E (N/C)\"}, ImageSize -> 440,
+       PlotLegends -> Placed[{\"line: 2k\:2091\\[Lambda]/r\", \"\\[Proportional] 1/r\\.b2 (point / sphere)\"}, {Right, Top}],
+       Epilog -> {maroon, PointSize[0.02], Point[{Log[r], Log[e]}]}]}],
+    Grid[{{\"q_in = \\[Lambda]\\[ScriptL]\", Row[{NumberForm[lam l 10^6, 4], \" \\[Mu]C\"}]}, {\"curved area 2\\[Pi]r\\[ScriptL]\", Row[{NumberForm[2 Pi r l, 4], \" m\\.b2\"}]},
+      {\"\\[CapitalPhi] = q_in/\\[Epsilon]\\:2080\", Row[{ScientificForm[lam l/eps0, 4], \" N\\[CenterDot]m\\.b2/C\"}]},
+      {\"E = \\[CapitalPhi]/(2\\[Pi]r\\[ScriptL]) = 2k\:2091\\[Lambda]/r\", Row[{ScientificForm[(lam l/eps0)/(2 Pi r l), 5], \" = \", ScientificForm[e, 5], \" N/C\"}]}},
+     Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]]}]],
+ {{ll, 2.0, \"charge per length \\[Lambda] (\\[Mu]C/m)\"}, 0.1, 20, 0.1, Appearance -> \"Labeled\"},
+ {{r, 0.10, \"cylinder radius r (m)\"}, 0.005, 2, 0.005, Appearance -> \"Labeled\"},
+ {{l, 0.30, \"cylinder length \\[ScriptL] (m)\"}, 0.05, 1, 0.01, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left]", "Input"],
+
+Cell["What if? The line is not infinitely long", "Section"],
+
+Cell["Manipulate[
+ Module[{lam = ll 10.^-6, L = 10.^lL, fl, qin, einf, side, rng, tilt, cap},
+  fl = cylFlux[lam, L, r, h]; qin = lam Min[L, h]; einf = eLine[lam, r];
+  rng = Table[eR[lam, L, r, z], {z, -h/2, h/2, h/200}];
+  tilt = Max[Table[Abs[ArcTan[eR[lam, L, r, z], eZ[lam, L, r, z]]]/Degree, {z, -h/2, h/2, h/200}]];
+  cap = 1.1 r;
+  side = Graphics[{
+     {Red, Thickness[0.008], Line[{{0, -Min[L/2, 1.3 h]}, {0, Min[L/2, 1.3 h]}}]},
+     {maroon, Dashed, Line[{{-r, -h/2}, {r, -h/2}, {r, h/2}, {-r, h/2}, {-r, -h/2}}]},
+     {blue, Arrowheads[0.02], Table[With[{v = 0.8 r/einf {s eR[lam, L, r, z], eZ[lam, L, r, z]}}, Arrow[{{s r, z}, {s r, z} + If[Norm[v] > cap, cap Normalize[v], v]}]], {s, {-1, 1}}, {z, -h/2, h/2, h/8}]},
+     {green, Arrowheads[0.02], Table[With[{v = 0.8 r/einf {s eR[lam, L, rho, zc], eZ[lam, L, rho, zc]}}, Arrow[{{s rho, zc}, {s rho, zc} + If[Norm[v] > cap, cap Normalize[v], v]}]], {s, {-1, 1}}, {rho, {0.35 r, 0.75 r}}, {zc, {-h/2, h/2}}]}},
+    PlotRange -> {{-Max[2.6 r, 0.4 h], Max[2.6 r, 0.4 h]}, {-0.8 Max[h, Min[L, 1.6 h]], 0.8 Max[h, Min[L, 1.6 h]]}}, ImageSize -> 360, Frame -> True, FrameLabel -> {\"r (m)\", \"z (m)\"}];
+  Column[{Row[{side,
+      Plot[eR[lam, L, r, z], {z, -h/2, h/2}, PlotRange -> {0, 1.12 einf}, PlotStyle -> Directive[maroon, Thick], Frame -> True,
+       FrameLabel -> {\"position along the cylinder z (m)\", \"E_r on the curved surface (N/C)\"}, ImageSize -> 440,
+       GridLines -> {None, {einf}}, GridLinesStyle -> Directive[gold, Dashed], PlotLabel -> \"dashed: infinite-line value 2k\:2091\\[Lambda]/r\"]}],
+    Grid[{{\"flux through the curved surface\", ScientificForm[fl[[1]], 7]}, {\"flux through the two end caps\", ScientificForm[fl[[2]], 7]},
+      {Style[\"total \\[Integral] E\\[CenterDot]dA\", Bold], Style[ScientificForm[fl[[3]], 7], Bold]}, {\"q_in/\\[Epsilon]\\:2080, q_in = \\[Lambda] min(L, \\[ScriptL])\", ScientificForm[qin/eps0, 7]},
+      {\"ratio\", NumberForm[fl[[3]]/(qin/eps0), 8]},
+      {\"E_r on the curved surface: min \\[Dash] max (N/C)\", Row[{ScientificForm[Min[rng], 4], \" \\[Dash] \", ScientificForm[Max[rng], 4]}]},
+      {\"largest tilt of E from the normal\", Row[{NumberForm[tilt, 3], \"\\[Degree]\"}]}}, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8]],
+    Style[\"Gauss's law holds (ratio = 1), but E varies and tilts over the surface, so it cannot be pulled out of the integral.\", Italic]}]],
+ {{ll, 2.0, \"charge per length \\[Lambda] (\\[Mu]C/m)\"}, 0.1, 20, 0.1, Appearance -> \"Labeled\"},
+ {{lL, Log10[0.6], \"log\:2081\:2080(L / m), length of the line\"}, -1, 1, Appearance -> \"Labeled\"},
+ {{h, 0.40, \"gaussian cylinder length \\[ScriptL] (m)\"}, 0.05, 2, 0.01, Appearance -> \"Labeled\"},
+ {{r, 0.15, \"gaussian cylinder radius r (m)\"}, 0.02, 0.6, 0.005, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, ContinuousAction -> False]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Total flux through the gaussian cylinder equals q_in/eps0 whether or not the line is long. lambda = 2 uC/m, r = 0.15 m, cylinder length 0.40 m. *)
+Grid[Prepend[Table[With[{f = cylFlux[2.*^-6, L, 0.15, 0.40]}, {L, ScientificForm[f[[3]], 8], ScientificForm[2.*^-6 Min[L, 0.40]/eps0, 8], NumberForm[f[[3]]/(2.*^-6 Min[L, 0.40]/eps0), 10],
+     NumberForm[eR[2.*^-6, L, 0.15, 0]/eLine[2.*^-6, 0.15], 6]}], {L, {0.3, 0.6, 2., 10., 100.}}],
+  {\"L (m)\", \"\\[Integral] E\\[CenterDot]dA\", \"q_in/\\[Epsilon]\\:2080\", \"ratio\", \"E_r(mid) / 2k\:2091\\[Lambda]/r\"}], Frame -> All, Alignment -> Right]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

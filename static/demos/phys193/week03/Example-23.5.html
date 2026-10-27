@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conceptual Example 23.5 · Flux Due to a Point Charge — PHYS 193</title>
+<meta name="description" content="Interactive solution of Conceptual Example 23.5: Flux Due to a Point Charge (Serway &amp; Jewett, Ch. 23).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 3 · Chapter 23</a> / Conceptual Example 23.5</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.4 · Gauss’s law</span><span>Lecture slide 44</span></div><h1>Conceptual Example 23.5 · Flux Due to a Point Charge</h1></header>
+<p class="lead">Four changes, four predictions. Each button below makes one of the changes of the problem; the flux is then computed by actually integrating
+\(\vec E\cdot d\vec A\) over the surface — no Gauss’s law assumed. Predict first, then press.</p>
+
+<section class="card problem">
+  <span class="tag">Problem</span>
+  <p>A spherical gaussian surface surrounds a point charge \(q\). Describe what happens to the total flux through the surface if (A) the charge is tripled,
+  (B) the radius of the sphere is doubled, (C) the surface is changed to a cube, and (D) the charge is moved to another location inside the surface.</p>
+</section>
+
+<section class="card">
+  <h2>Count the field lines, then integrate</h2>
+  <div class="lab">
+    <div class="controls" id="ctl"></div>
+    <div class="figs">
+      <figure class="fig"><canvas id="geo" aria-label="Gaussian surface, point charge and field lines"></canvas>
+        <figcaption>A slice through the charge. Each of the 24 field lines is marked where it crosses the surface: ● red = leaving, ● blue = entering. Net count = lines out − lines in.</figcaption></figure>
+      <figure class="fig"><canvas id="plotN" aria-label="Normal field along the surface"></canvas>
+        <figcaption>The normal field \(E_n=\vec E\cdot\hat n\) along the slice of the surface. It changes from point to point — but its integral over the closed surface does not.</figcaption></figure>
+    </div>
+  </div>
+  <div id="ro"></div>
+  <div id="verdict" class="verdict ok"></div>
+</section>
+
+<section class="card">
+  <details class="solution" open>
+    <summary>The four answers (as on the slides)</summary>
+    <p class="phase">(A) The charge is tripled</p>
+    <p>The flux through the surface is tripled because flux is proportional to the amount of charge inside the surface.</p>
+    <p class="phase">(B) The radius of the sphere is doubled</p>
+    <p>The flux does not change because all electric field lines from the charge pass through the sphere, regardless of its radius. (The field at the surface drops
+    by 4, the area grows by 4.)</p>
+    <p class="phase">(C) The surface is changed to a cube</p>
+    <p>The flux does not change when the shape of the gaussian surface changes because all electric field lines from the charge pass through the surface, regardless
+    of its shape.</p>
+    <p class="phase">(D) The charge is moved to another location inside the surface</p>
+    <p>The flux does not change when the charge is moved to another location inside that surface because Gauss’s law refers to the total charge enclosed, regardless
+    of where the charge is located inside the surface:
+    \[\Phi_E=\oint\vec E\cdot d\vec A=\frac{q_{\text{in}}}{\epsilon_0}.\]</p>
+  </details>
+</section>
+
+<section class="card whatif">
+  <span class="tag">Going further</span>
+  <p><strong>Move the charge outside.</strong> Use the position sliders to push the charge through the surface. The flux drops from \(q/\epsilon_0\) to exactly zero:
+  every line that enters now leaves again. Notice that the field on the surface is still far from zero — zero flux is not zero field (Pitfall Prevention 23.1).</p>
+</section>
+
+<section class="card">
+  <h2>How the flux is computed here</h2>
+  <p><strong>Sphere.</strong> Rotate the axes so the charge sits on the \(z\) axis at distance \(s\) from the centre. Then
+  \[\Phi=2\pi R^2\,k_eq\int_{-1}^{1}\frac{R-s\,u}{(R^2+s^2-2Rs\,u)^{3/2}}\,du,\qquad u=\cos\theta,\]
+  evaluated with Simpson’s rule on 20 000 panels.
+  <strong>Cube.</strong> Each face is a rectangle, and the flux of a point charge through a rectangle is \(q\,\Omega/(4\pi\epsilon_0)\), where \(\Omega\) is the solid angle the
+  face subtends at the charge, known in closed form. The six faces are added.</p>
+</section>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Conceptual Example 23.5 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 44 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.5.nb" download>Example-23.5.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) return;
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const bx = left ? m.l + 8 : m.l + pw - lw - 8, by = bottom ? m.t + ph - items.length * lh - 12 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+</script>
+<script>
+(() => {
+  const ctl = D.$("ctl");
+  const bx = D.el("div", { class: "btns" }); ctl.appendChild(bx);
+  const shape = D.seg(ctl, { label: "Gaussian surface", options: [["sphere", "Sphere"], ["cube", "Cube"]], value: "sphere", onChange: update });
+  const sR = D.slider(ctl, { label: "Size (sphere radius R, or cube half-edge)", min: 0.1, max: 1, step: 0.01, value: 0.30, unit: "m", fmt: v => v.toFixed(2), onInput: update });
+  const sq = D.slider(ctl, { label: "Charge q", min: -9, max: 9, step: 0.1, value: 1.0, unit: "nC", fmt: v => v.toFixed(1), onInput: update });
+  const sx = D.slider(ctl, { label: "Charge position x", min: -0.9, max: 0.9, step: 0.005, value: 0, unit: "m", fmt: v => v.toFixed(3), onInput: update });
+  const sy = D.slider(ctl, { label: "Charge position y", min: -0.9, max: 0.9, step: 0.005, value: 0, unit: "m", fmt: v => v.toFixed(3), onInput: update });
+  const ref = { R: 0.30, q: 1.0 };
+  function preset(k) {
+    if (k === "0") { shape.set("sphere"); sR.set(0.30); sq.set(1.0); sx.set(0); sy.set(0); }
+    if (k === "A") sq.set(3 * ref.q);
+    if (k === "B") sR.set(2 * ref.R);
+    if (k === "C") shape.set("cube");
+    if (k === "D") { sx.set(0.62 * sR.get()); sy.set(-0.45 * sR.get()); }
+    update();
+  }
+  D.button(bx, "(A) ×3 charge", () => preset("A"));
+  D.button(bx, "(B) ×2 radius", () => preset("B"));
+  D.button(bx, "(C) → cube", () => preset("C"));
+  D.button(bx, "(D) move q", () => preset("D"));
+  D.button(bx, "↺ Start", () => preset("0"), true);
+
+  const ro = D.readout(D.$("ro"), [["qin", "charge enclosed"], ["phi", "Φ = ∮ E·dA (computed)"], ["gauss", "q_in / ε₀"], ["Esurf", "|E| on surface: min – max"]]);
+
+  const S = () => ({ shape: shape.get(), R: sR.get(), q: sq.get() * 1e-9, p: [sx.get(), sy.get(), 0] });
+
+  function fluxSphere(q, R, s) {
+    if (Math.abs(s - R) < 1e-9) s += 1e-9;
+    const f = u => (R - s * u) / Math.pow(R * R + s * s - 2 * R * s * u, 1.5);
+    return 2 * Math.PI * R * R * KE * q * D.simpson(f, -1, 1, 20000);
+  }
+  function solidAngle(n, h, p) {
+    const k = n.findIndex(v => v !== 0), i = (k + 1) % 3, j = (k + 2) % 3;
+    let d = h - n[k] * p[k]; if (Math.abs(d) < 1e-12 * h) d = 1e-12 * h;
+    const F = (u, v) => Math.atan(u * v / (d * Math.sqrt(u * u + v * v + d * d)));
+    const u1 = -h - p[i], u2 = h - p[i], v1 = -h - p[j], v2 = h - p[j];
+    return F(u2, v2) - F(u1, v2) - F(u2, v1) + F(u1, v1);
+  }
+  const NORMALS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+  function fluxCube(q, h, p) { let o = 0; for (const n of NORMALS) o += solidAngle(n, h, p); return q / EPS0 * o / (4 * Math.PI); }
+
+  // points around the slice of the surface (z = 0): [x, y, nx, ny, arc-length]
+  function slice(st) {
+    const pts = [], N = 720;
+    if (st.shape === "sphere") for (let i = 0; i <= N; i++) { const t = 2 * Math.PI * i / N; pts.push([st.R * Math.cos(t), st.R * Math.sin(t), Math.cos(t), Math.sin(t), t * 180 / Math.PI]); }
+    else {
+      const a = st.R, edges = [[[a, -a], [a, a], [1, 0]], [[a, a], [-a, a], [0, 1]], [[-a, a], [-a, -a], [-1, 0]], [[-a, -a], [a, -a], [0, -1]]];
+      edges.forEach(([A, B, n], e) => { for (let i = 0; i < N / 4; i++) { const t = i / (N / 4); pts.push([A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t, n[0], n[1], (e + t) * 90]); } });
+      pts.push([...pts[0].slice(0, 4), 360]);
+    }
+    return pts;
+  }
+  const En = (st, x, y, nx, ny) => { const dx = x - st.p[0], dy = y - st.p[1], r3 = Math.pow(dx * dx + dy * dy, 1.5); return KE * st.q * (dx * nx + dy * ny) / r3; };
+
+  // crossings of the 24 field lines with the slice outline
+  function crossings(st) {
+    const out = [], [px, py] = st.p;
+    for (let k = 0; k < 24; k++) {
+      const th = 2 * Math.PI * (k + 0.5) / 24, dx = Math.cos(th), dy = Math.sin(th);
+      if (st.shape === "sphere") {
+        const b = px * dx + py * dy, cc = px * px + py * py - st.R * st.R, disc = b * b - cc;
+        if (disc > 0) for (const t of [-b - Math.sqrt(disc), -b + Math.sqrt(disc)]) if (t > 0) {
+          const x = px + t * dx, y = py + t * dy; out.push({ x, y, k, out: (dx * x + dy * y) > 0 });
+        }
+      } else {
+        const a = st.R;
+        for (const [ax, sgn] of [[0, 1], [0, -1], [1, 1], [1, -1]]) {
+          const dcomp = ax === 0 ? dx : dy, pcomp = ax === 0 ? px : py;
+          if (Math.abs(dcomp) < 1e-12) continue;
+          const t = (sgn * a - pcomp) / dcomp; if (t <= 0) continue;
+          const x = px + t * dx, y = py + t * dy, other = ax === 0 ? y : x;
+          if (Math.abs(other) <= a) out.push({ x, y, k, out: dcomp * sgn > 0 });
+        }
+      }
+    }
+    return out;
+  }
+
+  const geo = D.canvas(D.$("geo"), w => (w < 520 ? 1.0 : 0.85), (ctx, w, h, c) => {
+    const st = S(), span = Math.max(1.55 * st.R * (st.shape === "cube" ? 1.25 : 1), 1.25 * Math.hypot(st.p[0], st.p[1]) + 0.12);
+    const V = D.view(w, h, [-span, span], [-span, span], { equal: true, pad: 8 });
+    const [px, py] = st.p;
+    for (let k = 0; k < 24; k++) {
+      const th = 2 * Math.PI * (k + 0.5) / 24;
+      const x1 = px + 3 * Math.cos(th), y1 = py + 3 * Math.sin(th);
+      if (st.q >= 0) D.line(ctx, [[V.X(px), V.Y(py)], [V.X(x1), V.Y(y1)]], { color: c.line2, width: 1.1 });
+      else D.line(ctx, [[V.X(x1), V.Y(y1)], [V.X(px), V.Y(py)]], { color: c.line2, width: 1.1 });
+      const xm = px + 0.85 * span * Math.cos(th), ym = py + 0.85 * span * Math.sin(th), sg = st.q >= 0 ? 1 : -1;
+      D.arrow(ctx, V.X(xm - sg * 0.04 * span * Math.cos(th)), V.Y(ym - sg * 0.04 * span * Math.sin(th)), V.X(xm + sg * 0.04 * span * Math.cos(th)), V.Y(ym + sg * 0.04 * span * Math.sin(th)), { color: c.line2, width: 1.1, head: 6 });
+    }
+    if (st.shape === "sphere") D.circle(ctx, V.X(0), V.Y(0), st.R * V.sx, { color: c.accent, width: 2.4, fill: "rgba(138,21,56,.06)" });
+    else { const a = st.R; D.line(ctx, [[V.X(-a), V.Y(-a)], [V.X(a), V.Y(-a)], [V.X(a), V.Y(a)], [V.X(-a), V.Y(a)]], { color: c.accent, width: 2.4, close: true, fill: "rgba(138,21,56,.06)" }); }
+    const cr = crossings(st);
+    for (const p of cr) {
+      const leaving = st.q >= 0 ? p.out : !p.out;      // for q < 0 the lines point inward
+      D.circle(ctx, V.X(p.x), V.Y(p.y), 4, { fill: leaving ? c.pos : c.neg, color: c.surface, width: 1 });
+    }
+    D.charge(ctx, V.X(px), V.Y(py), 8, st.q, c);
+    let nout = 0, nin = 0; for (const p of cr) { const leaving = st.q >= 0 ? p.out : !p.out; leaving ? nout++ : nin++; }
+    D.text(ctx, `lines out ${nout} − lines in ${nin} = ${nout - nin}`, 10, 14, { color: c.ink2, size: 12, align: "left", halo: c.surface2 });
+  });
+
+  const plotN = D.canvas(D.$("plotN"), w => (w < 520 ? 0.8 : 0.62), (ctx, w, h, c) => {
+    const st = S(), pts = slice(st).map(([x, y, nx, ny, s]) => [s, En(st, x, y, nx, ny)]);
+    let lo = Math.min(...pts.map(p => p[1])), hi = Math.max(...pts.map(p => p[1]));
+    const m = Math.max(Math.abs(lo), Math.abs(hi)) || 1;
+    D.plot(ctx, w, h, c, {
+      x: [0, 360], y: [Math.min(0, lo) - 0.1 * m, Math.max(0, hi) + 0.1 * m], xlabel: st.shape === "sphere" ? "position around the circle (degrees)" : "position around the square (90° per side)",
+      ylabel: "Eₙ (N/C)", series: [{ pts, color: c.accent, width: 2.2 }]
+    });
+  });
+
+  function update() {
+    const st = S();
+    sx.setRange(-0.9, 0.9); sy.setRange(-0.9, 0.9);
+    const s = Math.hypot(st.p[0], st.p[1]);
+    const phi = st.shape === "sphere" ? fluxSphere(st.q, st.R, s) : fluxCube(st.q, st.R, st.p);
+    const inside = st.shape === "sphere" ? s < st.R : Math.max(Math.abs(st.p[0]), Math.abs(st.p[1])) < st.R;
+    const near = st.shape === "sphere" ? Math.abs(s - st.R) < 0.01 * st.R : Math.abs(Math.max(Math.abs(st.p[0]), Math.abs(st.p[1])) - st.R) < 0.01 * st.R;
+    const qin = inside ? st.q : 0;
+    const Es = slice(st).map(([x, y]) => KE * Math.abs(st.q) / ((x - st.p[0]) ** 2 + (y - st.p[1]) ** 2));
+    ro("qin", D.fmt(qin * 1e9, 3) + " nC");
+    ro("phi", D.fmt(Math.abs(phi) < 1e-6 * Math.abs(st.q / EPS0) ? 0 : phi, 5) + " N·m²/C");
+    ro("gauss", D.fmt(qin / EPS0, 5) + " N·m²/C");
+    ro("Esurf", D.fmt(Math.min(...Es), 3) + " – " + D.fmt(Math.max(...Es), 3) + " N/C");
+    const v = D.$("verdict");
+    if (near) { v.className = "verdict bad"; v.textContent = "The charge is on the surface: it is neither inside nor outside. Move it clearly to one side."; }
+    else if (!st.q) { v.className = "verdict"; v.textContent = "No charge, no flux."; }
+    else if (inside) { v.className = "verdict ok"; v.textContent = `Charge inside: computed flux / (q/ε₀) = ${(phi / (st.q / EPS0)).toFixed(6)}. Same for any size, any shape, any position inside.`; }
+    else { v.className = "verdict ok"; v.textContent = `Charge outside: computed flux = ${D.fmt(Math.abs(phi) < 1e-6 * Math.abs(st.q / EPS0) ? 0 : phi, 3)} N·m²/C, although |E| on the surface is far from zero.`; }
+    geo.render(); plotN.render();
+    window.__check = { phi, gauss: qin / EPS0, shape: st.shape };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

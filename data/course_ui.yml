@@ -367,6 +367,46 @@ ui:
     en: Change the parameters and watch the physics respond.
     ar: غيّر المعاملات وشاهد استجابة الظاهرة الفيزيائية.
     fr: Modifiez les paramètres et observez la physique.
+  lab_solutions:
+    en: Interactive solutions of the lecture examples
+    ar: الحلول التفاعلية لأمثلة المحاضرات
+    fr: Solutions interactives des exemples du cours
+  lab_solutions_d:
+    en: "Every worked example of the lectures, solved step by step and made interactive. Open a book, then a chapter and a section; the slide number tells you where the example appears in the lecture deck."
+    ar: "كل مثال محلول في المحاضرات، بحلّ خطوة بخطوة وبصيغة تفاعلية. افتح الكتاب ثم الفصل ثم القسم؛ ورقم الشريحة يدلّك على موضع المثال في عرض المحاضرة."
+    fr: "Chaque exemple traité en cours, résolu pas à pas et rendu interactif. Ouvrez un livre, puis un chapitre et une section ; le numéro de diapositive indique où l'exemple apparaît dans le support de cours."
+  lab_example:
+    en: Example
+    ar: مثال
+    fr: Exemple
+  lab_conceptual:
+    en: Conceptual Example
+    ar: مثال مفاهيمي
+    fr: Exemple conceptuel
+  lab_slide:
+    en: slide
+    ar: الشريحة
+    fr: diapo
+  lab_section:
+    en: Section
+    ar: القسم
+    fr: Section
+  lab_examples:
+    en: examples
+    ar: أمثلة
+    fr: exemples
+  lab_open:
+    en: Open
+    ar: افتح
+    fr: Ouvrir
+  lab_all_week:
+    en: All examples of this chapter on one page
+    ar: كل أمثلة هذا الفصل في صفحة واحدة
+    fr: Tous les exemples du chapitre sur une page
+  lab_sims:
+    en: General simulations
+    ar: محاكاة عامة
+    fr: Simulations générales
   sec_library_d:
     en: Required and recommended books, and the best free resources online.
     ar: الكتب المقررة والمقترحة، وأفضل الموارد المجانية على الإنترنت.
