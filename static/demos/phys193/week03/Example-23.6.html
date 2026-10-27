@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,82 +157,78 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.5 · Applying Gauss’s law</span><span>Lecture slide 48</span></div><h1>Example 23.6 · A Spherically Symmetric Charge Distribution</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">Grow a spherical gaussian surface from the centre outwards. Gauss’s law turns the field into simple bookkeeping: how much charge is inside,
 divided by the area. Then the same field is computed the long way — by adding up the Coulomb fields of the whole sphere — and the two agree.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>An insulating solid sphere of radius \(a\) has a uniform volume charge density \(\rho\) and carries a total positive charge \(Q\). (A) Calculate the magnitude of the
+<p>An insulating solid sphere of radius \(a\) has a uniform volume charge density \(\rho\) and carries a total positive charge \(Q\). (A) Calculate the magnitude of the
   electric field at a point outside the sphere. (B) Find the magnitude of the electric field at a point inside the sphere.</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Grow the gaussian surface</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Grow the gaussian surface</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Charged sphere with a gaussian sphere of radius r"></canvas>
-        <figcaption>Cross-section. The dashed circle is the gaussian sphere of radius \(r\); the shaded charge is \(q_{\text{in}}\). Arrows: \(\vec E\) on the gaussian surface, same length everywhere and along \(\hat n\).</figcaption></figure>
-      <figure class="fig"><canvas id="plotE" aria-label="E versus r"></canvas>
-        <figcaption>\(E(r)\) — Figure 23.15. Linear inside, \(1/r^2\) outside. Dots: field found by direct Coulomb integration (no Gauss’s law).</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <ol class="try">
-    <li>Start at \(r=0\) and grow \(r\). Inside, \(q_{\text{in}}\propto r^3\) while the area \(\propto r^2\), so \(E\propto r\).</li>
-    <li>Pass \(r=a\). Now \(q_{\text{in}}=Q\) stays fixed and \(E\propto1/r^2\): exactly a point charge at the centre.</li>
-    <li>Where is the field strongest? Is there anywhere it jumps?</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Charged sphere with a gaussian sphere of radius r" id="geo"></canvas>
+<figcaption>Cross-section. The dashed circle is the gaussian sphere of radius \(r\); the shaded charge is \(q_{\text{in}}\). Arrows: \(\vec E\) on the gaussian surface, same length everywhere and along \(\hat n\).</figcaption></figure>
+<figure class="fig"><canvas aria-label="E versus r" id="plotE"></canvas>
+<figcaption>\(E(r)\) — Figure 23.15. Linear inside, \(1/r^2\) outside. Dots: field found by direct Coulomb integration (no Gauss’s law).</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<ol class="try">
+<li>Start at \(r=0\) and grow \(r\). Inside, \(q_{\text{in}}\propto r^3\) while the area \(\propto r^2\), so \(E\propto r\).</li>
+<li>Pass \(r=a\). Now \(q_{\text{in}}=Q\) stays fixed and \(E\propto1/r^2\): exactly a point charge at the centre.</li>
+<li>Where is the field strongest? Is there anywhere it jumps?</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution">
-    <summary>Show the full solution (as on the slides)</summary>
-    <p class="phase">Conceptualize &amp; Categorize</p>
-    <p>The charge is spread uniformly through the volume, so the distribution has spherical symmetry and Gauss’s law can give the field.</p>
-    <p class="phase">(A) Analyze — outside the sphere, \(r&gt;a\)</p>
-    <ol class="steps">
-      <li>Choose a spherical gaussian surface of radius \(r\), concentric with the sphere. \(\vec E\) is along \(d\vec A\) everywhere: \[\Phi_E=\oint\vec E\cdot d\vec A=\oint E\,dA=\frac{Q}{\epsilon_0}.\]</li>
-      <li>By symmetry \(E\) is the same everywhere on the surface: \[\oint E\,dA=E\oint dA=E(4\pi r^2)=\frac{Q}{\epsilon_0}.\]</li>
-      <li>Solve for \(E\): \[E=\frac{Q}{4\pi\epsilon_0r^2}=k_e\frac{Q}{r^2}\quad(r&gt;a).\qquad(1)\]</li>
-    </ol>
-    <p class="phase">(A) Finalize</p>
-    <p>This is the field of a point charge: outside, the uniformly charged sphere is equivalent to a point charge \(Q\) at its centre.</p>
-    <p class="phase">(B) Analyze — inside the sphere, \(r&lt;a\)</p>
-    <ol class="steps">
-      <li>Gaussian sphere of radius \(r&lt;a\) and volume \(V'\). It encloses less than \(Q\): \[q_{\text{in}}=\rho V'=\rho\left(\tfrac43\pi r^3\right).\]</li>
-      <li>Conditions (1) and (2) hold everywhere on the surface: \[\oint E\,dA=E\oint dA=E(4\pi r^2)=\frac{q_{\text{in}}}{\epsilon_0}.\]</li>
-      <li>Solve for \(E\) and substitute \(q_{\text{in}}\): \[E=\frac{q_{\text{in}}}{4\pi\epsilon_0r^2}=\frac{\rho\left(\tfrac43\pi r^3\right)}{4\pi\epsilon_0r^2}=\frac{\rho}{3\epsilon_0}\,r.\qquad(2)\]</li>
-      <li>With \(\rho=Q/\left(\tfrac43\pi a^3\right)\) and \(\epsilon_0=1/4\pi k_e\): \[E=\frac{Q/\tfrac43\pi a^3}{3\,(1/4\pi k_e)}\,r=k_e\frac{Q}{a^3}\,r\quad(r&lt;a).\]</li>
-    </ol>
-    <p class="phase">(B) Finalize</p>
-    <p>\(E\to0\) as \(r\to0\). If \(E\) varied as \(1/r^2\) inside too, it would be infinite at the centre, which is physically impossible.</p>
-  </details>
-</section>
 
-<section class="card whatif">
-  <span class="tag">What if?</span>
-  <p><strong>Suppose the radial position \(r=a\) is approached from inside the sphere and from outside. Do we obtain the same value of the electric field from both
-  directions?</strong></p>
-  <p>From outside, (1) gives \(\displaystyle\lim_{r\to a}\Big(k_e\frac{Q}{r^2}\Big)=k_e\frac{Q}{a^2}\). From inside, (2) gives
+<p class="phase">Conceptualize &amp; Categorize</p>
+<p>The charge is spread uniformly through the volume, so the distribution has spherical symmetry and Gauss’s law can give the field.</p>
+<p class="phase">(A) Analyze — outside the sphere, \(r&gt;a\)</p>
+<ol class="steps">
+<li>Choose a spherical gaussian surface of radius \(r\), concentric with the sphere. \(\vec E\) is along \(d\vec A\) everywhere: \[\Phi_E=\oint\vec E\cdot d\vec A=\oint E\,dA=\frac{Q}{\epsilon_0}.\]</li>
+<li>By symmetry \(E\) is the same everywhere on the surface: \[\oint E\,dA=E\oint dA=E(4\pi r^2)=\frac{Q}{\epsilon_0}.\]</li>
+<li>Solve for \(E\): \[E=\frac{Q}{4\pi\epsilon_0r^2}=k_e\frac{Q}{r^2}\quad(r&gt;a).\qquad(1)\]</li>
+</ol>
+<p class="phase">(A) Finalize</p>
+<p>This is the field of a point charge: outside, the uniformly charged sphere is equivalent to a point charge \(Q\) at its centre.</p>
+<p class="phase">(B) Analyze — inside the sphere, \(r&lt;a\)</p>
+<ol class="steps">
+<li>Gaussian sphere of radius \(r&lt;a\) and volume \(V'\). It encloses less than \(Q\): \[q_{\text{in}}=\rho V'=\rho\left(\tfrac43\pi r^3\right).\]</li>
+<li>Conditions (1) and (2) hold everywhere on the surface: \[\oint E\,dA=E\oint dA=E(4\pi r^2)=\frac{q_{\text{in}}}{\epsilon_0}.\]</li>
+<li>Solve for \(E\) and substitute \(q_{\text{in}}\): \[E=\frac{q_{\text{in}}}{4\pi\epsilon_0r^2}=\frac{\rho\left(\tfrac43\pi r^3\right)}{4\pi\epsilon_0r^2}=\frac{\rho}{3\epsilon_0}\,r.\qquad(2)\]</li>
+<li>With \(\rho=Q/\left(\tfrac43\pi a^3\right)\) and \(\epsilon_0=1/4\pi k_e\): \[E=\frac{Q/\tfrac43\pi a^3}{3\,(1/4\pi k_e)}\,r=k_e\frac{Q}{a^3}\,r\quad(r&lt;a).\]</li>
+</ol>
+<p class="phase">(B) Finalize</p>
+<p>\(E\to0\) as \(r\to0\). If \(E\) varied as \(1/r^2\) inside too, it would be infinite at the centre, which is physically impossible.</p>
+
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">What if?</span><span class="fold-title">Suppose the radial position \(r=a\) is approached from inside the sphere and from outside. Do we obtain the same value of the electric field from both
+  directions?</span></summary><div class="fold-body">
+
+
+<p>From outside, (1) gives \(\displaystyle\lim_{r\to a}\Big(k_e\frac{Q}{r^2}\Big)=k_e\frac{Q}{a^2}\). From inside, (2) gives
   \(\displaystyle\lim_{r\to a}\Big(k_e\frac{Q}{a^3}\,r\Big)=k_e\frac{Q}{a^3}\,a=k_e\frac{Q}{a^2}\). The same value: the magnitude of the field is continuous.
   Squeeze the window below and watch both formulas close in on the same number.</p>
-  <div class="lab">
-    <div class="controls" id="ctl2"></div>
-    <figure class="fig"><canvas id="plotZ" aria-label="Zoom on r = a"></canvas>
-      <figcaption>Zoom on \(r=a\): the inside formula (2) and the outside formula (1), each drawn on its own side and continued (faint) across the boundary.</figcaption></figure>
-  </div>
-  <div id="ro2"></div>
-</section>
+<div class="lab">
+<div class="controls" id="ctl2"></div>
+<figure class="fig"><canvas aria-label="Zoom on r = a" id="plotZ"></canvas>
+<figcaption>Zoom on \(r=a\): the inside formula (2) and the outside formula (1), each drawn on its own side and continued (faint) across the boundary.</figcaption></figure>
+</div>
+<div id="ro2"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers — the long way</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Check the numbers — the long way</h2>
-  <p>Without Gauss’s law: slice the sphere into thin disks perpendicular to the line from the centre to the field point, and add the on-axis field of each disk
+<p>Without Gauss’s law: slice the sphere into thin disks perpendicular to the line from the centre to the field point, and add the on-axis field of each disk
   (Example 23.3) — that is, Coulomb’s law integrated over the whole volume:
   \[E(r)=\int_{-a}^{a}2\pi k_e\,\rho\left[\operatorname{sgn}(r-z)-\frac{r-z}{\sqrt{(r-z)^2+a^2-z^2}}\right]dz .\]</p>
-  <div class="scroll-x"><table class="t" id="tbl"></table></div>
-  <p class="note">Rings (23.2) → disks (23.3) → sphere: the integral the chapter started with, finished by brute force, gives exactly what Gauss’s law gives in one line.</p>
-</section>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+<p class="note">Rings (23.2) → disks (23.3) → sphere: the integral the chapter started with, finished by brute force, gives exactly what Gauss’s law gives in one line.</p>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Example 23.6 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 48 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.6.nb" download>Example-23.6.nb</a>.</p>
@@ -640,6 +653,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>

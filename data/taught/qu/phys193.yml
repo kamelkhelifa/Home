@@ -212,6 +212,8 @@ textbooks:
 # Interactive solutions of the lecture's worked examples, shown as a foldable tree in the "Interactive lab"
 # section: textbook > chapter > section > example (lecture slide). Pages live in static/demos/phys193/week<NN>/.
 # To add a week: copy a chapter block, change the numbers, and list its examples.
+sims: []   # no general simulations on this course page: the Interactive lab shows only the solutions below
+
 interactive:
   - book: { en: "Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", ar: "سيرواي وجيويت، «الفيزياء للعلماء والمهندسين»، الطبعة 11" }
     chapters:

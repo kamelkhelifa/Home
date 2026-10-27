@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,66 +157,63 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.3 · Electric flux</span><span>Lecture slide 33</span></div><h1>Example 23.4 · Flux Through a Cube</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">Flux is counted with a sign: field leaving a closed surface counts positive, field entering counts negative. Turn the cube any way you like in the
 uniform field and watch the six face fluxes change — and their sum stay at exactly zero.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>Consider a uniform electric field \(\vec E\) oriented in the \(x\) direction in empty space. A cube of edge length \(\ell\) is placed in the field, oriented as shown in
+<p>Consider a uniform electric field \(\vec E\) oriented in the \(x\) direction in empty space. A cube of edge length \(\ell\) is placed in the field, oriented as shown in
   Figure 23.9. Find the net electric flux through the surface of the cube.</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Six faces, one sum</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Six faces, one sum</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Cube in a uniform field"></canvas>
-        <figcaption>Red: field leaves the face (Φ &gt; 0). Blue: field enters (Φ &lt; 0). Unfilled: field parallel to the face (Φ = 0). Dashed edges are on the far side. Field lines run along \(+x\).</figcaption></figure>
-    </div>
-  </div>
-  <div class="scroll-x" style="margin-top:12px"><table class="t" id="tbl"></table></div>
-  <div id="verdict" class="verdict ok"></div>
-  <ol class="try">
-    <li>Start in the textbook orientation (both angles 0). Only faces ① and ② carry flux: \(-E\ell^2\) and \(+E\ell^2\).</li>
-    <li>Turn the cube. Now up to three faces let field in and three let it out — but every line that enters must leave.</li>
-    <li>Double \(\ell\). Each face flux grows by 4; the net flux is still zero.</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Cube in a uniform field" id="geo"></canvas>
+<figcaption>Red: field leaves the face (Φ &gt; 0). Blue: field enters (Φ &lt; 0). Unfilled: field parallel to the face (Φ = 0). Dashed edges are on the far side. Field lines run along \(+x\).</figcaption></figure>
+</div>
+</div>
+<div class="scroll-x" style="margin-top:12px"><table class="t" id="tbl"></table></div>
+<div class="verdict ok" id="verdict"></div>
+<ol class="try">
+<li>Start in the textbook orientation (both angles 0). Only faces ① and ② carry flux: \(-E\ell^2\) and \(+E\ell^2\).</li>
+<li>Turn the cube. Now up to three faces let field in and three let it out — but every line that enters must leave.</li>
+<li>Double \(\ell\). Each face flux grows by 4; the net flux is still zero.</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution">
-    <summary>Show the full solution (as on the slides)</summary>
-    <p class="phase">Conceptualize</p>
-    <p>The field lines pass through two faces perpendicularly and are parallel to the four other faces of the cube.</p>
-    <p class="phase">Categorize</p>
-    <p>We evaluate the flux from its definition — a substitution problem. The flux through four of the faces (③, ④ and the unnumbered faces) is zero because
+
+<p class="phase">Conceptualize</p>
+<p>The field lines pass through two faces perpendicularly and are parallel to the four other faces of the cube.</p>
+<p class="phase">Categorize</p>
+<p>We evaluate the flux from its definition — a substitution problem. The flux through four of the faces (③, ④ and the unnumbered faces) is zero because
     \(\vec E\) is parallel to those faces and therefore perpendicular to \(d\vec A\) on them.</p>
-    <p class="phase">Analyze</p>
-    <ol class="steps">
-      <li>Net flux through faces ① and ②: \[\Phi_E=\int_1\vec E\cdot d\vec A+\int_2\vec E\cdot d\vec A.\]</li>
-      <li>Face ①: \(\vec E\) is constant and inward, \(d\vec A_1\) is outward (\(\theta=180^\circ\)): \[\int_1\vec E\cdot d\vec A=\int_1E\,dA\cos180^\circ=-E\int_1dA=-EA=-E\ell^2.\]</li>
-      <li>Face ②: \(\vec E\) is outward and along \(d\vec A_2\) (\(\theta=0^\circ\)): \[\int_2\vec E\cdot d\vec A=\int_2E\,dA\cos0^\circ=E\int_2dA=+EA=E\ell^2.\]</li>
-      <li>Add all six faces: \[\Phi_E=-E\ell^2+E\ell^2+0+0+0+0=0.\]</li>
-    </ol>
-    <p class="phase">Finalize</p>
-    <p>The net electric flux through the closed surface of the cube is zero. Section 23.4 explains why: there is no charge inside the cube.</p>
-  </details>
-</section>
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>Net flux through faces ① and ②: \[\Phi_E=\int_1\vec E\cdot d\vec A+\int_2\vec E\cdot d\vec A.\]</li>
+<li>Face ①: \(\vec E\) is constant and inward, \(d\vec A_1\) is outward (\(\theta=180^\circ\)): \[\int_1\vec E\cdot d\vec A=\int_1E\,dA\cos180^\circ=-E\int_1dA=-EA=-E\ell^2.\]</li>
+<li>Face ②: \(\vec E\) is outward and along \(d\vec A_2\) (\(\theta=0^\circ\)): \[\int_2\vec E\cdot d\vec A=\int_2E\,dA\cos0^\circ=E\int_2dA=+EA=E\ell^2.\]</li>
+<li>Add all six faces: \[\Phi_E=-E\ell^2+E\ell^2+0+0+0+0=0.\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>The net electric flux through the closed surface of the cube is zero. Section 23.4 explains why: there is no charge inside the cube.</p>
 
-<section class="card whatif">
-  <span class="tag">Going further</span>
-  <p><strong>What makes the net flux non-zero?</strong> Only charge <em>inside</em> the surface. Switch on a point charge below. Its contribution to each face is
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Going further</span><span class="fold-title">What makes the net flux non-zero?</span></summary><div class="fold-body">
+
+<p> Only charge <em>inside</em> the surface. Switch on a point charge below. Its contribution to each face is
   computed exactly from the solid angle that face subtends at the charge, \(\Phi_{\text{face}}=\dfrac{q}{4\pi\epsilon_0}\,\Omega_{\text{face}}\). Put the charge inside
   and the six contributions add to \(q/\epsilon_0\) wherever it sits; take it outside and they add to zero. That is Gauss’s law (§23.4), arrived at by brute force.</p>
-  <div class="lab">
-    <div class="controls" id="ctl2"></div>
-    <div class="figs"><figure class="fig"><canvas id="geo2" aria-label="Cube with a point charge"></canvas>
-      <figcaption>The point charge, drawn in the cube’s own frame (the cube in this panel is not rotated). Face colours show the sign of the total flux through each face.</figcaption></figure></div>
-  </div>
-  <div class="scroll-x" style="margin-top:12px"><table class="t" id="tbl2"></table></div>
-  <div id="verdict2" class="verdict"></div>
-</section>
+<div class="lab">
+<div class="controls" id="ctl2"></div>
+<div class="figs"><figure class="fig"><canvas aria-label="Cube with a point charge" id="geo2"></canvas>
+<figcaption>The point charge, drawn in the cube’s own frame (the cube in this panel is not rotated). Face colours show the sign of the total flux through each face.</figcaption></figure></div>
+</div>
+<div class="scroll-x" style="margin-top:12px"><table class="t" id="tbl2"></table></div>
+<div class="verdict" id="verdict2"></div>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Example 23.4 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 33 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.4.nb" download>Example-23.4.nb</a>.</p>
@@ -624,6 +638,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>

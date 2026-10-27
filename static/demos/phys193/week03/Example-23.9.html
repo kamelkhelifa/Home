@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,57 +157,54 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.5 · Applying Gauss’s law</span><span>Lecture slide 62</span></div><h1>Conceptual Example 23.9 · Don’t Use Gauss’s Law Here!</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">Pick a charge distribution, draw any sphere you like around it, and the computer integrates \(\vec E\cdot d\vec A\) over that sphere. The total always
 comes out as \(q_{\text{in}}/\epsilon_0\) — Gauss’s law never fails. What fails is the step that would give you \(E\): on these surfaces \(E\) is neither constant nor
 perpendicular, so it cannot be taken out of the integral.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>Explain why Gauss’s law cannot be used to calculate the electric field near an electric dipole, a charged disk, or a triangle with a point charge at each corner.</p>
-</section>
+<p>Explain why Gauss’s law cannot be used to calculate the electric field near an electric dipole, a charged disk, or a triangle with a point charge at each corner.</p>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Try to find a good gaussian surface</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Try to find a good gaussian surface</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Charge distribution and a spherical gaussian surface"></canvas>
-        <figcaption>Slice through the charges. Arrows: the actual field on the gaussian sphere (common scale, long arrows capped). For Gauss’s law to give \(E\) they would all have to be equal and radial.</figcaption></figure>
-      <figure class="fig"><canvas id="plotN" aria-label="Field on the surface versus angle"></canvas>
-        <figcaption>Around the slice of the sphere: the normal field \(E_n\) and the field size \(|E|\). The dashed line is the constant field Gauss’s law would predict <em>if</em> the field were uniform over the sphere.</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <div id="verdict" class="verdict"></div>
-  <ol class="try">
-    <li>Dipole: centre a sphere on it. The flux is zero — and yet the field on the sphere is anything but zero.</li>
-    <li>Triangle: make the sphere very large. \(E\) becomes nearly constant and radial — from far away three charges look like one. Close in, it does not.</li>
-    <li>Disk: there is a symmetry axis, but no closed surface on which \(E\) is constant. Compare with the infinite plane of Example 23.8.</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Charge distribution and a spherical gaussian surface" id="geo"></canvas>
+<figcaption>Slice through the charges. Arrows: the actual field on the gaussian sphere (common scale, long arrows capped). For Gauss’s law to give \(E\) they would all have to be equal and radial.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Field on the surface versus angle" id="plotN"></canvas>
+<figcaption>Around the slice of the sphere: the normal field \(E_n\) and the field size \(|E|\). The dashed line is the constant field Gauss’s law would predict <em>if</em> the field were uniform over the sphere.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<div class="verdict" id="verdict"></div>
+<ol class="try">
+<li>Dipole: centre a sphere on it. The flux is zero — and yet the field on the sphere is anything but zero.</li>
+<li>Triangle: make the sphere very large. \(E\) becomes nearly constant and radial — from far away three charges look like one. Close in, it does not.</li>
+<li>Disk: there is a symmetry axis, but no closed surface on which \(E\) is constant. Compare with the infinite plane of Example 23.8.</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">The answer (as on the slides)</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution" open>
-    <summary>The answer (as on the slides)</summary>
-    <p>The charge distributions of all these configurations do not have sufficient symmetry to make the use of Gauss’s law practical. We cannot find a closed surface
+
+<p>The charge distributions of all these configurations do not have sufficient symmetry to make the use of Gauss’s law practical. We cannot find a closed surface
     surrounding any of these distributions for which all portions of the surface satisfy one or more of conditions (1) through (4):</p>
-    <ol class="try">
-      <li>the value of \(E\) can be argued by symmetry to be constant over the portion of the surface;</li>
-      <li>the dot product \(\vec E\cdot d\vec A\) can be expressed as \(E\,dA\) because \(\vec E\) and \(d\vec A\) are parallel;</li>
-      <li>the dot product is zero because \(\vec E\) and \(d\vec A\) are perpendicular;</li>
-      <li>the electric field is zero over the portion of the surface.</li>
-    </ol>
-    <p class="phase">The distinction to keep</p>
-    <p>Gauss’s law remains true for every one of these distributions. What fails is not the law but the symmetry — without it the law cannot be solved for \(E\), and the
+<ol class="try">
+<li>the value of \(E\) can be argued by symmetry to be constant over the portion of the surface;</li>
+<li>the dot product \(\vec E\cdot d\vec A\) can be expressed as \(E\,dA\) because \(\vec E\) and \(d\vec A\) are parallel;</li>
+<li>the dot product is zero because \(\vec E\) and \(d\vec A\) are perpendicular;</li>
+<li>the electric field is zero over the portion of the surface.</li>
+</ol>
+<p class="phase">The distinction to keep</p>
+<p>Gauss’s law remains true for every one of these distributions. What fails is not the law but the symmetry — without it the law cannot be solved for \(E\), and the
     field must be found by integrating Equation 23.1 instead (as this page does to draw the arrows).</p>
-  </details>
-</section>
 
-<section class="card">
-  <h2>How the numbers are computed</h2>
-  <p class="note">The field anywhere is the vector sum of Coulomb fields (the disk is replaced by 1 152 small charge elements on a polar grid). The flux is integrated over the
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Method</span><span class="fold-title">How the numbers are computed</span></summary><div class="fold-body">
+
+<p class="note">The field anywhere is the vector sum of Coulomb fields (the disk is replaced by 1 152 small charge elements on a polar grid). The flux is integrated over the
   whole sphere with 48 Gauss–Legendre points in \(\cos\theta\) and 96 equal steps in \(\varphi\). Conditions (1) and (2) are tested on the same 4 608 surface points.</p>
-</section>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Conceptual Example 23.9 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 62 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.9.nb" download>Example-23.9.nb</a>.</p>
@@ -615,6 +629,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>

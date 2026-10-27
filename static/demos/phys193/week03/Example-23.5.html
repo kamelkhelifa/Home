@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,62 +157,58 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.4 · Gauss’s law</span><span>Lecture slide 44</span></div><h1>Conceptual Example 23.5 · Flux Due to a Point Charge</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">Four changes, four predictions. Each button below makes one of the changes of the problem; the flux is then computed by actually integrating
 \(\vec E\cdot d\vec A\) over the surface — no Gauss’s law assumed. Predict first, then press.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>A spherical gaussian surface surrounds a point charge \(q\). Describe what happens to the total flux through the surface if (A) the charge is tripled,
+<p>A spherical gaussian surface surrounds a point charge \(q\). Describe what happens to the total flux through the surface if (A) the charge is tripled,
   (B) the radius of the sphere is doubled, (C) the surface is changed to a cube, and (D) the charge is moved to another location inside the surface.</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Count the field lines, then integrate</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Count the field lines, then integrate</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Gaussian surface, point charge and field lines"></canvas>
-        <figcaption>A slice through the charge. Each of the 24 field lines is marked where it crosses the surface: ● red = leaving, ● blue = entering. Net count = lines out − lines in.</figcaption></figure>
-      <figure class="fig"><canvas id="plotN" aria-label="Normal field along the surface"></canvas>
-        <figcaption>The normal field \(E_n=\vec E\cdot\hat n\) along the slice of the surface. It changes from point to point — but its integral over the closed surface does not.</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <div id="verdict" class="verdict ok"></div>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Gaussian surface, point charge and field lines" id="geo"></canvas>
+<figcaption>A slice through the charge. Each of the 24 field lines is marked where it crosses the surface: ● red = leaving, ● blue = entering. Net count = lines out − lines in.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Normal field along the surface" id="plotN"></canvas>
+<figcaption>The normal field \(E_n=\vec E\cdot\hat n\) along the slice of the surface. It changes from point to point — but its integral over the closed surface does not.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<div class="verdict ok" id="verdict"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">The four answers (as on the slides)</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution" open>
-    <summary>The four answers (as on the slides)</summary>
-    <p class="phase">(A) The charge is tripled</p>
-    <p>The flux through the surface is tripled because flux is proportional to the amount of charge inside the surface.</p>
-    <p class="phase">(B) The radius of the sphere is doubled</p>
-    <p>The flux does not change because all electric field lines from the charge pass through the sphere, regardless of its radius. (The field at the surface drops
+
+<p class="phase">(A) The charge is tripled</p>
+<p>The flux through the surface is tripled because flux is proportional to the amount of charge inside the surface.</p>
+<p class="phase">(B) The radius of the sphere is doubled</p>
+<p>The flux does not change because all electric field lines from the charge pass through the sphere, regardless of its radius. (The field at the surface drops
     by 4, the area grows by 4.)</p>
-    <p class="phase">(C) The surface is changed to a cube</p>
-    <p>The flux does not change when the shape of the gaussian surface changes because all electric field lines from the charge pass through the surface, regardless
+<p class="phase">(C) The surface is changed to a cube</p>
+<p>The flux does not change when the shape of the gaussian surface changes because all electric field lines from the charge pass through the surface, regardless
     of its shape.</p>
-    <p class="phase">(D) The charge is moved to another location inside the surface</p>
-    <p>The flux does not change when the charge is moved to another location inside that surface because Gauss’s law refers to the total charge enclosed, regardless
+<p class="phase">(D) The charge is moved to another location inside the surface</p>
+<p>The flux does not change when the charge is moved to another location inside that surface because Gauss’s law refers to the total charge enclosed, regardless
     of where the charge is located inside the surface:
     \[\Phi_E=\oint\vec E\cdot d\vec A=\frac{q_{\text{in}}}{\epsilon_0}.\]</p>
-  </details>
-</section>
 
-<section class="card whatif">
-  <span class="tag">Going further</span>
-  <p><strong>Move the charge outside.</strong> Use the position sliders to push the charge through the surface. The flux drops from \(q/\epsilon_0\) to exactly zero:
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Going further</span><span class="fold-title">Move the charge outside.</span></summary><div class="fold-body">
+
+<p> Use the position sliders to push the charge through the surface. The flux drops from \(q/\epsilon_0\) to exactly zero:
   every line that enters now leaves again. Notice that the field on the surface is still far from zero — zero flux is not zero field (Pitfall Prevention 23.1).</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Method</span><span class="fold-title">How the flux is computed here</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>How the flux is computed here</h2>
-  <p><strong>Sphere.</strong> Rotate the axes so the charge sits on the \(z\) axis at distance \(s\) from the centre. Then
+<p><strong>Sphere.</strong> Rotate the axes so the charge sits on the \(z\) axis at distance \(s\) from the centre. Then
   \[\Phi=2\pi R^2\,k_eq\int_{-1}^{1}\frac{R-s\,u}{(R^2+s^2-2Rs\,u)^{3/2}}\,du,\qquad u=\cos\theta,\]
   evaluated with Simpson’s rule on 20 000 panels.
   <strong>Cube.</strong> Each face is a rectangle, and the flux of a point charge through a rectangle is \(q\,\Omega/(4\pi\epsilon_0)\), where \(\Omega\) is the solid angle the
   face subtends at the charge, known in closed form. The six faces are added.</p>
-</section>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Conceptual Example 23.5 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 44 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.5.nb" download>Example-23.5.nb</a>.</p>
@@ -620,6 +633,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>

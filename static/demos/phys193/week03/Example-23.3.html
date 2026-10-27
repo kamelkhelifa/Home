@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,77 +157,73 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.2 · Continuous charge distribution</span><span>Lecture slide 20</span></div><h1>Example 23.3 · The Electric Field of a Uniformly Charged Disk</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">A disk is a set of concentric rings, and Example 23.2 already gives the field of one ring. Here the disk is assembled ring by ring, and you can
 see where the near-field (infinite plane) and far-field (point charge) limits take over.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>A disk of radius \(R\) has a uniform surface charge density \(\sigma\). Calculate the electric field at a point \(P\) that lies along the central
+<p>A disk of radius \(R\) has a uniform surface charge density \(\sigma\). Calculate the electric field at a point \(P\) that lies along the central
   perpendicular axis of the disk and a distance \(x\) from the center of the disk.</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">From rings to a disk</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>From rings to a disk</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Disk divided into rings, point P on the axis"></canvas>
-        <figcaption>The disk cut into \(N\) rings of width \(dr\). Every ring’s field at \(P\) points along the axis, so the rings add as numbers.</figcaption></figure>
-      <figure class="fig"><canvas id="build" aria-label="Field at P as rings are added"></canvas>
-        <figcaption>Field at \(P\) as the disk grows outwards from the centre, ring by ring (dots), compared with the exact result for a disk of that radius (curve).</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <figure class="fig" style="margin-top:14px"><canvas id="plotE" aria-label="Field versus distance, log-log"></canvas>
-    <figcaption>\(E\) against \(x\) (log–log): exact result, the near-field limit \(\sigma/2\epsilon_0\) and the far-field point charge \(k_eQ/x^2\).</figcaption></figure>
-  <ol class="try">
-    <li>Move \(P\) very close to the disk (\(x\ll R\)). The field stops depending on \(x\): you are seeing an “infinite” plane.</li>
-    <li>Move \(P\) far away (\(x\gg R\)). The curve slides onto \(k_eQ/x^2\): the disk has become a point charge.</li>
-    <li>In the build-up plot, which rings contribute most? (Hint: compare the ring radius with \(x\).)</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Disk divided into rings, point P on the axis" id="geo"></canvas>
+<figcaption>The disk cut into \(N\) rings of width \(dr\). Every ring’s field at \(P\) points along the axis, so the rings add as numbers.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Field at P as rings are added" id="build"></canvas>
+<figcaption>Field at \(P\) as the disk grows outwards from the centre, ring by ring (dots), compared with the exact result for a disk of that radius (curve).</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<figure class="fig" style="margin-top:14px"><canvas aria-label="Field versus distance, log-log" id="plotE"></canvas>
+<figcaption>\(E\) against \(x\) (log–log): exact result, the near-field limit \(\sigma/2\epsilon_0\) and the far-field point charge \(k_eQ/x^2\).</figcaption></figure>
+<ol class="try">
+<li>Move \(P\) very close to the disk (\(x\ll R\)). The field stops depending on \(x\): you are seeing an “infinite” plane.</li>
+<li>Move \(P\) far away (\(x\gg R\)). The curve slides onto \(k_eQ/x^2\): the disk has become a point charge.</li>
+<li>In the build-up plot, which rings contribute most? (Hint: compare the ring radius with \(x\).)</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution">
-    <summary>Show the full solution (as on the slides)</summary>
-    <p class="phase">Conceptualize</p>
-    <p>Treat the disk as a set of concentric rings and use the result of Example 23.2 for each ring. By symmetry the field at an axial point is along the axis.</p>
-    <p class="phase">Categorize</p>
-    <p>The disk is continuous, so this is a continuous charge distribution.</p>
-    <p class="phase">Analyze</p>
-    <ol class="steps">
-      <li>Charge on a ring of radius \(r\) and width \(dr\): \[dq=\sigma\,dA=\sigma\,(2\pi r\,dr)=2\pi\sigma r\,dr.\]</li>
-      <li>Use Equation (3) of Example 23.2 with \(a\to r\) and \(Q\to dq\): \[dE_x=\frac{k_e\,x}{(r^2+x^2)^{3/2}}\,(2\pi\sigma r\,dr).\]</li>
-      <li>Integrate from \(r=0\) to \(r=R\) (\(x\) is constant): \[E_x=k_ex\pi\sigma\int_0^R\frac{2r\,dr}{(r^2+x^2)^{3/2}}=k_ex\pi\sigma\int_0^R(r^2+x^2)^{-3/2}\,d(r^2).\]</li>
-      <li>Evaluate at the limits: \[E_x=k_ex\pi\sigma\left[\frac{(r^2+x^2)^{-1/2}}{-1/2}\right]_0^R=2\pi k_e\sigma\left[1-\frac{x}{(R^2+x^2)^{1/2}}\right].\]</li>
-    </ol>
-    <p class="phase">Finalize</p>
-    <p>The result is valid for all \(x>0\). For large \(x\) a series expansion gives \(E\approx k_eQ/x^2\) with \(Q=\sigma\pi R^2\): a point charge. Close to the disk
+
+<p class="phase">Conceptualize</p>
+<p>Treat the disk as a set of concentric rings and use the result of Example 23.2 for each ring. By symmetry the field at an axial point is along the axis.</p>
+<p class="phase">Categorize</p>
+<p>The disk is continuous, so this is a continuous charge distribution.</p>
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>Charge on a ring of radius \(r\) and width \(dr\): \[dq=\sigma\,dA=\sigma\,(2\pi r\,dr)=2\pi\sigma r\,dr.\]</li>
+<li>Use Equation (3) of Example 23.2 with \(a\to r\) and \(Q\to dq\): \[dE_x=\frac{k_e\,x}{(r^2+x^2)^{3/2}}\,(2\pi\sigma r\,dr).\]</li>
+<li>Integrate from \(r=0\) to \(r=R\) (\(x\) is constant): \[E_x=k_ex\pi\sigma\int_0^R\frac{2r\,dr}{(r^2+x^2)^{3/2}}=k_ex\pi\sigma\int_0^R(r^2+x^2)^{-3/2}\,d(r^2).\]</li>
+<li>Evaluate at the limits: \[E_x=k_ex\pi\sigma\left[\frac{(r^2+x^2)^{-1/2}}{-1/2}\right]_0^R=2\pi k_e\sigma\left[1-\frac{x}{(R^2+x^2)^{1/2}}\right].\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>The result is valid for all \(x&gt;0\). For large \(x\) a series expansion gives \(E\approx k_eQ/x^2\) with \(Q=\sigma\pi R^2\): a point charge. Close to the disk
     (\(x\ll R\)) the bracket tends to 1, giving the near-field approximation \[E_x=2\pi k_e\sigma=\frac{\sigma}{2\epsilon_0}.\]</p>
-  </details>
-</section>
 
-<section class="card whatif">
-  <span class="tag">What if?</span>
-  <p><strong>What if we let the radius of the disk grow so that the disk becomes an infinite plane of charge?</strong></p>
-  <p>Letting \(R\to\infty\) gives \(E=2\pi k_e\sigma=\sigma/2\epsilon_0\) — the same as the near-field result. If \(R\to\infty\), everywhere is near-field: the field of an
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">What if?</span><span class="fold-title">What if we let the radius of the disk grow so that the disk becomes an infinite plane of charge?</span></summary><div class="fold-body">
+
+
+<p>Letting \(R\to\infty\) gives \(E=2\pi k_e\sigma=\sigma/2\epsilon_0\) — the same as the near-field result. If \(R\to\infty\), everywhere is near-field: the field of an
   infinite plane is the same at every distance. The result depends only on the ratio \(R/x\):
   \[\frac{E}{\sigma/2\epsilon_0}=1-\frac{1}{\sqrt{1+(R/x)^2}}.\]</p>
-  <div class="lab">
-    <div class="controls" id="ctl2"></div>
-    <figure class="fig"><canvas id="plotW" aria-label="Field relative to the infinite-plane value against R over x"></canvas>
-      <figcaption>Field of the disk as a fraction of the infinite-plane value \(\sigma/2\epsilon_0\), against \(R/x\).</figcaption></figure>
-  </div>
-  <div id="ro2"></div>
-  <p class="note">An infinite plane is impossible in practice, but two large, close, oppositely charged plates give an almost uniform field between them, away from the edges.
+<div class="lab">
+<div class="controls" id="ctl2"></div>
+<figure class="fig"><canvas aria-label="Field relative to the infinite-plane value against R over x" id="plotW"></canvas>
+<figcaption>Field of the disk as a fraction of the infinite-plane value \(\sigma/2\epsilon_0\), against \(R/x\).</figcaption></figure>
+</div>
+<div id="ro2"></div>
+<p class="note">An infinite plane is impossible in practice, but two large, close, oppositely charged plates give an almost uniform field between them, away from the edges.
   That is Example 23.8’s What If? and the parallel-plate capacitor of Chapter 25.</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Check the numbers</h2>
-  <div class="scroll-x"><table class="t" id="tbl"></table></div>
-  <p class="note">Rows 1–4: the disk as \(N\) rings (each ring at its mid-radius, Equation (3) of Example 23.2). Last rows: the near- and far-field limits at the present \(x\).</p>
-</section>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+<p class="note">Rows 1–4: the disk as \(N\) rings (each ring at its mid-radius, Equation (3) of Example 23.2). Last rows: the near- and far-field limits at the present \(x\).</p>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Example 23.3 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 20 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.3.nb" download>Example-23.3.nb</a>.</p>
@@ -635,6 +648,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>
