@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,75 +157,71 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.2 · Continuous charge distribution</span><span>Lecture slide 12</span></div><h1>Example 23.1 · The Electric Field Due to a Charged Rod</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">A uniformly charged rod is just a very large number of point charges placed end to end. Here you can cut the rod into
 <em>N</em> pieces, add their fields at <em>P</em> one by one, and watch the sum turn into the integral of the slide.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>A rod of length \(\ell\) has a uniform positive charge per unit length \(\lambda\) and a total charge \(Q\). Calculate the electric field at a
+<p>A rod of length \(\ell\) has a uniform positive charge per unit length \(\lambda\) and a total charge \(Q\). Calculate the electric field at a
   point \(P\) that is located along the long axis of the rod and a distance \(a\) from one end.</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Build the field from the pieces</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Build the field from the pieces</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Rod, point P and the field contributions"></canvas>
-        <figcaption>Each coloured bar is the field \(dE\) at \(P\) from one piece of the rod, laid tip to tail. The nearest piece contributes most because \(dE\propto 1/x^2\).</figcaption></figure>
-      <figure class="fig"><canvas id="plotE" aria-label="Field versus distance"></canvas>
-        <figcaption>Magnitude of \(E\) at \(P\) against \(a\) (log–log). The dot marks the present setting.</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <ol class="try">
-    <li>Set \(N=1\): the whole rod is treated as one point charge at its centre. How wrong is it when \(P\) is close?</li>
-    <li>Raise \(N\) and watch the error collapse. The exact answer is what you get when \(N\to\infty\).</li>
-    <li>Make \(Q\) negative. Every \(dE\) — and so \(\vec E\) — now points towards the rod.</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Rod, point P and the field contributions" id="geo"></canvas>
+<figcaption>Each coloured bar is the field \(dE\) at \(P\) from one piece of the rod, laid tip to tail. The nearest piece contributes most because \(dE\propto 1/x^2\).</figcaption></figure>
+<figure class="fig"><canvas aria-label="Field versus distance" id="plotE"></canvas>
+<figcaption>Magnitude of \(E\) at \(P\) against \(a\) (log–log). The dot marks the present setting.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<ol class="try">
+<li>Set \(N=1\): the whole rod is treated as one point charge at its centre. How wrong is it when \(P\) is close?</li>
+<li>Raise \(N\) and watch the error collapse. The exact answer is what you get when \(N\to\infty\).</li>
+<li>Make \(Q\) negative. Every \(dE\) — and so \(\vec E\) — now points towards the rod.</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution">
-    <summary>Show the full solution (as on the slides)</summary>
-    <p class="phase">Conceptualize</p>
-    <p>The field \(d\vec E\) at \(P\) due to each segment of charge on the rod is in the negative \(x\) direction because every segment carries a positive
+
+<p class="phase">Conceptualize</p>
+<p>The field \(d\vec E\) at \(P\) due to each segment of charge on the rod is in the negative \(x\) direction because every segment carries a positive
     charge. We expect the field to become weaker as the distance \(a\) becomes larger.</p>
-    <p class="phase">Categorize</p>
-    <p>The rod is continuous, so this is a continuous charge distribution. Every segment produces a field in the \(-x\) direction, so the contributions can be
+<p class="phase">Categorize</p>
+<p>The rod is continuous, so this is a continuous charge distribution. Every segment produces a field in the \(-x\) direction, so the contributions can be
     added as numbers — no vector addition is needed.</p>
-    <p class="phase">Analyze</p>
-    <ol class="steps">
-      <li>Put the rod on the \(x\) axis with \(P\) at the origin, from \(x=a\) to \(x=\ell+a\). A segment of length \(dx\) carries \[dq=\lambda\,dx.\]</li>
-      <li>Magnitude of the field at \(P\) from that segment: \[dE=k_e\frac{dq}{x^2}=k_e\frac{\lambda\,dx}{x^2}.\]</li>
-      <li>Total field (Equation 23.3): \[E=\int_a^{\ell+a}k_e\lambda\,\frac{dx}{x^2}.\]</li>
-      <li>\(k_e\) and \(\lambda=Q/\ell\) are constants: \[E=k_e\lambda\left[-\frac1x\right]_a^{\ell+a}.\]</li>
-      <li>Substitute the limits and \(\lambda=Q/\ell\): \[E=k_e\frac{Q}{\ell}\left(\frac1a-\frac1{\ell+a}\right)=\frac{k_eQ}{a(\ell+a)}.\qquad(1)\]</li>
-    </ol>
-    <p class="phase">Finalize</p>
-    <p>If \(a\) becomes larger the denominator grows and \(E\) becomes smaller, as predicted. If \(a\to0\) (sliding \(P\) to the end of the rod), \(E\to\infty\):
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>Put the rod on the \(x\) axis with \(P\) at the origin, from \(x=a\) to \(x=\ell+a\). A segment of length \(dx\) carries \[dq=\lambda\,dx.\]</li>
+<li>Magnitude of the field at \(P\) from that segment: \[dE=k_e\frac{dq}{x^2}=k_e\frac{\lambda\,dx}{x^2}.\]</li>
+<li>Total field (Equation 23.3): \[E=\int_a^{\ell+a}k_e\lambda\,\frac{dx}{x^2}.\]</li>
+<li>\(k_e\) and \(\lambda=Q/\ell\) are constants: \[E=k_e\lambda\left[-\frac1x\right]_a^{\ell+a}.\]</li>
+<li>Substitute the limits and \(\lambda=Q/\ell\): \[E=k_e\frac{Q}{\ell}\left(\frac1a-\frac1{\ell+a}\right)=\frac{k_eQ}{a(\ell+a)}.\qquad(1)\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>If \(a\) becomes larger the denominator grows and \(E\) becomes smaller, as predicted. If \(a\to0\) (sliding \(P\) to the end of the rod), \(E\to\infty\):
     \(P\) is then at zero distance from the charge at the end of the rod.</p>
-  </details>
-</section>
 
-<section class="card whatif">
-  <span class="tag">What if?</span>
-  <p><strong>Suppose point \(P\) is very far away from the rod. What is the nature of the electric field at such a point?</strong></p>
-  <p>For \(a\gg\ell\) the \(\ell\) in the denominator of (1) can be neglected and \(E\approx k_eQ/a^2\): the rod looks like a point charge \(Q\). The plot makes
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">What if?</span><span class="fold-title">Suppose point \(P\) is very far away from the rod. What is the nature of the electric field at such a point?</span></summary><div class="fold-body">
+
+
+<p>For \(a\gg\ell\) the \(\ell\) in the denominator of (1) can be neglected and \(E\approx k_eQ/a^2\): the rod looks like a point charge \(Q\). The plot makes
   “far” precise: the ratio of the exact field to the point-charge field is
   \[\frac{E}{k_eQ/a^2}=\frac{a}{a+\ell}=\frac{1}{1+\ell/a},\]
-  so the point-charge formula overestimates the field by the fraction \(\ell/a\). It is within 1 % once \(a>99\,\ell\).</p>
-  <figure class="fig"><canvas id="plotR" aria-label="Ratio of exact to point-charge field"></canvas>
-    <figcaption>Exact field divided by the point-charge field, against \(a/\ell\). Drag the \(a\) slider above to move the dot.</figcaption></figure>
-  <div id="ro2"></div>
-</section>
+  so the point-charge formula overestimates the field by the fraction \(\ell/a\). It is within 1 % once \(a&gt;99\,\ell\).</p>
+<figure class="fig"><canvas aria-label="Ratio of exact to point-charge field" id="plotR"></canvas>
+<figcaption>Exact field divided by the point-charge field, against \(a/\ell\). Drag the \(a\) slider above to move the dot.</figcaption></figure>
+<div id="ro2"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Check the numbers</h2>
-  <p>The integral is the limit of the sum over \(N\) pieces (each piece treated as a point charge at its centre). For the present \(\ell\), \(a\) and \(Q\):</p>
-  <div class="scroll-x"><table class="t" id="tbl"></table></div>
-  <p class="note">The error falls by a factor of about 100 each time \(N\) grows by 10 — the midpoint rule is second-order accurate.</p>
-</section>
+<p>The integral is the limit of the sum over \(N\) pieces (each piece treated as a point charge at its centre). For the present \(\ell\), \(a\) and \(Q\):</p>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+<p class="note">The error falls by a factor of about 100 each time \(N\) grows by 10 — the midpoint rule is second-order accurate.</p>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Example 23.1 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 12 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.1.nb" download>Example-23.1.nb</a>.</p>
@@ -633,6 +646,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>

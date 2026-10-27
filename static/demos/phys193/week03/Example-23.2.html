@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,84 +157,80 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.2 · Continuous charge distribution</span><span>Lecture slide 16</span></div><h1>Example 23.2 · The Electric Field of a Uniform Ring of Charge</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">Every piece of the ring is the same distance from \(P\), and every piece has a partner on the opposite side whose sideways field cancels its own.
 Rotate the chosen pair around the ring and see the cancellation happen, then release a negative charge near the centre for the What If?.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>A ring of radius \(a\) carries a uniformly distributed positive total charge \(Q\). Calculate the electric field due to the ring at a point \(P\) lying a
+<p>A ring of radius \(a\) carries a uniformly distributed positive total charge \(Q\). Calculate the electric field due to the ring at a point \(P\) lying a
   distance \(x\) from its center along the central axis perpendicular to the plane of the ring.</p>
-</section>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Why only the axial component survives</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Why only the axial component survives</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Ring, point P, and the fields of two opposite segments"></canvas>
-        <figcaption>Segments 1 and 2 sit on opposite sides of the ring. Their perpendicular components \(dE_\perp\) (dashed) are equal and opposite; their axial components \(dE_x\) add.</figcaption></figure>
-      <figure class="fig"><canvas id="plotE" aria-label="Axial field versus x"></canvas>
-        <figcaption>\(E_x\) along the axis. It is zero at the centre, largest at \(x=\pm a/\sqrt2\), and approaches the point-charge field far away.</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <ol class="try">
-    <li>Drag “pair position φ” all the way round. The axial parts never change; the perpendicular parts always cancel.</li>
-    <li>Put \(P\) at the centre (\(x=0\)). Every \(d\vec E\) lies in the plane of the ring and they all cancel — is that consistent with the symmetry?</li>
-    <li>Find the largest field. Does its position depend on \(Q\)? On \(a\)?</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Ring, point P, and the fields of two opposite segments" id="geo"></canvas>
+<figcaption>Segments 1 and 2 sit on opposite sides of the ring. Their perpendicular components \(dE_\perp\) (dashed) are equal and opposite; their axial components \(dE_x\) add.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Axial field versus x" id="plotE"></canvas>
+<figcaption>\(E_x\) along the axis. It is zero at the centre, largest at \(x=\pm a/\sqrt2\), and approaches the point-charge field far away.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<ol class="try">
+<li>Drag “pair position φ” all the way round. The axial parts never change; the perpendicular parts always cancel.</li>
+<li>Put \(P\) at the centre (\(x=0\)). Every \(d\vec E\) lies in the plane of the ring and they all cancel — is that consistent with the symmetry?</li>
+<li>Find the largest field. Does its position depend on \(Q\)? On \(a\)?</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution">
-    <summary>Show the full solution (as on the slides)</summary>
-    <p class="phase">Conceptualize</p>
-    <p>Resolve the field \(d\vec E\) of one segment into \(dE_x\) along the axis and \(dE_\perp\) perpendicular to it. The segment on the opposite side of the
+
+<p class="phase">Conceptualize</p>
+<p>Resolve the field \(d\vec E\) of one segment into \(dE_x\) along the axis and \(dE_\perp\) perpendicular to it. The segment on the opposite side of the
     ring produces an equal and opposite \(dE_\perp\). That is true for every pair, so only the parallel components \(dE_x\) remain, and they simply add.</p>
-    <p class="phase">Categorize</p>
-    <p>The ring is continuous, so this is a continuous charge distribution.</p>
-    <p class="phase">Analyze</p>
-    <ol class="steps">
-      <li>Parallel component of the field of a segment \(dq\): \[dE_x=k_e\frac{dq}{r^2}\cos\theta=k_e\frac{dq}{a^2+x^2}\cos\theta.\qquad(1)\]</li>
-      <li>From the geometry: \[\cos\theta=\frac{x}{r}=\frac{x}{(a^2+x^2)^{1/2}}.\qquad(2)\]</li>
-      <li>Substitute (2) into (1): \[dE_x=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,dq.\]</li>
-      <li>All segments are equidistant from \(P\), so they contribute equally. Integrate over the ring: \[E_x=\int\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,dq=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\int dq.\]</li>
-      <li>With \(\int dq=Q\): \[E_x=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,Q.\qquad(3)\]</li>
-    </ol>
-    <p class="phase">Finalize</p>
-    <p>The field points along the axis, away from the ring. It is zero at \(x=0\), consistent with the symmetry, and reduces to \(k_eQ/x^2\) when \(x\gg a\): from
+<p class="phase">Categorize</p>
+<p>The ring is continuous, so this is a continuous charge distribution.</p>
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>Parallel component of the field of a segment \(dq\): \[dE_x=k_e\frac{dq}{r^2}\cos\theta=k_e\frac{dq}{a^2+x^2}\cos\theta.\qquad(1)\]</li>
+<li>From the geometry: \[\cos\theta=\frac{x}{r}=\frac{x}{(a^2+x^2)^{1/2}}.\qquad(2)\]</li>
+<li>Substitute (2) into (1): \[dE_x=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,dq.\]</li>
+<li>All segments are equidistant from \(P\), so they contribute equally. Integrate over the ring: \[E_x=\int\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,dq=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\int dq.\]</li>
+<li>With \(\int dq=Q\): \[E_x=\frac{k_e\,x}{(a^2+x^2)^{3/2}}\,Q.\qquad(3)\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>The field points along the axis, away from the ring. It is zero at \(x=0\), consistent with the symmetry, and reduces to \(k_eQ/x^2\) when \(x\gg a\): from
     far away the ring looks like a point charge. Setting \(dE_x/dx=0\) gives the maximum, at \(x=\pm a/\sqrt2\), where \(E_{\max}=\dfrac{2k_eQ}{3\sqrt3\,a^2}\).</p>
-  </details>
-</section>
 
-<section class="card whatif">
-  <span class="tag">What if?</span>
-  <p><strong>A negative charge is placed at the center of the ring and displaced slightly by a distance \(x\ll a\) along the \(x\) axis. When the charge is released,
-  what type of motion does it exhibit?</strong></p>
-  <p>For \(x\ll a\), Equation (3) becomes \(E_x\approx k_eQx/a^3\), so the force on a charge \(-q\) is
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">What if?</span><span class="fold-title">A negative charge is placed at the center of the ring and displaced slightly by a distance \(x\ll a\) along the \(x\) axis. When the charge is released,
+  what type of motion does it exhibit?</span></summary><div class="fold-body">
+
+
+<p>For \(x\ll a\), Equation (3) becomes \(E_x\approx k_eQx/a^3\), so the force on a charge \(-q\) is
   \[F_x=-qE_x=-\frac{k_eqQ}{a^3}\,x .\]
   That is Hooke’s law with \(k=k_eqQ/a^3\): simple harmonic motion with \(\omega=\sqrt{k_eqQ/(ma^3)}\). Below, the charge’s motion is computed from the
   <em>exact</em> force (3) step by step (velocity-Verlet) and compared with the SHM prediction. Small release → identical. Large release → the exact motion is slower.</p>
-  <div class="lab">
-    <div class="controls" id="ctl2"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="anim" aria-label="Side view of ring and the oscillating charge"></canvas>
-        <figcaption>Side view: the ring (edge-on) and the released charge \(-q\) on the axis.</figcaption></figure>
-      <figure class="fig"><canvas id="plotX" aria-label="Position versus time"></canvas>
-        <figcaption>Position against time: exact motion (solid) and simple harmonic motion with the same \(\omega\) (dashed).</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro2"></div>
-</section>
+<div class="lab">
+<div class="controls" id="ctl2"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Side view of ring and the oscillating charge" id="anim"></canvas>
+<figcaption>Side view: the ring (edge-on) and the released charge \(-q\) on the axis.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Position versus time" id="plotX"></canvas>
+<figcaption>Position against time: exact motion (solid) and simple harmonic motion with the same \(\omega\) (dashed).</figcaption></figure>
+</div>
+</div>
+<div id="ro2"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Check the numbers</h2>
-  <p>Replace the ring by \(N\) equal point charges and add their fields <em>as vectors</em> in three dimensions, at the present \(P\):</p>
-  <div class="scroll-x"><table class="t" id="tbl"></table></div>
-  <p class="note">Two things to notice. The perpendicular part is zero to rounding error for every \(N\ge2\): opposite pieces cancel exactly. And the axial sum equals
+<p>Replace the ring by \(N\) equal point charges and add their fields <em>as vectors</em> in three dimensions, at the present \(P\):</p>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+<p class="note">Two things to notice. The perpendicular part is zero to rounding error for every \(N\ge2\): opposite pieces cancel exactly. And the axial sum equals
   Equation (3) for <em>every</em> \(N\), not just in the limit — every piece is the same distance \(r\) from \(P\) and makes the same angle \(\theta\), which is why step 4
   of the solution can take \(k_ex/(a^2+x^2)^{3/2}\) outside the integral. (Compare Example 23.1, where the pieces are at different distances and the sum only converges.)</p>
-</section>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Example 23.2 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 16 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.2.nb" download>Example-23.2.nb</a>.</p>
@@ -642,6 +655,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>

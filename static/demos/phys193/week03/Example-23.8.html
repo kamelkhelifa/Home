@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,68 +157,65 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.5 · Applying Gauss’s law</span><span>Lecture slide 58</span></div><h1>Example 23.8 · A Plane of Charge</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">For an infinite plane the gaussian “pillbox” can be as long or as short as you like: the flux through it never changes, and so neither does the
 field. Then put two planes side by side and let superposition do the rest.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>Find the electric field due to an infinite plane of positive charge with uniform surface charge density \(\sigma\).</p>
-</section>
+<p>Find the electric field due to an infinite plane of positive charge with uniform surface charge density \(\sigma\).</p>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Stretch the pillbox</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>Stretch the pillbox</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Plane of charge and gaussian pillbox"></canvas>
-        <figcaption>The plane edge-on with a cylindrical gaussian surface through it. Flux \(EA\) leaves through each end; none crosses the curved side.</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <ol class="try">
-    <li>Move the ends of the pillbox further from the plane. Which numbers change? Which do not?</li>
-    <li>Change the end area \(A\). The enclosed charge and the flux both scale with \(A\) — so \(E\) cannot depend on \(A\).</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Plane of charge and gaussian pillbox" id="geo"></canvas>
+<figcaption>The plane edge-on with a cylindrical gaussian surface through it. Flux \(EA\) leaves through each end; none crosses the curved side.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<ol class="try">
+<li>Move the ends of the pillbox further from the plane. Which numbers change? Which do not?</li>
+<li>Change the end area \(A\). The enclosed charge and the flux both scale with \(A\) — so \(E\) cannot depend on \(A\).</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution">
-    <summary>Show the full solution (as on the slides)</summary>
-    <p class="phase">Conceptualize &amp; Categorize</p>
-    <p>The plane is infinitely large, so the field is the same at all points equidistant from it; the distribution is symmetric, so Gauss’s law applies.</p>
-    <p class="phase">Analyze</p>
-    <ol class="steps">
-      <li>By symmetry \(\vec E\) is perpendicular to the plane, away from it on both sides. Choose a small cylinder whose axis is perpendicular to the plane, with ends of
+
+<p class="phase">Conceptualize &amp; Categorize</p>
+<p>The plane is infinitely large, so the field is the same at all points equidistant from it; the distribution is symmetric, so Gauss’s law applies.</p>
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>By symmetry \(\vec E\) is perpendicular to the plane, away from it on both sides. Choose a small cylinder whose axis is perpendicular to the plane, with ends of
       area \(A\) equidistant from the plane.</li>
-      <li>\(\vec E\) is parallel to the curved side, so no flux crosses it (condition 3). Through each flat end the flux is \(EA\) (conditions 1 and 2): \[\Phi_E=2EA\quad(\text{zero through the curved surface}).\]</li>
-      <li>Gauss’s law with \(q_{\text{in}}=\sigma A\): \[\Phi_E=2EA=\frac{q_{\text{in}}}{\epsilon_0}=\frac{\sigma A}{\epsilon_0}.\]</li>
-      <li>Solve for \(E\): \[E=\frac{\sigma}{2\epsilon_0}.\qquad(23.9)\]</li>
-    </ol>
-    <p class="phase">Finalize</p>
-    <p>The distance from the ends to the plane does not appear in Equation 23.9, so \(E=\sigma/2\epsilon_0\) at any distance: the field is uniform everywhere. It is the same
+<li>\(\vec E\) is parallel to the curved side, so no flux crosses it (condition 3). Through each flat end the flux is \(EA\) (conditions 1 and 2): \[\Phi_E=2EA\quad(\text{zero through the curved surface}).\]</li>
+<li>Gauss’s law with \(q_{\text{in}}=\sigma A\): \[\Phi_E=2EA=\frac{q_{\text{in}}}{\epsilon_0}=\frac{\sigma A}{\epsilon_0}.\]</li>
+<li>Solve for \(E\): \[E=\frac{\sigma}{2\epsilon_0}.\qquad(23.9)\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>The distance from the ends to the plane does not appear in Equation 23.9, so \(E=\sigma/2\epsilon_0\) at any distance: the field is uniform everywhere. It is the same
     result as Example 23.3 when the disk’s radius becomes infinite.</p>
-  </details>
-</section>
 
-<section class="card whatif">
-  <span class="tag">What if?</span>
-  <p><strong>Two infinite planes of charge are parallel to each other, one positively charged and the other negatively charged, with surface charge densities of the same
-  magnitude. What does the electric field look like?</strong></p>
-  <p>Each plane alone gives \(\sigma/2\epsilon_0\) on both sides. Between the planes the two fields point the same way and add to \(\sigma/\epsilon_0\); outside they point in
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">What if?</span><span class="fold-title">Two infinite planes of charge are parallel to each other, one positively charged and the other negatively charged, with surface charge densities of the same
+  magnitude. What does the electric field look like?</span></summary><div class="fold-body">
+
+
+<p>Each plane alone gives \(\sigma/2\epsilon_0\) on both sides. Between the planes the two fields point the same way and add to \(\sigma/\epsilon_0\); outside they point in
   opposite directions and cancel. Set the two densities independently below to see the general rule
   \(E_x=\dfrac{\sigma_1}{2\epsilon_0}\operatorname{sgn}(x-x_1)+\dfrac{\sigma_2}{2\epsilon_0}\operatorname{sgn}(x-x_2)\). Switch on “finite plates” to see why real, finite
   plates close together give an almost uniform field between them and almost none outside.</p>
-  <div class="lab">
-    <div class="controls" id="ctl2"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo2" aria-label="Two planes and the field in each region"></canvas>
-        <figcaption>Field arrows in the three regions (common scale). Faint arrows: each plane’s own field.</figcaption></figure>
-      <figure class="fig"><canvas id="plotX" aria-label="Field along the line through both planes"></canvas>
-        <figcaption>\(E_x\) along the line perpendicular to both planes.</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro2"></div>
-</section>
+<div class="lab">
+<div class="controls" id="ctl2"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Two planes and the field in each region" id="geo2"></canvas>
+<figcaption>Field arrows in the three regions (common scale). Faint arrows: each plane’s own field.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Field along the line through both planes" id="plotX"></canvas>
+<figcaption>\(E_x\) along the line perpendicular to both planes.</figcaption></figure>
+</div>
+</div>
+<div id="ro2"></div>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Example 23.8 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 58 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.8.nb" download>Example-23.8.nb</a>.</p>
@@ -626,6 +640,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>

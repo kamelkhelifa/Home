@@ -130,6 +130,23 @@ table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); 
 footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
 footer.foot a { color: var(--muted); }
 
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -140,71 +157,68 @@ footer.foot a { color: var(--muted); }
 </div></div>
 <main class="wrap">
 <header class="hero"><div class="eyebrow"><span>Week 3</span><span>Chapter 23</span><span>§23.5 · Applying Gauss’s law</span><span>Lecture slide 54</span></div><h1>Example 23.7 · A Cylindrically Symmetric Charge Distribution</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
 <p class="lead">A cylinder around a line of charge: on the curved side the field is the same everywhere and points straight out; through the two ends nothing
 passes. That symmetry is the whole solution. In the What If? the line is made finite, and you can watch the symmetry — not Gauss’s law — break.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
-<section class="card problem">
-  <span class="tag">Problem</span>
-  <p>Find the electric field a distance \(r\) from a line of positive charge of infinite length and constant charge per unit length \(\lambda\).</p>
-</section>
+<p>Find the electric field a distance \(r\) from a line of positive charge of infinite length and constant charge per unit length \(\lambda\).</p>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">The gaussian cylinder</span></summary><div class="fold-body">
 
-<section class="card">
-  <h2>The gaussian cylinder</h2>
-  <div class="lab">
-    <div class="controls" id="ctl"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo" aria-label="Line of charge and coaxial gaussian cylinder"></canvas>
-        <figcaption>Gaussian cylinder of radius \(r\) and length \(\ell\). On the curved surface \(\vec E\) is radial and of constant size; on the end caps \(\vec E\) lies in the surface, so no flux.</figcaption></figure>
-      <figure class="fig"><canvas id="plotE" aria-label="E versus r compared with a point charge"></canvas>
-        <figcaption>\(E\) against \(r\) (log–log). A line falls as \(1/r\) (slope −1); a point or sphere as \(1/r^2\) (slope −2), shown through the same point for comparison.</figcaption></figure>
-    </div>
-  </div>
-  <div id="ro"></div>
-  <ol class="try">
-    <li>Change \(\ell\). The enclosed charge and the curved area both grow in proportion, so \(E\) does not change. Why must the answer be independent of \(\ell\)?</li>
-    <li>Double \(r\): the field halves (a point charge’s would quarter).</li>
-  </ol>
-</section>
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Line of charge and coaxial gaussian cylinder" id="geo"></canvas>
+<figcaption>Gaussian cylinder of radius \(r\) and length \(\ell\). On the curved surface \(\vec E\) is radial and of constant size; on the end caps \(\vec E\) lies in the surface, so no flux.</figcaption></figure>
+<figure class="fig"><canvas aria-label="E versus r compared with a point charge" id="plotE"></canvas>
+<figcaption>\(E\) against \(r\) (log–log). A line falls as \(1/r\) (slope −1); a point or sphere as \(1/r^2\) (slope −2), shown through the same point for comparison.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<ol class="try">
+<li>Change \(\ell\). The enclosed charge and the curved area both grow in proportion, so \(E\) does not change. Why must the answer be independent of \(\ell\)?</li>
+<li>Double \(r\): the field halves (a point charge’s would quarter).</li>
+</ol>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
 
-<section class="card">
-  <details class="solution">
-    <summary>Show the full solution (as on the slides)</summary>
-    <p class="phase">Conceptualize &amp; Categorize</p>
-    <p>The line is infinitely long, so the field is the same at all points equidistant from it, and weakens as we move out radially. The charge distribution has
+
+<p class="phase">Conceptualize &amp; Categorize</p>
+<p>The line is infinitely long, so the field is the same at all points equidistant from it, and weakens as we move out radially. The charge distribution has
     cylindrical symmetry, so Gauss’s law applies.</p>
-    <p class="phase">Analyze</p>
-    <ol class="steps">
-      <li>Symmetry requires \(\vec E\) perpendicular to the line and outward. Choose a coaxial cylinder of radius \(r\) and length \(\ell\). On the curved part, \(E\) is constant
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>Symmetry requires \(\vec E\) perpendicular to the line and outward. Choose a coaxial cylinder of radius \(r\) and length \(\ell\). On the curved part, \(E\) is constant
       and perpendicular to the surface (conditions 1 and 2). Through the ends the flux is zero because \(\vec E\) is parallel to them (condition 3).</li>
-      <li>Gauss’s law with \(q_{\text{in}}=\lambda\ell\): \[\Phi_E=\oint\vec E\cdot d\vec A=E\oint dA=EA=\frac{q_{\text{in}}}{\epsilon_0}=\frac{\lambda\ell}{\epsilon_0}.\]</li>
-      <li>Curved area \(A=2\pi r\ell\): \[E(2\pi r\ell)=\frac{\lambda\ell}{\epsilon_0}.\]</li>
-      <li>Solve for \(E\): \[E=\frac{\lambda}{2\pi\epsilon_0r}=2k_e\frac{\lambda}{r}.\qquad(23.8)\]</li>
-    </ol>
-    <p class="phase">Finalize</p>
-    <p>The field of a cylindrically symmetric distribution varies as \(1/r\); outside a spherically symmetric one it varies as \(1/r^2\). Equation 23.8 can also be derived
+<li>Gauss’s law with \(q_{\text{in}}=\lambda\ell\): \[\Phi_E=\oint\vec E\cdot d\vec A=E\oint dA=EA=\frac{q_{\text{in}}}{\epsilon_0}=\frac{\lambda\ell}{\epsilon_0}.\]</li>
+<li>Curved area \(A=2\pi r\ell\): \[E(2\pi r\ell)=\frac{\lambda\ell}{\epsilon_0}.\]</li>
+<li>Solve for \(E\): \[E=\frac{\lambda}{2\pi\epsilon_0r}=2k_e\frac{\lambda}{r}.\qquad(23.8)\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>The field of a cylindrically symmetric distribution varies as \(1/r\); outside a spherically symmetric one it varies as \(1/r^2\). Equation 23.8 can also be derived
     by direct integration over the charge distribution.</p>
-  </details>
-</section>
 
-<section class="card whatif">
-  <span class="tag">What if?</span>
-  <p><strong>What if the line segment in this example were not infinitely long?</strong></p>
-  <p>Then \(E\) is no longer constant over the curved surface (it is weaker near the ends of the line), and it is no longer perpendicular to it (near the ends it
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">What if?</span><span class="fold-title">What if the line segment in this example were not infinitely long?</span></summary><div class="fold-body">
+
+
+<p>Then \(E\) is no longer constant over the curved surface (it is weaker near the ends of the line), and it is no longer perpendicular to it (near the ends it
   has a component along the line). Conditions (1) and (2) fail, so Gauss’s law cannot be solved for \(E\). <em>But Gauss’s law is still true.</em> Below, the exact
   field of a finite line (by integration, \(E_r=\frac{k_e\lambda}{r}\big[\frac{L/2-z}{\sqrt{r^2+(L/2-z)^2}}+\frac{L/2+z}{\sqrt{r^2+(L/2+z)^2}}\big]\),
   \(E_z=k_e\lambda\big[\frac{1}{\sqrt{r^2+(z-L/2)^2}}-\frac{1}{\sqrt{r^2+(z+L/2)^2}}\big]\)) is integrated over the gaussian cylinder.</p>
-  <div class="lab">
-    <div class="controls" id="ctl2"></div>
-    <div class="figs">
-      <figure class="fig"><canvas id="geo2" aria-label="Finite line, gaussian cylinder and the field on it"></canvas>
-        <figcaption>Side view. Arrows: the actual field on the curved surface (blue) and on the end caps (green), one common scale (the few very long ones near the ends of the line are shortened). Near the ends they shrink and tilt.</figcaption></figure>
-      <figure class="fig"><canvas id="plotZ" aria-label="Radial field along the cylinder"></canvas>
-        <figcaption>\(E_r\) along the length of the gaussian cylinder, compared with the infinite-line value \(2k_e\lambda/r\).</figcaption></figure>
-    </div>
-  </div>
-  <div class="scroll-x" style="margin-top:12px"><table class="t" id="tbl"></table></div>
-  <div id="verdict" class="verdict ok"></div>
-</section>
+<div class="lab">
+<div class="controls" id="ctl2"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="Finite line, gaussian cylinder and the field on it" id="geo2"></canvas>
+<figcaption>Side view. Arrows: the actual field on the curved surface (blue) and on the end caps (green), one common scale (the few very long ones near the ends of the line are shortened). Near the ends they shrink and tilt.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Radial field along the cylinder" id="plotZ"></canvas>
+<figcaption>\(E_r\) along the length of the gaussian cylinder, compared with the infinite-line value \(2k_e\lambda/r\).</figcaption></figure>
+</div>
+</div>
+<div class="scroll-x" style="margin-top:12px"><table class="t" id="tbl"></table></div>
+<div class="verdict ok" id="verdict"></div>
+</div></details>
 </main>
 <footer class="foot"><div class="wrap">
   <p>Interactive solution of Example 23.7 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 54 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.7.nb" download>Example-23.7.nb</a>.</p>
@@ -629,6 +643,14 @@ const D = (() => {
   return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
            animator, math, themeButton, redrawAll, simpson, el, $ };
 })();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
 
 </script>
 <script>
