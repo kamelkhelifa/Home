@@ -1,0 +1,122 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.5 - Three Resistors in Parallel", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 55 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Three resistors are connected as shown in Figure 27.9a. A potential difference of 18.0 V is maintained between points a and b. (A) Calculate the equivalent resistance of the circuit. (B) Find the current in each resistor. (C) Calculate the power delivered to each resistor and the total power delivered to the combination of resistors.", "Text"],
+
+Cell["Every resistor has the full 18.0 V across it, so each current is \:0394V/R_i and each power is (\:0394V)\:00b2/R_i: the smallest resistance takes the largest current and the largest power. The What If? switch redraws the circuit as Figure 27.9b; nothing in the calculation changes.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+reqPar[rs_List] := 1/Total[1/rs];                  (* 1/R_eq = sum of 1/R_i *)", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{rs = {ra, rb, rc}, req, cur, pw, itot, ohm, fig},
+  req = reqPar[rs]; cur = v/rs; pw = v^2/rs; itot = v/req;
+  ohm[x_] := Row[{NumberForm[x, {3, 2}], \" \:03a9\"}];
+  fig = If[layout == \"Figure 27.9a\",
+    (* battery on the left; a at the top, b at the bottom; the first resistor reaches the left branch along the top *)
+    Graphics[{
+      batteryG[{0, 0}, {0, 3}, True], lbl[Row[{NumberForm[v, {3, 1}], \" V\"}], {-0.6, 1.5}, Bold],
+      wire[{{0, 3}, {2.4, 3}, {2.4, 2.4}}], wire[{{0, 0}, {2.4, 0}, {2.4, 0.6}}],
+      resistorG[{2.4, 2.4}, {1.2, 2.4}, maroon, 0.6], lbl[ohm[ra], {1.8, 2.72}],
+      wire[{{1.2, 2.4}, {1.2, 0.6}}], resistorG[{2.4, 2.4}, {2.4, 0.6}], lbl[ohm[rb], {2.95, 1.5}],
+      wire[{{2.4, 2.4}, {3.6, 2.4}, {3.6, 1.9}}], resistorG[{3.6, 1.9}, {3.6, 0.6}], lbl[ohm[rc], {4.15, 1.25}],
+      wire[{{1.2, 0.6}, {3.6, 0.6}}],
+      nodeG[{2.4, 3}, \"a\", {0.2, 0.12}], nodeG[{2.4, 0}, \"b\", {0.2, -0.12}], nodeG[{2.4, 2.4}], nodeG[{2.4, 0.6}],
+      currentG[{0.4, 3}, {2.0, 3}, itot, Row[{\"I = \", NumberForm[itot, 3], \" A\"}], 0.2],
+      currentG[{1.2, 2.2}, {1.2, 1.2}, cur[[1]], \"I\:2081\", -0.2], currentG[{2.4, 2.35}, {2.4, 1.85}, cur[[2]], \"I\:2082\", 0.2],
+      currentG[{3.6, 2.35}, {3.6, 1.95}, cur[[3]], \"I\:2083\", 0.2]},
+     PlotRange -> {{-1.2, 4.7}, {-0.4, 3.5}}, AspectRatio -> Automatic, ImageSize -> 460],
+    (* Figure 27.9b: the same three resistors side by side, the battery on the right *)
+    Graphics[{
+      wire[{{0, 3}, {4.2, 3}}], wire[{{0, 0}, {4.2, 0}}],
+      Table[{resistorG[{1.4 (k - 1), 3}, {1.4 (k - 1), 0}], lbl[ohm[rs[[k]]], {1.4 (k - 1) + 0.6, 1.5}],
+        currentG[{1.4 (k - 1), 2.9}, {1.4 (k - 1), 2.3}, cur[[k]], Row[{\"I\", {\"\:2081\", \"\:2082\", \"\:2083\"}[[k]]}], -0.2]}, {k, 3}],
+      batteryG[{4.2, 0}, {4.2, 3}, True], lbl[Row[{NumberForm[v, {3, 1}], \" V\"}], {4.8, 1.5}, Bold],
+      nodeG[{3.5, 3}, \"a\", {0, 0.22}], nodeG[{3.5, 0}, \"b\", {0, -0.22}]},
+     PlotRange -> {{-0.5, 5.4}, {-0.4, 3.5}}, AspectRatio -> Automatic, ImageSize -> 460]];
+  Column[{fig,
+    Row[{BarChart[cur, ChartLabels -> {\"R\:2081\", \"R\:2082\", \"R\:2083\"}, ChartStyle -> blue, LabelingFunction -> Above, PlotLabel -> \"current (A)\", ImageSize -> 225],
+      BarChart[pw, ChartLabels -> {\"R\:2081\", \"R\:2082\", \"R\:2083\"}, ChartStyle -> maroon, LabelingFunction -> Above, PlotLabel -> \"power (W)\", ImageSize -> 225]}, \"  \"],
+    results[{
+      {\"R_eq = 1/(1/R\:2081 + 1/R\:2082 + 1/R\:2083)\", Row[{NumberForm[req, 4], \" \:03a9\"}]},
+      {\"currents \:0394V/R_i\", Row[Riffle[NumberForm[#, 3] & /@ cur, \", \"], \"\"]},
+      {\"total current\", Row[{NumberForm[itot, 4], \" A  (= sum: \", NumberForm[Total[cur], 4], \" A)\"}]},
+      {\"powers (\:0394V)\:00b2/R_i\", Row[Riffle[NumberForm[#, 3] & /@ pw, \", \"], \"\"]},
+      {\"total power\", Row[{NumberForm[Total[pw], 4], \" W  (= (\:0394V)\:00b2/R_eq: \", NumberForm[v^2/req, 4], \" W)\"}]}}]}, Spacings -> 1.2]],
+ {{ra, 3.0, \"R\:2081 (\:03a9)\"}, 1, 20, 0.5, Appearance -> \"Labeled\"},
+ {{rb, 6.0, \"R\:2082 (\:03a9)\"}, 1, 20, 0.5, Appearance -> \"Labeled\"},
+ {{rc, 9.0, \"R\:2083 (\:03a9)\"}, 1, 20, 0.5, Appearance -> \"Labeled\"},
+ {{v, 18.0, \"\:0394V between a and b (V)\"}, 1, 50, 0.5, Appearance -> \"Labeled\"},
+ {{layout, \"Figure 27.9a\", \"drawn as\"}, {\"Figure 27.9a\", \"Figure 27.9b\"}, ControlType -> SetterBar},
+ ControlPlacement -> Left, TrackedSymbols :> {ra, rb, rc, v, layout}]", "Input"],
+
+Cell["What if? The circuit drawn as Figure 27.9b", "Section"],
+
+Cell["(* In both drawings every resistor is connected directly between a and b, so each has 18.0 V across it: the calculation is identical. Proof: the node voltages (with V_b = 0) are the same in both, so are all currents. *)
+With[{v = 18., rs = {3., 6., 9.}},
+ Grid[{{\"\", \"Figure 27.9a\", \"Figure 27.9b\"},
+   {\"\:0394V across each resistor (V)\", {v, v, v}, {v, v, v}},
+   {\"currents (A)\", v/rs, v/rs},
+   {\"R_eq (\:03a9)\", reqPar[rs], reqPar[rs]}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Exact values for 3.00, 6.00, 9.00 \:03a9 at 18.0 V: R_eq = 18/11 \:03a9; currents 6, 3, 2 A; powers 108, 54, 36 W; total 198 W. *)
+With[{rs = {3, 6, 9}, v = 18},
+ Grid[{{\"quantity\", \"value\"},
+   {\"R_eq (\:03a9)\", Row[{reqPar[rs], \" = \", N[reqPar[rs], 4]}]},
+   {\"currents (A)\", v/rs},
+   {\"powers (W)\", v^2/rs},
+   {\"total power (W)\", Total[v^2/rs]},
+   {\"(\:0394V)\:00b2/R_eq (W)\", v^2/reqPar[rs]},
+   {\"junction a: I \:2212 \:03a3I_i (A)\", v/reqPar[rs] - Total[v/rs]}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

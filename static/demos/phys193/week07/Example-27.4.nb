@@ -1,0 +1,116 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.4 - Find the Equivalent Resistance", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 51 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Four resistors are connected as shown in Figure 27.8a. (A) Find the equivalent resistance between points a and c. (B) What is the current in each resistor if a potential difference of 42 V is maintained between a and c?", "Text"],
+
+Cell["Reduce the network step by step: the 8.0-\:03a9 and 4.0-\:03a9 resistors in series between a and b, then the 6.0-\:03a9 and 3.0-\:03a9 resistors in parallel between b and c, then the two results in series. Then rebuild: the total current flows through the series pair, and splits between the parallel pair in inverse proportion to their resistances.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+par[x_, y_] := x y/(x + y);                       (* two resistors in parallel *)
+(* everything about the network: {R_eq, I, I in the top parallel resistor, I in the bottom one, V_bc} *)
+network[r1_, r2_, rTop_, rBot_, v_] := Module[{rp = par[rTop, rBot], req, cur, vbc},
+   req = r1 + r2 + rp; cur = v/req; vbc = cur rp;
+   {req, cur, vbc/rTop, vbc/rBot, vbc}];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{req, cur, iTop, iBot, vbc, fa, fb, fc, ohm},
+  {req, cur, iTop, iBot, vbc} = network[r1, r2, rTop, rBot, v];
+  ohm[x_] := Row[{NumberForm[x, {3, 1}], \" \:03a9\"}];
+  fa = Graphics[{
+     resistorG[{0, 0}, {1.5, 0}], resistorG[{1.5, 0}, {3, 0}],
+     lbl[ohm[r1], {0.75, 0.32}], lbl[ohm[r2], {2.25, 0.32}],
+     wire[{{3, 0}, {3.4, 0}, {3.4, 0.6}}], wire[{{3.4, 0}, {3.4, -0.6}}],
+     resistorG[{3.4, 0.6}, {5, 0.6}], resistorG[{3.4, -0.6}, {5, -0.6}],
+     lbl[ohm[rTop], {4.2, 0.92}], lbl[ohm[rBot], {4.2, -0.92}],
+     wire[{{5, 0.6}, {5, -0.6}}], wire[{{5, 0}, {5.4, 0}}],
+     currentG[{0, 0}, {0.6, 0}, cur, Row[{\"I = \", NumberForm[cur, 3], \" A\"}], -0.25],
+     currentG[{3.4, 0.6}, {5, 0.6}, iTop, Row[{\"I\:2081 = \", NumberForm[iTop, 3], \" A\"}], -0.2],
+     currentG[{3.4, -0.6}, {5, -0.6}, iBot, Row[{\"I\:2082 = \", NumberForm[iBot, 3], \" A\"}], 0.2],
+     nodeG[{0, 0}, \"a\", {0, -0.3}], nodeG[{3, 0}, \"b\", {0, -0.3}], nodeG[{5.4, 0}, \"c\", {0, -0.3}]},
+    PlotRange -> {{-0.5, 6}, {-1.3, 1.3}}, AspectRatio -> Automatic, ImageSize -> 520, PlotLabel -> \"(a) the original network\"];
+  fb = Graphics[{
+     resistorG[{0, 0}, {2.7, 0}], resistorG[{2.7, 0}, {5.4, 0}],
+     lbl[ohm[r1 + r2], {1.35, 0.32}], lbl[ohm[par[rTop, rBot]], {4.05, 0.32}],
+     nodeG[{0, 0}, \"a\", {0, -0.3}], nodeG[{2.7, 0}, \"b\", {0, -0.3}], nodeG[{5.4, 0}, \"c\", {0, -0.3}]},
+    PlotRange -> {{-0.5, 6}, {-0.6, 0.7}}, AspectRatio -> Automatic, ImageSize -> 520, PlotLabel -> \"(b) series pair and parallel pair combined\"];
+  fc = Graphics[{
+     resistorG[{0, 0}, {5.4, 0}], lbl[Row[{\"R_eq = \", ohm[req]}], {2.7, 0.32}],
+     nodeG[{0, 0}, \"a\", {0, -0.3}], nodeG[{5.4, 0}, \"c\", {0, -0.3}]},
+    PlotRange -> {{-0.5, 6}, {-0.6, 0.7}}, AspectRatio -> Automatic, ImageSize -> 520, PlotLabel -> \"(c) the single equivalent resistance\"];
+  Column[{fa, fb, fc,
+    results[{
+      {\"R_eq between a and c\", Row[{NumberForm[req, 4], \" \:03a9\"}]},
+      {\"current in the series pair, I = \:0394V/R_eq\", Row[{NumberForm[cur, 4], \" A\"}]},
+      {\"\:0394V_bc = I \:00d7 (parallel pair)\", Row[{NumberForm[vbc, 4], \" V\"}]},
+      {\"current in the top parallel resistor\", Row[{NumberForm[iTop, 4], \" A\"}]},
+      {\"current in the bottom parallel resistor\", Row[{NumberForm[iBot, 4], \" A\"}]}}]}, Spacings -> 1.2]],
+ {{r1, 8.0, \"series resistor 1 (\:03a9)\"}, 1, 20, 0.5, Appearance -> \"Labeled\"},
+ {{r2, 4.0, \"series resistor 2 (\:03a9)\"}, 1, 20, 0.5, Appearance -> \"Labeled\"},
+ {{rTop, 6.0, \"parallel resistor, top (\:03a9)\"}, 1, 20, 0.5, Appearance -> \"Labeled\"},
+ {{rBot, 3.0, \"parallel resistor, bottom (\:03a9)\"}, 1, 20, 0.5, Appearance -> \"Labeled\"},
+ {{v, 42., \"potential difference \:0394V_ac (V)\"}, 1, 100, 1, Appearance -> \"Labeled\"},
+ Delimiter, Button[\"Figure 27.8 values\", r1 = 8.; r2 = 4.; rTop = 6.; rBot = 3.; v = 42.],
+ ControlPlacement -> Left, TrackedSymbols :> {r1, r2, rTop, rBot, v}]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Figure 27.8 values, exact arithmetic. Kirchhoff cross-check: junction b, and the two loops a -> b -> c through each parallel resistor. *)
+With[{res = network[8, 4, 6, 3, 42]},
+ Grid[{{\"quantity\", \"value\", \"book\"},
+   {\"R_eq (\:03a9)\", res[[1]], 14},
+   {\"I (A)\", res[[2]], 3},
+   {\"I in the 6.0-\:03a9 resistor (A)\", res[[3]], 1},
+   {\"I in the 3.0-\:03a9 resistor (A)\", res[[4]], 2},
+   {\"junction b: I \:2212 I\:2081 \:2212 I\:2082\", res[[2]] - res[[3]] - res[[4]], 0},
+   {\"loop via 6.0 \:03a9: 42 \:2212 12 I \:2212 6 I\:2081\", 42 - 12 res[[2]] - 6 res[[3]], 0},
+   {\"loop via 3.0 \:03a9: 42 \:2212 12 I \:2212 3 I\:2082\", 42 - 12 res[[2]] - 3 res[[4]], 0}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

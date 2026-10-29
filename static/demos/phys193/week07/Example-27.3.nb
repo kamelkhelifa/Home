@@ -1,0 +1,125 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.3 - Landscape Lights (Conceptual Example)", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 49 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A homeowner wishes to install low-voltage landscape lighting in his back yard. To save money, he purchases inexpensive 18-gauge cable, which has a relatively high resistance per unit length. This cable consists of two side-by-side wires separated by insulation, like the cord on an appliance. He runs a 200-foot length of this cable from the power supply to the farthest point at which he plans to position a light fixture. He attaches light fixtures across the two wires on the cable at 10-foot intervals so that the light fixtures are in parallel. Because of the cable's resistance, the brightness of the lightbulbs in the fixtures is not as desired. Which of the following problems does the homeowner have? (a) All the lightbulbs glow equally less brightly than they would if lower-resistance cable had been used. (b) The brightness of the lightbulbs decreases as you move farther from the power supply.", "Text"],
+
+Cell["The book gives no numbers, so this is a model: copper cable (resistance per 1000 ft of a single wire from the AWG tables), lamps treated as fixed resistors R_L = (12 V)\:00b2/P_rated, and a 10-ft stretch of the two-wire cable between successive fixtures. The ladder network is solved exactly, from the far end back to the supply.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+awg = <|12 -> 1.588, 14 -> 2.525, 16 -> 4.016, 18 -> 6.385|>;   (* \:03a9 per 1000 ft of one copper wire, 20 \:00b0C *)
+(* one cable fed at one end: n lamps rl, resistance rs (both wires, 10 ft) before each lamp.
+   z[[k]] = resistance seen looking into the cable just at lamp k; returns {lamp voltages, supply current} *)
+ladder[v0_, rs_, rl_, n_Integer] := Module[{z = ConstantArray[0., n], v = ConstantArray[0., n]},
+   z[[n]] = rl;
+   Do[z[[k]] = 1/(1/rl + 1/(rs + z[[k + 1]])), {k, n - 1, 1, -1}];
+   v[[1]] = v0 z[[1]]/(rs + z[[1]]);
+   Do[v[[k]] = v[[k - 1]] z[[k]]/(rs + z[[k]]), {k, 2, n}];
+   {v, v0/(rs + z[[1]])}];
+(* feeding the cable from its middle = two shorter ladders in parallel at the supply *)
+lampVolts[v0_, gauge_, prated_, n_Integer, mid_] := Module[{rs = 2 awg[gauge] 10/1000, rl = 144./prated, a, b, nl},
+   If[! TrueQ[mid], ladder[v0, rs, rl, n],
+    nl = Floor[n/2]; a = ladder[v0, rs, rl, n - nl]; b = ladder[v0, rs, rl, nl];
+    {Join[Reverse[b[[1]]], a[[1]]], a[[2]] + b[[2]]}]];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{res, v, itot, rl = 144./prated, pct, shown, drawing},
+  res = lampVolts[v0, gauge, prated, n, feed == \"the middle\"]; {v, itot} = res;
+  pct = 100 (v^2/rl)/prated;                       (* power of each lamp as % of its rating *)
+  shown = Min[n, 12];
+  drawing = Graphics[{
+     batteryG[{0, 0}, {0, 1}, True], wire[{{0, 1}, {0.5, 1}}], wire[{{0, 0}, {0.5, 0}}],
+     Text[Style[Row[{NumberForm[v0, {3, 1}], \" V\"}], 12], {0, 1.3}],
+     Table[With[{xa = k - 0.5, xb = k + 0.5, idx = Round[1 + (k - 1) (n - 1)/Max[1, shown - 1]]},
+       {resistorG[{xa, 1}, {xb, 1}, Gray, 0.5, 0.06], resistorG[{xa, 0}, {xb, 0}, Gray, 0.5, 0.06],
+        wire[{{xb, 1}, {xb, 0.72}}], wire[{{xb, 0.28}, {xb, 0}}],
+        {EdgeForm[ink], RGBColor[0.95, 0.7, 0.15, Clip[pct[[idx]]/100, {0.06, 1}]], Disk[{xb, 0.5}, 0.22]},
+        Text[Style[idx, 10, Gray], {xb, -0.28}]}], {k, shown}],
+     If[n > shown, Text[Style[Row[{shown, \" of the \", n, \" fixtures drawn\"}], 10, Gray], {shown/2 + 0.5, -0.55}], {}],
+     If[feed == \"the middle\", Text[Style[\"fed from the middle: each lamp drawn with its own brightness, in order along the cable\", 10, Gray], {shown/2 + 0.5, 1.55}], {}]},
+    PlotRange -> {{-0.6, shown + 0.8}, {-0.7, 1.7}}, AspectRatio -> Automatic, ImageSize -> 620];
+  Column[{drawing,
+    ListPlot[{Transpose[{Range[n], pct}], {{0.5, Mean[pct]}, {n + 0.5, Mean[pct]}}},
+     Joined -> {False, True}, PlotStyle -> {Directive[maroon, PointSize[0.015]], Directive[blue, Dashed]},
+     PlotRange -> {{0.5, n + 0.5}, {0, 110}}, Frame -> True, GridLines -> {None, {100}}, GridLinesStyle -> Directive[gold, Dashed],
+     FrameLabel -> {\"fixture number (counted along the cable)\", \"% of rated power\"},
+     PlotLegends -> Placed[{\"actual: (b)\", \"candidate (a): all equally dim\"}, Below], ImageSize -> 620],
+    results[{
+      {\"brightest lamp\", Row[{NumberForm[Max[pct], 3], \" % of rated power\"}]},
+      {\"dimmest lamp\", Row[{NumberForm[Min[pct], 3], \" % of rated power\"}]},
+      {\"resistance of one 10-ft stretch (both wires)\", Row[{NumberForm[2 awg[gauge] 10/1000, 3], \" \:03a9\"}]},
+      {\"supply current\", Row[{NumberForm[itot, 4], \" A\"}]}}]}, Spacings -> 1.2]],
+ {{gauge, 18, \"cable gauge (AWG)\"}, {18, 16, 14, 12}, ControlType -> SetterBar},
+ {{v0, 12.0, \"supply voltage (V)\"}, 6, 24, 0.1, Appearance -> \"Labeled\"},
+ {{prated, 7.0, \"lamp rating at 12 V (W)\"}, 1, 50, 0.5, Appearance -> \"Labeled\"},
+ {{n, 20, \"number of fixtures (10 ft apart)\"}, 2, 40, 1, Appearance -> \"Labeled\"},
+ {{feed, \"one end\", \"cable fed from\"}, {\"one end\", \"the middle\"}, ControlType -> SetterBar},
+ ControlPlacement -> Left, TrackedSymbols :> {gauge, v0, prated, n, feed}]", "Input"],
+
+Cell["Going further - what would fix it?", "Section"],
+
+Cell["(* The first stretch of cable carries the current of every lamp after it, so it has the largest voltage drop. Thicker cable (smaller gauge number), fewer or dimmer lamps, or feeding from the middle all help. *)
+Grid[Prepend[
+  Table[With[{one = lampVolts[12., g, 7., 20, False], mid = lampVolts[12., g, 7., 20, True]},
+    {g, NumberForm[100 First[one[[1]]]^2/144, 3], NumberForm[100 Last[one[[1]]]^2/144, 3], NumberForm[100 Min[mid[[1]]]^2/144, 3]}], {g, {18, 16, 14, 12}}],
+  {\"gauge\", \"first lamp (% of 7 W)\", \"last lamp, fed from one end\", \"dimmest lamp, fed from the middle\"}],
+ Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Junction rule: the supply current equals the sum of the lamp currents. Loop rule for the first stretch: v0 - v1 = rs (total current). 18 gauge, 12.0 V, 7.0-W lamps, 20 fixtures, fed from one end. *)
+With[{rs = 2 awg[18] 10/1000, rl = 144./7.},
+ With[{res = ladder[12., rs, rl, 20]},
+  Grid[{{\"check\", \"value\", \"should be\"},
+    {\"supply current \:2212 \:03a3 lamp currents (A)\", Chop[res[[2]] - Total[res[[1]]/rl], 10^-12], 0},
+    {\"(v0 \:2212 v1) \:2212 rs \:00d7 supply current (V)\", Chop[12. - res[[1, 1]] - rs res[[2]], 10^-12], 0},
+    {\"lamps get dimmer along the cable\", And @@ Thread[Differences[res[[1]]] < 0], True}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]
