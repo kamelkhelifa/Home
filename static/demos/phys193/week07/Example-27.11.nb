@@ -1,0 +1,96 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.11 - Energy Delivered to a Resistor", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 100 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A 5.00-\:03bcF capacitor is charged to a potential difference of 800 V and then discharged through a resistor. How much energy is delivered to the resistor in the time interval required to fully discharge the capacitor?", "Text"],
+
+Cell["Two very different ways to the same number. Isolated system: the initial energy of the capacitor, \:00bdC\:03b5\:00b2, all ends up as internal energy in the resistor. Nonisolated resistor: add up the power i\:00b2R over the whole discharge, \:222b\:2080^\:221e (\:03b5/R)\:00b2 e^(\:22122t/RC) R dt = \:00bdC\:03b5\:00b2. Both give 1.60 J, and R cancels: change R and the second method takes longer but arrives at the same place.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+uCap[cap_, v0_] := cap v0^2/2;                                                   (* Equation 25.13 *)
+eResistor[t_, cap_, v0_, res_] := uCap[cap, v0] (1 - Exp[-2 t/(res cap)]);       (* energy delivered up to time t *)", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{cap = cmu 1.*^-6, res = 10.^lR, tau, u0, num},
+  tau = res cap; u0 = uCap[cap, v0];
+  num = NIntegrate[(v0/res Exp[-x/tau])^2 res, {x, 0, Infinity}];      (* the integral of i^2 R, done numerically *)
+  Column[{
+    Plot[{u0 Exp[-2 x/tau], eResistor[x, cap, v0, res]}, {x, 0, 4 tau}, PlotStyle -> {Directive[blue, Thick], Directive[maroon, Thick]},
+     PlotLegends -> Placed[{\"still in the capacitor, U_E(t)\", \"delivered to the resistor, E_R(t)\"}, {Right, Center}],
+     PlotRange -> {0, 1.1 u0}, Frame -> True, FrameLabel -> {\"t (s)\", \"energy (J)\"},
+     GridLines -> {{tau}, {u0}}, GridLinesStyle -> Directive[gold, Dashed], ImageSize -> 520],
+    results[{
+      {\"\:00bdC\:03b5\:00b2 (isolated system)\", Row[{NumberForm[u0, 5], \" J\"}]},
+      {\"\:222b i\:00b2R dt from 0 to \:221e (numerical)\", Row[{NumberForm[num, 5], \" J\"}]},
+      {\"\:03c4 = RC\", Row[{NumberForm[tau, 4], \" s\"}]},
+      {\"initial current \:03b5/R\", Row[{NumberForm[v0/res, 4], \" A\"}]}}]}, Spacings -> 1.2]],
+ {{cmu, 5., \"capacitance C (\:03bcF)\"}, 0.5, 50, 0.5, Appearance -> \"Labeled\"},
+ {{v0, 800., \"initial potential difference \:03b5 (V)\"}, 10, 2000, 10, Appearance -> \"Labeled\"},
+ {{lR, 4., \"log\:2081\:2080(R / \:03a9)\"}, 1, 6, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, TrackedSymbols :> {cmu, v0, lR}]", "Input"],
+
+Cell["Going further - does the resistor's value matter?", "Section"],
+
+Cell["(* Not for the total: R cancels. A small R gives a large, brief current; a large R a small, long one. Up to time t the resistor has received (1/2) C emf^2 (1 - e^(-2t/RC)). *)
+Column[{
+  Integrate[(eps/rr Exp[-x/(rr cc)])^2 rr, {x, 0, Infinity}, Assumptions -> rr > 0 && cc > 0],
+  Plot[Evaluate[Table[eResistor[x, 5.*^-6, 800., rr], {rr, {1.*^3, 1.*^4, 1.*^5}}]], {x, 0, 2},
+   PlotLegends -> Placed[{\"R = 1 k\:03a9\", \"R = 10 k\:03a9\", \"R = 100 k\:03a9\"}, {Right, Center}], PlotStyle -> Thick,
+   Frame -> True, FrameLabel -> {\"t (s)\", \"energy delivered to R (J)\"}, PlotRange -> {0, 1.75}, ImageSize -> 520]}]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Book values: C = 5.00 uF, 800 V. The integral of i^2 R evaluated numerically for several R, against (1/2) C emf^2 = 1.60 J. *)
+With[{cap = 5.*^-6, v0 = 800.},
+ Grid[Prepend[
+   Table[{rr, rr cap, NumberForm[NIntegrate[(v0/rr Exp[-x/(rr cap)])^2 rr, {x, 0, Infinity}], 10], uCap[cap, v0]}, {rr, {10., 1.*^3, 1.*^5, 1.*^7}}],
+   {\"R (\:03a9)\", \"\:03c4 (s)\", \"\:222b i\:00b2R dt (J)\", \"\:00bdC\:03b5\:00b2 (J)\"}], Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

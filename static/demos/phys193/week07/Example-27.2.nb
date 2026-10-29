@@ -1,0 +1,99 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.2 - Matching the Load", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 18 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Find the load resistance R for which the maximum power is delivered to the load resistance in Figure 27.1a.", "Text"],
+
+Cell["The power delivered to the load is P = I\:00b2R = \:03b5\:00b2R/(R + r)\:00b2. Setting dP/dR = 0 gives R = r, and then P_max = \:03b5\:00b2/4r. Sweep R from far below r to far above it and watch where the curve peaks; change r and the peak follows it. The Going further cell looks at efficiency, R/(R + r), which is only 50 % at the matched load.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+power[e_, r_, R_] := e^2 R/(R + r)^2;             (* I^2 R with I = e/(R + r) *)
+efficiency[r_, R_] := R/(R + r);                  (* I^2 R / (I e) *)", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{R = 10.^lR, p, pm},
+  p = power[e, r, R]; pm = e^2/(4 r);
+  Column[{
+    LogLinearPlot[power[e, r, x], {x, 0.001, 1000},
+     PlotStyle -> Directive[maroon, Thick], PlotRange -> {0, 1.15 pm}, PlotPoints -> 200,
+     Frame -> True, FrameLabel -> {\"load resistance R (\:03a9)\", \"power to the load P (W)\"},
+     GridLines -> {{r}, {pm}}, GridLinesStyle -> Directive[gold, Dashed], ImageSize -> 480,
+     Epilog -> {maroon, PointSize[0.02], Point[{Log[R], p}],
+       Text[Style[Row[{NumberForm[p, 4], \" W\"}], 12, maroon], {Log[R], p}, {-1.3, -1}],
+       Text[Style[\"R = r\", 11, gold], {Log[r], 1.08 pm}, {-1.2, 0}],
+       Text[Style[\"\:03b5\:00b2/4r\", 11, gold], {Log[0.001], pm}, {-1.1, -1}]}],
+    results[{
+      {\"power to the load I\:00b2R\", Row[{NumberForm[p, 4], \" W\"}]},
+      {\"maximum \:03b5\:00b2/4r (at R = r)\", Row[{NumberForm[pm, 4], \" W\"}]},
+      {\"P / P_max\", NumberForm[p/pm, 4]},
+      {\"efficiency R/(R + r)\", Row[{NumberForm[100 efficiency[r, R], 3], \" %\"}]}}]}, Spacings -> 1.2]],
+ {{e, 12.0, \"emf \:03b5 (V)\"}, 1, 24, 0.1, Appearance -> \"Labeled\"},
+ {{r, 0.5, \"internal resistance r (\:03a9)\"}, 0.05, 5, 0.01, Appearance -> \"Labeled\"},
+ {{lR, Log10[2.], \"log\:2081\:2080(R / \:03a9)\"}, -3, 3, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, TrackedSymbols :> {e, r, lR}]", "Input"],
+
+Cell["Going further - power or efficiency?", "Section"],
+
+Cell["(* With x = R/r: P/P_max = 4x/(1 + x)^2 and efficiency = x/(1 + x). Matching gives the most power but wastes half of the energy inside the source. *)
+LogLinearPlot[{4 x/(1 + x)^2, x/(1 + x)}, {x, 0.01, 100},
+ PlotStyle -> {Directive[maroon, Thick], Directive[blue, Thick]},
+ PlotLegends -> Placed[{\"power / maximum power\", \"efficiency R/(R + r)\"}, {Right, Center}],
+ Frame -> True, FrameLabel -> {\"R / r\", \"fraction\"}, GridLines -> {{1}, {0.5, 1}}, GridLinesStyle -> Directive[gold, Dashed], ImageSize -> 480]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Symbolic: dP/dR = 0, and P at R = r. Numerical: maximise over R for e = 12.0 V, r = 0.500 \:03a9. *)
+Column[{
+  Solve[D[eps^2 rL/(rL + rI)^2, rL] == 0, rL],
+  Simplify[eps^2 rL/(rL + rI)^2 /. rL -> rI],
+  FindMaximum[power[12., 0.5, x], {x, 1.}],
+  {\"\:03b5\:00b2/4r =\", 12.^2/(4 0.5)}}]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

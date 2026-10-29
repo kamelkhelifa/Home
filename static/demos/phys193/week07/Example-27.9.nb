@@ -1,0 +1,115 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.9 - Charging a Capacitor in an RC Circuit", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 94 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["An uncharged capacitor and a resistor are connected in series to a battery as shown in Figure 27.15, where \:03b5 = 12.0 V, C = 5.00 \:03bcF and R = 8.00 \:00d7 10\:2075 \:03a9. The switch is thrown to position a. Find the time constant of the circuit, the maximum charge on the capacitor, the maximum current in the circuit, and the charge and current as functions of time.", "Text"],
+
+Cell["\:03c4 = RC, Q = C\:03b5, I_i = \:03b5/R; then q(t) = Q(1 \:2212 e^(\:2212t/\:03c4)) and i(t) = I_i e^(\:2212t/\:03c4). After one time constant the charge is 63.2 % of its final value and the current 36.8 % of its initial value. The Going further cell follows the energy: half of the battery's work is stored, half is dissipated in R.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+qCharge[t_, emf_, cap_, res_] := cap emf (1 - Exp[-t/(res cap)]);     (* Equation 27.19 *)
+iCharge[t_, emf_, cap_, res_] := emf/res Exp[-t/(res cap)];            (* Equation 27.20 *)", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{cap = cmu 1.*^-6, res = 10.^lR, tau, qmax, imax, q, cur, fig, plot},
+  tau = res cap; qmax = cap emf; imax = emf/res;
+  q = qCharge[t, emf, cap, res]; cur = iCharge[t, emf, cap, res];
+  fig = Graphics[{
+     batteryG[{0, 0}, {0, 2}, True], lbl[Row[{NumberForm[emf, {3, 1}], \" V\"}], {0.6, 1}, Bold],
+     wire[{{0, 2}, {0.9, 2}}], {ink, AbsoluteThickness[2.5], Line[{{0.9, 2}, {1.4, 2.05}}]},
+     nodeG[{0.9, 2}], {EdgeForm[ink], White, Disk[{1.45, 2}, 0.05]}, lbl[\"S at a\", {1.15, 2.3}, Gray],
+     resistorG[{1.5, 2}, {3.5, 2}], lbl[Row[{\"R = \", ScientificForm[res, 3], \" \:03a9\"}], {2.5, 2.4}],
+     wire[{{3.5, 2}, {4, 2}}], capacitorG[{4, 2}, {4, 0}], wire[{{4, 0}, {0, 0}}],
+     lbl[Row[{\"C = \", NumberForm[cmu, {3, 2}], \" \:03bcF\"}], {3.2, 1}],
+     Text[Style[Row[{\"+\", NumberForm[q 1*^6, 3], \" \:03bcC\"}], 11, maroon], {4.6, 1.2}],
+     Text[Style[Row[{\"\:2212\", NumberForm[q 1*^6, 3], \" \:03bcC\"}], 11, blue], {4.6, 0.8}],
+     currentG[{1.6, 2}, {2.2, 2}, cur, \"i\", -0.2]},
+    PlotRange -> {{-0.4, 5.2}, {-0.3, 2.7}}, AspectRatio -> Automatic, ImageSize -> 460];
+  plot = Plot[{qCharge[x, emf, cap, res]/qmax, iCharge[x, emf, cap, res]/imax}, {x, 0, 6 tau},
+    PlotStyle -> {Directive[maroon, Thick], Directive[blue, Thick]}, PlotRange -> {0, 1.05},
+    PlotLegends -> Placed[{Row[{\"q / Q   (Q = \", NumberForm[qmax 1*^6, 3], \" \:03bcC)\"}], Row[{\"i / I_i   (I_i = \", NumberForm[imax 1*^6, 3], \" \:03bcA)\"}]}, {Right, Center}],
+    Frame -> True, FrameLabel -> {\"t (s)\", \"fraction of maximum\"}, GridLines -> {{tau, 2 tau, 3 tau}, {1 - 1/E, 1/E}},
+    GridLinesStyle -> Directive[GrayLevel[0.6], Dashed],
+    Epilog -> {PointSize[0.02], maroon, Point[{t, q/qmax}], blue, Point[{t, cur/imax}]}, ImageSize -> 520];
+  Column[{fig, plot,
+    results[{
+      {\"time constant \:03c4 = RC\", Row[{NumberForm[tau, 4], \" s\"}]},
+      {\"maximum charge Q = C\:03b5\", Row[{NumberForm[qmax 1*^6, 4], \" \:03bcC\"}]},
+      {\"maximum current I_i = \:03b5/R\", Row[{NumberForm[imax 1*^6, 4], \" \:03bcA\"}]},
+      {Row[{\"q(t) at t = \", NumberForm[t, 3], \" s\"}], Row[{NumberForm[q 1*^6, 4], \" \:03bcC  (\", NumberForm[100 q/qmax, 3], \" % of Q)\"}]},
+      {Row[{\"i(t) at t = \", NumberForm[t, 3], \" s\"}], Row[{NumberForm[cur 1*^6, 4], \" \:03bcA  (\", NumberForm[100 cur/imax, 3], \" % of I_i)\"}]},
+      {\"formulas\", Row[{\"q(t) = \", NumberForm[qmax 1*^6, 3], \" (1 \:2212 e^(\:2212t/\", NumberForm[tau, 3], \")) \:03bcC,   i(t) = \", NumberForm[imax 1*^6, 3], \" e^(\:2212t/\", NumberForm[tau, 3], \") \:03bcA\"}]}}]}, Spacings -> 1.2]],
+ {{emf, 12.0, \"emf \:03b5 (V)\"}, 1, 24, 0.5, Appearance -> \"Labeled\"},
+ {{cmu, 5.0, \"capacitance C (\:03bcF)\"}, 0.5, 50, 0.5, Appearance -> \"Labeled\"},
+ {{lR, Log10[8.*^5], \"log\:2081\:2080(R / \:03a9)\"}, 3, 7, Appearance -> \"Labeled\"},
+ {{t, 4.0, \"time t (s)\"}, 0, 24, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, TrackedSymbols :> {emf, cmu, lR, t}]", "Input"],
+
+Cell["Going further - where does the battery's energy go?", "Section"],
+
+Cell["(* While charging, the battery does work emf q(t); the capacitor stores q^2/2C; the rest is dissipated in R. At the end: C emf^2 supplied, half stored, half dissipated - whatever R is. *)
+With[{emf = 12., cap = 5.*^-6, res = 8.*^5},
+ Module[{tau = res cap, w, u},
+  w[x_] := emf qCharge[x, emf, cap, res]; u[x_] := qCharge[x, emf, cap, res]^2/(2 cap);
+  Plot[Evaluate[{w[x], u[x], w[x] - u[x]}/(cap emf^2)], {x, 0, 6 tau}, PlotStyle -> {Directive[gold, Thick], Directive[blue, Thick], Directive[maroon, Thick]},
+   PlotLegends -> Placed[{\"supplied by the battery\", \"stored in the capacitor\", \"dissipated in the resistor\"}, {Right, Center}],
+   Frame -> True, FrameLabel -> {\"t (s)\", \"energy / C\:03b5\:00b2\"}, GridLines -> {None, {0.5, 1}}, PlotRange -> {0, 1.05}, ImageSize -> 520]]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Book values. The charging equation emf - q/C - R dq/dt = 0 integrated numerically (NDSolve), against Equations 27.19 and 27.20. *)
+With[{emf = 12., cap = 5.*^-6, res = 8.*^5},
+ Module[{sol = NDSolveValue[{res q'[x] == emf - q[x]/cap, q[0] == 0}, q, {x, 0, 24}, AccuracyGoal -> 14, PrecisionGoal -> 12]},
+  Column[{
+    Grid[{{\"\:03c4 = RC (s)\", res cap}, {\"Q = C\:03b5 (\:03bcC)\", cap emf 1*^6}, {\"I_i = \:03b5/R (\:03bcA)\", emf/res 1*^6}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]],
+    Grid[Prepend[Table[{x, NumberForm[sol[x] 1*^6, 8], NumberForm[qCharge[x, emf, cap, res] 1*^6, 8], NumberForm[sol'[x] 1*^6, 8], NumberForm[iCharge[x, emf, cap, res] 1*^6, 8]}, {x, {0, 4, 8, 12, 20}}],
+      {\"t (s)\", \"q numerical (\:03bcC)\", \"q formula (\:03bcC)\", \"i numerical (\:03bcA)\", \"i formula (\:03bcA)\"}], Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]]}]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

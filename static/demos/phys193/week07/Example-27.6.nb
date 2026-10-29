@@ -1,0 +1,106 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.6 - A Single-Loop Circuit", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 70 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A single-loop circuit contains two resistors and two batteries as shown in Figure 27.13. (Neglect the internal resistances of the batteries.) Find the current in the circuit.", "Text"],
+
+Cell["Guess a direction for the current (clockwise), walk once around the loop adding the rises and drops, and solve. Clockwise from a: + \:03b5\:2081 across the top battery, \:2212 I R\:2081, \:2212 \:03b5\:2082 across the bottom battery (crossed from + to \:2212), \:2212 I R\:2082. If the guess was wrong, the answer simply comes out negative. The What If? reverses the 12.0-V battery.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+(* clockwise current; s2 = +1 for the bottom battery as drawn (+ at c), -1 when it is reversed *)
+loopI[e1_, e2_, r1_, r2_, s2_] := (e1 - s2 e2)/(r1 + r2);", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{s2 = If[rev, -1, 1], cur, va, vb, vc, vd, va2, fig, pot},
+  cur = loopI[e1, e2, r1, r2, s2];
+  va = 0; vb = va + e1; vc = vb - cur r1; vd = vc - s2 e2; va2 = vd - cur r2;
+  fig = Graphics[{
+     batteryG[{0, 2}, {3, 2}, True], lbl[Row[{\"\:03b5\:2081 = \", NumberForm[e1, {3, 1}], \" V\"}], {1.5, 2.6}, Bold],
+     resistorG[{3, 2}, {3, 0}], lbl[Row[{\"R\:2081 = \", NumberForm[r1, {3, 1}], \" \:03a9\"}], {3.75, 1}],
+     batteryG[{0, 0}, {3, 0}, s2 > 0], lbl[Row[{\"\:03b5\:2082 = \", NumberForm[e2, {3, 1}], \" V\"}], {1.5, -0.45}, Bold],
+     resistorG[{0, 0}, {0, 2}], lbl[Row[{\"R\:2082 = \", NumberForm[r2, {3, 1}], \" \:03a9\"}], {-0.75, 1}],
+     nodeG[{0, 2}, \"a\", {-0.18, 0.18}], nodeG[{3, 2}, \"b\", {0.18, 0.18}], nodeG[{3, 0}, \"c\", {0.18, -0.18}], nodeG[{0, 0}, \"d\", {-0.18, -0.18}],
+     {GrayLevel[0.5], Dashed, Arrowheads[0.03], Arrow[{{0.9, 1.45}, {2.1, 1.45}}]}, lbl[\"assumed (clockwise)\", {1.5, 1.65}, Gray],
+     If[Abs[cur] > 10^-12, {maroon, AbsoluteThickness[3], Arrowheads[0.04], Arrow[{{1.5 - 0.6 Sign[cur], 1.0}, {1.5 + 0.6 Sign[cur], 1.0}}],
+       lbl[Row[{\"actual: \", NumberForm[Abs[cur], 3], \" A \", If[cur > 0, \"clockwise\", \"counterclockwise\"]}], {1.5, 0.75}, Bold, maroon]}, {}]},
+    PlotRange -> {{-1.6, 4.6}, {-0.8, 2.8}}, AspectRatio -> Automatic, ImageSize -> 460];
+  pot = ListLinePlot[{{0, va}, {1, vb}, {2, vc}, {3, vd}, {4, va2}}, PlotStyle -> Directive[maroon, Thick], Mesh -> All,
+    Frame -> True, FrameTicks -> {{Automatic, None}, {{{0, \"a\"}, {1, \"b\"}, {2, \"c\"}, {3, \"d\"}, {4, \"a\"}}, None}},
+    FrameLabel -> {\"walking clockwise from a\", \"V (V), with V_a = 0\"}, GridLines -> {None, {0}}, ImageSize -> 460];
+  Column[{fig, pot,
+    results[{
+      {\"loop equation\", Row[{\"+\", NumberForm[e1, {3, 1}], \" \:2212 \", NumberForm[r1, {3, 1}], \" I \", If[s2 > 0, \"\:2212 \", \"+ \"], NumberForm[e2, {3, 1}], \" \:2212 \", NumberForm[r2, {3, 1}], \" I = 0\"}]},
+      {\"I (clockwise positive)\", Row[{NumberForm[cur, 4], \" A\"}]},
+      {\"actual direction\", If[Abs[cur] < 10^-12, \"no current\", If[cur > 0, \"clockwise (guess right)\", \"counterclockwise (guess wrong)\"]]}}]}, Spacings -> 1.2]],
+ {{e1, 6.0, \"\:03b5\:2081, top battery (V)\"}, 0, 24, 0.5, Appearance -> \"Labeled\"},
+ {{e2, 12.0, \"\:03b5\:2082, bottom battery (V)\"}, 0, 24, 0.5, Appearance -> \"Labeled\"},
+ {{r1, 8.0, \"R\:2081, right (\:03a9)\"}, 1, 30, 0.5, Appearance -> \"Labeled\"},
+ {{r2, 10.0, \"R\:2082, left (\:03a9)\"}, 1, 30, 0.5, Appearance -> \"Labeled\"},
+ {{rev, False, \"reverse the polarity of \:03b5\:2082\"}, {False, True}},
+ ControlPlacement -> Left, TrackedSymbols :> {e1, e2, r1, r2, rev}]", "Input"],
+
+Cell["What if? The 12.0-V battery reversed", "Section"],
+
+Cell["(* Now both batteries push the current the same way, so their emfs add: I = (e1 + e2)/(R1 + R2) = 18/18 = 1.0 A, clockwise. *)
+Grid[{{\"\", \"as drawn\", \"12.0-V battery reversed\"},
+  {\"I (A), clockwise positive\", loopI[6, 12, 8, 10, 1], loopI[6, 12, 8, 10, -1]},
+  {\"decimal\", N[loopI[6, 12, 8, 10, 1], 3], N[loopI[6, 12, 8, 10, -1], 3]}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Loop rule and energy balance for Figure 27.13 (exact arithmetic): I = -1/3 A. *)
+With[{e1 = 6, e2 = 12, r1 = 8, r2 = 10},
+ With[{cur = loopI[e1, e2, r1, r2, 1]},
+  Grid[{{\"check\", \"value\", \"should be\"},
+    {\"I (A)\", cur, -1/3},
+    {\"sum of rises and drops (V)\", e1 - cur r1 - e2 - cur r2, 0},
+    {\"power from batteries \:2212 power in resistors (W)\", cur (e1 - e2) - cur^2 (r1 + r2), 0}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

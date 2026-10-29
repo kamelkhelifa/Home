@@ -244,6 +244,35 @@ interactive:
               - { num: "23.7", slide: 54, title: { en: A Cylindrically Symmetric Charge Distribution, ar: توزيع شحنة متماثل أسطوانيًا } }
               - { num: "23.8", slide: 58, title: { en: A Plane of Charge, ar: مستوٍ مشحون } }
               - { num: "23.9", slide: 62, conceptual: true, title: { en: Don’t Use Gauss’s Law Here!, ar: لا تستخدم قانون غاوس هنا! } }
+      - chapter: 27
+        week: 7
+        title: { en: "Direct-Current Circuits", ar: "دارات التيار المستمر" }
+        path: assets/demos/phys193/week07
+        index: assets/demos/phys193/week07/index.html
+        sections:
+          - section: "27.1"
+            title: { en: Electromotive Force, ar: القوة الدافعة الكهربائية }
+            examples:
+              - { num: "27.1", slide: 14, title: { en: Terminal Voltage of a Battery, ar: الجهد الطرفي لبطارية } }
+              - { num: "27.2", slide: 18, title: { en: Matching the Load, ar: مواءمة الحمل } }
+          - section: "27.2"
+            title: { en: Resistors in Series and Parallel, ar: المقاومات على التوالي وعلى التوازي }
+            examples:
+              - { num: "27.3", slide: 49, conceptual: true, title: { en: Landscape Lights, ar: إنارة الحديقة } }
+              - { num: "27.4", slide: 51, title: { en: Find the Equivalent Resistance, ar: أوجد المقاومة المكافئة } }
+              - { num: "27.5", slide: 55, title: { en: Three Resistors in Parallel, ar: ثلاث مقاومات على التوازي } }
+          - section: "27.3"
+            title: { en: Kirchhoff’s Rules, ar: قاعدتا كيرشوف }
+            examples:
+              - { num: "27.6", slide: 70, title: { en: A Single-Loop Circuit, ar: دارة ذات حلقة واحدة } }
+              - { num: "27.7", slide: 73, title: { en: A Multiloop Circuit, ar: دارة متعددة الحلقات } }
+          - section: "27.4"
+            title: { en: RC Circuits, ar: دارات RC }
+            examples:
+              - { num: "27.8", slide: 93, conceptual: true, title: { en: Intermittent Windshield Wipers, ar: ماسحات الزجاج الأمامي المتقطعة } }
+              - { num: "27.9", slide: 94, title: { en: Charging a Capacitor in an RC Circuit, ar: شحن مكثف في دارة RC } }
+              - { num: "27.10", slide: 96, title: { en: Discharging a Capacitor in an RC Circuit, ar: تفريغ مكثف في دارة RC } }
+              - { num: "27.11", slide: 100, title: { en: Energy Delivered to a Resistor, ar: الطاقة المنقولة إلى مقاومة } }
 
 materials: []
 exams: []

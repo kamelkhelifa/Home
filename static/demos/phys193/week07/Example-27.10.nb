@@ -1,0 +1,98 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.10 - Discharging a Capacitor in an RC Circuit", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 96 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Consider a capacitor of capacitance C that is being discharged through a resistor of resistance R as shown in Figure 27.15c. (A) After how many time constants is the charge on the capacitor one-fourth its initial value? (B) The energy stored in the capacitor decreases with time as the capacitor discharges. After how many time constants is this stored energy one-fourth its initial value?", "Text"],
+
+Cell["During a discharge q = Q_i e^(\:2212t/\:03c4), but the stored energy goes as the charge squared, U = U_i e^(\:22122t/\:03c4), so it falls twice as fast. For a fraction f: the charge needs \:03c4 ln(1/f), the energy only \:00bd \:03c4 ln(1/f). With f = \:00bc: 1.39 \:03c4 and 0.693 \:03c4. The What If? cell defines the half-life t\:00bd = \:03c4 ln 2.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+tCharge[f_] := Log[1/f];          (* time, in units of tau, for q to fall to f Q_i  *)
+tEnergy[f_] := Log[1/f]/2;        (* time, in units of tau, for U to fall to f U_i  *)", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{tau = res cmu 1.*^-6, tq = tCharge[f], tu = tEnergy[f]},
+  Column[{
+    Plot[{Exp[-u], Exp[-2 u]}, {u, 0, Max[3, 1.2 tq]}, PlotStyle -> {Directive[maroon, Thick], Directive[blue, Thick]},
+     PlotLegends -> Placed[{\"charge q / Q_i\", \"energy U / U_i\"}, {Right, Center}], PlotRange -> {0, 1.05},
+     Frame -> True, FrameLabel -> {\"t / \:03c4\", \"fraction of initial value\"}, GridLines -> {{tu, tq}, {f}},
+     GridLinesStyle -> Directive[gold, Dashed],
+     Epilog -> {PointSize[0.02], maroon, Point[{tq, f}], blue, Point[{tu, f}],
+       Text[Style[Row[{NumberForm[tq, 3], \" \:03c4\"}], 11, maroon], {tq, 1.0}, {-1.1, 0}],
+       Text[Style[Row[{NumberForm[tu, 3], \" \:03c4\"}], 11, blue], {tu, 1.0}, {-1.1, 0}]}, ImageSize -> 520],
+    results[{
+      {\"charge reaches f Q_i after\", Row[{NumberForm[tq, 4], \" \:03c4 = \", NumberForm[tq tau, 3], \" s\"}]},
+      {\"energy reaches f U_i after\", Row[{NumberForm[tu, 4], \" \:03c4 = \", NumberForm[tu tau, 3], \" s\"}]},
+      {\"half-life t\:00bd = \:03c4 ln 2\", Row[{NumberForm[Log[2.], 4], \" \:03c4 = \", NumberForm[Log[2.] tau, 3], \" s\"}]},
+      {\"\:03c4 = RC\", Row[{NumberForm[tau, 4], \" s\"}]}}],
+    Style[\"The answers are pure numbers of time constants: only the fraction matters, not R or C separately.\", Italic]}, Spacings -> 1.2]],
+ {{f, 0.25, \"target fraction f\"}, 0.01, 0.99, 0.01, Appearance -> \"Labeled\"},
+ {{res, 8.*^5, \"R (\:03a9)\"}, 1.*^3, 1.*^7, Appearance -> \"Labeled\"},
+ {{cmu, 5., \"C (\:03bcF)\"}, 0.5, 50, 0.5, Appearance -> \"Labeled\"},
+ Delimiter, Row[{Button[\"Problem: f = \:00bc\", f = 0.25], Button[\"Half-life: f = \:00bd\", f = 0.5]}],
+ ControlPlacement -> Left, TrackedSymbols :> {f, res, cmu}]", "Input"],
+
+Cell["What if? The half-life", "Section"],
+
+Cell["(* The time for the charge to fall to one-half: Q_i/2 = Q_i e^(-t/RC), so t_half = RC ln 2 = 0.693 tau - the same number as part (B): a quarter of the energy is a half of the charge. *)
+Column[{Solve[1/2 == Exp[-th/tau0], th] // Quiet, {\"t\:00bd / \:03c4 =\", N[Log[2], 6], \"   part (B) / \:03c4 =\", N[tEnergy[1/4], 6]}}]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* The discharge equation dq/dt = -q/RC integrated numerically (NDSolve, events when q and q^2/2C reach the fraction f of their initial values), against the formulas. *)
+With[{f = 0.25, tau = 4.},
+ Module[{hits},
+  hits = Reap[NDSolve[{q'[x] == -q[x]/tau, q[0] == 1, WhenEvent[q[x] == f, Sow[{\"charge\", x}]], WhenEvent[q[x]^2 == f, Sow[{\"energy\", x}]]}, q, {x, 0, 20 tau}]][[2, 1]];
+  Grid[{{\"\", \"numerical (\:03c4)\", \"formula (\:03c4)\"},
+    {\"charge to f Q_i\", NumberForm[Cases[hits, {\"charge\", x_} :> x][[1]]/tau, 7], NumberForm[tCharge[f], 7]},
+    {\"energy to f U_i\", NumberForm[Cases[hits, {\"energy\", x_} :> x][[1]]/tau, 7], NumberForm[tEnergy[f], 7]},
+    {\"exact, part (A)\", \"ln 4\", N[Log[4], 7]}, {\"exact, part (B)\", \"\:00bd ln 4 = ln 2\", N[Log[2], 7]}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

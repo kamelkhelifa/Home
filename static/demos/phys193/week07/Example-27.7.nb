@@ -1,0 +1,125 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 27.7 - A Multiloop Circuit", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 7 \:00b7 Chapter 27 \:00b7 Lecture slide 73 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Find the currents I\:2081, I\:2082 and I\:2083 in the circuit shown in Figure 27.14.", "Text"],
+
+Cell["The circuit cannot be reduced by the series and parallel rules, so Kirchhoff's rules are used: the junction rule at c, and the loop rule around abcda and befcb (both traversed clockwise), with the current directions chosen as in Figure 27.14. Three equations, three unknowns. A negative answer means that current flows opposite to the chosen direction.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the circuit laws (Ohm\:2019s law, Kirchhoff\:2019s rules, energy conservation); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+(* unknowns {I1 (b -> c), I2 (f -> c), I3 (c -> d)}; s = +1 for clockwise traversal of both loops, -1 for counterclockwise *)
+kirchhoff[et_, em_, rl_, rm_, rb_, s_] := Module[{m, rhs},
+   m = {{1, 1, -1},              (* junction c:  I1 + I2 - I3 = 0 *)
+     {-s rm, 0, -s rb},          (* loop abcda:  em - rm I1 - rb I3 = 0 *)
+     {s rm, -s rl, 0}};          (* loop befcb:  -rl I2 - et + rm I1 - em = 0 *)
+   rhs = {0, -s em, s (et + em)};
+   {m, rhs, LinearSolve[m, rhs]}];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{s = If[ccw, -1, 1], m, rhs, i1, i2, i3, va, vb, vc, vd, ve, vf, fig, volt},
+  {m, rhs, {i1, i2, i3}} = kirchhoff[et, em, rl, rm, rb, s];
+  (* node potentials, V_a = 0 (a-b, c-d and c-f are plain wires) *)
+  va = 0; vb = 0; vd = va + rb i3; vc = vd; vf = vc; ve = vb - rl i2;
+  volt[x_] := Style[Row[{NumberForm[Chop[x, 10^-9], 3], \" V\"}], 10, blue];
+  fig = Graphics[{
+     batteryG[{0, 4}, {4, 4}, False], lbl[Row[{NumberForm[et, {3, 1}], \" V\"}], {2, 4.45}, Bold],
+     resistorG[{0, 4}, {0, 2}], lbl[Row[{NumberForm[rl, {3, 1}], \" \:03a9\"}], {0.65, 3}],
+     batteryG[{0, 2}, {1.8, 2}, True], lbl[Row[{NumberForm[em, {3, 1}], \" V\"}], {0.9, 1.55}, Bold],
+     resistorG[{1.8, 2}, {4, 2}], lbl[Row[{NumberForm[rm, {3, 1}], \" \:03a9\"}], {2.9, 2.35}],
+     wire[{{4, 4}, {4, 2}, {4, 0}}], wire[{{0, 2}, {0, 0}}], resistorG[{0, 0}, {4, 0}], lbl[Row[{NumberForm[rb, {3, 1}], \" \:03a9\"}], {2, -0.4}],
+     nodeG[{0, 0}, \"a\", {-0.2, -0.15}], nodeG[{0, 2}, \"b\", {-0.2, 0.15}], nodeG[{4, 2}, \"c\", {0.2, 0.15}],
+     nodeG[{4, 0}, \"d\", {0.2, -0.15}], nodeG[{0, 4}, \"e\", {-0.2, 0.15}], nodeG[{4, 4}, \"f\", {0.2, 0.15}],
+     Text[volt[va], {-0.65, -0.15}], Text[volt[vb], {-0.65, 2.15}], Text[volt[vc], {4.7, 2.15}],
+     Text[volt[vd], {4.7, -0.15}], Text[volt[ve], {-0.65, 4.15}], Text[volt[vf], {4.7, 4.15}],
+     (* chosen directions: grey dashed; actual currents: solid, labelled *)
+     {GrayLevel[0.55], Dashed, Arrowheads[0.025], Arrow[{{1.65, 2.22}, {2.25, 2.22}}], Arrow[{{3.75, 3.3}, {3.75, 2.7}}], Arrow[{{3.75, 1.3}, {3.75, 0.7}}]},
+     currentG[{1.5, 2}, {2.4, 2}, i1, Row[{\"I\:2081 = \", NumberForm[Abs[i1], 3], \" A\"}], -0.28],
+     currentG[{4, 3.3}, {4, 2.7}, i2, \"\", 0.45], Text[Style[Row[{\"I\:2082 = \", NumberForm[Abs[i2], 3], \" A\"}], 12, Bold, maroon], {3.1, 3.0}],
+     currentG[{4, 1.3}, {4, 0.7}, i3, \"\", 0.45], Text[Style[Row[{\"I\:2083 = \", NumberForm[Abs[i3], 3], \" A\"}], 12, Bold, maroon], {3.1, 1.0}]},
+    PlotRange -> {{-1.2, 5.3}, {-0.8, 4.8}}, AspectRatio -> Automatic, ImageSize -> 470];
+  Column[{fig,
+    Style[Row[{\"Loops traversed \", If[s > 0, \"clockwise\", \"counterclockwise\"], \". The equations  m.{I\:2081, I\:2082, I\:2083} = rhs :\"}], 12],
+    Row[{MatrixForm[m], \" \:00b7 \", MatrixForm[{\"I\:2081\", \"I\:2082\", \"I\:2083\"}], \" = \", MatrixForm[rhs]}],
+    results[{
+      {\"I\:2081 (b \:2192 c)\", Row[{NumberForm[i1, 4], \" A\"}]},
+      {\"I\:2082 (f \:2192 c)\", Row[{NumberForm[i2, 4], \" A\", If[i2 < 0, \"  (opposite to the chosen direction)\", \"\"]}]},
+      {\"I\:2083 (c \:2192 d)\", Row[{NumberForm[i3, 4], \" A\", If[i3 < 0, \"  (opposite to the chosen direction)\", \"\"]}]}}]}, Spacings -> 1.2]],
+ {{et, 14., \"top battery \:03b5, e\:2013f (V)\"}, 0, 30, 0.5, Appearance -> \"Labeled\"},
+ {{em, 10., \"middle battery \:03b5, b\:2013c (V)\"}, 0, 30, 0.5, Appearance -> \"Labeled\"},
+ {{rl, 4., \"left resistor, e\:2013b (\:03a9)\"}, 0.5, 20, 0.5, Appearance -> \"Labeled\"},
+ {{rm, 6., \"middle resistor, b\:2013c (\:03a9)\"}, 0.5, 20, 0.5, Appearance -> \"Labeled\"},
+ {{rb, 2., \"bottom resistor, a\:2013d (\:03a9)\"}, 0.5, 20, 0.5, Appearance -> \"Labeled\"},
+ Delimiter, Button[\"Figure 27.14 values\", et = 14.; em = 10.; rl = 4.; rm = 6.; rb = 2.],
+ {{ccw, False, \"traverse both loops counterclockwise\"}, {False, True}},
+ ControlPlacement -> Left, TrackedSymbols :> {et, em, rl, rm, rb, ccw}]", "Input"],
+
+Cell["Going further - traversing the loops the other way", "Section"],
+
+Cell["(* Reversing the direction of traversal multiplies every term of a loop equation by -1: the same equation, the same solution. *)
+With[{cw = kirchhoff[14, 10, 4, 6, 2, 1], cc = kirchhoff[14, 10, 4, 6, 2, -1]},
+ Grid[{{\"\", \"clockwise\", \"counterclockwise\"},
+   {\"equations\", Row[{MatrixForm[cw[[1]]], \"  \", MatrixForm[cw[[2]]]}], Row[{MatrixForm[cc[[1]]], \"  \", MatrixForm[cc[[2]]]}]},
+   {\"{I\:2081, I\:2082, I\:2083} (A)\", cw[[3]], cc[[3]]}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Figure 27.14 values, exact arithmetic. The third loop aefda was not used to find the currents, so it is an independent test; so is the energy balance. *)
+With[{sol = kirchhoff[14, 10, 4, 6, 2, 1][[3]]},
+ With[{i1 = sol[[1]], i2 = sol[[2]], i3 = sol[[3]]},
+  Grid[{{\"check\", \"value\", \"should be\"},
+    {\"I\:2081, I\:2082, I\:2083 (A)\", sol, {2, -3, -1}},
+    {\"junction c: I\:2081 + I\:2082 \:2212 I\:2083\", i1 + i2 - i3, 0},
+    {\"loop abcda: 10 \:2212 6 I\:2081 \:2212 2 I\:2083\", 10 - 6 i1 - 2 i3, 0},
+    {\"loop befcb: \:22124 I\:2082 \:2212 14 + 6 I\:2081 \:2212 10\", -4 i2 - 14 + 6 i1 - 10, 0},
+    {\"loop aefda (not used): \:22124 I\:2082 \:2212 14 \:2212 2 I\:2083\", -4 i2 - 14 - 2 i3, 0},
+    {\"power from the batteries (W)\", 14 (-i2) + 10 i1, 62},
+    {\"power in the resistors (W)\", 4 i2^2 + 6 i1^2 + 2 i3^2, 62}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]
