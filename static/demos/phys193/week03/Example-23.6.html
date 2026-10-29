@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -164,6 +170,29 @@ divided by the area. Then the same field is computed the long way — by adding 
 
 <p>An insulating solid sphere of radius \(a\) has a uniform volume charge density \(\rho\) and carries a total positive charge \(Q\). (A) Calculate the magnitude of the
   electric field at a point outside the sphere. (B) Find the magnitude of the electric field at a point inside the sphere.</p>
+<figure class="probfig wide"><svg aria-label="Figure 23.12: the uniformly charged insulating sphere of radius a, with a spherical gaussian surface of radius r (a) outside it, r &gt; a, and (b) inside it, r &lt; a." role="img" viewbox="0 0 740 470" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><circle class="pf-chg" cx="190.0" cy="250.0" r="120.0" style="fill-opacity:.3"></circle><circle class="pf-gsd" cx="190.0" cy="250.0" r="170.0"></circle><circle class="pf-ink" cx="190.0" cy="250.0" r="5.0"></circle><line class="pf-ink" stroke-width="1.6" x1="190.0" x2="276.0" y1="250.0" y2="184.6"></line><polygon class="pf-ink" points="285.5,177.4 278.3,189.4 272.0,181.1" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="256.0" y="224.0"><tspan font-style="italic">a</tspan></text><line class="pf-ink" stroke-width="1.6" x1="190.0" x2="79.0" y1="250.0" y2="137.6"></line><polygon class="pf-ink" points="70.5,129.0 83.4,134.6 76.0,142.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="106.3" y="187.5"><tspan font-style="italic">r</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="220.0" y="312.0"><tspan font-style="italic">Q</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="190.0" y="30.0">(a)</text><circle class="pf-chg" cx="560.0" cy="250.0" r="120.0" style="fill-opacity:.3"></circle><circle class="pf-gsd" cx="560.0" cy="250.0" r="82.0"></circle><circle class="pf-ink" cx="560.0" cy="250.0" r="5.0"></circle><line class="pf-ink" stroke-width="1.6" x1="560.0" x2="646.0" y1="250.0" y2="184.6"></line><polygon class="pf-ink" points="655.5,177.4 648.3,189.4 642.0,181.1" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="626.0" y="224.0"><tspan font-style="italic">a</tspan></text><line class="pf-ink" stroke-width="1.6" x1="560.0" x2="510.8" y1="250.0" y2="200.2"></line><polygon class="pf-ink" points="502.4,191.7 515.2,197.3 507.8,204.6" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="510.3" y="221.9"><tspan font-style="italic">r</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="590.0" y="312.0"><tspan font-style="italic">Q</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="560.0" y="30.0">(b)</text><line class="pf-ink" stroke-width="1.4" x1="380.0" x2="326.0" y1="424.0" y2="373.5"></line><polygon class="pf-ink" points="318.0,366.0 330.0,370.7 323.5,377.7" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="start" x="388.0" y="438.0">Gaussian sphere</text><line class="pf-ink" stroke-width="1.4" x1="588.0" x2="589.8" y1="420.0" y2="337.0"></line><polygon class="pf-ink" points="590.0,326.0 594.5,338.1 584.9,337.9" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="start" x="560.0" y="446.0">Gaussian sphere</text></svg><figcaption>Figure 23.12: the uniformly charged insulating sphere of radius a, with a spherical gaussian surface of radius r (a) outside it, r &gt; a, and (b) inside it, r &lt; a. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Grow the gaussian surface</span></summary><div class="fold-body">
 
@@ -231,7 +260,7 @@ divided by the area. Then the same field is computed the long way — by adding 
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 23.6 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 48 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.6.nb" download>Example-23.6.nb</a>.</p>
+  <p>Interactive solution of Example 23.6 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 48 of the Week 3 lecture. Every number and interactive drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.6.nb" download>Example-23.6.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>

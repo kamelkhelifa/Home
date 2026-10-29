@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -164,6 +170,29 @@ see where the near-field (infinite plane) and far-field (point charge) limits ta
 
 <p>A disk of radius \(R\) has a uniform surface charge density \(\sigma\). Calculate the electric field at a point \(P\) that lies along the central
   perpendicular axis of the disk and a distance \(x\) from the center of the disk.</p>
+<figure class="probfig"><svg aria-label="Figure 23.4: a uniformly charged disk of radius R, the ring of radius r and width dr, and the point P on the axis." role="img" viewbox="0 0 540 440" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><polyline class="pf-w" points="0.0,214.0 216.0,232.0"></polyline><ellipse class="pf-chg" cx="202.0" cy="236.0" rx="120.0" ry="208.0" transform="rotate(8 202.0 236.0)"></ellipse><ellipse class="pf-chg" cx="216.0" cy="232.0" rx="120.0" ry="208.0" style="fill-opacity:.16" transform="rotate(8 216.0 232.0)"></ellipse><ellipse class="pf-chg2" cx="216.0" cy="232.0" rx="72.0" ry="126.0" style="fill-opacity:.35;stroke-width:18;stroke-opacity:.45;fill:none" transform="rotate(8 216.0 232.0)"></ellipse><polyline class="pf-w" points="216.0,232.0 499.9,291.2"></polyline><line class="pf-ink" stroke-width="2.4" x1="480.3" x2="495.0" y1="287.1" y2="290.1"></line><polygon class="pf-ink" points="509.7,293.2 492.2,298.6 495.8,281.3" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="527.3" y="296.9"><tspan font-style="italic">x</tspan></text><circle class="pf-ink" cx="216.0" cy="232.0" r="6.0"></circle><circle class="pf-ink" cx="435.3" cy="277.7" r="7.0"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="441.3" y="251.7"><tspan font-style="italic">P</tspan></text><line class="pf-ink" stroke-width="1.4" x1="216.0" x2="278.4" y1="232.0" y2="35.4"></line><polygon class="pf-ink" points="282.0,24.0 283.0,38.0 273.1,34.8" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="236.0" y="128.0"><tspan font-style="italic">R</tspan></text><line class="pf-ink" stroke-width="1.4" x1="216.0" x2="177.1" y1="232.0" y2="186.4"></line><polygon class="pf-ink" points="170.0,178.0 181.4,184.0 174.1,190.2" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="180.0" y="214.0"><tspan font-style="italic">r</tspan></text><polyline class="pf-thin" points="270.0,100.0 318.0,52.0"></polyline><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="332.0" y="40.0"><tspan font-style="italic">dq</tspan></text><line class="pf-ink" stroke-width="1.4" x1="196.0" x2="186.6" y1="300.0" y2="339.3"></line><polygon class="pf-ink" points="184.0,350.0 182.1,337.2 191.5,339.5" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="168.0" x2="174.2" y1="420.0" y2="382.9"></line><polygon class="pf-ink" points="176.0,372.0 178.8,384.6 169.3,383.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="212.0" y="336.0"><tspan font-style="italic">dr</tspan></text><line class="pf-ink" stroke-width="1.4" x1="325.6" x2="421.5" y1="280.8" y2="301.6"></line><polygon class="pf-ink" points="431.3,303.7 419.6,305.7 421.5,297.1" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="325.6" x2="229.8" y1="280.8" y2="260.1"></line><polygon class="pf-ink" points="220.0,258.0 231.7,256.0 229.8,264.6" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="329.6" y="300.8"><tspan font-style="italic">x</tspan></text></svg><figcaption>Figure 23.4: a uniformly charged disk of radius R, the ring of radius r and width dr, and the point P on the axis. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">From rings to a disk</span></summary><div class="fold-body">
 
@@ -226,7 +255,7 @@ see where the near-field (infinite plane) and far-field (point charge) limits ta
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 23.3 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 20 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.3.nb" download>Example-23.3.nb</a>.</p>
+  <p>Interactive solution of Example 23.3 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 20 of the Week 3 lecture. Every number and interactive drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.3.nb" download>Example-23.3.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>

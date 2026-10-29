@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -163,6 +169,29 @@ out negative. Flip either battery and see the sign rules at work.</p>
 <details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
 <p>A single-loop circuit contains two resistors and two batteries as shown in Figure 27.13. (Neglect the internal resistances of the batteries.) Find the current in the circuit.</p>
+<figure class="probfig"><svg aria-label="Figure 27.13: a single-loop circuit with two batteries and two resistors." role="img" viewbox="0 0 500 450" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><polyline class="pf-w" points="40.0,192.0 40.0,96.0 152.0,96.0"></polyline><polyline class="pf-w" points="170.0,96.0 456.0,96.0 456.0,192.0"></polyline><line class="pf-bat" stroke-width="3.2" x1="170.0" x2="170.0" y1="71.0" y2="121.0"></line><line class="pf-bat" stroke-width="7" x1="152.0" x2="152.0" y1="84.0" y2="108.0"></line><polyline class="pf-res" points="456.0,192.0 445.0,198.0 467.0,210.0 445.0,222.0 467.0,234.0 445.0,246.0 467.0,258.0 456.0,264.0"></polyline><polyline class="pf-w" points="456.0,264.0 456.0,368.0 332.0,368.0"></polyline><polyline class="pf-w" points="314.0,368.0 40.0,368.0 40.0,264.0"></polyline><line class="pf-bat" stroke-width="3.2" x1="332.0" x2="332.0" y1="343.0" y2="393.0"></line><line class="pf-bat" stroke-width="7" x1="314.0" x2="314.0" y1="356.0" y2="380.0"></line><polyline class="pf-res" points="40.0,264.0 51.0,258.0 29.0,246.0 51.0,234.0 29.0,222.0 51.0,210.0 29.0,198.0 40.0,192.0"></polyline><circle class="pf-ink" cx="40.0" cy="96.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="18.0" y="92.0"><tspan font-style="italic">a</tspan></text><circle class="pf-ink" cx="456.0" cy="96.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="478.0" y="92.0"><tspan font-style="italic">b</tspan></text><circle class="pf-ink" cx="456.0" cy="368.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="478.0" y="372.0"><tspan font-style="italic">c</tspan></text><circle class="pf-ink" cx="40.0" cy="368.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="18.0" y="372.0"><tspan font-style="italic">d</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="174.0" y="24.0"><tspan font-style="italic" font-weight="700">ε</tspan><tspan baseline-shift="sub" font-size="68%">1</tspan> = 6.0 V</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="140.0" y="64.0">−</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="186.0" y="64.0">+</text><line class="pf-cur" stroke-width="4.0" x1="262.0" x2="325.0" y1="70.0" y2="70.0"></line><polygon class="pf-cur" points="340.0,70.0 324.0,78.8 324.0,61.2" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="362.0" y="70.0"><tspan font-style="italic">I</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="end" x="438.0" y="228.0"><tspan font-style="italic">R</tspan><tspan baseline-shift="sub" font-size="68%">1</tspan> = 8.0 Ω</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="start" x="58.0" y="228.0"><tspan font-style="italic">R</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan> = 10 Ω</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="302.0" y="400.0">−</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="348.0" y="400.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="330.0" y="432.0"><tspan font-style="italic" font-weight="700">ε</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan> = 12 V</text></svg><figcaption>Figure 27.13: a single-loop circuit with two batteries and two resistors. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Walk around the loop</span></summary><div class="fold-body">
 
@@ -210,7 +239,7 @@ out negative. Flip either battery and see the sign rules at work.</p>
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 27.6 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 70 of the Week 7 lecture. Every number and drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.6.nb" download>Example-27.6.nb</a>.</p>
+  <p>Interactive solution of Example 27.6 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 70 of the Week 7 lecture. Every number and interactive drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.6.nb" download>Example-27.6.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 7 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>

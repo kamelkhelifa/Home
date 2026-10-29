@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -165,6 +171,29 @@ the time constant \(\tau=RC\).</p>
 <p>An uncharged capacitor and a resistor are connected in series to a battery as shown in Figure 27.15, where \(\varepsilon=12.0\) V, \(C=5.00\ \mu\text{F}\) and
   \(R=8.00\times10^5\ \Omega\). The switch is thrown to position \(a\). Find the time constant of the circuit, the maximum charge on the capacitor, the maximum current in
   the circuit, and the charge and current as functions of time.</p>
+<figure class="probfig"><svg aria-label="Figure 27.15b: the switch S has been thrown to position a; the battery charges the capacitor through R." role="img" viewbox="0 0 500 372" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><polyline class="pf-w" points="10.0,304.0 10.0,54.0 174.0,54.0"></polyline><polyline class="pf-w" points="272.0,54.0 347.0,54.0"></polyline><polyline class="pf-w" points="365.0,54.0 452.0,54.0 452.0,140.0"></polyline><polyline class="pf-res" points="452.0,140.0 441.0,146.0 463.0,158.0 441.0,170.0 463.0,182.0 441.0,194.0 463.0,206.0 452.0,212.0"></polyline><polyline class="pf-w" points="452.0,212.0 452.0,304.0 136.0,304.0"></polyline><polyline class="pf-w" points="118.0,304.0 10.0,304.0"></polyline><line class="pf-bat" stroke-width="3.2" x1="118.0" x2="118.0" y1="279.0" y2="329.0"></line><line class="pf-bat" stroke-width="7" x1="136.0" x2="136.0" y1="292.0" y2="316.0"></line><polyline class="pf-w" points="202.0,110.0 202.0,304.0"></polyline><circle class="pf-ink" cx="202.0" cy="304.0" r="4.0"></circle><line class="pf-cap" x1="347.0" x2="347.0" y1="31.0" y2="77.0"></line><line class="pf-cap" x1="365.0" x2="365.0" y1="31.0" y2="77.0"></line><line class="pf-res" stroke-width="3" x1="266.0" x2="184.0" y1="54.0" y2="60.0"></line><circle class="pf-res" cx="180.0" cy="54.0" r="5.5" style="fill:var(--surface,#fffdf8);stroke-width:2.2"></circle><circle class="pf-res" cx="266.0" cy="54.0" r="5.5" style="fill:var(--surface,#fffdf8);stroke-width:2.2"></circle><circle class="pf-res" cx="202.0" cy="106.0" r="5.5" style="fill:var(--surface,#fffdf8);stroke-width:2.2"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="164.0" y="32.0"><tspan font-style="italic">a</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="220.0" y="110.0"><tspan font-style="italic">b</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="380.0" y="22.0"><tspan font-style="italic">C</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="334.0" y="82.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="376.0" y="82.0">−</text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="472.0" y="176.0"><tspan font-style="italic">R</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="100.0" y="334.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="152.0" y="334.0">−</text><text class="pf-t" dominant-baseline="middle" font-size="30" text-anchor="middle" x="127.0" y="360.0"><tspan font-style="italic" font-weight="700">ε</tspan></text><line class="pf-cur" stroke-width="4.0" x1="412.0" x2="412.0" y1="98.0" y2="253.0"></line><polygon class="pf-cur" points="412.0,268.0 403.2,252.0 420.8,252.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="392.0" y="184.0"><tspan font-style="italic">i</tspan></text></svg><figcaption>Figure 27.15b: the switch S has been thrown to position a; the battery charges the capacitor through R. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Charge and current against time</span></summary><div class="fold-body">
 
@@ -208,7 +237,7 @@ the time constant \(\tau=RC\).</p>
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 27.9 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 94 of the Week 7 lecture. Every number and drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.9.nb" download>Example-27.9.nb</a>.</p>
+  <p>Interactive solution of Example 27.9 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 94 of the Week 7 lecture. Every number and interactive drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.9.nb" download>Example-27.9.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 7 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>

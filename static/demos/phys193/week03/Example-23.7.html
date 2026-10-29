@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -163,6 +169,29 @@ passes. That symmetry is the whole solution. In the What If? the line is made fi
 <details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
 <p>Find the electric field a distance \(r\) from a line of positive charge of infinite length and constant charge per unit length \(\lambda\).</p>
+<figure class="probfig"><svg aria-label="Figure 23.13: a coaxial cylindrical gaussian surface of radius r and length ℓ around the infinite line of charge." role="img" viewbox="0 0 560 590" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><rect class="pf-chg" height="160" style="fill-opacity:.35" width="32" x="246" y="0"></rect><rect class="pf-chg" height="158" style="fill-opacity:.35" width="32" x="246" y="432"></rect><path class="pf-gs" d="M 132 160 L 132 432 A 130 38 0 0 0 392 432 L 392 160 A 130 38 0 0 0 132 160 Z"></path><rect class="pf-chg" height="272" style="fill-opacity:.15;stroke-opacity:.35" width="32" x="246" y="160"></rect><ellipse class="pf-gs" cx="262.0" cy="160.0" rx="130.0" ry="38.0" style="fill-opacity:.2" transform="rotate(0 262.0 160.0)"></ellipse><ellipse class="pf-chg" cx="262.0" cy="168.0" rx="16.0" ry="7.0" style="fill-opacity:.5" transform="rotate(0 262.0 168.0)"></ellipse><path class="pf-gs" d="M 132 432 A 130 38 0 0 0 392 432" style="fill:none"></path><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="262.0" y="30.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="262.0" y="76.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="262.0" y="122.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="262.0" y="474.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="262.0" y="520.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="262.0" y="566.0">+</text><line class="pf-ink" stroke-width="1.4" x1="262.0" x2="377.0" y1="166.0" y2="173.3"></line><polygon class="pf-ink" points="388.0,174.0 375.7,178.0 376.3,168.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="328.0" y="154.0"><tspan font-style="italic">r</tspan></text><path class="pf-gs2" d="M 324 244 Q 354 248 380 240 L 380 296 Q 354 304 324 300 Z"></path><line class="pf-fld" stroke-width="4" x1="352.0" x2="515.2" y1="266.0" y2="289.3"></line><polygon class="pf-fld" points="534.0,292.0 512.6,300.1 515.8,278.3" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="524.0" y="258.0"><tspan font-weight="700">E</tspan></text><line class="pf-ink" stroke-width="1.3" x1="516.8" x2="525.4" y1="241.9" y2="241.9"></line><polygon class="pf-ink" points="532.2,241.9 524.4,244.5 524.4,239.3" stroke-width="1"></polygon><line class="pf-ink" stroke-width="4" x1="352.0" x2="423.2" y1="284.0" y2="293.7"></line><polygon class="pf-ink" points="440.0,296.0 420.8,303.4 423.5,283.8" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="end" x="418.9" y="330.0"><tspan font-style="italic">d</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="428.0" y="330.0"><tspan font-weight="700">A</tspan></text><line class="pf-ink" stroke-width="1.3" x1="420.8" x2="429.4" y1="313.9" y2="313.9"></line><polygon class="pf-ink" points="436.2,313.9 428.4,316.5 428.4,311.3" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="middle" x="102.0" y="312.0"><tspan font-style="italic">ℓ</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="start" x="14.0" y="64.0">Gaussian</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="start" x="14.0" y="92.0">surface</text><line class="pf-ink" stroke-width="1.4" x1="84.0" x2="128.6" y1="108.0" y2="186.4"></line><polygon class="pf-ink" points="134.0,196.0 123.9,187.9 132.2,183.2" stroke-width="1"></polygon></svg><figcaption>Figure 23.13: a coaxial cylindrical gaussian surface of radius r and length ℓ around the infinite line of charge. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">The gaussian cylinder</span></summary><div class="fold-body">
 
@@ -221,7 +250,7 @@ passes. That symmetry is the whole solution. In the What If? the line is made fi
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 23.7 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 54 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.7.nb" download>Example-23.7.nb</a>.</p>
+  <p>Interactive solution of Example 23.7 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 54 of the Week 3 lecture. Every number and interactive drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.7.nb" download>Example-23.7.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>

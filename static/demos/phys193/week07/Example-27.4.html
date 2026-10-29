@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -164,6 +170,29 @@ both the reduction and the currents follow.</p>
 
 <p>Four resistors are connected as shown in Figure 27.8a. (A) Find the equivalent resistance between points \(a\) and \(c\). (B) What is the current in each resistor if a
   potential difference of 42 V is maintained between \(a\) and \(c\)?</p>
+<figure class="probfig"><svg aria-label="Figure 27.8a: the four resistors between a and c." role="img" viewbox="0 0 560 400" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><polyline class="pf-w" points="56.0,210.0 96.0,210.0"></polyline><polyline class="pf-res" points="96.0,210.0 102.0,221.0 114.0,199.0 126.0,221.0 138.0,199.0 150.0,221.0 162.0,199.0 168.0,210.0"></polyline><polyline class="pf-w" points="168.0,210.0 238.0,210.0"></polyline><polyline class="pf-res" points="238.0,210.0 244.0,221.0 256.0,199.0 268.0,221.0 280.0,199.0 292.0,221.0 304.0,199.0 310.0,210.0"></polyline><polyline class="pf-w" points="310.0,210.0 362.0,210.0"></polyline><polyline class="pf-w" points="362.0,326.0 362.0,92.0 392.0,92.0"></polyline><polyline class="pf-res" points="392.0,92.0 397.7,103.0 409.0,81.0 420.3,103.0 431.7,81.0 443.0,103.0 454.3,81.0 460.0,92.0"></polyline><polyline class="pf-w" points="460.0,92.0 488.0,92.0 488.0,326.0 460.0,326.0"></polyline><polyline class="pf-res" points="460.0,326.0 454.3,315.0 443.0,337.0 431.7,315.0 420.3,337.0 409.0,315.0 397.7,337.0 392.0,326.0"></polyline><polyline class="pf-w" points="392.0,326.0 362.0,326.0"></polyline><polyline class="pf-w" points="488.0,210.0 532.0,210.0"></polyline><circle class="pf-ink" cx="56.0" cy="210.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="56.0" y="236.0"><tspan font-style="italic">a</tspan></text><circle class="pf-ink" cx="362.0" cy="210.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="384.0" y="210.0"><tspan font-style="italic">b</tspan></text><circle class="pf-ink" cx="532.0" cy="210.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="532.0" y="236.0"><tspan font-style="italic">c</tspan></text><ellipse class="pf-dash" cx="203.0" cy="212.0" rx="128.0" ry="56.0" style="stroke:var(--c-2,#b8741a)" transform="rotate(0 203.0 212.0)"></ellipse><ellipse class="pf-dash" cx="424.0" cy="222.0" rx="76.0" ry="196.0" style="stroke:var(--c-2,#b8741a)" transform="rotate(0 424.0 222.0)"></ellipse><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="132.0" y="176.0">8.0 Ω</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="274.0" y="176.0">4.0 Ω</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="426.0" y="58.0">6.0 Ω</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="426.0" y="366.0">3.0 Ω</text><line class="pf-cur" stroke-width="4.0" x1="172.0" x2="235.0" y1="232.0" y2="232.0"></line><polygon class="pf-cur" points="250.0,232.0 234.0,240.8 234.0,223.2" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="206.0" y="254.0"><tspan font-style="italic">I</tspan></text><line class="pf-cur" stroke-width="4.0" x1="381.0" x2="381.0" y1="178.0" y2="143.0"></line><polygon class="pf-cur" points="381.0,128.0 389.8,144.0 372.2,144.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="404.0" y="156.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">1</tspan></text><line class="pf-cur" stroke-width="4.0" x1="381.0" x2="381.0" y1="236.0" y2="275.0"></line><polygon class="pf-cur" points="381.0,290.0 372.2,274.0 389.8,274.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="404.0" y="264.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan></text></svg><figcaption>Figure 27.8a: the four resistors between a and c. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Reduce, then rebuild</span></summary><div class="fold-body">
 
@@ -212,7 +241,7 @@ both the reduction and the currents follow.</p>
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 27.4 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 51 of the Week 7 lecture. Every number and drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.4.nb" download>Example-27.4.nb</a>.</p>
+  <p>Interactive solution of Example 27.4 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 51 of the Week 7 lecture. Every number and interactive drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.4.nb" download>Example-27.4.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 7 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>
