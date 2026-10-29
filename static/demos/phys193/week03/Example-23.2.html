@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -164,6 +170,29 @@ Rotate the chosen pair around the ring and see the cancellation happen, then rel
 
 <p>A ring of radius \(a\) carries a uniformly distributed positive total charge \(Q\). Calculate the electric field due to the ring at a point \(P\) lying a
   distance \(x\) from its center along the central axis perpendicular to the plane of the ring.</p>
+<figure class="probfig"><svg aria-label="Figure 23.3a: a uniformly charged ring of radius a and the point P on its axis, a distance x from the centre." role="img" viewbox="0 0 640 425" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><ellipse class="pf-chg" cx="130.0" cy="218.0" rx="56.0" ry="172.0" style="fill:none;stroke-width:24;stroke-opacity:.35" transform="rotate(-4 130.0 218.0)"></ellipse><ellipse class="pf-res" cx="130.0" cy="218.0" rx="44.0" ry="160.0" style="stroke-width:1.4" transform="rotate(-4 130.0 218.0)"></ellipse><ellipse class="pf-res" cx="130.0" cy="218.0" rx="68.0" ry="184.0" style="stroke-width:1.4" transform="rotate(-4 130.0 218.0)"></ellipse><polyline class="pf-w" points="112.0,218.0 574.5,300.2"></polyline><line class="pf-ink" stroke-width="2.4" x1="554.8" x2="569.6" y1="296.8" y2="299.4"></line><polygon class="pf-ink" points="584.3,302.0 567.0,307.9 570.1,290.5" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="604.0" y="305.5"><tspan font-style="italic">x</tspan></text><rect height="22" style="fill:var(--muted,#646873)" transform="rotate(-8 142 52)" width="18" x="133" y="41"></rect><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="146.0" y="22.0"><tspan font-style="italic">dq</tspan></text><line class="pf-ink" stroke-width="1.4" x1="112.0" x2="138.0" y1="218.0" y2="74.8"></line><polygon class="pf-ink" points="140.0,64.0 142.6,76.7 133.1,74.9" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="116.0" y="128.0"><tspan font-style="italic">a</tspan></text><polyline class="pf-dash" points="142.0,52.0 407.2,270.5" style="stroke:var(--ink,#15171c)"></polyline><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="300.0" y="140.0"><tspan font-style="italic">r</tspan></text><path class="pf-thin" d="M 348.1 260.0 A 60 60 0 0 1 360.9 232.3"></path><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="338.2" y="238.6"><tspan font-style="italic">θ</tspan></text><polyline class="pf-dash" points="510.0,288.8 499.8,346.8" style="stroke:var(--ink,#15171c);stroke-width:1.3"></polyline><polyline class="pf-dash" points="397.0,328.5 499.8,346.8" style="stroke:var(--ink,#15171c);stroke-width:1.3"></polyline><line class="pf-fldl" stroke-width="4.5" x1="407.2" x2="493.3" y1="270.5" y2="285.8"></line><polygon class="pf-fldl" points="510.0,288.8 490.6,295.4 494.0,275.9" stroke-width="1"></polygon><line class="pf-fldl" stroke-width="4.5" x1="407.2" x2="399.9" y1="270.5" y2="311.8"></line><polygon class="pf-fldl" points="397.0,328.5 390.4,309.1 409.9,312.5" stroke-width="1"></polygon><line class="pf-fld" stroke-width="5" x1="407.2" x2="485.2" y1="270.5" y2="334.7"></line><polygon class="pf-fld" points="499.8,346.8 477.4,342.6 491.4,325.6" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="514.0" y="262.8"><tspan font-style="italic">dE</tspan><tspan baseline-shift="sub" font-size="68%">x</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="377.0" y="354.5"><tspan font-style="italic">dE</tspan><tspan baseline-shift="sub" font-size="68%">⊥</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="end" x="496.7" y="376.8"><tspan font-style="italic">d</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="505.8" y="376.8"><tspan font-weight="700">E</tspan></text><line class="pf-ink" stroke-width="1.3" x1="498.6" x2="507.3" y1="360.7" y2="360.7"></line><polygon class="pf-ink" points="514.1,360.7 506.3,363.3 506.3,358.1" stroke-width="1"></polygon><circle class="pf-ink" cx="407.2" cy="270.5" r="6.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="403.2" y="244.5"><tspan font-style="italic">P</tspan></text><circle class="pf-ink" cx="112.0" cy="218.0" r="6.0"></circle><line class="pf-ink" stroke-width="1.4" x1="252.6" x2="379.4" y1="264.8" y2="287.7"></line><polygon class="pf-ink" points="389.2,289.5 377.6,291.9 379.2,283.2" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="252.6" x2="125.8" y1="264.8" y2="241.8"></line><polygon class="pf-ink" points="116.0,240.0 127.6,237.6 126.0,246.3" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="251.6" y="282.2"><tspan font-style="italic">x</tspan></text></svg><figcaption>Figure 23.3a: a uniformly charged ring of radius a and the point P on its axis, a distance x from the centre. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Why only the axial component survives</span></summary><div class="fold-body">
 
@@ -233,7 +262,7 @@ Rotate the chosen pair around the ring and see the cancellation happen, then rel
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 23.2 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 16 of the Week 3 lecture. Every number and drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.2.nb" download>Example-23.2.nb</a>.</p>
+  <p>Interactive solution of Example 23.2 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 23, as presented on slide 16 of the Week 3 lecture. Every number and interactive drawing on this page is computed live in your browser from Coulomb’s law. Mathematica version: <a href="Example-23.2.nb" download>Example-23.2.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 3 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>

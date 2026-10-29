@@ -147,6 +147,12 @@ details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold
 .fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
 @media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
 
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
 </style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -163,6 +169,29 @@ Change any battery or resistor and the equations, their solution and the directi
 <details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
 
 <p>Find the currents \(I_1\), \(I_2\) and \(I_3\) in the circuit shown in Figure 27.14.</p>
+<figure class="probfig"><svg aria-label="Figure 27.14: a multiloop circuit. The current directions are chosen as shown." role="img" viewbox="0 0 480 580" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><polyline class="pf-w" points="40.0,162.0 40.0,80.0 213.0,80.0"></polyline><polyline class="pf-w" points="231.0,80.0 412.0,80.0 412.0,522.0 256.0,522.0"></polyline><line class="pf-bat" stroke-width="3.2" x1="213.0" x2="213.0" y1="55.0" y2="105.0"></line><line class="pf-bat" stroke-width="7" x1="231.0" x2="231.0" y1="68.0" y2="92.0"></line><polyline class="pf-res" points="40.0,162.0 29.0,167.8 51.0,179.5 29.0,191.2 51.0,202.8 29.0,214.5 51.0,226.2 40.0,232.0"></polyline><polyline class="pf-w" points="40.0,232.0 40.0,522.0 186.0,522.0"></polyline><polyline class="pf-res" points="186.0,522.0 191.8,533.0 203.5,511.0 215.2,533.0 226.8,511.0 238.5,533.0 250.2,511.0 256.0,522.0"></polyline><polyline class="pf-w" points="40.0,302.0 99.0,302.0"></polyline><line class="pf-bat" stroke-width="3.2" x1="117.0" x2="117.0" y1="277.0" y2="327.0"></line><line class="pf-bat" stroke-width="7" x1="99.0" x2="99.0" y1="290.0" y2="314.0"></line><polyline class="pf-w" points="117.0,302.0 186.0,302.0"></polyline><polyline class="pf-res" points="186.0,302.0 191.8,313.0 203.5,291.0 215.2,313.0 226.8,291.0 238.5,313.0 250.2,291.0 256.0,302.0"></polyline><polyline class="pf-w" points="256.0,302.0 412.0,302.0"></polyline><circle class="pf-ink" cx="40.0" cy="80.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="18.0" y="80.0"><tspan font-style="italic">e</tspan></text><circle class="pf-ink" cx="412.0" cy="80.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="434.0" y="80.0"><tspan font-style="italic">f</tspan></text><circle class="pf-ink" cx="40.0" cy="302.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="18.0" y="302.0"><tspan font-style="italic">b</tspan></text><circle class="pf-ink" cx="412.0" cy="302.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="434.0" y="302.0"><tspan font-style="italic">c</tspan></text><circle class="pf-ink" cx="40.0" cy="522.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="18.0" y="522.0"><tspan font-style="italic">a</tspan></text><circle class="pf-ink" cx="412.0" cy="522.0" r="5.5"></circle><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="middle" x="434.0" y="522.0"><tspan font-style="italic">d</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="222.0" y="24.0">14.0 V</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="198.0" y="116.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="248.0" y="116.0">−</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="start" x="64.0" y="198.0">4.0 Ω</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="88.0" y="268.0">−</text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="130.0" y="268.0">+</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="108.0" y="344.0">10.0 V</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="222.0" y="340.0">6.0 Ω</text><text class="pf-t" dominant-baseline="middle" font-size="25" text-anchor="middle" x="222.0" y="560.0">2.0 Ω</text><line class="pf-cur" stroke-width="4.0" x1="266.0" x2="325.0" y1="282.0" y2="282.0"></line><polygon class="pf-cur" points="340.0,282.0 324.0,290.8 324.0,273.2" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="352.0" y="286.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">1</tspan></text><line class="pf-cur" stroke-width="4.0" x1="436.0" x2="436.0" y1="186.0" y2="247.0"></line><polygon class="pf-cur" points="436.0,262.0 427.2,246.0 444.8,246.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="450.0" y="218.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan></text><line class="pf-cur" stroke-width="4.0" x1="436.0" x2="436.0" y1="360.0" y2="421.0"></line><polygon class="pf-cur" points="436.0,436.0 427.2,420.0 444.8,420.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="450.0" y="392.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">3</tspan></text></svg><figcaption>Figure 27.14: a multiloop circuit. The current directions are chosen as shown. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
 </div></details>
 <details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Three equations, three currents</span></summary><div class="fold-body">
 
@@ -219,7 +248,7 @@ Change any battery or resistor and the equations, their solution and the directi
 </div></details>
 </main>
 <footer class="foot"><div class="wrap">
-  <p>Interactive solution of Example 27.7 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 73 of the Week 7 lecture. Every number and drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.7.nb" download>Example-27.7.nb</a>.</p>
+  <p>Interactive solution of Example 27.7 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 27, as presented on slide 73 of the Week 7 lecture. Every number and interactive drawing on this page is computed live in your browser from the circuit laws (Ohm’s law, Kirchhoff’s rules, energy conservation). Mathematica version: <a href="Example-27.7.nb" download>Example-27.7.nb</a>.</p>
   <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
   <a href="index.html">all Week 7 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
 </div></footer>
