@@ -27,7 +27,7 @@ about_title:      { en: "Precision QCD,<br><em>patient teaching.</em>", ar: "د�
 at_a_glance:      { en: At a glance, ar: لمحة سريعة }
 fact_field:       { en: Field, ar: التخصص }
 fact_dept:        { en: Department, ar: القسم }
-fact_trained:     { en: Trained at, ar: التكوين }
+fact_trained:     { en: Studied at, ar: الدراسة }
 fact_trained_val: { en: "The University of Manchester · MPhys, PhD", ar: "جامعة مانشستر · ماجستير الفيزياء، دكتوراه" }
 fact_contact:     { en: Contact, ar: التواصل }
 explore:          { en: Explore, ar: استكشف }

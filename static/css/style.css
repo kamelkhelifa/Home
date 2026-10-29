@@ -1005,3 +1005,14 @@ html[lang="ar"] .nav-list a { font-size: .98rem; }
   .js .reveal { opacity: 1 !important; transform: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/* ---------- Justified long-form text ----------
+   Paragraphs of running text are justified on screens wide enough for it; short texts (cards, captions,
+   labels) and phone screens stay ragged, where justification opens wide gaps between words. The large
+   English bio on the home page stays ragged for the same reason (Arabic justifies well at any size). */
+@media (min-width: 640px) {
+  .prose p, .prose li, .course .tw-prose p, html[lang="ar"] .split-body > .lead {
+    text-align: justify; text-justify: inter-word; hyphens: auto; -webkit-hyphens: auto;
+  }
+  html[lang="ar"] .split-body > .lead, html[lang="ar"] .prose p, html[lang="ar"] .prose li, html[lang="ar"] .course .tw-prose p { hyphens: manual; -webkit-hyphens: manual; }
+}
