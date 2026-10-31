@@ -1,8 +1,8 @@
 """Draw the site's logo: three K's for research, teaching and community.
 
-Research: a QCD jet, a gluon (theory), a lattice ending in a hexagonal ring (materials) and a mesh of points
-(computation). Teaching: a digital pen and a circuit trace. Community: a voice carrying outward and people
-linked arm in arm. The K's sit at the corners of a triangle.
+The K's stems form a triangle and their arms meet inside it; a three-jet event marks the centre. In the seal
+each K also holds its story: particle tracks and a lattice ring (research), an open book and a pen (teaching), a
+group of people (community).
 
   python tools/make_logo.py                          # redraw with the cached Arabic name
   python tools/make_logo.py --arabic-font FONT.ttf   # also re-trace the Arabic name from a font
@@ -34,118 +34,106 @@ def pt(x, y, r, deg):
     return x + r * math.cos(a), y + r * math.sin(a)
 
 
-# ---------------------------------------------------------------- the three K's (each in a 36 x 44 box)
+# ---------------------------------------------------------------- the three K's
+# The K's stems are the sides of a triangle; from the middle of each stem two arms reach inwards and meet the
+# neighbouring K's arms. Research (maroon) on the left, teaching (gold) on the right, community (ink) as the base.
+# Where the three meet, at the centre, a three-jet event in their three colours.
 
-VX, VY, UP, DN = 6.2, 23, -50, 46     # the point where the arms meet, and the arms' directions
+O, R, T, GAP = (50, 52), 38, .38, 1.6
 
 
-def stem(c):
+def add(a, b, k=1):
+    return a[0] + k * b[0], a[1] + k * b[1]
+
+
+def sub(a, b):
+    return a[0] - b[0], a[1] - b[1]
+
+
+def unit(v):
+    n = math.hypot(*v)
+    return v[0] / n, v[1] / n
+
+
+def perp(v):
+    return -v[1], v[0]
+
+
+def turn(p, deg):
+    a, (x, y) = math.radians(deg), sub(p, O)
+    return O[0] + x * math.cos(a) - y * math.sin(a), O[1] + x * math.sin(a) + y * math.cos(a)
+
+
+TOP = (O[0], O[1] - R)
+LEFT, RIGHT = turn(TOP, -120), turn(TOP, 120)
+P_TOP, P_LEFT, P_RIGHT = (add(O, sub(X, O), T) for X in (TOP, LEFT, RIGHT))   # where neighbouring arms meet
+MID = {"research": add(LEFT, sub(TOP, LEFT), .5), "teaching": add(RIGHT, sub(TOP, RIGHT), .5), "community": add(LEFT, sub(RIGHT, LEFT), .5)}
+
+
+def bar(p, q, w, color):
+    n = perp(unit(sub(q, p)))
+    pts = [add(p, n, w / 2), add(q, n, w / 2), add(q, n, -w / 2), add(p, n, -w / 2)]
+    return f'<polygon points="{" ".join(f"{x:.2f},{y:.2f}" for x, y in pts)}" {paint(("fill", color))}/>'
+
+
+def k_letter(s0, s1, arm_to, color, sw=4.2, aw=2.5):
+    """One K: a serif stem along a side of the triangle, and two arms of equal weight from its middle."""
+    a, b = add(s0, sub(s1, s0), .15), add(s0, sub(s1, s0), .85)
+    mid, n = add(s0, sub(s1, s0), .5), perp(unit(sub(s1, s0)))
+    out = [bar(a, b, sw, color)] + [bar(add(e, n, -sw), add(e, n, sw), 1.2, color) for e in (a, b)]
+    for q in arm_to:
+        end = add(q, unit(sub(mid, q)), GAP)
+        nn = perp(unit(sub(q, mid)))
+        out += [bar(mid, end, aw, color), bar(add(end, nn, -aw * .95), add(end, nn, aw * .95), .9, color)]
+    return "".join(out)
+
+
+def three_jets(c):
+    out = []
+    for k, col in enumerate(("maroon", "gold", "ink")):
+        ang = -90 + 120 * k
+        for half, op in ((13, .22), (4.5, 1)):
+            x1, y1 = pt(*O, 6.5, ang - half)
+            x2, y2 = pt(*O, 6.5, ang + half)
+            out.append(f'<path d="M{O[0]} {O[1]}L{x1:.2f} {y1:.2f}A6.5 6.5 0 0 1 {x2:.2f} {y2:.2f}Z" {paint(("fill", c[col]))} fill-opacity="{op}"/>')
+    out.append(f'<circle cx="{O[0]}" cy="{O[1]}" r=".9" {paint(("fill", c["paper"]), ("stroke", c["ink"]))} stroke-width=".45"/>')
+    return "".join(out)
+
+
+def symbols(c):
+    """Each K's story, drawn between its arms."""
+    out = []
+    m = MID["research"]                                   # research: particle tracks from the K's vertex, a lattice ring
+    d = unit(sub(O, m))
+    for ang in (-24, -12, 0, 12, 24):
+        a = math.radians(ang)
+        dd = (d[0] * math.cos(a) - d[1] * math.sin(a), d[0] * math.sin(a) + d[1] * math.cos(a))
+        (x1, y1), (x2, y2) = add(m, dd, 2.2), add(m, dd, 7.5)
+        out.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" {paint(("stroke", c["maroon"]))} stroke-width=".42" stroke-linecap="round" stroke-opacity=".85"/>')
+    h = add(m, sub(O, m), .62)
+    ring = [add(h, (1.5 * math.cos(math.radians(60 * k)), 1.5 * math.sin(math.radians(60 * k)))) for k in range(6)]
+    out.append('<polygon points="' + " ".join(f"{x:.2f},{y:.2f}" for x, y in ring) + f'" fill="none" {paint(("stroke", c["maroon"]))} stroke-width=".5"/>')
+    bx, by = add(MID["teaching"], sub(O, MID["teaching"]), .5)   # teaching: an open book and a pen
+    out.append(f'<path d="M{bx:.2f} {by + 1.6:.2f}C{bx - 1.2:.2f} {by + .8:.2f} {bx - 2.8:.2f} {by + .8:.2f} {bx - 4:.2f} {by + 1.2:.2f}V{by - 1.6:.2f}'
+               f'C{bx - 2.8:.2f} {by - 2:.2f} {bx - 1.2:.2f} {by - 2:.2f} {bx:.2f} {by - 1.2:.2f}Z'
+               f'M{bx:.2f} {by + 1.6:.2f}C{bx + 1.2:.2f} {by + .8:.2f} {bx + 2.8:.2f} {by + .8:.2f} {bx + 4:.2f} {by + 1.2:.2f}V{by - 1.6:.2f}'
+               f'C{bx + 2.8:.2f} {by - 2:.2f} {bx + 1.2:.2f} {by - 2:.2f} {bx:.2f} {by - 1.2:.2f}Z" fill="none" {paint(("stroke", c["gold"]))} stroke-width=".55" stroke-linejoin="round"/>')
+    out.append(f'<g transform="translate({bx + .6:.2f} {by - 3.2:.2f}) rotate(-35)"><rect x="-3" y="-.45" width="4.6" height=".9" {paint(("fill", c["gold"]))}/>'
+               f'<path d="M1.6 -.45L3.2 0L1.6 .45Z" {paint(("fill", c["ink"]))}/></g>')
+    x0, y0 = add(MID["community"], sub(O, MID["community"]), .45)   # community: a group of people
     ink = paint(("fill", c["ink"]))
-    return (f'<rect x="2" y="2" width="4.2" height="40" {ink}/>'
-            f'<rect x="-1" y="1.3" width="10.2" height="1.4" rx=".4" {ink}/>'
-            f'<rect x="-1" y="41.3" width="10.2" height="1.4" rx=".4" {ink}/>')
-
-
-def cone(c, r, d, half, col, op):
-    x1, y1 = pt(VX, VY, r, d - half)
-    x2, y2 = pt(VX, VY, r, d + half)
-    return f'<path d="M{VX} {VY}L{x1:.2f} {y1:.2f}A{r} {r} 0 0 1 {x2:.2f} {y2:.2f}Z" {paint(("fill", c[col]))} fill-opacity="{op}"/>'
-
-
-def vertex(c):
-    return f'<circle cx="{VX}" cy="{VY}" r="1.5" {paint(("fill", c["paper"]), ("stroke", c["ink"]))} stroke-width=".7"/>'
-
-
-def k_research(c):
-    s = []
-    for i in range(5):                                   # computation: a mesh of points
-        for j in range(6):
-            s.append(f'<circle cx="{12 + i * 5}" cy="{6 + j * 6.5}" r=".38" {paint(("fill", c["ink"]))} fill-opacity=".22"/>')
-    s.append(stem(c))
-    s.append(cone(c, 25, UP, 11, "maroon", .2))           # a QCD jet: cone, tracks and core
-    for d in (UP - 7, UP - 2.5, UP + 2.5, UP + 7):
-        x, y = pt(VX, VY, 24, d)
-        s.append(f'<line x1="{VX}" y1="{VY}" x2="{x:.2f}" y2="{y:.2f}" {paint(("stroke", c["maroon"]))} stroke-width=".55" stroke-opacity=".8"/>')
-    s.append(cone(c, 25, UP, 4, "maroon", 1))
-    hx, hy = pt(VX, VY, 22, DN)                           # materials: a bond with atoms, ending in a hexagonal ring
-    hexpts = [pt(hx, hy, 3.4, DN + 30 + 60 * k) for k in range(6)]
-    ex, ey = pt(VX, VY, 22 - 3.4 * math.cos(math.radians(30)), DN)
-    gold = paint(("stroke", c["gold"]))
-    s.append(f'<line x1="{VX}" y1="{VY}" x2="{ex:.2f}" y2="{ey:.2f}" {gold} stroke-width="1.6" stroke-linecap="round"/>')
-    s.append('<polygon points="' + " ".join(f"{x:.2f},{y:.2f}" for x, y in hexpts) + f'" fill="none" {gold} stroke-width="1.3" stroke-linejoin="round"/>')
-    for x, y in hexpts:
-        s.append(f'<circle cx="{x:.2f}" cy="{y:.2f}" r=".8" {paint(("fill", c["gold"]))}/>')
-    for k, r in enumerate((7, 12.5)):
-        x, y = pt(VX, VY, r, DN)
-        s.append(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="2" {paint(("fill", c["gold" if k == 0 else "paper"]), ("stroke", c["gold"]))} stroke-width="1"/>')
-    path = [f"M{VX} {VY}"]                               # theory: a gluon, as in a Feynman diagram
-    L, n = 15, 6
-    for k in range(n):
-        a0, a1 = VX + L * k / n, VX + L * (k + 1) / n
-        path.append(f"C{a0 + .6:.2f} {VY - 2.6:.2f} {a1 + .9:.2f} {VY - 2.6:.2f} {a1 - .6:.2f} {VY:.2f} S{a1 + .3:.2f} {VY + 1.6:.2f} {a1:.2f} {VY:.2f}")
-    s.append(f'<path d="{"".join(path)}" fill="none" {paint(("stroke", c["ink"]))} stroke-width=".55" stroke-opacity=".7" transform="rotate(2 {VX} {VY})"/>')
-    s.append(vertex(c))
-    return "".join(s)
-
-
-def k_teaching(c):
-    s = [stem(c)]
-    L, w = 24, 2.3                                        # a digital pen
-    s.append(f'<g transform="translate({VX} {VY}) rotate({UP})"><path d="M0 {-w / 2}L{L - 5} {-w / 2}L{L - 5} {w / 2}L0 {w / 2}Z" {paint(("fill", c["gold"]))}/>'
-             f'<rect x="{L - 8}" y="{-w / 2}" width="1.4" height="{w}" {paint(("fill", c["ink"]))} fill-opacity=".55"/>'
-             f'<path d="M{L - 5} {-w / 2}L{L} 0L{L - 5} {w / 2}Z" {paint(("fill", c["ink"]))}/><circle cx="{L - 1.6}" cy="0" r=".45" {paint(("fill", c["paper"]))}/>'
-             f'<line x1="3" y1="0" x2="{L - 9}" y2="0" {paint(("stroke", c["paper"]))} stroke-width=".35" stroke-opacity=".7"/></g>')
-    pts = [(VX, VY), (VX + 5, VY + 5), (VX + 5, VY + 9), (VX + 11, VY + 15), (VX + 16, VY + 15), (VX + 21, VY + 20)]   # a circuit trace
-    m = paint(("stroke", c["maroon"]))
-    s.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="none" {m} stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>')
-    for (x, y), (bx, by) in ((pts[2], (VX + 9.5, VY + 9)), (pts[4], (VX + 16, VY + 10))):
-        s.append(f'<line x1="{x:.1f}" y1="{y:.1f}" x2="{bx:.1f}" y2="{by:.1f}" {m} stroke-width=".8"/>'
-                 f'<circle cx="{bx:.1f}" cy="{by:.1f}" r="1" {paint(("fill", c["paper"]), ("stroke", c["maroon"]))} stroke-width=".7"/>')
-    ex, ey = pts[-1]
-    s.append(f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="2" {paint(("fill", c["maroon"]))}/><circle cx="{ex:.1f}" cy="{ey:.1f}" r=".8" {paint(("fill", c["paper"]))}/>')
-    s.append(vertex(c))
-    return "".join(s)
-
-
-def k_community(c):
-    s = [stem(c)]
-    m = paint(("stroke", c["maroon"]))
-    x2, y2 = pt(VX, VY, 13, UP)                           # a voice carrying outward
-    s.append(f'<line x1="{VX}" y1="{VY}" x2="{x2:.2f}" y2="{y2:.2f}" {m} stroke-width="2.2" stroke-linecap="round"/>')
-    for k, r in enumerate((15.5, 20, 24.5)):
-        a1, b1 = pt(VX, VY, r, UP - 14 + k * 2)
-        a2, b2 = pt(VX, VY, r, UP + 14 - k * 2)
-        s.append(f'<path d="M{a1:.2f} {b1:.2f}A{r} {r} 0 0 1 {a2:.2f} {b2:.2f}" fill="none" {m} stroke-width="{1.9 - k * .4:.2f}" stroke-linecap="round" stroke-opacity="{1 - k * .2:.2f}"/>')
-    ex, ey = pt(VX, VY, 14.5, DN)                         # the arm leads to a group of people (outreach)
-    s.append(f'<line x1="{VX}" y1="{VY}" x2="{ex:.2f}" y2="{ey:.2f}" {paint(("stroke", c["gold"]))} stroke-width="2.2" stroke-linecap="round"/>')
-    gx, gy = pt(VX, VY, 21.5, DN)
-    g, pp = paint(("fill", c["gold"])), paint(("stroke", c["paper"]))
-    for dx, dy, sc in ((-3.6, -1.2, .8), (3.6, -1.2, .8), (0, 0, 1)):   # two behind, one in front
-        x, y = gx + dx, gy + dy
-        s.append(f'<g transform="translate({x:.2f} {y:.2f}) scale({sc})"><circle cx="0" cy="-3.4" r="1.9" {g} {pp} stroke-width=".6"/>'
-                 f'<path d="M-3.4 3C-3.4 -1.2 3.4 -1.2 3.4 3Z" {g} {pp} stroke-width=".6"/></g>')
-    s.append(vertex(c))
-    return "".join(s)
-
-
-def k_simple(c, arm1, arm2):
-    """The compact K: the stem and two plain arms, for the header and the browser tab."""
-    x1, y1 = pt(VX, VY, 24, UP)
-    x2, y2 = pt(VX, VY, 24, DN)
-    return (stem(c) + f'<line x1="{VX}" y1="{VY}" x2="{x1:.2f}" y2="{y1:.2f}" {paint(("stroke", c[arm1]))} stroke-width="3.6" stroke-linecap="round"/>'
-            f'<line x1="{VX}" y1="{VY}" x2="{x2:.2f}" y2="{y2:.2f}" {paint(("stroke", c[arm2]))} stroke-width="3.6" stroke-linecap="round"/>')
-
-
-def place(art, x, y, sc):
-    return f'<g transform="translate({x} {y}) scale({sc}) translate(-18 -22)">{art}</g>'
+    for dx, r, dy in ((-2.6, .85, .5), (0, 1, 0), (2.6, .85, .5)):
+        out.append(f'<circle cx="{x0 + dx:.2f}" cy="{y0 + dy - 1.6:.2f}" r="{r}" {ink}/>'
+                   f'<path d="M{x0 + dx - 1.7 * r:.2f} {y0 + dy + 1.6:.2f}C{x0 + dx - 1.7 * r:.2f} {y0 + dy - .3:.2f} {x0 + dx + 1.7 * r:.2f} {y0 + dy - .3:.2f} {x0 + dx + 1.7 * r:.2f} {y0 + dy + 1.6:.2f}Z" {ink}/>')
+    return "".join(out)
 
 
 def triangle(c, detailed=True):
-    ks = (k_research(c), k_teaching(c), k_community(c)) if detailed else \
-         (k_simple(c, "maroon", "gold"), k_simple(c, "gold", "maroon"), k_simple(c, "maroon", "maroon"))
-    sc = .78 if detailed else .86
-    spots = ((50, 28), (30, 66), (70, 66)) if detailed else ((50, 27), (29, 68), (71, 68))
-    return "".join(place(k, x, y, sc) for k, (x, y) in zip(ks, spots))
+    out = (k_letter(LEFT, TOP, (P_TOP, P_LEFT), c["maroon"])          # research
+           + k_letter(RIGHT, TOP, (P_TOP, P_RIGHT), c["gold"])        # teaching
+           + k_letter(LEFT, RIGHT, (P_LEFT, P_RIGHT), c["ink"])       # community
+           + three_jets(c))
+    return out + (symbols(c) if detailed else "")
 
 
 # ---------------------------------------------------------------- the Arabic name, bent along the seal
@@ -220,13 +208,12 @@ def seal(c, uid):
     return "".join([
         f'<circle cx="50" cy="50" r="48.5" fill="none" {m} stroke-width="1.2"/>',
         f'<circle cx="50" cy="50" r="46.6" fill="none" {m} stroke-width=".4" stroke-opacity=".7"/>',
-        f'<circle cx="50" cy="50" r="35" fill="none" {paint(("stroke", c["ink"]))} stroke-width=".5" stroke-opacity=".45"/>',
-        f'<defs><path id="{uid}-t" d="M10.8 50A39.2 39.2 0 0 1 89.2 50"/></defs>',
+                f'<defs><path id="{uid}-t" d="M10.8 50A39.2 39.2 0 0 1 89.2 50"/></defs>',
         f'<text font-family="Fraunces, Georgia, serif" font-size="6.4" letter-spacing="1.3" direction="ltr" {paint(("fill", c["ink"]))}>'
         f'<textPath href="#{uid}-t" startOffset="50%" text-anchor="middle">KAMEL KHELIFA-KERFA</textPath></text>',
         f'<path d="{arabic_on_arc(50, 50, 44, 6.9)}" {paint(("fill", c["ink"]))}/>',
         f'<circle cx="8.6" cy="50" r="1.2" {paint(("fill", c["gold"]))}/><circle cx="91.4" cy="50" r="1.2" {paint(("fill", c["gold"]))}/>',
-        f'<g transform="translate(50 49) scale(.69) translate(-50 -50)">{triangle(c)}</g>',
+        f'<g transform="translate(50 50) scale(.78) translate(-50 -46.9)">{triangle(c)}</g>',
     ])
 
 
@@ -237,7 +224,7 @@ def main():
         trace_arabic(font)
     macros = f'''{{# Generated by tools/make_logo.py: edit that script, not this file. #}}
 {{% macro mark(cls="brand-mark") -%}}
-<svg class="logo {{{{ cls }}}}" viewBox="0 0 100 100" aria-hidden="true" focusable="false">{triangle(THEME, detailed=False)}</svg>
+<svg class="logo {{{{ cls }}}}" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><g transform="translate(50 50) scale(1.12) translate(-50 -46.9)">{triangle(THEME, detailed=False)}</g></svg>
 {{%- endmacro %}}
 
 {{% macro seal(cls="brand-seal", uid="seal") -%}}
@@ -247,7 +234,7 @@ def main():
     (ROOT / "templates/_logo.html").write_text(macros.replace("{{{{ uid }}}}", "{{ uid }}"), encoding="utf-8")
     (ROOT / "static/img/favicon.svg").write_text(
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="{FIXED["paper"]}"/>'
-        f'<g transform="translate(50 50) scale(1.08) translate(-50 -48)">{triangle(FIXED, detailed=False)}</g></svg>\n', encoding="utf-8")
+        f'<g transform="translate(50 50) scale(1.12) translate(-50 -46.9)">{triangle(FIXED, detailed=False)}</g></svg>\n', encoding="utf-8")
     (ROOT / "static/img/logo-seal.svg").write_text(
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">{seal(FIXED, "seal")}</svg>\n', encoding="utf-8")
     print("wrote templates/_logo.html, static/img/favicon.svg and static/img/logo-seal.svg")
