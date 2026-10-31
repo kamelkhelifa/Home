@@ -56,10 +56,6 @@ groups:
         kind: Telegram
         url: https://t.me/IUPhysicsClub
         text: { en: "Discussion, problems and announcements for physics students.", ar: "نقاشات ومسائل وإعلانات لطلبة الفيزياء." }
-      - label: { en: "@KamelKhelifa7", ar: "‎@KamelKhelifa7" }
-        kind: X (Twitter)
-        url: https://twitter.com/KamelKhelifa7
-        text: { en: Updates on teaching and research., ar: مستجدات التدريس والبحث. }
       - label: { en: APhO / IPhO preparation, ar: التحضير للأولمبياد الآسيوي والدولي للفيزياء }
         kind: Telegram
         text: { en: Olympiad-level problem solving for national team candidates., ar: حل مسائل بمستوى الأولمبياد للمترشحين للمنتخب الوطني. }

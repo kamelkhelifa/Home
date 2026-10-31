@@ -68,7 +68,6 @@ profiles:
 social:
   - { label: { en: YouTube · Physics Teaching, ar: يوتيوب · قناة التدريس }, url: "https://www.youtube.com/channel/UCG3osw1ou5XFdQXb3PWH-NQ" }
   - { label: { en: Telegram · Physics Club, ar: تليغرام · نادي الفيزياء }, url: "https://t.me/IUPhysicsClub" }
-  - { label: { en: X (Twitter) · @KamelKhelifa7, ar: إكس (تويتر) · ‎@KamelKhelifa7 }, url: "https://twitter.com/KamelKhelifa7" }
 
 nav:
   - { id: studying,  label: { en: Studying, ar: الدراسة, fr: Études } }
