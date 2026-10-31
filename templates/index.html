@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
+{% import "_logo.html" as logo %}
 {% block title %}{{ t(site.name) }} · {{ t(site.role_line) }}{% endblock %}
 
 {% block content %}
@@ -45,7 +46,7 @@
         {% if portrait %}
         <img class="portrait" src="{{ asset(portrait) }}" alt="{{ t(site.name) }}" width="96" height="96">
         {% else %}
-        <span class="brand-mark xl" aria-hidden="true">{{ site.monogram }}</span>
+        {{ logo.seal("brand-seal about-seal", "seal-about") }}
         {% endif %}
         <dl class="facts">
           <div><dt>{{ ui("fact_field") }}</dt><dd>{{ t(research.field_short) }}</dd></div>

@@ -221,19 +221,12 @@ button { font: inherit; color: inherit; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 1.6rem; }
 .chip { padding: .3em .8em; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--line); font-size: .82rem; color: var(--ink-2); }
 
-/* ---------- Brand mark ---------- */
-.brand-mark {
-  display: inline-grid; place-items: center;
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 1px solid var(--line-strong);
-  font: 500 .95rem/1 var(--serif); font-style: italic; letter-spacing: -.02em;
-  color: var(--ink);
-  background: radial-gradient(circle at 30% 25%, var(--surface), var(--surface-2));
-  position: relative;
-}
-.brand-mark::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); opacity: .7; }
-.brand-mark.lg { width: 54px; height: 54px; font-size: 1.25rem; margin-bottom: 1rem; }
-.brand-mark.xl { width: 88px; height: 88px; font-size: 2rem; }
+/* ---------- Logo (templates/_logo.html, drawn by tools/make_logo.py) ---------- */
+.logo { --logo-ink: var(--ink); --logo-maroon: var(--accent); --logo-gold: var(--gold); --logo-paper: var(--bg); display: block; flex: none; }
+.brand-mark { width: 42px; height: 42px; }
+.brand-seal { width: 96px; height: 96px; }
+.footer-seal { margin-bottom: 1rem; }
+.about-seal { width: 120px; height: 120px; }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -950,7 +943,7 @@ html[lang="ar"] .course-name, html[lang="ar"] .track-page-title, html[lang="ar"]
   font-weight: 700; line-height: 1.5;
 }
 html[lang="ar"] .footer-mail, html[lang="ar"] .stat-value, html[lang="ar"] .stat-suffix, html[lang="ar"] .year-label,
-html[lang="ar"] .grant-budget, html[lang="ar"] .theme-symbol, html[lang="ar"] .brand-mark { font-family: "Fraunces", Georgia, serif; }
+html[lang="ar"] .grant-budget, html[lang="ar"] .theme-symbol { font-family: "Fraunces", Georgia, serif; }
 html[lang="ar"] .nav-list a { font-size: .98rem; }
 @media (max-width: 900px) { html[lang="ar"] .nav-list a { font-size: 1.9rem; } }
 [dir="rtl"] .cover { transform: perspective(900px) rotateY(10deg); transform-origin: right center; border-radius: 10px 4px 4px 10px; }
@@ -984,8 +977,8 @@ html[lang="ar"] .nav-list a { font-size: .98rem; }
 .footer-links a { text-decoration: none; color: var(--ink-2); font-size: .94rem; }
 .footer-links a:hover { color: var(--accent); }
 .footer-note { justify-self: end; text-align: end; color: var(--muted); font-size: .85rem; }
-.footer-note .brand-mark { margin-inline-start: auto; }
-@media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-note { grid-column: 1 / -1; justify-self: start; text-align: start; } .footer-note .brand-mark { margin-inline-start: 0; } }
+.footer-note .brand-seal { margin-inline-start: auto; }
+@media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-note { grid-column: 1 / -1; justify-self: start; text-align: start; } .footer-note .brand-seal { margin-inline-start: 0; } }
 
 /* ---------- Motion ---------- */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }

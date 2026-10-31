@@ -1,4 +1,5 @@
 {% from "_icons.html" import icon %}
+{% import "_logo.html" as logo %}
 <!doctype html>
 <html lang="{{ lang }}" dir="{{ dir }}">
 <head>
@@ -26,6 +27,7 @@
   {% if lang == "ar" %}
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   {% else %}
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&text=%D9%83%D9%85%D8%A7%D9%84%20%D8%AE%D9%84%D9%8A%D9%81%D8%A9%20%D9%83%D8%B1%D9%81%D8%A9&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   {% endif %}
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -49,7 +51,7 @@
   <header class="site-header" data-header>
     <div class="wrap header-inner">
       <a class="brand" href="{{ link('index') }}" aria-label="{{ t(site.name) }}: {{ ui('home') }}">
-        <span class="brand-mark" aria-hidden="true">{{ site.monogram }}</span>
+        {{ logo.mark("brand-mark") }}
         <span class="brand-text">
           <span class="brand-name">{{ t(site.name) }}</span>
           <span class="brand-sub">{{ t(site.brand_sub) }}</span>
@@ -121,7 +123,7 @@
           </ul>
         </div>
         <div class="footer-note">
-          <span class="brand-mark lg" aria-hidden="true">{{ site.monogram }}</span>
+          {{ logo.seal("brand-seal footer-seal", "seal-footer") }}
           <p>© {{ year }} {{ t(site.name) }}.<br>{{ ui("last_updated") }}: {{ t(site.last_updated) }}.</p>
         </div>
       </div>
