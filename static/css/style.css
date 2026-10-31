@@ -32,6 +32,7 @@
   --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --text: "Source Serif 4", "Iowan Old Style", Georgia, serif;   /* running text */
 
   --radius: 18px;
   --radius-sm: 12px;
@@ -345,13 +346,13 @@ main { display: block; }
 .hero-inner { display: grid; grid-template-columns: minmax(0, 1fr); }
 .hero-copy { max-width: 640px; }
 .hero-title {
-  font: 330 clamp(3.2rem, 1.4rem + 7.4vw, 7.6rem)/.92 var(--serif);
+  font: 360 clamp(2.9rem, 1.5rem + 5vw, 5.6rem)/1 var(--serif);
   font-variation-settings: "opsz" 144;
-  letter-spacing: -.045em;
+  letter-spacing: -.03em;
   margin: 0 0 2rem;
 }
 .hero-title .line { display: block; }
-.hero-title em { font-weight: 300; }
+.hero-title em { font-style: normal; font-weight: 360; }
 .hero-lead { max-width: 560px; font-size: clamp(1.1rem, 1rem + .45vw, 1.35rem); line-height: 1.55; color: var(--ink-2); margin-bottom: 2.4rem; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .hero-card {
@@ -926,6 +927,7 @@ html[lang="ar"] {
   --serif: "Amiri", "Fraunces", "Times New Roman", serif;
   --sans: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
   --mono: "IBM Plex Sans Arabic", "JetBrains Mono", ui-monospace, monospace;
+  --text: var(--sans);
 }
 html[lang="ar"] body { font-size: 17.5px; line-height: 1.85; font-feature-settings: normal; }
 html[lang="ar"] *:not(pre):not(code) { letter-spacing: 0 !important; }
@@ -937,7 +939,7 @@ html[lang="ar"] .prose h4, html[lang="ar"] .prose h5, html[lang="ar"] .prose h6,
   text-transform: none; font-size: .86rem; font-weight: 500;
 }
 html[lang="ar"] .brand-sub { font-size: .74rem; }
-html[lang="ar"] .hero-title { font-size: clamp(3.2rem, 1.6rem + 6.6vw, 7rem); line-height: 1.2; font-weight: 400; }
+html[lang="ar"] .hero-title { font-size: clamp(2.8rem, 1.5rem + 4.6vw, 5.2rem); line-height: 1.3; font-weight: 400; }
 html[lang="ar"] .hero-title em { font-weight: 400; }
 html[lang="ar"] .page-title { line-height: 1.25; font-weight: 400; }
 html[lang="ar"] .h2 { line-height: 1.35; font-weight: 400; }
@@ -966,7 +968,7 @@ html[lang="ar"] .nav-list a { font-size: .98rem; }
 .footer-cta .eyebrow { display: flex; }
 .footer-mail {
   display: inline-flex; align-items: center; gap: .3em; flex-wrap: wrap;
-  font: 330 clamp(1.9rem, .9rem + 4.4vw, 4.6rem)/1.05 var(--serif); letter-spacing: -.035em;
+  font: 400 clamp(1.35rem, 1.1rem + 1vw, 1.9rem)/1.2 var(--serif); letter-spacing: -.01em;
   text-decoration: none; word-break: break-word;
 }
 .footer-mail .icon { width: .7em; height: .7em; color: var(--accent); transition: transform .35s var(--ease); }
@@ -1008,11 +1010,15 @@ html[lang="ar"] .nav-list a { font-size: .98rem; }
 
 /* ---------- Justified long-form text ----------
    Paragraphs of running text are justified on screens wide enough for it; short texts (cards, captions,
-   labels) and phone screens stay ragged, where justification opens wide gaps between words. The large
-   English bio on the home page stays ragged for the same reason (Arabic justifies well at any size). */
+   labels) and phone screens stay ragged, where justification opens wide gaps between words. */
 @media (min-width: 640px) {
-  .prose p, .prose li, .course .tw-prose p, html[lang="ar"] .split-body > .lead {
+  .prose p, .prose li, .course .tw-prose p, .split-body > .lead {
     text-align: justify; text-justify: inter-word; hyphens: auto; -webkit-hyphens: auto;
   }
   html[lang="ar"] .split-body > .lead, html[lang="ar"] .prose p, html[lang="ar"] .prose li, html[lang="ar"] .course .tw-prose p { hyphens: manual; -webkit-hyphens: manual; }
 }
+
+/* ---------- Running text ----------
+   Paragraphs, list items and definitions in the page body use the text serif; menus and tables of contents
+   keep the interface font, and so does every component that sets its own font (zero specificity). */
+:where(main) :where(p, li, dd, blockquote, figcaption):not(:where(nav *, aside nav *, .course-toc *, .toc *, button *)) { font-family: var(--text); }
