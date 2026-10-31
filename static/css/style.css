@@ -223,10 +223,10 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Logo (templates/_logo.html, drawn by tools/make_logo.py) ---------- */
 .logo { --logo-ink: var(--ink); --logo-maroon: var(--accent); --logo-gold: var(--gold); --logo-paper: var(--bg); display: block; flex: none; }
-.brand-mark { width: 42px; height: 42px; }
-.brand-seal { width: 96px; height: 96px; }
+.brand-mark { width: 46px; height: 46px; }
+.brand-seal { width: 116px; height: 116px; }
 .footer-seal { margin-bottom: 1rem; }
-.about-seal { width: 120px; height: 120px; }
+.about-seal { width: 160px; height: 160px; }
 
 /* ---------- Header ---------- */
 .site-header {
