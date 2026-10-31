@@ -12,6 +12,7 @@ Run `python build.py` (requires Jinja2, PyYAML and BeautifulSoup).
 """
 
 import datetime as dt
+import hashlib
 import html
 import posixpath
 import re
@@ -259,6 +260,7 @@ def render_fragment(key, lang, current):
 # ---------------------------------------------------------------- formula sheet (data/formulas.yml)
 
 FORMULAS_PAGE = "resources/formulas"
+ASSET_VERSION = ""
 
 
 def load_formulas():
@@ -318,6 +320,12 @@ def build():
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(ROOT / "static", OUT / "assets")
+    global ASSET_VERSION
+    digest = hashlib.sha1()
+    for f in sorted((ROOT / "static").rglob("*")):
+        if f.suffix in (".css", ".js"):
+            digest.update(f.read_bytes())
+    ASSET_VERSION = digest.hexdigest()[:8]
     if (ROOT / "CNAME").exists():
         shutil.copy(ROOT / "CNAME", OUT / "CNAME")
     (OUT / ".nojekyll").touch()
@@ -345,7 +353,9 @@ def build():
             return name in course_ui["ui"]
 
         def asset(path):
-            return relative(path, current)
+            url = relative(path, current)
+            # stylesheets and scripts carry a version, so browsers fetch the new ones after each update
+            return f"{url}?v={ASSET_VERSION}" if path.endswith((".css", ".js")) else url
 
         ctx = dict(
             data,
