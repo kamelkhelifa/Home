@@ -405,7 +405,7 @@
           <span class="vid-extra-title">{{ cui('chapter') }} <bdi>{{ ch.chapter }}</bdi> · {{ t(vu.mindmap) }}</span>
           <span class="vid-extra-text">{{ t(vu.mindmap_text) }}</span>
         </a>
-        <a class="tw-chip vid-pdf" href="{{ asset(ch.mindmap.pdf) }}" target="_blank" rel="noopener">{{ ic('print', 'ic xs') }} {{ t(vu.mindmap) }} · {{ t(vu.pdf) }}</a>
+        {% if ch.mindmap.pdf %}<a class="tw-chip vid-pdf" href="{{ asset(ch.mindmap.pdf) }}" target="_blank" rel="noopener">{{ ic('print', 'ic xs') }} {{ t(vu.mindmap) }} · {{ t(vu.pdf) }}</a>{% endif %}
         {% endif %}
         {% if ch.selfcheck %}
         <a class="vid-extra" href="{{ asset(ch.selfcheck.html) }}" target="_blank" rel="noopener">
@@ -413,7 +413,7 @@
           <span class="vid-extra-title">{{ cui('chapter') }} <bdi>{{ ch.chapter }}</bdi> · {{ t(vu.selfcheck) }}</span>
           <span class="vid-extra-text">{{ t(vu.selfcheck_text) }}</span>
         </a>
-        <a class="tw-chip vid-pdf" href="{{ asset(ch.selfcheck.pdf) }}" target="_blank" rel="noopener">{{ ic('print', 'ic xs') }} {{ t(vu.selfcheck) }} · {{ t(vu.pdf) }}</a>
+        {% if ch.selfcheck.pdf %}<a class="tw-chip vid-pdf" href="{{ asset(ch.selfcheck.pdf) }}" target="_blank" rel="noopener">{{ ic('print', 'ic xs') }} {{ t(vu.selfcheck) }} · {{ t(vu.pdf) }}</a>{% endif %}
         {% endif %}
       </div>
     </article>
