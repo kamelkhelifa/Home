@@ -130,6 +130,11 @@
     </div>
   </footer>
 
+  <nav class="page-nav" aria-label="{{ ui('page_nav') }}">
+    {% if parent_url %}<a class="page-nav-btn" href="{{ parent_url }}" data-go-back>{{ icon("right", "icon flip-back") }}<span>{{ ui("go_back") }}</span></a>{% endif %}
+    <a class="page-nav-btn" href="#main" data-go-top hidden>{{ icon("right", "icon turn-up") }}<span>{{ ui("go_top") }}</span></a>
+  </nav>
+
   <script src="{{ asset('assets/js/main.js') }}" defer></script>
   {% block scripts %}{% endblock %}
 </body>

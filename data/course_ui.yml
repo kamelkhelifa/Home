@@ -368,13 +368,13 @@ ui:
     ar: مسائل على نمط الاختبارات. حاول أولًا، ثم اكشف التلميح والحل الكامل.
     fr: Problèmes de type examen. Cherchez d'abord, puis affichez l'indice et la solution.
   sec_quizzes_d:
-    en: Instant feedback with an explanation for every answer. Your best score is saved.
-    ar: تصحيح فوري مع شرح لكل إجابة. تُحفظ أفضل نتيجة لك.
+    en: Instant feedback with an explanation for every answer.
+    ar: تصحيح فوري مع شرح لكل إجابة.
     fr: Correction immédiate avec une explication pour chaque réponse.
   sec_videos_d:
-    en: Chapter overview videos — main ideas and pitfalls, with a mind map and self-check questions for each chapter.
-    ar: فيديوهات ملخّصة لكل فصل — الأفكار الرئيسية والأخطاء الشائعة، مع خريطة ذهنية وأسئلة للتحقق الذاتي لكل فصل.
-    fr: Vidéos de synthèse par chapitre — idées principales et pièges, avec une carte mentale et des questions d'auto-évaluation.
+    en: Chapter overview videos — main ideas and pitfalls, with a mind map for each chapter.
+    ar: فيديوهات ملخّصة لكل فصل — الأفكار الرئيسية والأخطاء الشائعة، مع خريطة ذهنية لكل فصل.
+    fr: Vidéos de synthèse par chapitre — idées principales et pièges, avec une carte mentale pour chaque chapitre.
   sec_lab_d:
     en: Change the parameters and watch the physics respond.
     ar: غيّر المعاملات وشاهد استجابة الظاهرة الفيزيائية.

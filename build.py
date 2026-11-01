@@ -277,6 +277,37 @@ def load_formulas():
     return f
 
 
+# ---------------------------------------------------------------- Back & top on standalone pages
+
+PAGE_NAV = """<div id="kk-page-nav" style="position:fixed;right:18px;bottom:18px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:8px;font:500 14px/1 Inter,system-ui,sans-serif">
+<a href="{back}" data-kk-back style="{btn}">&#8592;&nbsp;Back</a><a href="#" data-kk-top hidden style="{btn}">&#8593;&nbsp;Top</a></div>
+<script>(function(){{var n=document.getElementById("kk-page-nav");if(window.self!==window.top){{n.remove();return;}}
+var b=n.querySelector("[data-kk-back]"),t=n.querySelector("[data-kk-top]");
+b.addEventListener("click",function(e){{var s=false;try{{s=document.referrer&&new URL(document.referrer).origin===location.origin;}}catch(x){{}}if(s&&history.length>1){{e.preventDefault();history.back();}}}});
+function f(){{t.hidden=window.scrollY<480;}}f();window.addEventListener("scroll",f,{{passive:true}});
+t.addEventListener("click",function(e){{e.preventDefault();window.scrollTo({{top:0,behavior:"smooth"}});}});}})();</script>
+"""
+PAGE_NAV_BTN = ("display:inline-flex;align-items:center;height:40px;padding:0 15px;border-radius:999px;border:1px solid #cfc7b6;"
+                "background:rgba(255,253,248,.94);box-shadow:0 8px 24px -12px rgba(21,23,28,.25);color:#15171c;text-decoration:none")
+
+
+def add_page_nav(courses):
+    """Give the standalone pages (worked examples, week indexes, mind maps, quizzes) the site's Back and Top buttons.
+    Back returns to the previous page of the site, or else to the page of the course the file belongs to."""
+    by_id = {key.rsplit("/", 1)[-1]: key for key in courses}
+    for folder in ("demos", "videos"):
+        for f in (OUT / "assets" / folder).rglob("*.html"):
+            course_id = f.relative_to(OUT / "assets" / folder).parts[0]
+            target = out_path(by_id[course_id], "en") if course_id in by_id else "index.html"
+            back = relative(target, f.relative_to(OUT).as_posix())
+            html_text = f.read_text(encoding="utf-8")
+            if "kk-page-nav" in html_text or "</body>" not in html_text:
+                continue
+            nav = PAGE_NAV.format(back=back, btn=PAGE_NAV_BTN)
+            i = html_text.rfind("</body>")
+            f.write_text(html_text[:i] + nav + html_text[i:], encoding="utf-8")
+
+
 # ---------------------------------------------------------------- build
 
 def build():
@@ -328,6 +359,7 @@ def build():
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(ROOT / "static", OUT / "assets")
+    add_page_nav(courses)
     global ASSET_VERSION
     digest = hashlib.sha1()
     for f in sorted((ROOT / "static").rglob("*")):
@@ -372,6 +404,7 @@ def build():
             t=t, ui=ui, link=link, asset=asset, cui=cui, cui_has=cui_has,
             labels=course_ui, unis=unis, page_langs_all=langs, videos_ui=data["videos"]["ui"],
             switch_url=link(key, other),
+            parent_url=None if key == "index" else link(key.split("/")[0] if "/" in key else "index"),
             switches=[{"lang": lg, "name": LANG_NAMES[lg], "url": relative(out_path(key, lg), current)} for lg in langs if lg != lang],
             canonical=f"{site['base_url'].rstrip('/')}/{current.removesuffix('index.html')}",
             alternates={lg: f"{site['base_url'].rstrip('/')}/{out_path(key, lg).removesuffix('index.html')}" for lg in langs},

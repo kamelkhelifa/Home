@@ -305,8 +305,13 @@ interactive:
 
 materials:
   - type: video
-    title: { en: "Chapter 30 overview video, mind map and self-check", ar: "فيديو ملخص الفصل 30 مع الخريطة الذهنية والتحقق الذاتي" }
+    title: { en: "Chapter 30 overview video and mind map", ar: "فيديو ملخص الفصل 30 مع الخريطة الذهنية" }
     url: "#videos"
+    week: 11
+    lang: en
+  - type: quiz
+    title: { en: "Chapter 30 self-check quiz", ar: "اختبار التحقق الذاتي للفصل 30" }
+    url: "#quiz-ch30"
     week: 11
     lang: en
 exams: []

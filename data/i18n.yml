@@ -55,6 +55,9 @@ universities:     { en: Universities, ar: الجامعات }
 course_pages:     { en: Course pages, ar: صفحات المقررات }
 open_course_hint: { en: "Each course opens its own page with that university's syllabus: weekly plan, assessment, lecture notes, past exams, textbooks, an interactive lab and a glossary. Courses taught in Algeria are also available in French.", ar: "يفتح كل مقرر صفحته الخاصة بمفردات تلك الجامعة: الخطة الأسبوعية، والتقييم، ومذكرات المحاضرات، والاختبارات السابقة، والكتب، ومختبرًا تفاعليًا، ومسردًا للمصطلحات. والمقررات التي دُرّست في الجزائر متاحة بالفرنسية أيضًا." }
 formulas:         { en: Formula sheet, ar: جدول القوانين, fr: Formulaire }
+go_back:          { en: Back, ar: رجوع, fr: Retour }
+go_top:           { en: Top, ar: الأعلى, fr: Haut }
+page_nav:         { en: Page navigation, ar: التنقل في الصفحة, fr: Navigation de la page }
 formulas_filter:  { en: "Filter: Gaussian, Taylor, Legendre…", ar: "تصفية: غاوس، تايلور، لوجندر…" }
 constants:        { en: Physical constants, ar: الثوابت الفيزيائية }
 quantity:         { en: Quantity, ar: المقدار }

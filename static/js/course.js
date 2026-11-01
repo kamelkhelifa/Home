@@ -34,6 +34,41 @@
 
   function initCourse(root) {
     var slug = root.dataset.course;
+
+    // links to a folded entry (e.g. #quiz-ch30) unfold it and its parents
+    function reveal(id) {
+      var el = id && document.getElementById(id);
+      if (!el) return;
+      for (var d = el; d; d = d.parentElement) if (d.tagName === "DETAILS") d.open = true;
+      el.scrollIntoView({ block: "start" });
+    }
+    reveal(decodeURIComponent(location.hash.slice(1)));
+    window.addEventListener("hashchange", function () { reveal(decodeURIComponent(location.hash.slice(1))); });
+
+    // self-check quizzes load when their chapter is opened, and grow to fit their content
+    $$("[data-quiz-frame]").forEach(function (frame) {
+      var box = frame.closest("details");
+      function fit() {
+        try {
+          var doc = frame.contentDocument;
+          if (doc && doc.body) frame.style.height = Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight) + "px";
+        } catch (e) { /* another origin: keep the default height */ }
+      }
+      function load() {
+        if (frame.src) return;
+        frame.addEventListener("load", function () {
+          fit();
+          try {
+            var doc = frame.contentDocument;
+            if (window.ResizeObserver) new ResizeObserver(fit).observe(doc.body);
+            doc.addEventListener("click", function () { setTimeout(fit, 30); });
+          } catch (e) {}
+        });
+        frame.src = frame.dataset.src;
+      }
+      if (box.open) load();
+      box.addEventListener("toggle", function () { if (box.open) load(); });
+    });
     $$("[data-print]").forEach(function (b) { b.addEventListener("click", function () { print(); }); });
 
     // table of contents: highlight the current section

@@ -20,6 +20,25 @@
     });
   }
 
+  /* ---------- Back & top ---------- */
+  // "Back" returns to the previous page when it was a page of this site; otherwise it goes one level up.
+  var back = document.querySelector("[data-go-back]");
+  if (back) back.addEventListener("click", function (e) {
+    var sameSite = false;
+    try { sameSite = document.referrer && new URL(document.referrer).origin === location.origin; } catch (err) {}
+    if (sameSite && history.length > 1) { e.preventDefault(); history.back(); }
+  });
+  var top = document.querySelector("[data-go-top]");
+  if (top) {
+    var showTop = function () { top.hidden = window.scrollY < 480; };
+    showTop();
+    window.addEventListener("scroll", showTop, { passive: true });
+    top.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  }
+
   /* ---------- Header & mobile menu ---------- */
   var header = document.querySelector("[data-header]");
   function onScroll() { header && header.classList.toggle("is-scrolled", window.scrollY > 12); }

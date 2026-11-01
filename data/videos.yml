@@ -1,6 +1,7 @@
 # ─────────────────────────────────────────────────────────────
 #  Chapter overview videos, each with its mind map and self-check questions.
-#  Organised course → chapter; shown on the course page in the Videos section (after the Interactive lab).
+#  Organised course → chapter. The video and the mind map are shown in the course page's Videos section;
+#  the self-check is shown in its Self-check quizzes section, one foldable entry per chapter.
 #  Files live in static/videos/<course>/<chapter>/.
 #
 #  To add a chapter: copy a block under `chapters:`.
@@ -22,6 +23,9 @@ ui:
   mindmap_text: { en: "Interactive: click to fold and unfold, drag to pan.", ar: "تفاعلية: انقر للطي والفتح، واسحب للتنقل." }
   selfcheck: { en: Self-check, ar: التحقق الذاتي }
   selfcheck_text: { en: "Ten questions, two per section, with instant feedback.", ar: "عشرة أسئلة، سؤالان لكل جزء، مع تغذية راجعة فورية." }
+  selfcheck_title: { en: Self-check quizzes, ar: اختبارات التحقق الذاتي }
+  selfcheck_lead: { en: "One quiz per chapter, to take right here: open a chapter, pick your answers and read the reasoning at once.", ar: "اختبار لكل فصل يُحَلّ هنا مباشرة: افتح الفصل، واختر إجاباتك، واقرأ التعليل فورًا." }
+  open_tab: { en: Open in a new tab, ar: افتح في نافذة جديدة }
   open: { en: Open, ar: افتح }
   pdf: { en: PDF, ar: PDF }
   captions: { en: Captions (.vtt), ar: الترجمة (.vtt) }
@@ -69,6 +73,5 @@ courses:
             - { t: 516, title: { en: "Five things to remember", ar: "خمسة أشياء للتذكّر" } }
         mindmap:
           html: assets/videos/phys193/ch30/PHYS193_W11_Ch30_MindMap.html
-          pdf: assets/videos/phys193/ch30/PHYS193_W11_Ch30_MindMap.pdf
         selfcheck:
           html: assets/videos/phys193/ch30/PHYS193_W11_Ch30_SelfCheck.html

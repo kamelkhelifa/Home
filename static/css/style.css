@@ -1015,3 +1015,19 @@ html[lang="ar"] .nav-list a { font-size: .98rem; }
    Paragraphs, list items and definitions in the page body use the text serif; menus and tables of contents
    keep the interface font, and so does every component that sets its own font (zero specificity). */
 :where(main) :where(p, li, dd, blockquote, figcaption):not(:where(nav *, aside nav *, .course-toc *, .toc *, button *)) { font-family: var(--text); }
+
+/* ---------- Back & top (every page) ---------- */
+.page-nav { position: fixed; inset-inline-end: 18px; bottom: 18px; z-index: 40; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.page-nav-btn {
+  display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 15px; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: var(--shadow);
+  font: 500 .86rem/1 var(--sans); color: var(--ink); text-decoration: none; transition: border-color .2s, color .2s, transform .2s var(--ease);
+}
+.page-nav-btn:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+.page-nav-btn[hidden] { display: none; }
+.page-nav-btn .icon { width: 15px; height: 15px; }
+.page-nav-btn .flip-back { transform: scaleX(calc(-1 * var(--flip))); }
+.page-nav-btn .turn-up { transform: rotate(-90deg); }
+@media (max-width: 600px) { .page-nav { inset-inline-end: 12px; bottom: 12px; } .page-nav-btn { width: 42px; height: 42px; padding: 0; justify-content: center; } .page-nav-btn span { display: none; } }
+@media print { .page-nav { display: none !important; } }
