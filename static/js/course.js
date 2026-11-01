@@ -242,6 +242,12 @@
   if (themeBtn) themeBtn.addEventListener("click", function () { setTimeout(function () { document.dispatchEvent(new CustomEvent("tw:theme")); }, 0); });
 })();
 
+// Videos section: folding a chapter pauses its video
+document.addEventListener("toggle", function (e) {
+  var d = e.target;
+  if (d.tagName === "DETAILS" && !d.open) d.querySelectorAll("video").forEach(function (v) { v.pause(); });
+}, true);
+
 // Videos section: chapter chips seek the HTML5 player (or reload a YouTube embed at that time)
 document.addEventListener("click", function (e) {
   var b = e.target.closest("[data-seek]"); if (!b) return;

@@ -323,6 +323,13 @@ def build():
         if key not in courses:
             raise SystemExit(f"data/videos.yml names a course that does not exist: {v['course']}")
         courses[key]["videos"] = v
+        for ch in v["chapters"]:
+            if ch.get("mindmap"):
+                courses[key]["materials"].append({
+                    "type": "mindmap", "url": ch["mindmap"]["html"], "week": ch.get("week"), "lang": "en",
+                    "title": {"en": f"Chapter {ch['chapter']} mind map: {pick(ch['title'], 'en')}",
+                              "ar": f"الخريطة الذهنية للفصل {ch['chapter']}: {pick(ch['title'], 'ar')}"}})
+                courses[key]["n_materials"] += 1
     for c in courses.values():
         c.setdefault("videos", None)
     page_langs = {c["page"]: c["uni"]["langs"] for c in courses.values()}

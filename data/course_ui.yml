@@ -468,6 +468,10 @@ material_types:
     en: Summaries
     ar: ملخصات
     fr: Résumés
+  mindmap:
+    en: Mind maps
+    ar: خرائط ذهنية
+    fr: Cartes mentales
   problems:
     en: Problem sets
     ar: سلاسل التمارين

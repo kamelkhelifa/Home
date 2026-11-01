@@ -305,8 +305,8 @@ interactive:
 
 materials:
   - type: video
-    title: { en: "Chapter 30 overview video and mind map", ar: "فيديو ملخص الفصل 30 مع الخريطة الذهنية" }
-    url: "#videos"
+    title: { en: "Chapter 30 overview video", ar: "فيديو ملخص الفصل 30" }
+    url: "#video-ch30"
     week: 11
     lang: en
   - type: quiz
