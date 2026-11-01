@@ -1,0 +1,113 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Conceptual Example 30.5 - A Loop Moving Through a Magnetic Field", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 11 \:00b7 Chapter 30 \:00b7 Lecture slide 49 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A rectangular metallic loop of dimensions l and w and resistance R moves with constant speed v to the right as in Figure 30.14a, through a uniform magnetic field B into the page that extends a distance 3w along the x axis. x is the position of the right side of the loop. (A) Plot the flux through the loop against x. (B) Plot the induced motional emf against x. (C) Plot the applied force needed to keep v constant against x.", "Text"],
+
+Cell["Flux: zero, then rising linearly to B l w while the loop enters, constant while it is fully inside, falling linearly while it leaves. emf: -B l v while entering (counterclockwise current), zero inside, +B l v while leaving (clockwise). Force: B^2 l^2 v/R while entering and leaving, zero inside. The book gives no numbers; the model uses B = 0.50 T, l = 10 cm, w = 5.0 cm, R = 0.20 ohm, v = 2.0 m/s.", "Text"],
+
+Cell["Figure", "Subsection"],
+
+Cell["Figure 30.14a: a conducting rectangular loop of width w and height \:2113 moving with velocity v through a uniform magnetic field into the page that extends a distance 3w along the x axis. Redrawn after the figure in Serway & Jewett, Physics for Scientists and Engineers, 11th ed. (The picture appears when the notebook is evaluated; the cell that holds it is collapsed.)", "Text"],
+
+Cell["Image[ImportByteArray[BaseDecode[\"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\"], \"PNG\"], ImageSize -> 440]", "Input", CellOpen -> False],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from Faraday\:2019s law and Lenz\:2019s law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+(* x in units of w; the field occupies 0 <= x <= 3 *)
+overlap[xw_, w_] := w Max[0, Min[xw, 3] - Max[xw - 1, 0]];
+fluxLoop[xw_, b_, l_, w_] := b l overlap[xw, w];
+emfLoop[xw_, b_, l_, v_] := Piecewise[{{-b l v, 0 < xw < 1}, {b l v, 3 < xw < 4}}, 0];
+forceLoop[xw_, b_, l_, v_, r_] := Piecewise[{{b^2 l^2 v/r, 0 < xw < 1 || 3 < xw < 4}}, 0];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{l = lcm/100., w = wcm/100., e, fr, fl, fig},
+  e = emfLoop[x, b, l, v]; fr = fluxLoop[x, b, l, w]; fl = forceLoop[x, b, l, v, r];
+  fig = Graphics[{
+     {gold, Opacity[0.12], Rectangle[{0, -0.3}, {3, 1.8}]},
+     Table[{gold, Text[Style[\"\\[Times]\", 11], {i, j}]}, {i, 0.15, 2.9, 0.3}, {j, -0.15, 1.7, 0.3}],
+     {ink, AbsoluteThickness[4], Line[{{x - 1, 0.2}, {x, 0.2}, {x, 0.2 + l/w}, {x - 1, 0.2 + l/w}, {x - 1, 0.2}}]},
+     {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{{x - 0.7, 0.45 + l/w}, {x - 0.3, 0.45 + l/w}}]}, Text[Style[\"v\", 13, Bold, Italic, maroon], {x - 0.5, 0.65 + l/w}],
+     If[e != 0, {
+       {RGBColor[0.48, 0.25, 0.69], AbsoluteThickness[2.5], Arrowheads[0.04], Arrow[{{x + 0.12, If[e < 0, 0.3, 0.1 + l/w]}, {x + 0.12, If[e < 0, 0.1 + l/w, 0.3]}}]},
+       Text[Style[If[e < 0, \"I counterclockwise\", \"I clockwise\"], 11, Bold, RGBColor[0.48, 0.25, 0.69]], {x - 0.5, 0.2 + l/(2 w)}],
+       {blue, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{{If[0 < x < 3, x, x - 1], 0.2 + 0.25 l/w}, {If[0 < x < 3, x, x - 1] - 0.5, 0.2 + 0.25 l/w}}]},
+       {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{{x + 0.05, 0.2 + 0.75 l/w}, {x + 0.55, 0.2 + 0.75 l/w}}]}, Text[Style[\"F_app\", 11, Bold, maroon], {x + 0.8, 0.2 + 0.75 l/w}]}, {}],
+     {GrayLevel[0.5], Line[{{-1.5, -0.4}, {4.6, -0.4}}]}, Table[Text[Style[ToString[k] <> \"w\", 10, Gray], {k, -0.6}], {k, 0, 4}]},
+    PlotRange -> {{-1.6, 4.8}, {-0.8, 2.2 + l/w}}, AspectRatio -> Automatic, ImageSize -> 560];
+  Column[{fig,
+    GraphicsColumn[{
+      Plot[1000 fluxLoop[s, b, l, w], {s, -0.5, 4.5}, PlotStyle -> Directive[green, Thick], Frame -> True, FrameLabel -> {\"\", \"(A) flux (mWb)\"}, GridLines -> {{0, 1, 3, 4, x}, {0}}, PlotRange -> All],
+      Plot[emfLoop[s, b, l, v], {s, -0.5, 4.5}, PlotStyle -> Directive[maroon, Thick], Exclusions -> None, Frame -> True, FrameLabel -> {\"\", \"(B) emf (V)\"}, GridLines -> {{0, 1, 3, 4, x}, {0}}, PlotRange -> All],
+      Plot[forceLoop[s, b, l, v, r], {s, -0.5, 4.5}, PlotStyle -> Directive[blue, Thick], Exclusions -> None, Frame -> True, FrameLabel -> {\"x / w\", \"(C) F (N)\"}, GridLines -> {{0, 1, 3, 4, x}, {0}}, PlotRange -> All]}, ImageSize -> 560],
+    results[{{\"(A) flux\", Row[{NumberForm[1000 fr, 4], \" mWb\"}]}, {\"(B) emf\", Row[{NumberForm[e, 4], \" V\"}]}, {\"current\", Row[{NumberForm[Abs[e]/r, 4], \" A\"}]}, {\"(C) applied force\", Row[{NumberForm[fl, 4], \" N\"}]}}]}, Spacings -> 1.2]],
+ {{b, 0.5, \"B (T)\"}, 0.1, 1.5, 0.05, Appearance -> \"Labeled\"},
+ {{lcm, 10, \"l (cm)\"}, 2, 20, 0.5, Appearance -> \"Labeled\"},
+ {{wcm, 5, \"w (cm)\"}, 2, 10, 0.5, Appearance -> \"Labeled\"},
+ {{r, 0.2, \"R (ohm)\"}, 0.05, 2, 0.05, Appearance -> \"Labeled\"},
+ {{v, 2, \"v (m/s)\"}, 0.2, 5, 0.1, Appearance -> \"Labeled\"},
+ {{x, 0.5, \"x / w\"}, -0.5, 4.5, ControlType -> Animator, AnimationRate -> 0.8, AnimationRunning -> False},
+ ControlPlacement -> Left, TrackedSymbols :> {b, lcm, wcm, r, v, x}]", "Input"],
+
+Cell["Going further - where does the work go?", "Section"],
+
+Cell["(* Over the whole trip the work by the applied force equals the heat in the loop, 2 (B^2 l^2 v/R) w. *)
+With[{b = 0.5, l = 0.1, w = 0.05, r = 0.2, v = 2.},
+ Grid[{{\"work, integral of F dx (J)\", NIntegrate[forceLoop[s, b, l, v, r] w, {s, -0.5, 0, 1, 3, 4, 4.5}]},
+   {\"heat, integral of I\\.b2 R dt (J)\", NIntegrate[(emfLoop[s, b, l, v]/r)^2 r, {s, -0.5, 0, 1, 3, 4, 4.5}] w/v},
+   {\"2 (B\\.b2 l\\.b2 v/R) w (J)\", 2 b^2 l^2 v/r w}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* The emf as the numerical time derivative of the geometric flux, against the piecewise formula. *)
+With[{b = 0.5, l = 0.1, w = 0.05, v = 2., dt = 10.^-7},
+ Grid[Prepend[Table[{xw, NumberForm[-(fluxLoop[xw + v dt/w, b, l, w] - fluxLoop[xw - v dt/w, b, l, w])/(2 dt), 6], NumberForm[emfLoop[xw, b, l, v], 6]}, {xw, {-0.3, 0.5, 1.5, 2.5, 3.5, 4.3}}],
+   {\"x / w\", \"-dPhi/dt numerical (V)\", \"formula (V)\"}], Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

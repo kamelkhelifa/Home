@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 30.2 · Magnetic Force Acting on a Sliding Bar — PHYS 193</title>
+<meta name="description" content="Interactive solution of Example 30.2: Magnetic Force Acting on a Sliding Bar (Serway &amp; Jewett, Ch. 30).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 11 · Chapter 30</a> / Example 30.2</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 11</span><span>Chapter 30</span><span>§30.2 · Motional emf</span><span>Lecture slide 30</span></div><h1>Example 30.2 · Magnetic Force Acting on a Sliding Bar</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
+<p class="lead">Give the bar a push and let go. The moving bar is a source of emf, the emf drives a current, and the current in the field brakes the bar. Because the
+brake is proportional to the speed, the speed dies away exponentially. The bar only ever travels a finite distance.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
+
+<p>The conducting bar illustrated in Figure 30.9 moves on two frictionless, parallel rails in the presence of a uniform magnetic field directed into the page. The bar has
+  mass \(m\), and its length is \(\ell\). The bar is given an initial velocity \(\vec v_i\) to the right and is released at \(t=0\). (A) Using Newton’s laws, find the speed
+  of the bar as a function of time after it is released. (B) Show that the same result is found by using an energy approach.</p>
+<figure class="probfig"><svg aria-label="Figure 30.9: a conducting bar of length ℓ sliding to the right with velocity v on two parallel rails in a uniform magnetic field into the page. The induced current I in the bar gives a magnetic force F_B opposite to the motion." role="img" viewbox="0 0 620 390" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><path class="pf-fld" d="M 31 21 L 45 35 M 45 21 L 31 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 21 L 81 35 M 81 21 L 67 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 21 L 117 35 M 117 21 L 103 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 21 L 153 35 M 153 21 L 139 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 21 L 189 35 M 189 21 L 175 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 21 L 225 35 M 225 21 L 211 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 21 L 261 35 M 261 21 L 247 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 21 L 297 35 M 297 21 L 283 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 319 21 L 333 35 M 333 21 L 319 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 21 L 369 35 M 369 21 L 355 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 21 L 405 35 M 405 21 L 391 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 21 L 441 35 M 441 21 L 427 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 21 L 477 35 M 477 21 L 463 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 21 L 513 35 M 513 21 L 499 35" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 57 L 45 71 M 45 57 L 31 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 57 L 81 71 M 81 57 L 67 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 57 L 117 71 M 117 57 L 103 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 57 L 153 71 M 153 57 L 139 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 57 L 189 71 M 189 57 L 175 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 57 L 225 71 M 225 57 L 211 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 57 L 261 71 M 261 57 L 247 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 57 L 297 71 M 297 57 L 283 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 57 L 369 71 M 369 57 L 355 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 57 L 405 71 M 405 57 L 391 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 57 L 441 71 M 441 57 L 427 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 57 L 477 71 M 477 57 L 463 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 57 L 513 71 M 513 57 L 499 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 57 L 549 71 M 549 57 L 535 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 57 L 585 71 M 585 57 L 571 71" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 93 L 45 107 M 45 93 L 31 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 93 L 81 107 M 81 93 L 67 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 93 L 117 107 M 117 93 L 103 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 93 L 153 107 M 153 93 L 139 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 93 L 189 107 M 189 93 L 175 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 93 L 225 107 M 225 93 L 211 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 93 L 261 107 M 261 93 L 247 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 93 L 297 107 M 297 93 L 283 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 93 L 369 107 M 369 93 L 355 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 93 L 405 107 M 405 93 L 391 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 93 L 441 107 M 441 93 L 427 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 93 L 477 107 M 477 93 L 463 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 93 L 513 107 M 513 93 L 499 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 93 L 549 107 M 549 93 L 535 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 93 L 585 107 M 585 93 L 571 107" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 129 L 45 143 M 45 129 L 31 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 129 L 81 143 M 81 129 L 67 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 129 L 117 143 M 117 129 L 103 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 129 L 153 143 M 153 129 L 139 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 129 L 189 143 M 189 129 L 175 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 129 L 225 143 M 225 129 L 211 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 129 L 261 143 M 261 129 L 247 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 129 L 297 143 M 297 129 L 283 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 129 L 369 143 M 369 129 L 355 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 129 L 405 143 M 405 129 L 391 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 129 L 441 143 M 441 129 L 427 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 129 L 477 143 M 477 129 L 463 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 129 L 513 143 M 513 129 L 499 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 129 L 549 143 M 549 129 L 535 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 129 L 585 143 M 585 129 L 571 143" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 165 L 45 179 M 45 165 L 31 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 165 L 81 179 M 81 165 L 67 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 165 L 117 179 M 117 165 L 103 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 165 L 153 179 M 153 165 L 139 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 165 L 369 179 M 369 165 L 355 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 165 L 405 179 M 405 165 L 391 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 165 L 441 179 M 441 165 L 427 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 165 L 477 179 M 477 165 L 463 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 165 L 513 179 M 513 165 L 499 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 165 L 549 179 M 549 165 L 535 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 165 L 585 179 M 585 165 L 571 179" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 201 L 45 215 M 45 201 L 31 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 201 L 81 215 M 81 201 L 67 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 201 L 117 215 M 117 201 L 103 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 201 L 153 215 M 153 201 L 139 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 201 L 369 215 M 369 201 L 355 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 201 L 405 215 M 405 201 L 391 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 201 L 441 215 M 441 201 L 427 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 201 L 477 215 M 477 201 L 463 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 201 L 513 215 M 513 201 L 499 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 201 L 549 215 M 549 201 L 535 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 201 L 585 215 M 585 201 L 571 215" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 237 L 45 251 M 45 237 L 31 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 237 L 81 251 M 81 237 L 67 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 237 L 117 251 M 117 237 L 103 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 237 L 153 251 M 153 237 L 139 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 237 L 189 251 M 189 237 L 175 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 237 L 225 251 M 225 237 L 211 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 237 L 261 251 M 261 237 L 247 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 237 L 297 251 M 297 237 L 283 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 237 L 369 251 M 369 237 L 355 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 237 L 405 251 M 405 237 L 391 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 237 L 441 251 M 441 237 L 427 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 237 L 477 251 M 477 237 L 463 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 237 L 513 251 M 513 237 L 499 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 237 L 549 251 M 549 237 L 535 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 237 L 585 251 M 585 237 L 571 251" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 273 L 45 287 M 45 273 L 31 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 273 L 81 287 M 81 273 L 67 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 273 L 117 287 M 117 273 L 103 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 273 L 153 287 M 153 273 L 139 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 273 L 189 287 M 189 273 L 175 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 273 L 225 287 M 225 273 L 211 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 273 L 261 287 M 261 273 L 247 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 273 L 297 287 M 297 273 L 283 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 273 L 369 287 M 369 273 L 355 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 273 L 405 287 M 405 273 L 391 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 273 L 441 287 M 441 273 L 427 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 273 L 477 287 M 477 273 L 463 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 273 L 513 287 M 513 273 L 499 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 273 L 549 287 M 549 273 L 535 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 273 L 585 287 M 585 273 L 571 287" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 309 L 45 323 M 45 309 L 31 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 309 L 81 323 M 81 309 L 67 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 309 L 117 323 M 117 309 L 103 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 309 L 153 323 M 153 309 L 139 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 309 L 189 323 M 189 309 L 175 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 309 L 225 323 M 225 309 L 211 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 309 L 261 323 M 261 309 L 247 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 309 L 297 323 M 297 309 L 283 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 309 L 369 323 M 369 309 L 355 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 309 L 405 323 M 405 309 L 391 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 309 L 441 323 M 441 309 L 427 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 309 L 477 323 M 477 309 L 463 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 309 L 513 323 M 513 309 L 499 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 309 L 549 323 M 549 309 L 535 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 309 L 585 323 M 585 309 L 571 323" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 31 345 L 45 359 M 45 345 L 31 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 67 345 L 81 359 M 81 345 L 67 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 103 345 L 117 359 M 117 345 L 103 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 139 345 L 153 359 M 153 345 L 139 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 175 345 L 189 359 M 189 345 L 175 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 211 345 L 225 359 M 225 345 L 211 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 247 345 L 261 359 M 261 345 L 247 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 283 345 L 297 359 M 297 345 L 283 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 319 345 L 333 359 M 333 345 L 319 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 355 345 L 369 359 M 369 345 L 355 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 391 345 L 405 359 M 405 345 L 391 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 427 345 L 441 359 M 441 345 L 427 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 463 345 L 477 359 M 477 345 L 463 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 499 345 L 513 359 M 513 345 L 499 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 535 345 L 549 359 M 549 345 L 535 359" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 571 345 L 585 359 M 585 345 L 571 359" fill="none" stroke-width="2"></path><rect class="pf-gs" height="12" style="fill-opacity:.35" width="480" x="80" y="54"></rect><rect class="pf-gs" height="12" style="fill-opacity:.35" width="480" x="80" y="314"></rect><polyline class="pf-w" points="80.0,60.0 80.0,150.0"></polyline><polyline class="pf-res" points="80.0,150.0 69.0,156.7 91.0,170.0 69.0,183.3 91.0,196.7 69.0,210.0 91.0,223.3 80.0,230.0"></polyline><polyline class="pf-w" points="80.0,230.0 80.0,320.0"></polyline><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="end" x="58.0" y="190.0"><tspan font-style="italic">R</tspan></text><rect height="300" rx="3" style="fill:var(--c-2,#b8741a);stroke:var(--ink,#15171c);stroke-width:1.5" width="22" x="319" y="40"></rect><line class="pf-cur" stroke-width="4.5" x1="350.0" x2="408.0" y1="130.0" y2="130.0"></line><polygon class="pf-cur" points="425.0,130.0 407.0,139.9 407.0,120.1" stroke-width="1"></polygon><text class="pf-tc" dominant-baseline="middle" font-size="26" text-anchor="middle" x="442.0" y="112.0"><tspan font-weight="700">v</tspan></text><line class="pf-cur" stroke-width="1.3" x1="434.8" x2="443.4" y1="95.9" y2="95.9"></line><polygon class="pf-cur" points="450.2,95.9 442.4,98.5 442.4,93.3" stroke-width="1"></polygon><line class="pf-fld" stroke-width="4.5" x1="310.0" x2="252.0" y1="190.0" y2="190.0"></line><polygon class="pf-fld" points="235.0,190.0 253.0,180.1 253.0,199.9" stroke-width="1"></polygon><text class="pf-tf" dominant-baseline="middle" font-size="26" text-anchor="middle" x="270.0" y="222.0"><tspan font-weight="700">F</tspan></text><text class="pf-tf" dominant-baseline="middle" font-size="17.68" text-anchor="start" x="279.1" y="229.3">B</text><line class="pf-fld" stroke-width="1.3" x1="262.8" x2="271.4" y1="205.9" y2="205.9"></line><polygon class="pf-fld" points="278.2,205.9 270.4,208.5 270.4,203.3" stroke-width="1"></polygon><line class="pf-cur" stroke-width="3.5" x1="329.0" x2="329.0" y1="250.0" y2="135.0"></line><polygon class="pf-cur" points="329.0,120.0 337.8,136.0 320.2,136.0" stroke-width="1"></polygon><text class="pf-tc" dominant-baseline="middle" font-size="26" text-anchor="start" x="352.0" y="236.0"><tspan font-style="italic">I</tspan></text><line class="pf-cur" stroke-width="3.5" x1="190.0" x2="237.0" y1="296.0" y2="296.0"></line><polygon class="pf-cur" points="250.0,296.0 236.0,303.7 236.0,288.3" stroke-width="1"></polygon><text class="pf-tc" dominant-baseline="middle" font-size="24" text-anchor="middle" x="220.0" y="274.0"><tspan font-style="italic">I</tspan></text><line class="pf-ink" stroke-width="1.4" x1="36.0" x2="36.0" y1="190.0" y2="310.0"></line><polygon class="pf-ink" points="36.0,320.0 31.6,309.0 40.4,309.0" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="36.0" x2="36.0" y1="190.0" y2="70.0"></line><polygon class="pf-ink" points="36.0,60.0 40.4,71.0 31.6,71.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="end" x="20.0" y="190.0"><tspan font-style="italic">ℓ</tspan></text><text class="pf-tf" dominant-baseline="middle" font-size="26" text-anchor="middle" x="560.0" y="32.0"><tspan font-weight="700">B</tspan></text><text class="pf-tf" dominant-baseline="middle" font-size="17.68" text-anchor="start" x="569.1" y="39.3">in</text><line class="pf-fld" stroke-width="1.3" x1="552.8" x2="561.4" y1="15.9" y2="15.9"></line><polygon class="pf-fld" points="568.2,15.9 560.4,18.5 560.4,13.3" stroke-width="1"></polygon></svg><figcaption>Figure 30.9: a conducting bar of length ℓ sliding to the right with velocity v on two parallel rails in a uniform magnetic field into the page. The induced current I in the bar gives a magnetic force F_B opposite to the motion. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Let the bar coast</span></summary><div class="fold-body">
+
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="The bar on the rails" id="geo"></canvas>
+<figcaption>Figure 30.9. The current is counterclockwise, upward in the bar, and the magnetic force on the bar points to the left. Arrow lengths follow the present speed.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Speed and position against time" id="plot"></canvas>
+<figcaption>Speed \(v(t)=v_ie^{-t/\tau}\) and position \(x(t)=v_i\tau\left(1-e^{-t/\tau}\right)\), with \(\tau=mR/B^2\ell^2\). The bar comes to rest at \(x=v_i\tau\).</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<p class="note">The book gives no numbers for this example. The starting values are a model: \(m=0.100\) kg, \(\ell=0.400\) m, \(B=0.800\) T, \(R=0.500\ \Omega\),
+  \(v_i=2.00\) m/s.</p>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
+
+
+<p class="phase">Conceptualize</p>
+<p>As the bar slides to the right in Figure 30.9, a counterclockwise current is established in the circuit consisting of the bar, the rails, and the resistor. The upward
+    current in the bar results in a magnetic force to the left on the bar as shown in the figure. Therefore, the bar must slow down, so our mathematical solution should
+    demonstrate that.</p>
+<p class="phase">Categorize (A)</p>
+<p>The text already categorizes this problem as one that uses Newton’s laws. We model the bar as a particle under a net force.</p>
+<p class="phase">Analyze (A)</p>
+<ol class="steps">
+<li>From Equation 28.10, the magnetic force is \(F_B=-I\ell B\), where the negative sign indicates that the force is to the left. The magnetic force is the only
+        horizontal force acting on the bar. Using the particle under a net force model, apply Newton’s second law to the bar in the horizontal direction:
+        \[F_x=ma\;\Rightarrow\;-I\ell B=m\frac{dv}{dt}.\]</li>
+<li>Substitute \(I=B\ell v/R\) from Equation 30.6: \[m\frac{dv}{dt}=-\frac{B^2\ell^2}{R}\,v.\]</li>
+<li>Rearrange the equation so that all occurrences of the variable \(v\) are on the left and those of \(t\) are on the right:
+        \[\frac{dv}{v}=-\left(\frac{B^2\ell^2}{mR}\right)dt.\]</li>
+<li>Integrate this equation using the initial condition that \(v=v_i\) at \(t=0\) and noting that \(B^2\ell^2/mR\) is a constant:
+        \[\int_{v_i}^{v}\frac{dv}{v}=-\frac{B^2\ell^2}{mR}\int_0^t dt\;\Rightarrow\;\ln\frac{v}{v_i}=-\left(\frac{B^2\ell^2}{mR}\right)t.\]</li>
+<li>Define the constant \(\tau=mR/B^2\ell^2\) and solve for the speed: \[v=v_ie^{-t/\tau}.\qquad(1)\]</li>
+</ol>
+<p class="phase">Finalize (A)</p>
+<p>This expression for \(v\) indicates that the speed of the bar decreases with time under the action of the magnetic force, as expected from our conceptualization of the
+    problem. The mathematical form of the decrease is exponential.</p>
+<p class="phase">Categorize (B)</p>
+<p>The text of this part of the problem tells us to use an energy approach for the same situation. We model the bar in Figure 30.9 as a nonisolated system for energy.</p>
+<p class="phase">Analyze (B)</p>
+<ol class="steps">
+<li>The appropriate reduction of Equation 8.2 is \(\Delta K=T_{\text{ET}}\). The term on the left represents the change in the speed of the bar, while the right-hand
+        term represents energy transferred out of the bar by electricity. Differentiate the reduction with respect to time:
+        \[\frac{dK}{dt}=\frac{dT_{\text{ET}}}{dt}=-P=-I^2R.\]</li>
+<li>Substitute for the kinetic energy of the bar from Equation 7.16 and the current from Equation 30.6:
+        \[\frac{d}{dt}\left(\tfrac12mv^2\right)=-\frac{(B\ell v)^2}{R}\;\Rightarrow\;mv\frac{dv}{dt}=-\frac{B^2\ell^2v^2}{R}.\]</li>
+<li>Rearrange terms: \[\frac{dv}{v}=-\left(\frac{B^2\ell^2}{mR}\right)dt.\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>This result is the same expression to be integrated that we found in part (A). Newton’s second law and conservation of energy give the same differential equation, as
+    they must.</p>
+
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">What if?</span><span class="fold-title">Suppose you wished to increase the distance through which the bar moves between the time it is initially projected and the time it essentially comes to rest.
+  You can do so by changing one of three variables, \(v_i\), \(R\), or \(B\), by a factor of 2 or ½. Which variable should you change to maximize the distance, and would
+  you double it or halve it?</span></summary><div class="fold-body">
+
+
+<p>Increasing \(v_i\) would make the bar move farther. Increasing \(R\) would decrease the current and therefore the magnetic force, making the bar move farther.
+  Decreasing \(B\) would decrease the magnetic force and make the bar move farther. Which method is most effective, though? Integrate Equation (1) to find the distance:
+  \[x=\int_0^\infty v_ie^{-t/\tau}\,dt=v_i\tau=v_i\frac{mR}{B^2\ell^2}.\]
+  Doubling \(v_i\) or \(R\) doubles the distance. Changing \(B\) by a factor of ½, however, causes the distance to be four times as great, because \(B\) enters squared.</p>
+<div class="btns" id="presets"></div>
+<div class="scroll-x"><table class="t" id="wtbl"></table></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
+
+<p>Newton’s law \(m\,dv/dt=-B^2\ell^2v/R\) stepped forward numerically (4th-order Runge–Kutta), against Equation (1). Energy: the kinetic energy the bar loses must equal
+  \(\int I^2R\,dt\), the energy delivered to the resistor (Simpson’s rule out to \(30\tau\)).</p>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+</div></details>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Example 30.2 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 30, as presented on slide 30 of the Week 11 lecture. Every number and interactive drawing on this page is computed live in your browser from Faraday’s law and Lenz’s law. Mathematica version: <a href="Example-30.2.nb" download>Example-30.2.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 11 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) return;
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const mid = o.legend === "mr" || o.legend === "ml";   // "mr"/"ml": middle of the right/left edge
+      const bx = (left || o.legend === "ml") ? m.l + 8 : m.l + pw - lw - 8;
+      const by = bottom ? m.t + ph - items.length * lh - 12 : mid ? m.t + ph / 2 - (items.length * lh + 6) / 2 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
+
+/* ---------- circuit symbols (screen coordinates) ---------- */
+D.wire = (ctx, pts, c, w = 2) => D.line(ctx, pts, { color: c.ink2, width: w });
+D.node = (ctx, x, y, c, label, dx = -12, dy = -10) => {
+  D.circle(ctx, x, y, 3.6, { fill: c.ink });
+  if (label) D.text(ctx, label, x + dx, y + dy, { color: c.ink, italic: true, size: 15, font: "Georgia, serif" });
+};
+// resistor between (x0,y0) and (x1,y1): zig-zag of length L in the middle, leads to the ends
+D.resistor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const z = Math.min(o.len || 46, 0.7 * L), a = (L - z) / 2, amp = o.amp || 7, n = 6;
+  const pts = [[x0, y0], [x0 + ux * a, y0 + uy * a]];
+  for (let k = 0; k < n; k++) {
+    const t = a + z * (k + 0.5) / n, s = k % 2 ? -1 : 1;
+    pts.push([x0 + ux * t + nx * amp * s, y0 + uy * t + ny * amp * s]);
+  }
+  pts.push([x0 + ux * (a + z), y0 + uy * (a + z)], [x1, y1]);
+  D.line(ctx, pts, { color: o.color || c.pos, width: 2.2 });
+  if (o.label) {
+    const off = o.labelOff ?? 18, mx = (x0 + x1) / 2 + nx * off * (o.side || 1), my = (y0 + y1) / 2 + ny * off * (o.side || 1);
+    D.text(ctx, o.label, mx, my, { color: c.ink, size: o.size || 13, align: o.align || "center", halo: c.surface2 });
+  }
+};
+// battery between ends; positive plate (long) towards the end given by o.plus = 1 (end 1) or 0 (end 0)
+D.battery = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 7, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, plusAt1 = o.plus !== 0;
+  const pLong = plusAt1 ? g / 2 : -g / 2, pShort = -pLong;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  const plate = (t, h, w) => D.line(ctx, [[mx + ux * t + nx * h, my + uy * t + ny * h], [mx + ux * t - nx * h, my + uy * t - ny * h]], { color: c.c3, width: w });
+  plate(pLong, 15, 2.6); plate(pShort, 8, 4.5);
+  const sgn = o.side || 1;
+  D.text(ctx, "+", mx + ux * pLong * 2.4 + nx * 15 * sgn, my + uy * pLong * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  D.text(ctx, "−", mx + ux * pShort * 2.4 + nx * 15 * sgn, my + uy * pShort * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  if (o.label) D.text(ctx, o.label, mx - nx * 26 * sgn, my - ny * 26 * sgn, { color: c.ink, size: o.size || 13, halo: c.surface2 });
+};
+// capacitor between ends
+D.capacitor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 8, mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  for (const t of [-g / 2, g / 2]) D.line(ctx, [[mx + ux * t + nx * 14, my + uy * t + ny * 14], [mx + ux * t - nx * 14, my + uy * t - ny * 14]], { color: c.c1, width: 3 });
+  if (o.label) D.text(ctx, o.label, mx + nx * 30 * (o.side || 1), my + ny * 30 * (o.side || 1), { color: c.ink, size: 13, halo: c.surface2 });
+};
+// current arrow along a straight wire segment, pointing from (x0,y0) to (x1,y1); flips for negative values
+D.current = (ctx, x0, y0, x1, y1, value, c, label, o = {}) => {
+  if (!isFinite(value) || Math.abs(value) < 1e-12) return;
+  const s = value >= 0 ? 1 : -1, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0);
+  const ux = (x1 - x0) / L * s, uy = (y1 - y0) / L * s, h = o.len || 16;
+  const ox = (o.off || 0) * -uy * s, oy = (o.off || 0) * ux * s;
+  D.arrow(ctx, mx - ux * h + ox, my - uy * h + oy, mx + ux * h + ox, my + uy * h + oy, { color: o.color || c.accent, width: 2.6, head: 10 });
+  if (label) D.text(ctx, label, mx + ox * 2.2 + (o.ldx || 0), my + oy * 2.2 + (o.ldy || 0), { color: o.color || c.accent, size: 13, bold: true, halo: c.surface2 });
+};
+// Gaussian elimination with partial pivoting (written out so students can read it)
+D.solve = (A, b) => {
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let k = 0; k < n; k++) {
+    let p = k; for (let i = k + 1; i < n; i++) if (Math.abs(M[i][k]) > Math.abs(M[p][k])) p = i;
+    [M[k], M[p]] = [M[p], M[k]];
+    for (let i = k + 1; i < n; i++) { const f = M[i][k] / M[k][k]; for (let j = k; j <= n; j++) M[i][j] -= f * M[k][j]; }
+  }
+  const x = new Array(n).fill(0);
+  for (let i = n - 1; i >= 0; i--) { let s = M[i][n]; for (let j = i + 1; j < n; j++) s -= M[i][j] * x[j]; x[i] = s / M[i][i]; }
+  return x;
+};
+
+</script>
+<script>
+(() => {
+  const DEF = { vi: 2, m: 0.1, R: 0.5, B: 0.8, l: 0.4 };
+  const ctl = D.$("ctl");
+  const svi = D.slider(ctl, { label: "initial speed vᵢ", min: 0.2, max: 6, step: 0.1, value: DEF.vi, unit: "m/s", fmt: v => v.toFixed(2), onInput: reset });
+  const sm = D.slider(ctl, { label: "mass m", min: 0.02, max: 0.5, step: 0.01, value: DEF.m, unit: "kg", fmt: v => v.toFixed(3), onInput: reset });
+  const sR = D.slider(ctl, { label: "resistance R", min: 0.1, max: 3, step: 0.05, value: DEF.R, unit: "Ω", fmt: v => v.toFixed(2), onInput: reset });
+  const sB = D.slider(ctl, { label: "field B", min: 0.1, max: 2, step: 0.05, value: DEF.B, unit: "T", fmt: v => v.toFixed(2), onInput: reset });
+  const sl = D.slider(ctl, { label: "bar length ℓ", min: 0.1, max: 1, step: 0.01, value: DEF.l, unit: "m", fmt: v => v.toFixed(2), onInput: reset });
+  const bx = D.el("div", { class: "btns" }); ctl.appendChild(bx);
+  let t = 0, playing = false;
+  const playBtn = D.button(bx, "▶ Release the bar", () => { if (t >= 6 * S().tau) t = 0; playing = !playing; playBtn.textContent = playing ? "❚❚ Pause" : "▶ Release the bar"; if (playing) anim.start(); });
+  D.button(bx, "↺ Reset", () => { t = 0; playing = false; playBtn.textContent = "▶ Release the bar"; draw(); }, true);
+  const ro = D.readout(D.$("ro"), [["tau", "τ = mR/B²ℓ²"], ["v", "speed v(t)"], ["I", "current I = Bℓv/R"], ["x", "distance to rest vᵢτ"]]);
+
+  const S = () => { const vi = svi.get(), m = sm.get(), R = sR.get(), B = sB.get(), l = sl.get(), tau = m * R / (B * B * l * l); return { vi, m, R, B, l, tau }; };
+  const vAt = (s, x) => s.vi * Math.exp(-x / s.tau), xAt = (s, x) => s.vi * s.tau * (1 - Math.exp(-x / s.tau));
+  const anim = D.animator(dt => { const s = S(); t += dt * Math.max(0.25, s.tau / 2); if (t >= 6 * s.tau) { t = 6 * s.tau; playing = false; playBtn.textContent = "▶ Release the bar"; draw(); return false; } draw(); return playing; });
+
+  const geo = D.canvas(D.$("geo"), w => (w < 520 ? 0.62 : 0.32), (ctx, w, h, c) => {
+    const s = S(), xmax = s.vi * s.tau, x = xAt(s, t), v = vAt(s, t), cur = s.B * s.l * v / s.R;
+    const L = 64, Rgt = w - 24, yT = h * 0.2, yB = h * 0.8, X = xx => L + 130 + (Rgt - L - 160) * xx / (xmax * 1.05);
+    for (let gx = L + 14; gx < Rgt; gx += 30) for (let gy = 16; gy < h - 6; gy += 30) {
+      ctx.save(); ctx.strokeStyle = c.c3; ctx.globalAlpha = 0.55; ctx.lineWidth = 1.5; ctx.beginPath();
+      ctx.moveTo(gx - 3.5, gy - 3.5); ctx.lineTo(gx + 3.5, gy + 3.5); ctx.moveTo(gx + 3.5, gy - 3.5); ctx.lineTo(gx - 3.5, gy + 3.5); ctx.stroke(); ctx.restore();
+    }
+    D.line(ctx, [[L, yT], [Rgt, yT]], { color: c.muted, width: 7 }); D.line(ctx, [[L, yB], [Rgt, yB]], { color: c.muted, width: 7 });
+    D.wire(ctx, [[L, yT], [L, (yT + yB) / 2 - 26]], c); D.wire(ctx, [[L, (yT + yB) / 2 + 26], [L, yB]], c);
+    D.resistor(ctx, L, (yT + yB) / 2 - 26, L, (yT + yB) / 2 + 26, c, { label: "R", side: 1, labelOff: 18 });
+    const xb = X(x);
+    ctx.save(); ctx.fillStyle = c.c2; ctx.fillRect(xb - 7, yT - 12, 14, yB - yT + 24); ctx.restore();
+    D.text(ctx, "B into the page", Rgt - 4, 10, { color: c.c3, size: 12, align: "right", halo: c.surface2 });
+    D.text(ctx, "ℓ", xb - 22, (yT + yB) / 2, { color: c.ink, size: 15, italic: true, halo: c.surface2 });
+    const k = v / s.vi;
+    if (k > 0.01) {
+      D.arrow(ctx, xb + 10, yT + 22, xb + 10 + 70 * k, yT + 22, { color: c.pos, width: 3.5 });
+      D.text(ctx, "v", xb + 20 + 70 * k, yT + 22, { color: c.pos, size: 14, italic: true, bold: true, align: "left", halo: c.surface2 });
+      D.arrow(ctx, xb - 10, yB - 24, xb - 10 - 70 * k, yB - 24, { color: c.c1, width: 3.5 });
+      D.text(ctx, "F_B", xb - 18 - 70 * k, yB - 24, { color: c.c1, size: 13, bold: true, align: "right", halo: c.surface2 });
+      D.arrow(ctx, xb + 22, (yT + yB) / 2 + 18, xb + 22, (yT + yB) / 2 - 18, { color: c.c4, width: 3 });
+      D.text(ctx, "I", xb + 32, (yT + yB) / 2, { color: c.c4, size: 14, italic: true, bold: true, align: "left", halo: c.surface2 });
+    }
+    D.text(ctx, `t = ${t.toFixed(2)} s   x = ${x.toFixed(3)} m`, L + 6, h - 8, { color: c.ink2, size: 12, align: "left", halo: c.surface2 });
+    // where it will stop
+    D.line(ctx, [[X(xmax), yT - 14], [X(xmax), yB + 14]], { color: c.gold, width: 1.5, dash: [5, 4] });
+    D.text(ctx, "stops here", X(xmax), yB + 22, { color: c.gold, size: 11, halo: c.surface2 });
+  });
+
+  const plot = D.canvas(D.$("plot"), w => (w < 520 ? 0.7 : 0.36), (ctx, w, h, c) => {
+    const s = S(), tm = 5 * s.tau;
+    D.plot(ctx, w, h, c, { x: [0, tm], y: [0, 1.08], xlabel: "t (s)", ylabel: "fraction", legend: "mr",
+      series: [{ f: x => vAt(s, x) / s.vi, color: c.pos, width: 2.5, label: "speed v / vᵢ" }, { f: x => xAt(s, x) / (s.vi * s.tau), color: c.c1, width: 2.5, label: "position x / (vᵢτ)" }],
+      vlines: [{ x: s.tau, label: "τ", color: c.muted }, { x: Math.min(t, tm), color: c.accent }],
+      points: [{ x: Math.min(t, tm), y: vAt(s, t) / s.vi, color: c.pos }, { x: Math.min(t, tm), y: xAt(s, t) / (s.vi * s.tau), color: c.c1 }] });
+  });
+
+  const pr = D.$("presets");
+  const preset = (f, lab, prim) => D.button(pr, lab, () => { svi.set(DEF.vi * (f.vi || 1)); sm.set(DEF.m); sR.set(DEF.R * (f.R || 1)); sB.set(DEF.B * (f.B || 1)); sl.set(DEF.l); reset(); }, prim);
+  preset({}, "Starting values", true); preset({ vi: 2 }, "Double vᵢ"); preset({ R: 2 }, "Double R"); preset({ B: 0.5 }, "Halve B"); preset({ vi: 0.5 }, "Halve vᵢ"); preset({ B: 2 }, "Double B");
+
+  function tables() {
+    const s = S(), f = v => -s.B * s.B * s.l * s.l * v / (s.m * s.R), dt = s.tau / 400;
+    let v = s.vi, tt = 0, html = "<tr><th>t / τ</th><th>v, Runge–Kutta (m/s)</th><th>vᵢe<sup>−t/τ</sup> (m/s)</th></tr>", next = 0.5;
+    while (tt < 4 * s.tau - 1e-12) {
+      const k1 = f(v), k2 = f(v + dt * k1 / 2), k3 = f(v + dt * k2 / 2), k4 = f(v + dt * k3);
+      v += dt * (k1 + 2 * k2 + 2 * k3 + k4) / 6; tt += dt;
+      if (tt >= next * s.tau - 1e-9) { html += `<tr><td>${next}</td><td>${D.fmt(v, 8)}</td><td>${D.fmt(vAt(s, tt), 8)}</td></tr>`; next += next < 1 ? 0.5 : 1; }
+    }
+    const K = 0.5 * s.m * s.vi * s.vi, Eres = D.simpson(x => { const I = s.B * s.l * vAt(s, x) / s.R; return I * I * s.R; }, 0, 30 * s.tau, 6000);
+    html += `<tr><td colspan="3">energy: ½mvᵢ² = ${D.fmt(K, 7)} J;  ∫I²R dt = ${D.fmt(Eres, 7)} J</td></tr>`;
+    D.$("tbl").innerHTML = html;
+    const d0 = DEF.vi * DEF.m * DEF.R / (DEF.B * DEF.B * DEF.l * DEF.l);
+    let w2 = "<tr><th>change</th><th>distance vᵢmR/B²ℓ² (m)</th><th>× starting distance</th></tr>";
+    for (const [lab, fv, fR, fB] of [["none", 1, 1, 1], ["vᵢ × 2", 2, 1, 1], ["R × 2", 1, 2, 1], ["B × ½", 1, 1, 0.5], ["vᵢ × ½", 0.5, 1, 1], ["R × ½", 1, 0.5, 1], ["B × 2", 1, 1, 2]]) {
+      const d = DEF.vi * fv * DEF.m * DEF.R * fR / ((DEF.B * fB) ** 2 * DEF.l * DEF.l);
+      w2 += `<tr><td>${lab}</td><td>${D.fmt(d, 4)}</td><td>${D.fmt(d / d0, 3)}</td></tr>`;
+    }
+    D.$("wtbl").innerHTML = w2;
+    return { K, Eres, v4: v };
+  }
+  function draw() {
+    const s = S(), v = vAt(s, t);
+    ro("tau", D.fmt(s.tau, 4) + " s"); ro("v", D.fmt(v, 4) + " m/s"); ro("I", D.fmt(s.B * s.l * v / s.R, 4) + " A"); ro("x", D.fmt(s.vi * s.tau, 4) + " m");
+    geo.render(); plot.render();
+  }
+  function reset() { t = 0; playing = false; anim.stop(); playBtn.textContent = "▶ Release the bar"; draw(); const r = tables(); const s = S(); window.__check = { tau: s.tau, dist: s.vi * s.tau, K: r.K, Eres: r.Eres, v4: r.v4, v4exact: vAt(s, 4 * s.tau) }; }
+  reset();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

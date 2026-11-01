@@ -1,0 +1,97 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 30.8 - The Induced Current in a Motor", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 11 \:00b7 Chapter 30 \:00b7 Lecture slide 78 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A motor contains a coil with a total resistance of 10 ohm and is supplied by a voltage of 120 V. When the motor is running at its maximum speed, the back emf is 70 V. (A) Find the current in the coil at the instant the motor is turned on. (B) Find the current when the motor has reached maximum speed.", "Text"],
+
+Cell["At switch-on there is no back emf: I = 120 V/10 ohm = 12 A. At full speed I = (120 - 70) V/10 ohm = 5.0 A. What If? a jammed saw: the power input rises by the factor (12/5)^2 = 5.76, a 476 % increase, enough to overheat the coil. The model takes the back emf proportional to the speed.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from Faraday\:2019s law and Lenz\:2019s law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+current[v_, r_, eback_] := Max[0, (v - eback)/r];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{eb = emax s, i, fig},
+  i = current[v, r, eb];
+  fig = Graphics[{
+     batteryG[{0, 0}, {0, 2}, True], lbl[Row[{\"\\[CapitalDelta]V = \", NumberForm[v, 3], \" V\"}], {-0.9, 1}, Bold],
+     wire[{{0, 2}, {3, 2}, {3, 1.6}}], resistorG[{3, 1.6}, {3, 1.0}], lbl[Row[{\"R = \", NumberForm[r, 3], \" \\[CapitalOmega]\"}], {3.9, 1.3}],
+     wire[{{3, 1.0}, {3, 0.9}}], batteryG[{3, 0.9}, {3, 0.3}, False], wire[{{3, 0.3}, {3, 0}, {0, 0}}],
+     lbl[Row[{\"\\[CurlyEpsilon]back = \", NumberForm[eb, 3], \" V\"}], {3.95, 0.6}, RGBColor[0.48, 0.25, 0.69]],
+     {GrayLevel[0.6], Dashed, Line[{{2.5, -0.2}, {3.6, -0.2}, {3.6, 2.2}, {2.5, 2.2}, {2.5, -0.2}}]}, lbl[\"motor\", {3.05, 2.4}, Gray],
+     currentG[{0.8, 2}, {2.2, 2}, i, Row[{\"I = \", NumberForm[i, 3], \" A\"}], 0.22]},
+    PlotRange -> {{-1.8, 5.2}, {-0.5, 2.7}}, AspectRatio -> Automatic, ImageSize -> 460];
+  Column[{fig,
+    Plot[Evaluate[With[{ii = current[v, r, emax x]}, {ii v, ii^2 r, ii emax x}]], {x, 0, 1}, PlotStyle -> {Directive[maroon, Thick], Directive[RGBColor[0.78, 0.18, 0.23], Thick], Directive[green, Thick]},
+     PlotLegends -> Placed[{\"power in, I \\[CapitalDelta]V\", \"heat, I\\.b2 R\", \"mechanical, I \\[CurlyEpsilon]back\"}, {Right, Top}], Frame -> True, FrameLabel -> {\"speed / max speed\", \"W\"}, GridLines -> {{s}, None}, ImageSize -> 460],
+    results[{
+      {\"back emf now\", Row[{NumberForm[eb, 3], \" V\"}]},
+      {\"current (\\[CapitalDelta]V - \\[CurlyEpsilon]back)/R\", Row[{NumberForm[i, 4], \" A\"}]},
+      {\"power in I \\[CapitalDelta]V\", Row[{NumberForm[i v, 4], \" W\"}]},
+      {\"heat in the coil I\\.b2 R\", Row[{NumberForm[i^2 r, 4], \" W\"}]}}]}, Spacings -> 1.2]],
+ {{v, 120., \"supply voltage (V)\"}, 12, 240, 1, Appearance -> \"Labeled\"},
+ {{r, 10., \"coil resistance (ohm)\"}, 1, 50, 0.5, Appearance -> \"Labeled\"},
+ {{emax, 70., \"back emf at maximum speed (V)\"}, 0, 200, 1, Appearance -> \"Labeled\"},
+ {{s, 1., \"speed / max speed\"}, 0, 1, 0.01, Appearance -> \"Labeled\"},
+ Delimiter, Row[{Button[\"(A) switched on, speed 0\", s = 0.], Button[\"(B) full speed\", s = 1.], Button[\"Jam it\", s = 0.]}],
+ ControlPlacement -> Left, TrackedSymbols :> {v, r, emax, s}]", "Input"],
+
+Cell["What if? The jammed saw", "Section"],
+
+Cell["(* The ratio of the power inputs, jammed to running, is (I_A/I_B)^2 = (12/5)^2 = 5.76: a 476 % increase. *)
+With[{ia = current[120, 10, 0], ib = current[120, 10, 70]},
+ Grid[{{\"(A) I at switch-on (A)\", ia}, {\"(B) I at full speed (A)\", ib}, {\"(I_A/I_B)\\.b2\", (ia/ib)^2}, {\"increase (%)\", 100 ((ia/ib)^2 - 1)}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Energy accounting at full speed: I dV = I^2 R + I eback. *)
+With[{v = 120., r = 10., eb = 70.}, With[{i = current[v, r, eb]},
+  Grid[{{\"I \\[CapitalDelta]V (W)\", i v}, {\"I\\.b2 R + I \\[CurlyEpsilon]back (W)\", i^2 r + i eb}, {\"difference\", i v - (i^2 r + i eb)}}, Frame -> All, FrameStyle -> GrayLevel[0.8]]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

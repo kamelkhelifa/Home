@@ -1,0 +1,117 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 30.2 - Magnetic Force Acting on a Sliding Bar", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 11 \:00b7 Chapter 30 \:00b7 Lecture slide 30 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["The conducting bar of Figure 30.9 moves on two frictionless parallel rails in a uniform magnetic field into the page. The bar has mass m and length l. It is given an initial velocity v_i to the right and released at t = 0. (A) Using Newton's laws, find the speed of the bar as a function of time. (B) Show that the same result is found by an energy approach.", "Text"],
+
+Cell["The moving bar is a source of emf B l v, which drives I = B l v/R; the force on the current, -I l B, brakes the bar: m dv/dt = -(B^2 l^2/R) v, so v = v_i e^(-t/tau) with tau = m R/(B^2 l^2). The energy route, d(1/2 m v^2)/dt = -I^2 R, gives the same equation. The bar stops after a finite distance v_i tau. The book gives no numbers; the model starts from m = 0.100 kg, l = 0.400 m, B = 0.800 T, R = 0.500 ohm, v_i = 2.00 m/s.", "Text"],
+
+Cell["Figure", "Subsection"],
+
+Cell["Figure 30.9: a conducting bar of length \:2113 sliding to the right with velocity v on two parallel rails in a uniform magnetic field into the page. The induced current I in the bar gives a magnetic force F_B opposite to the motion. Redrawn after the figure in Serway & Jewett, Physics for Scientists and Engineers, 11th ed. (The picture appears when the notebook is evaluated; the cell that holds it is collapsed.)", "Text"],
+
+Cell["Image[ImportByteArray[BaseDecode[\"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\"], \"PNG\"], ImageSize -> 440]", "Input", CellOpen -> False],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from Faraday\:2019s law and Lenz\:2019s law; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+tau[m_, r_, b_, l_] := m r/(b^2 l^2);
+speed[t_, vi_, m_, r_, b_, l_] := vi Exp[-t/tau[m, r, b, l]];
+position[t_, vi_, m_, r_, b_, l_] := vi tau[m, r, b, l] (1 - Exp[-t/tau[m, r, b, l]]);", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{tt = tau[m, r, b, l], v, x, fig, xmax},
+  v = speed[t, vi, m, r, b, l]; x = position[t, vi, m, r, b, l]; xmax = vi tt;
+  fig = Graphics[{
+     Table[{gold, Text[Style[\"\\[Times]\", 12], {i, j}]}, {i, 0.3, 4.5, 0.4}, {j, 0.2, 2.8, 0.4}],
+     {GrayLevel[0.6], AbsoluteThickness[6], Line[{{0, 0.5}, {4.6, 0.5}}], Line[{{0, 2.5}, {4.6, 2.5}}]},
+     wire[{{0, 0.5}, {0, 1.1}}], wire[{{0, 1.9}, {0, 2.5}}], resistorG[{0, 1.1}, {0, 1.9}], lbl[\"R\", {-0.35, 1.5}, Italic],
+     {RGBColor[0.72, 0.45, 0.1], Rectangle[{0.5 + 3.4 x/(1.05 xmax) - 0.08, 0.35}, {0.5 + 3.4 x/(1.05 xmax) + 0.08, 2.65}]},
+     currentG[{0.5 + 3.4 x/(1.05 xmax) + 0.3, 1.9}, {0.5 + 3.4 x/(1.05 xmax) + 0.3 + 1.2 v/vi, 1.9}, 1, \"v\", 0, 1.2 v/vi],
+     {blue, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{{0.5 + 3.4 x/(1.05 xmax) - 0.2, 1.0}, {0.5 + 3.4 x/(1.05 xmax) - 0.2 - 1.2 v/vi, 1.0}}]},
+     Text[Style[\"F_B\", 12, Bold, blue], {0.5 + 3.4 x/(1.05 xmax) - 0.5 - 1.2 v/vi, 1.0}],
+     {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{{0.5 + 3.4 x/(1.05 xmax), 1.2}, {0.5 + 3.4 x/(1.05 xmax), 1.8}}]},
+     Text[Style[\"I\", 12, Bold, Italic, maroon], {0.5 + 3.4 x/(1.05 xmax) + 0.18, 1.5}],
+     {gold, Dashed, Line[{{0.5 + 3.4/1.05, 0.3}, {0.5 + 3.4/1.05, 2.7}}]}, Text[Style[\"stops here\", 11, gold], {0.5 + 3.4/1.05, 2.85}]},
+    PlotRange -> {{-0.7, 4.8}, {0, 3}}, AspectRatio -> Automatic, ImageSize -> 520];
+  Column[{fig,
+    Plot[{speed[s, vi, m, r, b, l]/vi, position[s, vi, m, r, b, l]/xmax}, {s, 0, 5 tt}, PlotStyle -> {Directive[maroon, Thick], Directive[blue, Thick]},
+     PlotLegends -> Placed[{\"v / vi\", \"x / (vi tau)\"}, {Right, Center}], Frame -> True, FrameLabel -> {\"t (s)\", \"fraction\"}, GridLines -> {{tt}, None},
+     Epilog -> {PointSize[0.02], maroon, Point[{t, v/vi}], blue, Point[{t, x/xmax}]}, ImageSize -> 520],
+    results[{
+      {\"tau = m R/(B\\.b2 l\\.b2)\", Row[{NumberForm[tt, 4], \" s\"}]},
+      {\"v(t) = vi e^(-t/tau)\", Row[{NumberForm[v, 4], \" m/s\"}]},
+      {\"I = B l v/R\", Row[{NumberForm[b l v/r, 4], \" A\"}]},
+      {\"distance to rest, vi tau\", Row[{NumberForm[xmax, 4], \" m\"}]}}]}, Spacings -> 1.2]],
+ {{vi, 2., \"initial speed vi (m/s)\"}, 0.2, 6, 0.1, Appearance -> \"Labeled\"},
+ {{m, 0.1, \"mass m (kg)\"}, 0.02, 0.5, 0.01, Appearance -> \"Labeled\"},
+ {{r, 0.5, \"resistance R (ohm)\"}, 0.1, 3, 0.05, Appearance -> \"Labeled\"},
+ {{b, 0.8, \"field B (T)\"}, 0.1, 2, 0.05, Appearance -> \"Labeled\"},
+ {{l, 0.4, \"bar length l (m)\"}, 0.1, 1, 0.01, Appearance -> \"Labeled\"},
+ {{t, 0, \"time t (s)\"}, 0, 3, ControlType -> Animator, AnimationRate -> 0.5, AnimationRunning -> False},
+ ControlPlacement -> Left, TrackedSymbols :> {vi, m, r, b, l, t}]", "Input"],
+
+Cell["What if? Making the bar go farther", "Section"],
+
+Cell["(* The distance is vi tau = vi m R/(B^2 l^2). Doubling vi or R doubles it; halving B quadruples it, because B is squared. *)
+With[{d0 = 2. 0.1 0.5/(0.8^2 0.4^2)},
+ Grid[Prepend[Table[{lab, NumberForm[fv 2. 0.1 fr 0.5/((fb 0.8)^2 0.4^2), 4], NumberForm[fv fr/fb^2, 3]},
+     {{lab, fv, fr, fb}, {{\"none\", 1, 1, 1}, {\"vi x 2\", 2, 1, 1}, {\"R x 2\", 1, 2, 1}, {\"B x 1/2\", 1, 1, 0.5}, {\"vi x 1/2\", 0.5, 1, 1}, {\"B x 2\", 1, 1, 2}}}],
+   {\"change\", \"distance (m)\", \"x starting distance\"}], Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Newton's law integrated numerically (NDSolve) against vi e^(-t/tau); and the energy balance: the kinetic energy lost equals the heat in the resistor. *)
+With[{vi = 2., m = 0.1, r = 0.5, b = 0.8, l = 0.4},
+ Module[{tt = tau[m, r, b, l], sol},
+  sol = NDSolveValue[{m v'[s] == -b^2 l^2 v[s]/r, v[0] == vi}, v, {s, 0, 5 tt}, AccuracyGoal -> 12, PrecisionGoal -> 10];
+  Column[{
+    Grid[Prepend[Table[{k, NumberForm[sol[k tt], 8], NumberForm[speed[k tt, vi, m, r, b, l], 8]}, {k, {0.5, 1, 2, 3, 4}}], {\"t / tau\", \"NDSolve (m/s)\", \"formula (m/s)\"}], Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]],
+    Row[{\"1/2 m vi\\.b2 = \", m vi^2/2, \" J;   integral of I\\.b2 R dt = \", NIntegrate[(b l speed[s, vi, m, r, b, l]/r)^2 r, {s, 0, Infinity}], \" J\"}]}]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

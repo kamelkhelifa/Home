@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conceptual Example 30.5 · A Loop Moving Through a Magnetic Field — PHYS 193</title>
+<meta name="description" content="Interactive solution of Conceptual Example 30.5: A Loop Moving Through a Magnetic Field (Serway &amp; Jewett, Ch. 30).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 11 · Chapter 30</a> / Conceptual Example 30.5</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 11</span><span>Chapter 30</span><span>§30.3 · Lenz’s law</span><span>Lecture slide 49</span></div><h1>Conceptual Example 30.5 · A Loop Moving Through a Magnetic Field</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
+<p class="lead">The loop moves the whole time, through a field that is present the whole time, and yet for the middle third of the trip there is no emf, no current and
+no force. What the <em>flux</em> is doing, not what the loop is doing, decides everything.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
+
+<p>A rectangular metallic loop of dimensions \(\ell\) and \(w\) and resistance \(R\) moves with constant speed \(v\) to the right as in Figure 30.14a. The loop passes
+  through a uniform magnetic field \(\vec B\) directed into the page and extending a distance \(3w\) along the \(x\) axis. Define \(x\) as the position of the right side of
+  the loop along the \(x\) axis. (A) Plot the magnetic flux through the area enclosed by the loop as a function of \(x\). (B) Plot the induced motional emf in the loop as a
+  function of \(x\). (C) Plot the external applied force necessary to counter the magnetic force and keep \(v\) constant as a function of \(x\).</p>
+<figure class="probfig wide"><svg aria-label="Figure 30.14a: a conducting rectangular loop of width w and height ℓ moving with velocity v through a uniform magnetic field into the page that extends a distance 3w along the x axis." role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><path class="pf-fld" d="M 160 50 L 172 62 M 172 50 L 160 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 192 50 L 204 62 M 204 50 L 192 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 224 50 L 236 62 M 236 50 L 224 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 256 50 L 268 62 M 268 50 L 256 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 288 50 L 300 62 M 300 50 L 288 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 320 50 L 332 62 M 332 50 L 320 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 352 50 L 364 62 M 364 50 L 352 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 384 50 L 396 62 M 396 50 L 384 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 416 50 L 428 62 M 428 50 L 416 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 448 50 L 460 62 M 460 50 L 448 62" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 160 82 L 172 94 M 172 82 L 160 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 192 82 L 204 94 M 204 82 L 192 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 224 82 L 236 94 M 236 82 L 224 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 256 82 L 268 94 M 268 82 L 256 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 288 82 L 300 94 M 300 82 L 288 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 320 82 L 332 94 M 332 82 L 320 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 352 82 L 364 94 M 364 82 L 352 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 384 82 L 396 94 M 396 82 L 384 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 416 82 L 428 94 M 428 82 L 416 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 448 82 L 460 94 M 460 82 L 448 94" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 160 114 L 172 126 M 172 114 L 160 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 192 114 L 204 126 M 204 114 L 192 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 224 114 L 236 126 M 236 114 L 224 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 256 114 L 268 126 M 268 114 L 256 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 288 114 L 300 126 M 300 114 L 288 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 320 114 L 332 126 M 332 114 L 320 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 352 114 L 364 126 M 364 114 L 352 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 384 114 L 396 126 M 396 114 L 384 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 416 114 L 428 126 M 428 114 L 416 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 448 114 L 460 126 M 460 114 L 448 126" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 160 146 L 172 158 M 172 146 L 160 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 192 146 L 204 158 M 204 146 L 192 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 224 146 L 236 158 M 236 146 L 224 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 256 146 L 268 158 M 268 146 L 256 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 288 146 L 300 158 M 300 146 L 288 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 320 146 L 332 158 M 332 146 L 320 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 352 146 L 364 158 M 364 146 L 352 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 384 146 L 396 158 M 396 146 L 384 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 416 146 L 428 158 M 428 146 L 416 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 448 146 L 460 158 M 460 146 L 448 158" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 160 178 L 172 190 M 172 178 L 160 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 192 178 L 204 190 M 204 178 L 192 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 224 178 L 236 190 M 236 178 L 224 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 256 178 L 268 190 M 268 178 L 256 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 288 178 L 300 190 M 300 178 L 288 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 320 178 L 332 190 M 332 178 L 320 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 352 178 L 364 190 M 364 178 L 352 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 384 178 L 396 190 M 396 178 L 384 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 416 178 L 428 190 M 428 178 L 416 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 448 178 L 460 190 M 460 178 L 448 190" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 160 210 L 172 222 M 172 210 L 160 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 192 210 L 204 222 M 204 210 L 192 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 224 210 L 236 222 M 236 210 L 224 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 256 210 L 268 222 M 268 210 L 256 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 288 210 L 300 222 M 300 210 L 288 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 320 210 L 332 222 M 332 210 L 320 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 352 210 L 364 222 M 364 210 L 352 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 384 210 L 396 222 M 396 210 L 384 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 416 210 L 428 222 M 428 210 L 416 222" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 448 210 L 460 222 M 460 210 L 448 222" fill="none" stroke-width="2"></path><polyline class="pf-dash" points="150.0,50.0 150.0,232.0"></polyline><polyline class="pf-dash" points="480.0,50.0 480.0,232.0"></polyline><line class="pf-ink" stroke-width="2" x1="40.0" x2="643.0" y1="250.0" y2="250.0"></line><polygon class="pf-ink" points="656.0,250.0 642.0,255.6 642.0,244.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="26" text-anchor="start" x="670.0" y="250.0"><tspan font-style="italic">x</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="162.0" y="274.0">0</text><line class="pf-ink" stroke-width="1.4" x1="315.0" x2="470.0" y1="22.0" y2="22.0"></line><polygon class="pf-ink" points="480.0,22.0 469.0,26.4 469.0,17.6" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="315.0" x2="160.0" y1="22.0" y2="22.0"></line><polygon class="pf-ink" points="150.0,22.0 161.0,17.6 161.0,26.4" stroke-width="1"></polygon><rect class="pf-bg" height="28" width="52" x="289" y="8"></rect><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="315.0" y="22.0">3<tspan font-style="italic">w</tspan></text><rect height="150" style="fill:none;stroke:var(--ink,#15171c);stroke-width:7" width="110" x="40" y="80"></rect><line class="pf-ink" stroke-width="1.4" x1="95.0" x2="140.0" y1="274.0" y2="274.0"></line><polygon class="pf-ink" points="150.0,274.0 139.0,278.4 139.0,269.6" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="95.0" x2="50.0" y1="274.0" y2="274.0"></line><polygon class="pf-ink" points="40.0,274.0 51.0,269.6 51.0,278.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="95.0" y="294.0"><tspan font-style="italic">w</tspan></text><polyline class="pf-thin" points="40.0,232.0 40.0,280.0"></polyline><polyline class="pf-thin" points="150.0,232.0 150.0,280.0"></polyline><text class="pf-t" dominant-baseline="middle" font-size="28" text-anchor="end" x="22.0" y="155.0"><tspan font-style="italic">ℓ</tspan></text><line class="pf-cur" stroke-width="4.5" x1="52.0" x2="93.0" y1="60.0" y2="60.0"></line><polygon class="pf-cur" points="110.0,60.0 92.0,69.9 92.0,50.1" stroke-width="1"></polygon><text class="pf-tc" dominant-baseline="middle" font-size="26" text-anchor="middle" x="82.0" y="36.0"><tspan font-weight="700">v</tspan></text><line class="pf-cur" stroke-width="1.3" x1="74.8" x2="83.4" y1="19.9" y2="19.9"></line><polygon class="pf-cur" points="90.2,19.9 82.4,22.5 82.4,17.3" stroke-width="1"></polygon><rect height="150" style="fill:none;stroke:var(--muted,#646873);stroke-width:3;stroke-dasharray:8 6" width="110" x="183" y="80"></rect><rect height="150" style="fill:none;stroke:var(--muted,#646873);stroke-width:3;stroke-dasharray:8 6" width="110" x="403" y="80"></rect><text class="pf-tf" dominant-baseline="middle" font-size="26" text-anchor="middle" x="544.0" y="50.0"><tspan font-weight="700">B</tspan></text><text class="pf-tf" dominant-baseline="middle" font-size="17.68" text-anchor="start" x="553.1" y="57.3">in</text><line class="pf-fld" stroke-width="1.3" x1="536.8" x2="545.4" y1="33.9" y2="33.9"></line><polygon class="pf-fld" points="552.2,33.9 544.4,36.5 544.4,31.3" stroke-width="1"></polygon></svg><figcaption>Figure 30.14a: a conducting rectangular loop of width w and height ℓ moving with velocity v through a uniform magnetic field into the page that extends a distance 3w along the x axis. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Drag the loop through the field</span></summary><div class="fold-body">
+
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs">
+<figure class="fig"><canvas aria-label="The loop and the field region" id="geo"></canvas>
+<figcaption>Figure 30.14a. The shaded band is the field (into the page). Purple: the induced current; blue: the magnetic forces on the sides inside the field; red: the applied force that keeps \(v\) constant.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Flux, emf and applied force against x" id="plot"></canvas>
+<figcaption>(A) flux \(\Phi_B\), (B) emf \(\varepsilon=-d\Phi_B/dt\) and (C) applied force \(F_x\), against the position \(x\) of the right side of the loop.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+<p class="note">The book gives no numbers. The model uses \(B=0.50\) T, \(\ell=10\) cm, \(w=5.0\) cm, \(R=0.20\ \Omega\) and \(v=2.0\) m/s. The shapes of the three
+  plots do not depend on them.</p>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
+
+
+<p class="phase">(A) The flux</p>
+<p>Figure 30.14b shows the flux through the area enclosed by the loop as a function of \(x\). Before the loop enters the field, the flux through the loop is zero. As the
+    loop enters the field, the flux increases linearly with position until the left edge of the loop is just inside the field. Finally, the flux through the loop decreases
+    linearly to zero as the loop leaves the field.</p>
+<p class="phase">(B) The induced emf</p>
+<p>Before the loop enters the field, no motional emf is induced in it because no field is present (Fig. 30.14c). As the right side of the loop enters the field, the
+    magnetic flux directed into the page increases. Hence, according to Lenz’s law, the induced current is counterclockwise because it must produce its own magnetic field
+    directed out of the page. The motional emf \(-B\ell v\) (from Eq. 30.5) arises from the magnetic force experienced by charges in the right side of the loop. When the loop
+    is entirely in the field, the change in magnetic flux through the loop is zero; hence, the motional emf vanishes. That happens because once the left side of the loop
+    enters the field, the motional emf induced in it cancels the motional emf present in the right side of the loop. As the right side of the loop leaves the field, the flux
+    through the loop begins to decrease, a clockwise current is induced, and the induced emf is \(B\ell v\). As soon as the left side leaves the field, the emf decreases to
+    zero.</p>
+<p class="phase">(C) The applied force</p>
+<p>The external force that must be applied to the loop to maintain its motion is shown in Figure 30.14d. Before the loop enters the field, no magnetic force acts on it;
+    hence, the applied force must be zero if \(v\) is constant. When the right side of the loop enters the field, the applied force necessary to maintain constant speed must
+    be equal in magnitude and opposite in direction to the magnetic force exerted on that side: \(F_B=-I\ell B=-B^2\ell^2v/R\). When the loop is entirely in the field, the
+    flux through the loop is not changing with time. Hence, the net emf induced in the loop is zero and the current also is zero. Therefore, no external force is needed to
+    maintain the motion. Finally, as the right side leaves the field, the applied force must be equal in magnitude and opposite in direction to the magnetic force acting on
+    the left side of the loop.</p>
+<p class="phase">Finalize</p>
+<p>From this analysis, we conclude that power is supplied only when the loop is either entering or leaving the field. Furthermore, this example shows that the motional
+    emf induced in the loop can be zero even when there is motion through the field! A motional emf is induced only when the magnetic flux through the loop changes in time.</p>
+
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Going further</span><span class="fold-title">Where does the work go?</span></summary><div class="fold-body">
+
+<p> While the loop enters, the applied force does work at the rate \(F_xv=B^2\ell^2v^2/R\), and the resistor dissipates
+  \(I^2R=(B\ell v)^2/R\): the same number. Over the whole trip the work done equals the heat in the loop, \(2\times(B^2\ell^2v/R)\times w\). The field itself does no net
+  work; it only redirects the energy you supply into the wire. Change \(v\): the heat per trip grows as \(v\) (more current) while the time spent in the field falls as
+  \(1/v\).</p>
+<div class="scroll-x"><table class="t" id="wtbl"></table></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
+
+<p>The flux is computed geometrically from the overlap of the loop and the field band; the emf is its numerical time derivative; the force is \(I\ell B\) summed over the
+  two vertical sides, each counted only while it is inside the field. All three must agree with the piecewise formulas.</p>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+</div></details>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Conceptual Example 30.5 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 30, as presented on slide 49 of the Week 11 lecture. Every number and interactive drawing on this page is computed live in your browser from Faraday’s law and Lenz’s law. Mathematica version: <a href="Example-30.5.nb" download>Example-30.5.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 11 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) return;
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const mid = o.legend === "mr" || o.legend === "ml";   // "mr"/"ml": middle of the right/left edge
+      const bx = (left || o.legend === "ml") ? m.l + 8 : m.l + pw - lw - 8;
+      const by = bottom ? m.t + ph - items.length * lh - 12 : mid ? m.t + ph / 2 - (items.length * lh + 6) / 2 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
+
+/* ---------- circuit symbols (screen coordinates) ---------- */
+D.wire = (ctx, pts, c, w = 2) => D.line(ctx, pts, { color: c.ink2, width: w });
+D.node = (ctx, x, y, c, label, dx = -12, dy = -10) => {
+  D.circle(ctx, x, y, 3.6, { fill: c.ink });
+  if (label) D.text(ctx, label, x + dx, y + dy, { color: c.ink, italic: true, size: 15, font: "Georgia, serif" });
+};
+// resistor between (x0,y0) and (x1,y1): zig-zag of length L in the middle, leads to the ends
+D.resistor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const z = Math.min(o.len || 46, 0.7 * L), a = (L - z) / 2, amp = o.amp || 7, n = 6;
+  const pts = [[x0, y0], [x0 + ux * a, y0 + uy * a]];
+  for (let k = 0; k < n; k++) {
+    const t = a + z * (k + 0.5) / n, s = k % 2 ? -1 : 1;
+    pts.push([x0 + ux * t + nx * amp * s, y0 + uy * t + ny * amp * s]);
+  }
+  pts.push([x0 + ux * (a + z), y0 + uy * (a + z)], [x1, y1]);
+  D.line(ctx, pts, { color: o.color || c.pos, width: 2.2 });
+  if (o.label) {
+    const off = o.labelOff ?? 18, mx = (x0 + x1) / 2 + nx * off * (o.side || 1), my = (y0 + y1) / 2 + ny * off * (o.side || 1);
+    D.text(ctx, o.label, mx, my, { color: c.ink, size: o.size || 13, align: o.align || "center", halo: c.surface2 });
+  }
+};
+// battery between ends; positive plate (long) towards the end given by o.plus = 1 (end 1) or 0 (end 0)
+D.battery = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 7, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, plusAt1 = o.plus !== 0;
+  const pLong = plusAt1 ? g / 2 : -g / 2, pShort = -pLong;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  const plate = (t, h, w) => D.line(ctx, [[mx + ux * t + nx * h, my + uy * t + ny * h], [mx + ux * t - nx * h, my + uy * t - ny * h]], { color: c.c3, width: w });
+  plate(pLong, 15, 2.6); plate(pShort, 8, 4.5);
+  const sgn = o.side || 1;
+  D.text(ctx, "+", mx + ux * pLong * 2.4 + nx * 15 * sgn, my + uy * pLong * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  D.text(ctx, "−", mx + ux * pShort * 2.4 + nx * 15 * sgn, my + uy * pShort * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  if (o.label) D.text(ctx, o.label, mx - nx * 26 * sgn, my - ny * 26 * sgn, { color: c.ink, size: o.size || 13, halo: c.surface2 });
+};
+// capacitor between ends
+D.capacitor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 8, mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  for (const t of [-g / 2, g / 2]) D.line(ctx, [[mx + ux * t + nx * 14, my + uy * t + ny * 14], [mx + ux * t - nx * 14, my + uy * t - ny * 14]], { color: c.c1, width: 3 });
+  if (o.label) D.text(ctx, o.label, mx + nx * 30 * (o.side || 1), my + ny * 30 * (o.side || 1), { color: c.ink, size: 13, halo: c.surface2 });
+};
+// current arrow along a straight wire segment, pointing from (x0,y0) to (x1,y1); flips for negative values
+D.current = (ctx, x0, y0, x1, y1, value, c, label, o = {}) => {
+  if (!isFinite(value) || Math.abs(value) < 1e-12) return;
+  const s = value >= 0 ? 1 : -1, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0);
+  const ux = (x1 - x0) / L * s, uy = (y1 - y0) / L * s, h = o.len || 16;
+  const ox = (o.off || 0) * -uy * s, oy = (o.off || 0) * ux * s;
+  D.arrow(ctx, mx - ux * h + ox, my - uy * h + oy, mx + ux * h + ox, my + uy * h + oy, { color: o.color || c.accent, width: 2.6, head: 10 });
+  if (label) D.text(ctx, label, mx + ox * 2.2 + (o.ldx || 0), my + oy * 2.2 + (o.ldy || 0), { color: o.color || c.accent, size: 13, bold: true, halo: c.surface2 });
+};
+// Gaussian elimination with partial pivoting (written out so students can read it)
+D.solve = (A, b) => {
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let k = 0; k < n; k++) {
+    let p = k; for (let i = k + 1; i < n; i++) if (Math.abs(M[i][k]) > Math.abs(M[p][k])) p = i;
+    [M[k], M[p]] = [M[p], M[k]];
+    for (let i = k + 1; i < n; i++) { const f = M[i][k] / M[k][k]; for (let j = k; j <= n; j++) M[i][j] -= f * M[k][j]; }
+  }
+  const x = new Array(n).fill(0);
+  for (let i = n - 1; i >= 0; i--) { let s = M[i][n]; for (let j = i + 1; j < n; j++) s -= M[i][j] * x[j]; x[i] = s / M[i][i]; }
+  return x;
+};
+
+</script>
+<script>
+(() => {
+  const ctl = D.$("ctl");
+  const sB = D.slider(ctl, { label: "field B", min: 0.1, max: 1.5, step: 0.05, value: 0.5, unit: "T", fmt: v => v.toFixed(2), onInput: update });
+  const sl = D.slider(ctl, { label: "height ℓ", min: 2, max: 20, step: 0.5, value: 10, unit: "cm", fmt: v => v.toFixed(1), onInput: update });
+  const sw = D.slider(ctl, { label: "width w", min: 2, max: 10, step: 0.5, value: 5, unit: "cm", fmt: v => v.toFixed(1), onInput: update });
+  const sR = D.slider(ctl, { label: "resistance R", min: 0.05, max: 2, step: 0.05, value: 0.2, unit: "Ω", fmt: v => v.toFixed(2), onInput: update });
+  const sv = D.slider(ctl, { label: "speed v", min: 0.2, max: 5, step: 0.1, value: 2, unit: "m/s", fmt: v => v.toFixed(1), onInput: update });
+  const sx = D.slider(ctl, { label: "position x of the right side (in units of w)", min: -0.5, max: 4.5, step: 0.01, value: 0.5, fmt: v => v.toFixed(2) + " w", onInput: () => { playing = false; update(); } });
+  const bx = D.el("div", { class: "btns" }); ctl.appendChild(bx);
+  let playing = false;
+  const playBtn = D.button(bx, "▶ Move the loop", () => { playing = !playing; if (playing) { if (sx.get() >= 4.49) sx.set(-0.5); anim.start(); } update(); });
+  const ro = D.readout(D.$("ro"), [["phi", "(A) flux Φ_B"], ["emf", "(B) emf"], ["I", "current"], ["F", "(C) applied force"]]);
+  const S = () => ({ B: sB.get(), l: sl.get() / 100, w: sw.get() / 100, R: sR.get(), v: sv.get(), x: sx.get() });
+  // exact piecewise results, x in units of w; the field occupies 0 <= x <= 3w
+  const overlap = (s, xw) => Math.max(0, Math.min(xw, 3) - Math.max(xw - 1, 0)) * s.w;     // length of the loop inside the field
+  const flux = (s, xw) => s.B * s.l * overlap(s, xw);
+  const emf = (s, xw) => (xw > 0 && xw < 1 ? -s.B * s.l * s.v : xw > 3 && xw < 4 ? s.B * s.l * s.v : 0);
+  const force = (s, xw) => ((xw > 0 && xw < 1) || (xw > 3 && xw < 4) ? s.B * s.B * s.l * s.l * s.v / s.R : 0);
+  const anim = D.animator(dt => { let x = sx.get() + dt * 0.8; if (x >= 4.5) { x = 4.5; playing = false; } sx.set(x); update(); return playing; });
+
+  const geo = D.canvas(D.$("geo"), w => (w < 520 ? 0.5 : 0.3), (ctx, w, h, c) => {
+    const s = S(), u = (w - 40) / 5.5, X = xw => 20 + (xw + 1) * u, yt = h * 0.3, yb = h * 0.3 + Math.min(h * 0.45, s.l / s.w * u);
+    ctx.save(); ctx.fillStyle = c.c3; ctx.globalAlpha = 0.12; ctx.fillRect(X(0), 10, 3 * u, h - 20); ctx.restore();
+    for (let gx = X(0) + 14; gx < X(3); gx += 28) for (let gy = 22; gy < h - 10; gy += 28) {
+      ctx.save(); ctx.strokeStyle = c.c3; ctx.globalAlpha = 0.6; ctx.lineWidth = 1.4; ctx.beginPath();
+      ctx.moveTo(gx - 3, gy - 3); ctx.lineTo(gx + 3, gy + 3); ctx.moveTo(gx + 3, gy - 3); ctx.lineTo(gx - 3, gy + 3); ctx.stroke(); ctx.restore();
+    }
+    D.text(ctx, "B into the page, width 3w", X(1.5), h - 6, { color: c.c3, size: 11, halo: c.surface2 });
+    D.line(ctx, [[X(-1), yb + 14], [X(4.5), yb + 14]], { color: c.muted, width: 1 });
+    [0, 1, 3, 4].forEach(k => D.text(ctx, k === 0 ? "0" : k + "w", X(k), yb + 24, { color: c.muted, size: 11 }));
+    const xr = X(s.x), xl = X(s.x - 1), e = emf(s, s.x), I = e / s.R;
+    D.line(ctx, [[xl, yt], [xr, yt], [xr, yb], [xl, yb]], { color: c.ink, width: 4, close: true });
+    D.text(ctx, "ℓ", xl - 12, (yt + yb) / 2, { color: c.ink, size: 14, italic: true, halo: c.surface2 });
+    D.text(ctx, "w", (xl + xr) / 2, yt - 12, { color: c.ink, size: 13, italic: true, halo: c.surface2 });
+    D.arrow(ctx, (xl + xr) / 2 - 16, yt - 30, (xl + xr) / 2 + 16, yt - 30, { color: c.pos, width: 3 });
+    D.text(ctx, "v", (xl + xr) / 2 + 28, yt - 30, { color: c.pos, size: 14, bold: true, italic: true, halo: c.surface2 });
+    if (Math.abs(I) > 1e-12) {
+      // emf < 0 : counterclockwise -> on the right side the current flows upward
+      const up = I < 0, ya = up ? yb - 12 : yt + 12, yb2 = up ? yt + 12 : yb - 12;
+      D.arrow(ctx, xr + 10, ya, xr + 10, yb2, { color: c.c4, width: 3 }); D.arrow(ctx, xl - 10, yb2, xl - 10, ya, { color: c.c4, width: 3 });
+      D.text(ctx, up ? "I counterclockwise" : "I clockwise", (xl + xr) / 2, (yt + yb) / 2, { color: c.c4, size: 12, bold: true, halo: c.surface2 });
+      const inR = s.x > 0 && s.x < 3, inL = s.x - 1 > 0 && s.x - 1 < 3, fl = 46;
+      if (inR) D.arrow(ctx, xr, yb - 16, xr - fl, yb - 16, { color: c.c1, width: 3 });
+      if (inL) D.arrow(ctx, xl, yb - 16, xl - fl, yb - 16, { color: c.c1, width: 3 });
+      D.text(ctx, "F_B", (inR ? xr : xl) - fl - 14, yb - 16, { color: c.c1, size: 12, bold: true, align: "right", halo: c.surface2 });
+      D.arrow(ctx, xr + 6, yt + 16, xr + 6 + fl, yt + 16, { color: c.pos, width: 3 });
+      D.text(ctx, "F_app", xr + fl + 14, yt + 16, { color: c.pos, size: 12, bold: true, align: "left", halo: c.surface2 });
+    } else D.text(ctx, s.x > 1 && s.x < 3 ? "flux constant: no emf, no current, no force" : "no flux: nothing happens", (xl + xr) / 2, (yt + yb) / 2, { color: c.muted, size: 11, halo: c.surface2 });
+  });
+
+  const plot = D.canvas(D.$("plot"), w => (w < 520 ? 1.1 : 0.62), (ctx, w, h, c) => {
+    const s = S(), H = h / 3, Fm = s.B * s.B * s.l * s.l * s.v / s.R, Em = s.B * s.l * s.v, Pm = s.B * s.l * s.w;
+    const rows = [["(A) Φ_B (mWb)", xw => flux(s, xw) * 1000, [-0.1, Pm * 1000 * 1.2], c.c3], ["(B) emf (V)", xw => emf(s, xw), [-Em * 1.3, Em * 1.3], c.accent], ["(C) F_x (N)", xw => force(s, xw), [-Fm * 0.15, Fm * 1.3], c.pos]];
+    rows.forEach(([lab, f, yr, col], k) => {
+      ctx.save(); ctx.translate(0, k * H); ctx.beginPath(); ctx.rect(0, 0, w, H); ctx.clip();
+      D.plot(ctx, w, H, c, { x: [-0.5, 4.5], y: yr, xlabel: k === 2 ? "x / w" : "", ylabel: lab, series: [{ f, color: col, width: 2.5, n: 1200 }],
+        hlines: [{ y: 0, color: c.muted }], vlines: [{ x: s.x, color: c.ink2 }, ...[0, 1, 3, 4].map(x => ({ x, color: c.line2, dash: [2, 4] }))],
+        points: [{ x: s.x, y: f(s.x), color: col }] });
+      ctx.restore();
+    });
+  });
+
+  function tables() {
+    const s = S(), dt = 1e-6;
+    let html = "<tr><th>x / w</th><th>Φ geometric (mWb)</th><th>emf numerical (V)</th><th>emf formula (V)</th><th>F = ΣIℓB (N)</th><th>F formula (N)</th></tr>", ok = true;
+    for (const xw of [-0.3, 0.5, 1.5, 2.5, 3.5, 4.3]) {
+      const dxw = s.v * dt / s.w, en = -(flux(s, xw + dxw) - flux(s, xw - dxw)) / (2 * dt), I = en / s.R;
+      const inR = xw > 0 && xw < 3, inL = xw - 1 > 0 && xw - 1 < 3;
+      const Fn = Math.abs(I) * s.l * s.B * ((inR ? 1 : 0) + (inL ? 1 : 0)) * (inR !== inL ? 1 : 0);   // the two sides' forces cancel when both are inside
+      ok = ok && Math.abs(en - emf(s, xw)) < 1e-6 && Math.abs(Fn - force(s, xw)) < 1e-6;
+      html += `<tr><td>${xw}</td><td>${D.fmt(flux(s, xw) * 1000, 5)}</td><td>${D.fmt(en, 6)}</td><td>${D.fmt(emf(s, xw), 6)}</td><td>${D.fmt(Fn, 6)}</td><td>${D.fmt(force(s, xw), 6)}</td></tr>`;
+    }
+    D.$("tbl").innerHTML = html;
+    const W = D.simpson(xw => force(s, xw) * s.w, -0.5, 4.5, 4000), Q = D.simpson(xw => { const I = emf(s, xw) / s.R; return I * I * s.R; }, -0.5, 4.5, 4000) * s.w / s.v;
+    D.$("wtbl").innerHTML = `<tr><th>over the whole trip</th><th>value</th></tr><tr><td>work by the applied force ∫F dx</td><td>${D.fmt(W, 6)} J</td></tr><tr><td>heat in the loop ∫I²R dt</td><td>${D.fmt(Q, 6)} J</td></tr><tr><td>2 × (B²ℓ²v/R) × w</td><td>${D.fmt(2 * s.B * s.B * s.l * s.l * s.v / s.R * s.w, 6)} J</td></tr>`;
+    return { ok, W, Q };
+  }
+  function update() {
+    const s = S(), e = emf(s, s.x);
+    ro("phi", D.fmt(flux(s, s.x) * 1000, 4) + " mWb"); ro("emf", D.fmt(e, 4) + " V" + (e < 0 ? " (counterclockwise)" : e > 0 ? " (clockwise)" : ""));
+    ro("I", D.fmt(Math.abs(e) / s.R, 4) + " A"); ro("F", D.fmt(force(s, s.x), 4) + " N");
+    playBtn.textContent = playing ? "❚❚ Pause" : "▶ Move the loop";
+    geo.render(); plot.render(); const t = tables();
+    window.__check = { ok: t.ok, W: t.W, Q: t.Q };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

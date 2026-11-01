@@ -273,6 +273,35 @@ interactive:
               - { num: "27.9", slide: 94, title: { en: Charging a Capacitor in an RC Circuit, ar: شحن مكثف في دارة RC } }
               - { num: "27.10", slide: 96, title: { en: Discharging a Capacitor in an RC Circuit, ar: تفريغ مكثف في دارة RC } }
               - { num: "27.11", slide: 100, title: { en: Energy Delivered to a Resistor, ar: الطاقة المنقولة إلى مقاومة } }
+      - chapter: 30
+        week: 11
+        title: { en: "Faraday’s Law", ar: "قانون فاراداي" }
+        path: assets/demos/phys193/week11
+        index: assets/demos/phys193/week11/index.html
+        sections:
+          - section: "30.1"
+            title: { en: Faraday’s Law of Induction, ar: قانون فاراداي في الحث }
+            examples:
+              - { num: "30.1", slide: 17, title: { en: Inducing an emf in a Coil, ar: حث قوة دافعة كهربائية في ملف } }
+          - section: "30.2"
+            title: { en: Motional emf, ar: القوة الدافعة الكهربائية الحركية }
+            examples:
+              - { num: "30.2", slide: 30, title: { en: Magnetic Force Acting on a Sliding Bar, ar: القوة المغناطيسية المؤثرة في قضيب منزلق } }
+              - { num: "30.3", slide: 36, title: { en: Motional emf Induced in a Rotating Bar, ar: القوة الدافعة الحركية المحتثة في قضيب دوّار } }
+          - section: "30.3"
+            title: { en: Lenz’s Law, ar: قانون لنز }
+            examples:
+              - { num: "30.4", slide: 47, conceptual: true, title: { en: Application of Lenz’s Law, ar: تطبيق على قانون لنز } }
+              - { num: "30.5", slide: 49, conceptual: true, title: { en: A Loop Moving Through a Magnetic Field, ar: حلقة تتحرك عبر مجال مغناطيسي } }
+          - section: "30.4"
+            title: { en: Induced emfs and Electric Fields, ar: القوى الدافعة المحتثة والمجالات الكهربائية }
+            examples:
+              - { num: "30.6", slide: 59, title: { en: Electric Field Induced by a Changing Magnetic Field in a Solenoid, ar: المجال الكهربائي المحتث بمجال مغناطيسي متغير في ملف لولبي } }
+          - section: "30.5"
+            title: { en: Generators and Motors, ar: المولدات والمحركات }
+            examples:
+              - { num: "30.7", slide: 75, title: { en: emf Induced in a Generator, ar: القوة الدافعة الكهربائية المحتثة في مولد } }
+              - { num: "30.8", slide: 78, title: { en: The Induced Current in a Motor, ar: التيار المحتث في محرك } }
 
 materials: []
 exams: []
