@@ -48,15 +48,17 @@ courses:
         week: 11
         title: { en: "Faraday's Law", ar: "قانون فاراداي" }
         sections: "30.1 – 30.5"
-        duration: "9:25"
+        duration: "9:15"
         summary:
           en: >
-            Faraday's law of induction, motional emf, Lenz's law, the general form of
-            Faraday's law, and generators and motors — the five sections in one sitting,
-            each with a "pause and predict" moment and its pitfall.
+            A companion to the lecture, not a repeat of it: each section starts from
+            something you have touched — a bicycle dynamo, the airport gate, a magnet in a
+            copper pipe, a wireless charger, a wind-up torch — makes one idea click, boxes
+            one formula, and names the pitfall. Five "pause and predict" moments.
           ar: >
-            قانون فاراداي للحث، والقوة الدافعة الحركية، وقانون لنز، والصيغة العامة لقانون
-            فاراداي، والمولدات والمحركات — الأجزاء الخمسة في جلسة واحدة، مع لحظة «توقّف وتوقّع» وخطأ شائع لكل جزء.
+            مرافق للمحاضرة لا تكرار لها: يبدأ كل جزء من شيء لمسته بيدك — دينامو الدراجة،
+            بوابة المطار، مغناطيس في أنبوب نحاسي، شاحن لاسلكي، مصباح يدوي يُدار بالذراع —
+            ليوضّح فكرة واحدة، ويضع معادلة واحدة في إطار، ويسمّي الخطأ الشائع. خمس لحظات «توقّف وتوقّع».
         video:
           mp4: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview.mp4
           captions: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview.vtt
@@ -64,13 +66,13 @@ courses:
           youtube:
           echo360:
           chapters:
-            - { t: 0,   title: { en: "Why this chapter", ar: "لماذا هذا الفصل" } }
-            - { t: 30,  title: { en: "§30.1 Faraday's law of induction", ar: "§30.1 قانون فاراداي للحث" } }
-            - { t: 120, title: { en: "§30.2 Motional emf", ar: "§30.2 القوة الدافعة الحركية" } }
-            - { t: 216, title: { en: "§30.3 Lenz's law", ar: "§30.3 قانون لنز" } }
-            - { t: 320, title: { en: "§30.4 The general form of Faraday's law", ar: "§30.4 الصيغة العامة لقانون فاراداي" } }
-            - { t: 414, title: { en: "§30.5 Generators and motors", ar: "§30.5 المولدات والمحركات" } }
-            - { t: 516, title: { en: "Five things to remember", ar: "خمسة أشياء للتذكّر" } }
+            - { t: 5,   title: { en: "Why this chapter", ar: "لماذا هذا الفصل" } }
+            - { t: 29,  title: { en: "§30.1 Faraday's law of induction", ar: "§30.1 قانون فاراداي للحث" } }
+            - { t: 121, title: { en: "§30.2 Motional emf", ar: "§30.2 القوة الدافعة الحركية" } }
+            - { t: 210, title: { en: "§30.3 Lenz's law", ar: "§30.3 قانون لنز" } }
+            - { t: 309, title: { en: "§30.4 The general form of Faraday's law", ar: "§30.4 الصيغة العامة لقانون فاراداي" } }
+            - { t: 406, title: { en: "§30.5 Generators and motors", ar: "§30.5 المولدات والمحركات" } }
+            - { t: 510, title: { en: "Five things to keep", ar: "خمسة أشياء للتذكّر" } }
         mindmap:
           html: assets/videos/phys193/ch30/PHYS193_W11_Ch30_MindMap.html
         selfcheck:

@@ -1,193 +1,154 @@
 WEBVTT
 
-00:00:06.600 --> 00:00:12.594
-Drive past a wind farm. The blades turn, and somewhere behind them, electricity comes out.
+00:00:05.400 --> 00:00:16.268
+Here is a question you have probably never asked. You drive past a wind farm, the blades turn, and somewhere behind them, electricity comes out. How?
 
-00:00:12.894 --> 00:00:18.825
-Nothing in chapters 22 to 29 explains how a turning shaft becomes a current.
+00:00:16.453 --> 00:00:28.296
+Nothing in the chapters so far explains it. Chapter 30 does, and the whole chapter is one sentence: a magnetic flux that changes, makes an emf.
 
-00:00:19.125 --> 00:00:28.298
-That is what chapter 30 is about, and the whole chapter fits in one sentence: a magnetic flux that changes, induces an emf.
+00:00:29.126 --> 00:00:42.701
+Section 30.1. Think of a bicycle dynamo. Pedal, and the lamp lights. Coast to a stop, and it dies. Nothing is plugged in; the motion itself makes the current.
 
-00:00:29.548 --> 00:00:37.072
-Section 30.1. Start with Faraday's first experiment: a loop of wire, an ammeter, and no battery.
+00:00:42.886 --> 00:00:55.666
+Faraday found the same thing with a magnet and a loop of wire. Push the magnet in: the needle swings. Pull it out: it swings the other way. Hold it still, even inside the loop: nothing.
 
-00:00:37.372 --> 00:00:40.168
-Hold the magnet still: nothing happens.
+00:00:56.026 --> 00:01:05.160
+So it is not the magnet, and it is not the field. What the loop feels is the magnetic flux through it, and only its change.
 
-00:00:40.468 --> 00:00:43.145
-Push it toward the loop: the needle swings.
+00:01:05.345 --> 00:01:15.065
+Picture the flux as the number of field lines caught in the loop. You can change it three ways: a stronger field, a bigger loop, or a tilt.
 
-00:00:43.445 --> 00:00:46.454
-Pull it away: the needle swings the other way.
+00:01:15.250 --> 00:01:23.051
+That is the whole of Faraday's law. The emf is the rate at which the flux changes, times the number of turns.
 
-00:00:47.004 --> 00:00:54.774
-What matters is not the magnet, and not the field. It is the magnetic flux through the loop, and whether that flux is changing.
+00:01:23.481 --> 00:01:30.985
+Pause and predict. Push the magnet in slowly, then push it in fast. Which gives the bigger emf?
 
-00:00:55.074 --> 00:00:58.643
-The flux through a flat loop is B, A, cos theta.
+00:01:33.970 --> 00:01:44.183
+Fast. Same change of flux, but in less time, so a bigger rate. The dynamo says the same: pedal faster, brighter lamp.
 
-00:00:58.943 --> 00:01:05.057
-So there are exactly three knobs: change B, change the area A, or change the angle theta.
+00:01:44.543 --> 00:01:56.527
+The pitfall: a strong field is not a large emf. A loop parked inside an MRI magnet, the strongest field you will ever meet, gives nothing at all, because nothing is changing.
 
-00:01:05.607 --> 00:01:12.736
-Faraday's law puts a number on it: the emf equals minus N, times the rate of change of the flux.
+00:01:56.747 --> 00:02:00.503
+A flux that changes. Nothing else makes an emf.
 
-00:01:13.036 --> 00:01:19.183
-N is the number of turns, and the minus sign is the whole subject of section 30.3.
+00:02:01.403 --> 00:02:14.868
+Section 30.2. Walk a metal trolley through the security gate at the airport. The faster you push it, the more the gate pushes back. Where does that resistance come from?
 
-00:01:19.733 --> 00:01:27.496
-Pause and predict. The field through this coil rises in a straight line, then decays. When is the emf largest?
+00:02:15.053 --> 00:02:27.080
+Keep the field steady, and move the conductor instead. The free electrons in the metal are now moving charges in a magnetic field, so the field pushes them to one end of the rod.
 
-00:01:30.996 --> 00:01:37.932
-The emf follows the slope, not the height. While B rises in a straight line, the emf is constant.
+00:02:27.265 --> 00:02:39.673
+That piling up of charge is a voltage. For a rod of length ell, moving at speed v across a field B, it is simply B, ell, v. The motional emf.
 
-00:01:38.232 --> 00:01:42.734
-At the peak it flips sign, and in the decay it fades away with the curve.
+00:02:40.033 --> 00:02:49.396
+Put the rod on two rails with a resistor, and a current flows round the loop. Faraday agrees: the loop is getting bigger, so its flux is growing.
 
-00:01:43.284 --> 00:01:54.200
-The pitfall: a large flux does not mean a large emf. A loop sitting in a strong, steady field induces nothing at all. Only the rate of change counts.
-
-00:01:54.550 --> 00:01:58.680
-A flux that changes. Nothing else induces an emf.
-
-00:02:00.030 --> 00:02:05.539
-Section 30.2. Now keep the field steady, and move the conductor instead.
-
-00:02:05.839 --> 00:02:14.960
-The free electrons in the rod are moving charges in a magnetic field, so each one feels a force q v B, and they pile up at one end.
-
-00:02:15.260 --> 00:02:21.636
-They pile up until the electric force balances the magnetic one: q E equals q v B.
-
-00:02:21.936 --> 00:02:29.311
-Across a rod of length ell, that gives a potential difference of B ell v. This is the motional emf.
-
-00:02:29.861 --> 00:02:36.852
-Close the circuit with two rails and a resistor, and a current flows: I equals B ell v over R.
-
-00:02:37.152 --> 00:02:46.208
-Faraday's law agrees. The area enclosed grows at the rate ell v, so d phi d t is B ell v. Same answer, two routes.
-
-00:02:46.758 --> 00:02:54.238
+00:02:49.581 --> 00:02:57.673
 Pause and predict. You pull the bar at a steady speed, and the resistor gets warm. Where does that energy come from?
 
-00:02:57.738 --> 00:03:06.359
-From your hand. The current in the bar sits in the field, so the bar feels a magnetic force, I ell B, that opposes the motion.
+00:03:00.658 --> 00:03:13.754
+From your hand. The current in the bar sits in the field, so the field pushes back on the bar, like the gate on the trolley. You push against that force, and every joule of heat in the resistor came from you.
 
-00:03:06.659 --> 00:03:16.530
-To keep a steady speed you push with exactly that force, and your power, F v, equals I squared R. Every joule in the resistor came from you.
+00:03:14.114 --> 00:03:24.613
+The pitfall: double the speed and you double the emf and the current. But the force on the bar doubles too, so the power you supply goes up four times, not two.
 
-00:03:17.080 --> 00:03:29.729
-The pitfall: doubling the speed doubles the emf and the current, but it doubles the force too. So the power goes up four times, not two. Quick Quiz 30.2: 2F, and 4P.
+00:03:24.833 --> 00:03:29.229
+B ell v, and the energy comes from whoever is pushing.
 
-00:03:30.079 --> 00:03:34.740
-B ell v, twice over, and the energy comes from whoever is pushing.
+00:03:30.129 --> 00:03:43.440
+Section 30.3. Drop a magnet down a copper pipe and it falls in slow motion, as if the pipe were full of honey. Nothing touches it. What is holding it back?
 
-00:03:36.090 --> 00:03:47.401
-Section 30.3. Lenz's law is the minus sign of Faraday's law, said in words: the induced current creates a field that opposes the change in flux.
+00:03:43.625 --> 00:03:58.294
+The magnet's flux through each ring of copper is changing, so currents flow, and those currents make a field of their own. Lenz's law says which way: the induced field always opposes the change.
 
-00:03:47.701 --> 00:03:59.899
-Push the north pole toward the loop. The flux through the loop increases, so the induced current makes a field pointing back at the magnet. The loop shows a north face to the north pole, and repels it.
+00:03:58.479 --> 00:04:11.401
+Push a north pole toward a loop and the loop answers with a north pole of its own, and pushes back. Pull it away and the loop flips to a south pole, and holds on. Either way, the loop fights the motion.
 
-00:04:00.199 --> 00:04:12.084
-Pull it away. The flux decreases, so the induced field now points the same way as the magnet's, to keep the flux up, and the loop attracts the magnet. Either way, the loop fights you.
+00:04:11.761 --> 00:04:20.097
+Pause and predict. Suppose the loop helped instead of fighting. Give a bar on rails one small push. What happens next?
 
-00:04:12.634 --> 00:04:22.606
-Pause and predict. Suppose the opposite were true, and the induced current helped the change. What would happen to a bar on rails, given one small push?
+00:04:23.082 --> 00:04:32.591
+It would run away. More speed, more flux change, more current, more push, more speed, for ever, with no one paying. Energy from nothing.
 
-00:04:26.106 --> 00:04:35.034
-It would speed up by itself, forever. More speed, more flux change, more current, more force, more speed. Kinetic energy from nothing.
+00:04:32.776 --> 00:04:52.393
+That cannot happen, so the sign has to be the other one. Lenz's law is simply energy conservation, in disguise. And it is why the magnet in the pipe falls slowly, and why a hybrid car slows down when you lift your foot: the motor turns into a generator, and the generator fights the wheels.
 
-00:04:35.334 --> 00:04:43.709
-That breaks the conservation of energy. So Lenz's law is not an extra rule; it is energy conservation, in disguise.
+00:04:52.753 --> 00:05:06.215
+The pitfall: Lenz's law does not say the induced field opposes the magnet's field. It opposes the change. When the flux is falling, the induced field points the same way as the magnet's, trying to keep it up.
 
-00:04:44.259 --> 00:04:54.419
-A loop crossing a region of field tells the whole story. The flux rises as it enters, stays flat while it is fully inside, and falls as it leaves.
-
-00:04:54.719 --> 00:05:00.094
-The emf, and the force on the loop, exist only during the entry and the exit.
-
-00:05:00.644 --> 00:05:15.930
-The pitfall: Lenz's law does not say that the induced field opposes the external field. It opposes the change. When the flux is decreasing, the induced field points along the external one, helping it, not fighting it.
-
-00:05:16.280 --> 00:05:18.396
+00:05:06.435 --> 00:05:08.808
 Oppose the change, not the flux.
 
-00:05:19.746 --> 00:05:28.373
-Section 30.4. Something has been hiding. In a loop sitting in a changing field, what actually pushes the charges around?
+00:05:09.708 --> 00:05:25.014
+Section 30.4. Put your phone on a wireless charger. No plug, no metal contact, nothing moves. Yet energy crosses the gap. Something in that gap is pushing charges along.
 
-00:05:28.673 --> 00:05:34.207
-Not a magnetic force: the charges are at rest. It must be an electric field.
+00:05:25.199 --> 00:05:38.765
+Here is the hidden point of the whole chapter. In a loop sitting in a changing field, the charges are at rest, so no magnetic force can move them. What pushes them is an electric field.
 
-00:05:34.507 --> 00:05:43.322
-A changing magnetic field creates an electric field, in space, with or without a wire. The loop was only ever a detector.
+00:05:38.950 --> 00:05:52.076
+A changing magnetic field creates an electric field, in empty space, rings of it, whether or not there is a wire. Take the wire away and the field is still there. The loop was only ever a detector.
 
-00:05:43.872 --> 00:05:58.049
-The work this field does per unit charge around the loop is the emf. So Faraday's law takes its general form: the line integral of E around any closed path equals minus d phi d t through it.
+00:05:52.436 --> 00:06:05.511
+Written down, that is Faraday's law in its general form: go once round any closed path, add up the electric field along it, and you get minus the rate of change of the flux inside.
 
-00:05:58.599 --> 00:06:10.982
-For a long solenoid with a current that varies in time, the induced field circles the axis. Inside, it grows in proportion to r. Outside, it falls as one over r.
+00:06:05.941 --> 00:06:14.912
+Pause and predict. For the electric field of a charge, that trip round a closed path always adds up to zero. What about this new field?
 
-00:06:11.532 --> 00:06:20.207
-Pause and predict. Around a closed path, the electrostatic field of chapter 23 does zero work. What about this one?
+00:06:17.897 --> 00:06:31.235
+Not zero. Its lines have no beginning and no end; they close on themselves. So there is no voltage you can attach to it, no potential, no high point and low point. A field with no hills.
 
-00:06:23.707 --> 00:06:35.771
-Not zero. This induced electric field is non-conservative. Its field lines close on themselves, with no charges at their ends, and there is no potential you can assign to it.
+00:06:31.595 --> 00:06:43.061
+The pitfall: never write V equals minus the integral of E for an induced field. Potential belongs to charges at rest. This field belongs to a changing B.
 
-00:06:36.071 --> 00:06:49.824
-The pitfall, and Pitfall Prevention 30.1 in the book: never write V equals minus the integral of E for an induced field. Potential belongs to charges at rest, not to a changing B.
-
-00:06:50.174 --> 00:06:52.572
+00:06:43.281 --> 00:06:45.893
 The loop was only ever a detector.
 
-00:06:53.922 --> 00:07:07.405
-Section 30.5. Rotate a coil in a field, and you change theta continuously. The flux is N B A cos omega t, so the emf is N B A omega, sine omega t.
+00:06:46.793 --> 00:07:00.248
+Section 30.5. The wind-up torch: crank the handle and the light comes on. Inside, there is a coil, a magnet, and nothing else. Now we can say exactly what is happening.
 
-00:07:07.705 --> 00:07:15.514
-This is the AC generator. Slip rings hand the ends of the coil to the outside world, so the output alternates.
+00:07:00.433 --> 00:07:15.984
+Turning a coil in a field is the third knob, the tilt, turned continuously. The flux goes up and down like a wave, so the emf is a wave too, and it is largest when the coil is edge-on, where the flux is changing fastest.
 
-00:07:15.814 --> 00:07:24.366
-The peak, N B A omega, comes when the plane of the coil is parallel to the field: that is where the flux is changing fastest.
+00:07:16.169 --> 00:07:29.813
+That wave is the AC generator, the thing behind the wind turbine's blades. Its peak is N, B, A, omega: turns, field, area, speed. Four knobs, and that is the whole list.
 
-00:07:24.916 --> 00:07:35.771
-Swap the slip rings for a split commutator, and the connections reverse every half turn. The output pulsates but never changes sign: the DC generator.
+00:07:29.998 --> 00:07:39.358
+Swap the slip rings for a split ring, and the connections flip every half turn: the output never goes negative. That is the DC generator.
 
-00:07:36.321 --> 00:07:46.297
-Pause and predict. Which of these four does not raise the emf: lower resistance wire, faster spin, a stronger magnet, or more turns?
+00:07:39.718 --> 00:07:48.639
+Pause and predict. Which of these does not raise the emf: thicker wire, faster spin, a stronger magnet, more turns?
 
-00:07:49.797 --> 00:08:01.101
-Lower resistance. It may raise the current into a load, but the emf is N B A omega: four symbols, and R is not one of them. Quick Quiz 30.4.
+00:07:51.624 --> 00:07:59.548
+Thicker wire. It can carry more current, but the emf has four knobs, and resistance is not one of them.
 
-00:08:01.651 --> 00:08:14.049
-Now run it backwards. Feed a current in, and the coil turns: a motor. But a turning coil in a field is also a generator, so it produces a back emf that opposes the supply.
+00:07:59.908 --> 00:08:16.390
+Now run it backwards. Feed the generator a current, and it turns: a motor. But a turning coil in a field is also a generator, so the motor makes its own back emf, which fights the supply. The faster it spins, the less current it draws.
 
-00:08:14.349 --> 00:08:18.329
-The faster the motor spins, the smaller the current it draws.
+00:08:16.575 --> 00:08:25.637
+The pitfall: a jammed drill. Stall the motor, and the back emf vanishes, so it draws its biggest current of all, and that is why it gets hot.
 
-00:08:18.679 --> 00:08:30.990
-The pitfall, and the reason a jammed saw burns out: at zero speed there is no back emf, so the motor draws its full stalled current, and the heating goes as I squared R.
-
-00:08:31.340 --> 00:08:35.084
+00:08:25.857 --> 00:08:29.525
 A generator run backwards is a motor, and it fights you.
 
-00:08:36.434 --> 00:08:38.905
-Five things to take from chapter 30.
+00:08:30.425 --> 00:08:32.018
+Five things to keep.
 
-00:08:39.205 --> 00:08:45.229
-One: only a changing flux induces an emf. Three knobs: B, A, and theta.
+00:08:32.203 --> 00:08:39.061
+One: only a changing flux makes an emf. Field, area, or tilt.
 
-00:08:45.529 --> 00:08:52.533
-Two: a conductor moving through a field has an emf B ell v, and the energy comes from the pusher.
+00:08:39.246 --> 00:08:46.384
+Two: move a conductor through a field and you get B ell v, paid for by whoever pushes.
 
-00:08:52.833 --> 00:08:58.481
-Three: Lenz. The induced current opposes the change, because energy is conserved.
+00:08:46.569 --> 00:08:51.945
+Three: the induced current fights the change, because energy is conserved.
 
-00:08:58.781 --> 00:09:03.447
-Four: a changing B makes a non-conservative E, wire or no wire.
+00:08:52.130 --> 00:08:57.687
+Four: a changing B makes an electric field in space, with or without a wire.
 
-00:09:03.747 --> 00:09:12.261
-Five: a rotating coil is a generator, N B A omega sine omega t, and a motor is the same machine, fighting back.
+00:08:57.872 --> 00:09:04.758
+Five: spin a coil and you have a generator; feed it, and it is a motor that fights back.
 
-00:09:12.911 --> 00:09:20.158
-The mind map and ten self-check questions for this chapter are on the course site. See you in chapter 31.
+00:09:05.188 --> 00:09:10.410
+The mind map and the self-check for this chapter are on the course page. See you in chapter 31.
