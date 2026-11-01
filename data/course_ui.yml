@@ -163,6 +163,10 @@ ui:
     en: The glossary for this course has not been published yet.
     ar: لم يُنشر بعد معجم هذا المقرر.
     fr: Le glossaire de ce cours n'est pas encore publié.
+  placeholder_videos:
+    en: No chapter videos have been published for this course yet.
+    ar: لم تُنشر بعد فيديوهات الفصول لهذا المقرر.
+    fr: Aucune vidéo de chapitre n'est encore publiée pour ce cours.
   placeholder_lab:
     en: No interactive lab has been published for this course yet.
     ar: لم يُنشر بعد مختبر تفاعلي لهذا المقرر.
@@ -323,6 +327,10 @@ ui:
     en: Interactive lab
     ar: المختبر التفاعلي
     fr: Laboratoire interactif
+  sec_videos:
+    en: Videos
+    ar: الفيديوهات
+    fr: Vidéos
   sec_library:
     en: Textbooks & resources
     ar: المراجع والموارد
@@ -363,6 +371,10 @@ ui:
     en: Instant feedback with an explanation for every answer. Your best score is saved.
     ar: تصحيح فوري مع شرح لكل إجابة. تُحفظ أفضل نتيجة لك.
     fr: Correction immédiate avec une explication pour chaque réponse.
+  sec_videos_d:
+    en: Chapter overview videos — main ideas and pitfalls, with a mind map and self-check questions for each chapter.
+    ar: فيديوهات ملخّصة لكل فصل — الأفكار الرئيسية والأخطاء الشائعة، مع خريطة ذهنية وأسئلة للتحقق الذاتي لكل فصل.
+    fr: Vidéos de synthèse par chapitre — idées principales et pièges, avec une carte mentale et des questions d'auto-évaluation.
   sec_lab_d:
     en: Change the parameters and watch the physics respond.
     ar: غيّر المعاملات وشاهد استجابة الظاهرة الفيزيائية.

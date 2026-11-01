@@ -29,7 +29,7 @@ OUT = ROOT / "_site"
 LANGS = ["en", "ar"]                       # every page; French exists only for courses taught in Algeria
 PREFIX = {"en": "", "ar": "ar/", "fr": "fr/"}
 LANG_NAMES = {"en": "English", "ar": "العربية", "fr": "Français"}
-SECTIONS = ["index", "studying", "teaching", "research", "books", "resources", "videos", "404"]
+SECTIONS = ["index", "studying", "teaching", "research", "books", "resources", "404"]
 
 # Pages whose original is Arabic, or that exist as two independent originals.
 ARABIC_ORIGINALS = {"teaching/uef223", "teaching/chlef-vibrations-ar", "resources/charity-projects", "resources/local-association"}
@@ -286,6 +286,14 @@ def build():
     formulas = load_formulas()
     unis = load_courses()
     courses = {c["page"]: c for u in unis for c in u["courses"]}
+    # chapter videos (data/videos.yml) hang off their course page, under the Interactive lab
+    for v in data["videos"]["courses"]:
+        key = f"teaching/{v['course']}"
+        if key not in courses:
+            raise SystemExit(f"data/videos.yml names a course that does not exist: {v['course']}")
+        courses[key]["videos"] = v
+    for c in courses.values():
+        c.setdefault("videos", None)
     page_langs = {c["page"]: c["uni"]["langs"] for c in courses.values()}
     for uni in data["teaching"]["archive"] + [{"courses": data["teaching"]["current"]["courses"]}]:
         for item in uni["courses"]:
@@ -362,7 +370,7 @@ def build():
             page=key, section=key.split("/")[0], lang=lang, other_lang=other,
             dir="rtl" if lang == "ar" else "ltr",
             t=t, ui=ui, link=link, asset=asset, cui=cui, cui_has=cui_has,
-            labels=course_ui, unis=unis, page_langs_all=langs,
+            labels=course_ui, unis=unis, page_langs_all=langs, videos_ui=data["videos"]["ui"],
             switch_url=link(key, other),
             switches=[{"lang": lg, "name": LANG_NAMES[lg], "url": relative(out_path(key, lg), current)} for lg in langs if lg != lang],
             canonical=f"{site['base_url'].rstrip('/')}/{current.removesuffix('index.html')}",

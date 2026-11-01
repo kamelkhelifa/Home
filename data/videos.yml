@@ -1,6 +1,7 @@
 # ─────────────────────────────────────────────────────────────
-#  Videos: chapter overview videos, each with its mind map and self-check questions.
-#  Organised course → chapter. Files live in static/videos/<course>/<chapter>/.
+#  Chapter overview videos, each with its mind map and self-check questions.
+#  Organised course → chapter; shown on the course page in the Videos section (after the Interactive lab).
+#  Files live in static/videos/<course>/<chapter>/.
 #
 #  To add a chapter: copy a block under `chapters:`.
 #  `youtube:` — once the video is on YouTube, put its id here (the part after watch?v=);
@@ -10,15 +11,6 @@
 #  `chapters:` — jump points inside the video, in seconds.
 # ─────────────────────────────────────────────────────────────
 
-hero_title: { en: "Chapter overviews<br><em>to watch, map and check</em>", ar: "ملخصات الفصول<br><em>بالفيديو والخريطة والاختبار</em>" }
-intro:
-  en: >
-    Short overview videos, one per chapter: the main ideas, the usual pitfalls, and the
-    figures of the course brought to life. Each comes with an interactive mind map of the
-    chapter and ten self-check questions with instant feedback.
-  ar: >
-    فيديوهات قصيرة، واحد لكل فصل: الأفكار الرئيسية، والأخطاء الشائعة، وأشكال المقرر
-    متحركة. يرافق كل فيديو خريطة ذهنية تفاعلية للفصل وعشرة أسئلة للتحقق الذاتي مع تغذية راجعة فورية.
 note:
   en: "Videos are generated with Claude (Anthropic) and verified by Dr. K. Khelifa-Kerfa. Figures: Serway & Jewett, Physics for Scientists and Engineers, 11e © Cengage Learning. On YouTube, auto-translated voice-over and captions are available from the player settings."
   ar: "الفيديوهات مولَّدة بواسطة Claude (Anthropic) وراجعها د. كمال خليفة كرفة. الأشكال: سيرواي وجيويت، الفيزياء للعلماء والمهندسين، الطبعة 11 © Cengage Learning. على يوتيوب تتوفر الدبلجة والترجمة التلقائية من إعدادات المشغّل."

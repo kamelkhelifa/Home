@@ -206,3 +206,17 @@
   var themeBtn = $("[data-theme-toggle]");
   if (themeBtn) themeBtn.addEventListener("click", function () { setTimeout(function () { document.dispatchEvent(new CustomEvent("tw:theme")); }, 0); });
 })();
+
+// Videos section: chapter chips seek the HTML5 player (or reload a YouTube embed at that time)
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("[data-seek]"); if (!b) return;
+  var t = +b.dataset.seek, art = document.getElementById(b.dataset.target); if (!art) return;
+  var v = art.querySelector("video");
+  if (v) {
+    var go = function () { v.currentTime = t; v.play(); };
+    if (v.readyState >= 1) go(); else v.addEventListener("loadedmetadata", go, { once: true });
+    v.scrollIntoView({ behavior: "smooth", block: "center" }); return;
+  }
+  var f = art.querySelector("iframe");
+  if (f && b.dataset.yt) { f.src = "https://www.youtube-nocookie.com/embed/" + b.dataset.yt + "?rel=0&cc_load_policy=1&autoplay=1&start=" + t; f.scrollIntoView({ behavior: "smooth", block: "center" }); }
+});

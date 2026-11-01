@@ -75,4 +75,3 @@ nav:
   - { id: research,  label: { en: Research, ar: البحث, fr: Recherche } }
   - { id: books,     label: { en: Books, ar: الكتب, fr: Livres } }
   - { id: resources, label: { en: Resources, ar: موارد, fr: Ressources } }
-  - { id: videos,    label: { en: Videos, ar: الفيديوهات, fr: Vidéos } }

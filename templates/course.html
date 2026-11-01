@@ -20,7 +20,7 @@
 {% set type_icon = {'notes':'notes','slides':'slides','summary':'summary','problems':'problems','solutions':'solutions','video':'video','sim':'lab','lab':'lab','formula':'formula','code':'code','reading':'library','link':'link'} %}
 {% set a_icon = {'quiz':'quizzes','homework':'problems','midterm':'exams','final':'exams','lab':'lab','project':'layers','presentation':'users','participation':'users','report':'notes','oral':'users','portfolio':'materials'} %}
 {% set sections = [('overview','overview'), ('outcomes','outcomes'), ('schedule','schedule'), ('assessment','assessment'), ('materials','materials'), ('exams','exams'),
-   ('problems','problems'), ('quizzes','quizzes'), ('lab','lab'), ('library','library'), ('glossary','glossary')] %}
+   ('problems','problems'), ('quizzes','quizzes'), ('lab','lab'), ('videos','video'), ('library','library'), ('glossary','glossary')] %}
 
 {% block title %}{{ c.codes | join(' / ') }} {{ t(c.title) }} · {{ t(c.uni.name) }} · {{ t(site.name) }}{% endblock %}
 {% block description %}{% if c.tagline %}{{ t(c.tagline) }}{% else %}{{ t(c.title) }} · {{ t(c.uni.name) }}{% endif %}{% endblock %}
@@ -362,10 +362,72 @@
     {% for s in c.sims %}<div class="sim" data-sim="{{ s }}"></div>{% else %}{% if not c.interactive %}{{ placeholder('placeholder_lab') }}{% endif %}{% endfor %}
   </section>
 
-  {# 10. Textbooks & resources #}
+  {# 10. Videos: chapter overview videos (data/videos.yml), each with its mind map and self-check #}
+  <section class="sec" id="videos" aria-labelledby="videos-title">
+    {{ sec_head('videos', 'video', 10) }}
+    {% if c.videos %}
+    {% set vu = videos_ui %}
+    {% for ch in c.videos.chapters %}
+    {% set vid = ch.video %}
+    {% set pid = 'video-ch' ~ ch.chapter %}
+    <article class="vid" id="{{ pid }}">
+      <header class="vid-head">
+        <p class="vid-kicker"><span>{{ cui('chapter') }} <bdi>{{ ch.chapter }}</bdi></span> · <span>{{ cui('week') }} <bdi>{{ ch.week }}</bdi></span> · <bdi dir="ltr">§{{ ch.sections }}</bdi> · <bdi dir="ltr">{{ ch.duration }}</bdi> {{ t(vu.minutes) }}</p>
+        <h3 class="vid-title">{{ t(ch.title) }}</h3>
+        <p class="vid-summary">{{ t(ch.summary) }}</p>
+      </header>
+      <div class="vid-player">
+        {% if vid.youtube %}
+        <div class="vid-frame"><iframe src="https://www.youtube-nocookie.com/embed/{{ vid.youtube }}?rel=0&cc_load_policy=1" title="{{ t(ch.title) }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+        {% else %}
+        <video class="vid-video" controls preload="metadata" playsinline poster="{{ asset(vid.poster) }}">
+          <source src="{{ asset(vid.mp4) }}" type="video/mp4">
+          {% if vid.captions %}<track kind="subtitles" srclang="en" label="English" src="{{ asset(vid.captions) }}">{% endif %}
+        </video>
+        {% endif %}
+        {% if vid.chapters %}
+        <div class="vid-chapters" aria-label="{{ t(vu.chapters) }}">
+          <span class="vid-chapters-label">{{ t(vu.chapters) }}</span>
+          {% for k in vid.chapters %}<button type="button" class="vid-chip" data-seek="{{ k.t }}" data-target="{{ pid }}"{% if vid.youtube %} data-yt="{{ vid.youtube }}"{% endif %}><span dir="ltr">{{ '%d:%02d' | format(k.t // 60, k.t % 60) }}</span> {{ t(k.title) }}</button>{% endfor %}
+        </div>
+        {% endif %}
+        <p class="vid-links">
+          {% if vid.youtube %}<a class="tw-chip" href="https://www.youtube.com/watch?v={{ vid.youtube }}" target="_blank" rel="noopener">{{ ic('play', 'ic xs') }} {{ t(vu.youtube) }}</a>{% endif %}
+          {% if vid.echo360 %}<a class="tw-chip" href="{{ vid.echo360 }}" target="_blank" rel="noopener">{{ ic('play', 'ic xs') }} {{ t(vu.echo) }}</a>{% endif %}
+          {% if vid.mp4 %}<a class="tw-chip" href="{{ asset(vid.mp4) }}" download>{{ ic('video', 'ic xs') }} {{ t(vu.download) }}</a>{% endif %}
+          {% if vid.captions %}<a class="tw-chip" href="{{ asset(vid.captions) }}" download>{{ ic('notes', 'ic xs') }} {{ t(vu.captions) }}</a>{% endif %}
+        </p>
+      </div>
+      <div class="vid-extras">
+        {% if ch.mindmap %}
+        <a class="vid-extra" href="{{ asset(ch.mindmap.html) }}" target="_blank" rel="noopener">
+          <span class="vid-extra-kind">{{ ic('path', 'ic xs') }} {{ t(vu.mindmap) }}</span>
+          <span class="vid-extra-title">{{ cui('chapter') }} <bdi>{{ ch.chapter }}</bdi> · {{ t(vu.mindmap) }}</span>
+          <span class="vid-extra-text">{{ t(vu.mindmap_text) }}</span>
+        </a>
+        <a class="tw-chip vid-pdf" href="{{ asset(ch.mindmap.pdf) }}" target="_blank" rel="noopener">{{ ic('print', 'ic xs') }} {{ t(vu.mindmap) }} · {{ t(vu.pdf) }}</a>
+        {% endif %}
+        {% if ch.selfcheck %}
+        <a class="vid-extra" href="{{ asset(ch.selfcheck.html) }}" target="_blank" rel="noopener">
+          <span class="vid-extra-kind">{{ ic('quizzes', 'ic xs') }} {{ t(vu.selfcheck) }}</span>
+          <span class="vid-extra-title">{{ cui('chapter') }} <bdi>{{ ch.chapter }}</bdi> · {{ t(vu.selfcheck) }}</span>
+          <span class="vid-extra-text">{{ t(vu.selfcheck_text) }}</span>
+        </a>
+        <a class="tw-chip vid-pdf" href="{{ asset(ch.selfcheck.pdf) }}" target="_blank" rel="noopener">{{ ic('print', 'ic xs') }} {{ t(vu.selfcheck) }} · {{ t(vu.pdf) }}</a>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+    <p class="vid-note">{{ t(c.videos.note) if c.videos.note else t(videos.note) }}</p>
+    {% else %}
+    {{ placeholder('placeholder_videos') }}
+    {% endif %}
+  </section>
+
+  {# 11. Textbooks & resources #}
   {% set tb = c.textbooks or {} %}
   <section class="sec" id="library" aria-labelledby="library-title">
-    {{ sec_head('library', 'library', 10) }}
+    {{ sec_head('library', 'library', 11) }}
     {% if c.companion != 'english-for-physicists' %}
     <a class="formula-card" href="{{ link('resources/formulas') }}">
       <span class="formula-icon">{{ ic('formula') }}</span>
@@ -405,7 +467,7 @@
 
   {# 11. Glossary (from the companion open course) #}
   <section class="sec" id="glossary" aria-labelledby="glossary-title">
-    {{ sec_head('glossary', 'glossary', 11) }}
+    {{ sec_head('glossary', 'glossary', 12) }}
     {% if c.glossary %}
     <div class="gloss" data-gloss>
       <div class="gloss-tools">

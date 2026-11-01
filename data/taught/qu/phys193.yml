@@ -306,7 +306,7 @@ interactive:
 materials:
   - type: video
     title: { en: "Chapter 30 overview video, mind map and self-check", ar: "فيديو ملخص الفصل 30 مع الخريطة الذهنية والتحقق الذاتي" }
-    url: https://kamelkhelifa.github.io/Home/videos.html#phys193-ch30
+    url: "#videos"
     week: 11
     lang: en
 exams: []
