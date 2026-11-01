@@ -274,7 +274,12 @@ interactive:
               - { num: "27.10", slide: 96, title: { en: Discharging a Capacitor in an RC Circuit, ar: تفريغ مكثف في دارة RC } }
               - { num: "27.11", slide: 100, title: { en: Energy Delivered to a Resistor, ar: الطاقة المنقولة إلى مقاومة } }
 
-materials: []
+materials:
+  - type: video
+    title: { en: "Chapter 30 overview video, mind map and self-check", ar: "فيديو ملخص الفصل 30 مع الخريطة الذهنية والتحقق الذاتي" }
+    url: https://kamelkhelifa.github.io/Home/videos.html#phys193-ch30
+    week: 11
+    lang: en
 exams: []
 
 sources: [Master Course Syllabus PHYS 193 (Fall 2026, docx)]

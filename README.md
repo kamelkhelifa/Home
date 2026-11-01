@@ -7,7 +7,7 @@ It replaces the WordPress site [khelifak.wordpress.com](https://khelifak.wordpre
 - **العربية:** `https://kamelkhelifa.github.io/Home/ar/`
 
 **Sections:** Home · Studying (Physics at Manchester, Medicine at Chlef) · Teaching (a full page for every course taught, per university) ·
-Research · Books · Resources (websites, channels, HEP software guides, articles).
+Research · Books · Resources (websites, channels, HEP software guides, articles) · Videos (chapter overview videos with mind maps and self-checks).
 
 It is a static site: plain HTML and CSS plus a little vanilla JavaScript, with no frameworks and no tracking. It supports light and dark themes,
 right-to-left Arabic, and phones.
@@ -39,6 +39,9 @@ Open a file, click ✏️, edit, then **Commit changes**. The site rebuilds and 
   The lab and glossary come from `data/companions.yml`.
 - **Formula sheet:** `data/formulas.yml` (constants, SI prefixes, formulas in LaTeX) becomes `resources/formulas.html`,
   which every course page links to. It can be filtered and prints on A4 in two columns.
+- **Videos:** `data/videos.yml`, organised course → chapter. Each chapter has an MP4 (+ `.vtt` captions and a poster) under
+  `static/videos/<course>/<chapter>/`, a mind map and a self-check (HTML + PDF). Once a video is on YouTube, put its id in `youtube:`
+  and the page embeds YouTube instead of the MP4.
 - **Add a full page** (notes, guide, article): write `content/en/<section>/<name>.html` and `content/ar/<section>/<name>.html`
   (plain HTML starting at `<h2>`; headings become the table of contents), then reference it with `page: <section>/<name>`
   in `data/studying.yml` or `data/resources.yml`. Inside a page, link to another page with `href="@@resources/herwig"`.

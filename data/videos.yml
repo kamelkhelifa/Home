@@ -1,0 +1,83 @@
+# ─────────────────────────────────────────────────────────────
+#  Videos: chapter overview videos, each with its mind map and self-check questions.
+#  Organised course → chapter. Files live in static/videos/<course>/<chapter>/.
+#
+#  To add a chapter: copy a block under `chapters:`.
+#  `youtube:` — once the video is on YouTube, put its id here (the part after watch?v=);
+#               the page then embeds YouTube (auto-translated voice-over and captions
+#               available there) and the self-hosted MP4 can be deleted from static/.
+#  `echo360:` — optional public Echo360 link, shown as a button.
+#  `chapters:` — jump points inside the video, in seconds.
+# ─────────────────────────────────────────────────────────────
+
+hero_title: { en: "Chapter overviews<br><em>to watch, map and check</em>", ar: "ملخصات الفصول<br><em>بالفيديو والخريطة والاختبار</em>" }
+intro:
+  en: >
+    Short overview videos, one per chapter: the main ideas, the usual pitfalls, and the
+    figures of the course brought to life. Each comes with an interactive mind map of the
+    chapter and ten self-check questions with instant feedback.
+  ar: >
+    فيديوهات قصيرة، واحد لكل فصل: الأفكار الرئيسية، والأخطاء الشائعة، وأشكال المقرر
+    متحركة. يرافق كل فيديو خريطة ذهنية تفاعلية للفصل وعشرة أسئلة للتحقق الذاتي مع تغذية راجعة فورية.
+note:
+  en: "Videos are generated with Claude (Anthropic) and verified by Dr. K. Khelifa-Kerfa. Figures: Serway & Jewett, Physics for Scientists and Engineers, 11e © Cengage Learning. On YouTube, auto-translated voice-over and captions are available from the player settings."
+  ar: "الفيديوهات مولَّدة بواسطة Claude (Anthropic) وراجعها د. كمال خليفة كرفة. الأشكال: سيرواي وجيويت، الفيزياء للعلماء والمهندسين، الطبعة 11 © Cengage Learning. على يوتيوب تتوفر الدبلجة والترجمة التلقائية من إعدادات المشغّل."
+
+ui:
+  watch: { en: Watch, ar: شاهد }
+  chapters: { en: Jump to, ar: انتقل إلى }
+  mindmap: { en: Mind map, ar: الخريطة الذهنية }
+  mindmap_text: { en: "Interactive: click to fold and unfold, drag to pan.", ar: "تفاعلية: انقر للطي والفتح، واسحب للتنقل." }
+  selfcheck: { en: Self-check, ar: التحقق الذاتي }
+  selfcheck_text: { en: "Ten questions, two per section, with instant feedback.", ar: "عشرة أسئلة، سؤالان لكل جزء، مع تغذية راجعة فورية." }
+  open: { en: Open, ar: افتح }
+  pdf: { en: PDF, ar: PDF }
+  captions: { en: Captions (.vtt), ar: الترجمة (.vtt) }
+  download: { en: Download video, ar: تنزيل الفيديو }
+  echo: { en: Watch on Echo360, ar: شاهد على Echo360 }
+  youtube: { en: Watch on YouTube, ar: شاهد على يوتيوب }
+  course_page: { en: Course page, ar: صفحة المقرر }
+  minutes: { en: min, ar: دقيقة }
+  week: { en: Week, ar: الأسبوع }
+  sections: { en: Sections, ar: الأجزاء }
+
+courses:
+  - id: phys193
+    course: qu/phys193
+    title: { en: "PHYS 193 · General Physics for Engineering II", ar: "PHYS 193 · الفيزياء العامة لطلبة الهندسة 2" }
+    book: { en: "Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", ar: "سيرواي وجيويت، «الفيزياء للعلماء والمهندسين»، الطبعة 11" }
+    chapters:
+      - id: ch30
+        chapter: 30
+        week: 11
+        title: { en: "Faraday's Law", ar: "قانون فاراداي" }
+        sections: "30.1 – 30.5"
+        duration: "9:25"
+        summary:
+          en: >
+            Faraday's law of induction, motional emf, Lenz's law, the general form of
+            Faraday's law, and generators and motors — the five sections in one sitting,
+            each with a "pause and predict" moment and its pitfall.
+          ar: >
+            قانون فاراداي للحث، والقوة الدافعة الحركية، وقانون لنز، والصيغة العامة لقانون
+            فاراداي، والمولدات والمحركات — الأجزاء الخمسة في جلسة واحدة، مع لحظة «توقّف وتوقّع» وخطأ شائع لكل جزء.
+        video:
+          mp4: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview.mp4
+          captions: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview.vtt
+          poster: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview_poster.jpg
+          youtube:
+          echo360:
+          chapters:
+            - { t: 0,   title: { en: "Why this chapter", ar: "لماذا هذا الفصل" } }
+            - { t: 30,  title: { en: "§30.1 Faraday's law of induction", ar: "§30.1 قانون فاراداي للحث" } }
+            - { t: 120, title: { en: "§30.2 Motional emf", ar: "§30.2 القوة الدافعة الحركية" } }
+            - { t: 216, title: { en: "§30.3 Lenz's law", ar: "§30.3 قانون لنز" } }
+            - { t: 320, title: { en: "§30.4 The general form of Faraday's law", ar: "§30.4 الصيغة العامة لقانون فاراداي" } }
+            - { t: 414, title: { en: "§30.5 Generators and motors", ar: "§30.5 المولدات والمحركات" } }
+            - { t: 516, title: { en: "Five things to remember", ar: "خمسة أشياء للتذكّر" } }
+        mindmap:
+          html: assets/videos/phys193/ch30/PHYS193_W11_Ch30_MindMap.html
+          pdf: assets/videos/phys193/ch30/PHYS193_W11_Ch30_MindMap.pdf
+        selfcheck:
+          html: assets/videos/phys193/ch30/PHYS193_W11_Ch30_SelfCheck.html
+          pdf: assets/videos/phys193/ch30/PHYS193_W11_Ch30_SelfCheck.pdf

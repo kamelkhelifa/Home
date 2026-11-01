@@ -1,0 +1,24 @@
+/* Videos page */
+.vid-book { margin-top: 6px; color: var(--muted); font-size: .95rem; }
+.vid-book a { display: inline-flex; align-items: center; gap: .3em; }
+.vid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, .8fr); gap: 28px 32px; padding: 28px; margin-top: 28px;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.vid-head { grid-column: 1 / -1; }
+.vid-kicker { font: 500 .72rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+.vid-title { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem); margin: 0 0 8px; }
+.vid-summary { color: var(--ink-2); max-width: 70ch; margin: 0; line-height: 1.55; }
+.vid-player { min-width: 0; }
+.vid-video, .vid-frame { width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; display: block; box-shadow: var(--shadow-lg); }
+.vid-frame { overflow: hidden; } .vid-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.vid-chapters { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; align-items: center; }
+.vid-chapters-label { font: 500 .7rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-inline-end: 6px; }
+.vid-chip { font: inherit; font-size: .82rem; padding: .35em .75em; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); cursor: pointer; display: inline-flex; gap: .5em; align-items: center; }
+.vid-chip span { font-family: var(--mono); font-size: .74rem; color: var(--accent); }
+.vid-chip:hover { border-color: var(--accent); color: var(--accent); }
+.vid-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.vid-extras { display: grid; gap: 10px; align-content: start; }
+.vid-extra { padding: 18px 20px; }
+.vid-extra .res-top { margin-bottom: 8px; }
+.vid-pdf { justify-self: start; margin-bottom: 8px; }
+.vid-note { color: var(--muted); font-size: .85rem; max-width: 80ch; }
+@media (max-width: 820px) { .vid { grid-template-columns: 1fr; padding: 18px; } }

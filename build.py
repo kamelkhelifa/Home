@@ -29,7 +29,7 @@ OUT = ROOT / "_site"
 LANGS = ["en", "ar"]                       # every page; French exists only for courses taught in Algeria
 PREFIX = {"en": "", "ar": "ar/", "fr": "fr/"}
 LANG_NAMES = {"en": "English", "ar": "العربية", "fr": "Français"}
-SECTIONS = ["index", "studying", "teaching", "research", "books", "resources", "404"]
+SECTIONS = ["index", "studying", "teaching", "research", "books", "resources", "videos", "404"]
 
 # Pages whose original is Arabic, or that exist as two independent originals.
 ARABIC_ORIGINALS = {"teaching/uef223", "teaching/chlef-vibrations-ar", "resources/charity-projects", "resources/local-association"}
@@ -280,7 +280,7 @@ def load_formulas():
 # ---------------------------------------------------------------- build
 
 def build():
-    data = {n: load(n) for n in ["site", "i18n", "studying", "teaching", "research", "books", "resources"]}
+    data = {n: load(n) for n in ["site", "i18n", "studying", "teaching", "research", "books", "resources", "videos"]}
     site, i18n = data["site"], data["i18n"]
     course_ui = load("course_ui")
     formulas = load_formulas()
