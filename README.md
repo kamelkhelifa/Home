@@ -9,7 +9,8 @@ It replaces the WordPress site [khelifak.wordpress.com](https://khelifak.wordpre
 **Sections:** Home · Studying (Physics at Manchester, Medicine at Chlef) · Teaching (a full page for every course taught, per university) ·
 Research · Books · Resources (websites, channels, HEP software guides, articles).
 
-It is a static site: plain HTML and CSS plus a little vanilla JavaScript, with no frameworks and no tracking. It supports light and dark themes,
+It is a static site: plain HTML and CSS plus a little vanilla JavaScript, with no frameworks. Visits can be counted with
+GoatCounter (no cookies, no personal data); see `analytics:` in `data/site.yml`. The counts appear in the footer and on `visitors.html`. It supports light and dark themes,
 right-to-left Arabic, and phones.
 
 ---

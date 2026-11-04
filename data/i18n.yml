@@ -56,6 +56,24 @@ course_pages:     { en: Course pages, ar: صفحات المقررات }
 open_course_hint: { en: "Each course opens its own page with that university's syllabus: weekly plan, assessment, lecture notes, past exams, textbooks, an interactive lab and a glossary. Courses taught in Algeria are also available in French.", ar: "يفتح كل مقرر صفحته الخاصة بمفردات تلك الجامعة: الخطة الأسبوعية، والتقييم، ومذكرات المحاضرات، والاختبارات السابقة، والكتب، ومختبرًا تفاعليًا، ومسردًا للمصطلحات. والمقررات التي دُرّست في الجزائر متاحة بالفرنسية أيضًا." }
 formulas:         { en: Formula sheet, ar: جدول القوانين, fr: Formulaire }
 go_back:          { en: Back, ar: رجوع, fr: Retour }
+visits:           { en: visits, ar: زيارة, fr: visites }
+visitors:         { en: Visitors, ar: الزوار, fr: Visiteurs }
+visitors_title:   { en: "Who reads <em>this site.</em>", ar: "من يقرأ <em>هذا الموقع.</em>" }
+visitors_lead:    { en: "A live count of visits to the site, by section and by course. Visits are counted without cookies and without collecting any personal data.", ar: "عدّ حيّ لزيارات الموقع، حسب الأقسام والمقررات. تُعدّ الزيارات دون ملفات تعريف الارتباط ودون جمع أي بيانات شخصية." }
+visits_total:     { en: Total visits, ar: مجموع الزيارات }
+visits_en:        { en: In English, ar: بالإنجليزية }
+visits_ar:        { en: In Arabic, ar: بالعربية }
+visits_fr:        { en: In French, ar: بالفرنسية }
+visits_sections:  { en: By section, ar: حسب القسم }
+visits_sections_d: { en: "Each section with its pages, in all languages.", ar: "كل قسم مع صفحاته، بجميع اللغات." }
+visits_courses:   { en: Most visited courses, ar: المقررات الأكثر زيارة }
+visits_courses_d: { en: "Course pages, in all their languages.", ar: "صفحات المقررات بجميع لغاتها." }
+visits_share:     { en: of all visits, ar: من مجموع الزيارات }
+visits_loading:   { en: Counting…, ar: جارٍ العدّ… }
+visits_off:       { en: "The counter is not switched on yet: add the GoatCounter code to data/site.yml.", ar: "العدّاد غير مفعّل بعد: أضف رمز GoatCounter في الملف data/site.yml." }
+visits_error:     { en: "The counts could not be loaded just now. Please try again later.", ar: "تعذّر تحميل الأعداد الآن. يُرجى المحاولة لاحقًا." }
+visits_full:      { en: "Full dashboard: countries, referrers, devices", ar: "اللوحة الكاملة: الدول، ومصادر الزيارات، والأجهزة" }
+visits_privacy:   { en: "Counted with GoatCounter: no cookies, no personal data, no tracking across sites.", ar: "تُعدّ عبر GoatCounter: بلا ملفات تعريف ارتباط، وبلا بيانات شخصية، وبلا تتبّع عبر المواقع." }
 go_top:           { en: Top, ar: الأعلى, fr: Haut }
 page_nav:         { en: Page navigation, ar: التنقل في الصفحة, fr: Navigation de la page }
 formulas_filter:  { en: "Filter: Gaussian, Taylor, Legendre…", ar: "تصفية: غاوس، تايلور، لوجندر…" }

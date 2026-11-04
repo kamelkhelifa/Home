@@ -124,6 +124,10 @@
         </div>
         <div class="footer-note">
           {{ logo.seal("brand-seal footer-seal", "seal-footer") }}
+          {% set gc = site.analytics.goatcounter if site.analytics else "" %}
+          {% if gc %}<a class="visit-count" href="{{ link('visitors') }}" data-visits="https://{{ gc }}.goatcounter.com/counter/TOTAL.json" hidden>
+            <span class="vc-dot" aria-hidden="true"></span><span class="vc-num" data-visits-num></span><span class="vc-label">{{ ui("visits") }}</span>{{ icon("right", "icon vc-go") }}
+          </a>{% endif %}
           <p>© {{ year }} {{ t(site.name) }}.<br>{{ ui("last_updated") }}: {{ t(site.last_updated) }}.</p>
         </div>
       </div>
@@ -136,6 +140,8 @@
   </nav>
 
   <script src="{{ asset('assets/js/main.js') }}" defer></script>
+  {% set gc = site.analytics.goatcounter if site.analytics else "" %}
+  {% if gc %}<script data-goatcounter="https://{{ gc }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>{% endif %}
   {% block scripts %}{% endblock %}
 </body>
 </html>

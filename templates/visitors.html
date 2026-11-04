@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_macros.html" import page_hero %}
+{% set gc = site.analytics.goatcounter if site.analytics else "" %}
+{% block title %}{{ ui("visitors") }} · {{ t(site.name) }}{% endblock %}
+{% block description %}{{ ui("visitors_lead") | striptags }}{% endblock %}
+{% block head_extra %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+{{ page_hero("·", ui("visitors"), ui("visitors_title") | safe, ui("visitors_lead")) }}
+
+<section class="section tight visits" data-visits-page{% if gc %} data-endpoint="https://{{ gc }}.goatcounter.com/counter/"{% endif %} data-lang="{{ lang }}" data-share-label="{{ ui('visits_share') }}">
+  <div class="wrap">
+    {% if not gc %}
+    <p class="visits-msg">{{ ui("visits_off") }}</p>
+    {% else %}
+    <p class="visits-msg" data-visits-error hidden>{{ ui("visits_error") }}</p>
+
+    <div class="visits-hero reveal">
+      <div class="vh-main">
+        <p class="vh-label"><span class="vc-dot" aria-hidden="true"></span>{{ ui("visits_total") }}</p>
+        <p class="vh-num" data-total aria-live="polite">{{ ui("visits_loading") }}</p>
+      </div>
+      <dl class="vh-langs">
+        {% for lg in ("en", "ar", "fr") if stats_paths.langs[lg] %}
+        <div><dt>{{ ui("visits_" ~ lg) }}</dt><dd data-lang-total="{{ lg }}">—</dd></div>
+        {% endfor %}
+      </dl>
+    </div>
+
+    <div class="visits-grid">
+      <article class="visits-card reveal">
+        <h2 class="vc-h">{{ ui("visits_sections") }}</h2>
+        <p class="vc-d">{{ ui("visits_sections_d") }}</p>
+        <ol class="vbars" data-bars="sections"></ol>
+      </article>
+      <article class="visits-card reveal">
+        <h2 class="vc-h">{{ ui("visits_courses") }}</h2>
+        <p class="vc-d">{{ ui("visits_courses_d") }}</p>
+        <ol class="vbars" data-bars="courses"></ol>
+      </article>
+    </div>
+
+    <p class="visits-foot">{{ ui("visits_privacy") }}{% if site.analytics.public_dashboard %} <a href="https://{{ gc }}.goatcounter.com/" target="_blank" rel="noopener">{{ ui("visits_full") }} {{ icon("arrow") }}</a>{% endif %}</p>
+    <script type="application/json" data-visit-paths>{{ stats_paths | tojson }}</script>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}{% if gc %}<script defer src="{{ asset('assets/js/visitors.js') }}"></script>{% endif %}{% endblock %}

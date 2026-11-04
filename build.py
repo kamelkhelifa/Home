@@ -29,7 +29,7 @@ OUT = ROOT / "_site"
 LANGS = ["en", "ar"]                       # every page; French exists only for courses taught in Algeria
 PREFIX = {"en": "", "ar": "ar/", "fr": "fr/"}
 LANG_NAMES = {"en": "English", "ar": "العربية", "fr": "Français"}
-SECTIONS = ["index", "studying", "teaching", "research", "books", "resources", "404"]
+SECTIONS = ["index", "studying", "teaching", "research", "books", "resources", "visitors", "404"]
 
 # Pages whose original is Arabic, or that exist as two independent originals.
 ARABIC_ORIGINALS = {"teaching/uef223", "teaching/chlef-vibrations-ar", "resources/charity-projects", "resources/local-association"}
@@ -308,6 +308,41 @@ def add_page_nav(courses):
             f.write_text(html_text[:i] + nav + html_text[i:], encoding="utf-8")
 
 
+# ---------------------------------------------------------------- visit counting (GoatCounter)
+
+def visit_paths(site, data, content_keys, courses, page_langs):
+    """The URL paths GoatCounter records for every page, grouped for the Visitors page."""
+    from urllib.parse import urlparse
+    base = urlparse(site["base_url"]).path.rstrip("/")
+
+    def paths(key):
+        out = []
+        for lg in page_langs.get(key, LANGS):
+            p = out_path(key, lg)
+            out.append((lg, f"{base}/{p}"))
+            if p.endswith("index.html"):                       # the home page is also reached without index.html
+                out.append((lg, f"{base}/{p.removesuffix('index.html')}"))
+        return out
+
+    names = {n["id"]: n["label"] for n in site["nav"]}
+    names["index"] = {"en": "Home", "ar": "الرئيسية", "fr": "Accueil"}
+    groups = {k: [] for k in ("index", "studying", "teaching", "research", "books", "resources")}
+    for key in [k for k in SECTIONS if k in groups] + content_keys + [FORMULAS_PAGE] + list(courses):
+        groups[key.split("/")[0]].extend(paths(key))
+    by_lang = {}
+    for items in groups.values():
+        for lg, p in items:
+            by_lang.setdefault(lg, []).append(p)
+    return {
+        "sections": [{"label": names[k], "paths": [p for _, p in v]} for k, v in groups.items()],
+        "courses": [{"label": f"{c['codes'][0] + ' · ' if c.get('codes') else ''}{pick(c['title'], 'en')}",
+                     "label_ar": f"{c['codes'][0] + ' · ' if c.get('codes') else ''}{pick(c['title'], 'ar')}",
+                     "uni": pick(c["uni"]["name"], "en"), "uni_ar": pick(c["uni"]["name"], "ar"),
+                     "paths": [p for _, p in paths(key)]} for key, c in courses.items()],
+        "langs": by_lang,
+    }
+
+
 # ---------------------------------------------------------------- build
 
 def build():
@@ -415,7 +450,7 @@ def build():
             switches=[{"lang": lg, "name": LANG_NAMES[lg], "url": relative(out_path(key, lg), current)} for lg in langs if lg != lang],
             canonical=f"{site['base_url'].rstrip('/')}/{current.removesuffix('index.html')}",
             alternates={lg: f"{site['base_url'].rstrip('/')}/{out_path(key, lg).removesuffix('index.html')}" for lg in langs},
-            stats=stats, pub_years=years, portrait=portrait, cv=cv, year=dt.date.today().year,
+            stats=stats, pub_years=years, stats_paths=stats_paths, portrait=portrait, cv=cv, year=dt.date.today().year,
             **extra,
         )
         html_out = env.get_template(template).render(**ctx)
@@ -423,6 +458,7 @@ def build():
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(html_out, encoding="utf-8")
 
+    stats_paths = visit_paths(site, data, content_keys, courses, page_langs)
     count = 0
     for lang in LANGS:
         for key in SECTIONS:
@@ -443,7 +479,7 @@ def build():
 
     base = site["base_url"].rstrip("/")
     urls = []
-    for key in [k for k in SECTIONS if k != "404"] + content_keys + [FORMULAS_PAGE] + list(courses):
+    for key in [k for k in SECTIONS if k not in ("404", "visitors")] + content_keys + [FORMULAS_PAGE] + list(courses):
         langs = page_langs.get(key, LANGS)
         links = "".join(
             f'<xhtml:link rel="alternate" hreflang="{lg}" href="{base}/{out_path(key, lg).removesuffix("index.html")}"/>'

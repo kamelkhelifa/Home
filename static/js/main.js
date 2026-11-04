@@ -39,6 +39,17 @@
     });
   }
 
+  /* ---------- Visit counter (footer) ---------- */
+  var visits = document.querySelector("[data-visits]");
+  if (visits && window.fetch) {
+    fetch(visits.dataset.visits).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }).then(function (j) {
+      var n = parseInt(String(j.count).replace(/[^0-9]/g, ""), 10);
+      if (!n) return;
+      visits.querySelector("[data-visits-num]").textContent = new Intl.NumberFormat("en").format(n);
+      visits.hidden = false;
+    }).catch(function () { /* no counter yet: stay hidden */ });
+  }
+
   /* ---------- Header & mobile menu ---------- */
   var header = document.querySelector("[data-header]");
   function onScroll() { header && header.classList.toggle("is-scrolled", window.scrollY > 12); }
