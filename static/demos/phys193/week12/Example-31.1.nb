@@ -1,0 +1,99 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 31.1 - Inductance of a Solenoid", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 12 \:00b7 Chapter 31 \:00b7 Lecture slide 13 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Consider a uniformly wound solenoid having N turns and length l, much longer than its radius, with an air core. (A) Find its inductance. (B) Evaluate it for N = 300, l = 25.0 cm, A = 4.00 cm^2. (C) Find the self-induced emf if the current decreases at 50.0 A/s.", "Text"],
+
+Cell["L = N Phi/i with Phi = mu0 (N/l) i A gives L = mu0 N^2 A/l = 0.181 mH; the emf is -L di/dt = 9.05 mV. L grows as N^2 because the N turns both make the field and each link the flux.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the inductor laws (self- and mutual inductance, RL and LC circuits); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+mu0 = 4 Pi 10.^-7;
+indSol[n_, l_, a_] := mu0 n^2 a/l;", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{l = lcm/100., a = acm2 10.^-4, ind, fig},
+  ind = indSol[n, l, a];
+  fig = Graphics[{
+     Table[{green, Arrowheads[0.02], Arrow[{{-1.6, y}, {1.6, y}}]}, {y, -0.35, 0.35, 0.175}],
+     Table[{RGBColor[0.78, 0.18, 0.23], AbsoluteThickness[2], Circle[{x, 0}, {0.09, 0.5}]}, {x, -1.2, 1.2, 0.24}],
+     Text[Style[Row[{\"N = \", n, \" turns,  l = \", NumberForm[lcm, 3], \" cm,  A = \", NumberForm[acm2, 3], \" cm\\.b2\"}], 11], {0, 0.85}],
+     {ink, Arrowheads[{-0.02, 0.02}], Arrow[{{-1.25, -0.72}, {1.25, -0.72}}]}, Text[Style[\"l\", 12, Italic], {0, -0.9}],
+     Text[Style[Row[{\"i = \", NumberForm[i, 3], \" A, di/dt = \", NumberForm[didt, 3], \" A/s\"}], 11, RGBColor[0.48, 0.25, 0.69]], {0, -1.15}]},
+    PlotRange -> {{-1.9, 1.9}, {-1.3, 1.05}}, ImageSize -> 440];
+  Column[{fig,
+    Plot[1000 indSol[nn, l, a], {nn, 0, 1000}, PlotStyle -> Directive[maroon, Thick], Frame -> True, FrameLabel -> {\"turns N\", \"L (mH)\"},
+     GridLines -> {{n}, {1000 ind}}, GridLinesStyle -> Directive[gold, Dashed], Epilog -> {maroon, PointSize[0.02], Point[{n, 1000 ind}]}, ImageSize -> 440],
+    results[{
+      {\"(A),(B) L = \\[Mu]0 N\\.b2 A/l\", Row[{NumberForm[1000 ind, 4], \" mH\"}]},
+      {\"B inside = \\[Mu]0 (N/l) i\", Row[{NumberForm[1000 mu0 n/l i, 4], \" mT\"}]},
+      {\"flux linkage N \\[CapitalPhi]\", Row[{NumberForm[1000 n mu0 n/l i a, 4], \" mWb\"}]},
+      {\"(C) self-induced emf -L di/dt\", Row[{NumberForm[-1000 ind didt, 4], \" mV\"}]}}]}, Spacings -> 1.2]],
+ {{n, 300, \"turns N\"}, 10, 1000, 10, Appearance -> \"Labeled\"},
+ {{lcm, 25., \"length l (cm)\"}, 5, 60, 0.5, Appearance -> \"Labeled\"},
+ {{acm2, 4., \"area A (cm\\.b2)\"}, 0.5, 20, 0.25, Appearance -> \"Labeled\"},
+ {{i, 2., \"current i (A)\"}, 0, 10, 0.1, Appearance -> \"Labeled\"},
+ {{didt, -50., \"di/dt (A/s)\"}, -200, 200, 5, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, TrackedSymbols :> {n, lcm, acm2, i, didt}]", "Input"],
+
+Cell["Going further - why N squared?", "Section"],
+
+Cell["(* B is proportional to N (all turns make the field) and the flux linkage counts the flux N times (every turn threads it). *)
+Simplify[nn (mu0v nn/lv iv av)/iv]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Book values; L from the definition with the flux integrated over the circular cross-section, and the emf from the flux-linkage rate. *)
+With[{n = 300, l = 0.25, a = 4.*^-4, i = 2., didt = -50.},
+ Module[{r0 = Sqrt[a/Pi], b = mu0 n/l i, flux},
+  flux = NIntegrate[b 2 Pi r, {r, 0, r0}];
+  Grid[{{\"L from N\\[CapitalPhi]/i (mH)\", 1000 n flux/i}, {\"\\[Mu]0 N\\.b2 A/l (mH)\", 1000 indSol[n, l, a]},
+    {\"emf from -d(N\\[CapitalPhi])/dt (mV)\", -1000 D[n mu0 n/l (i + didt t) a, t]}, {\"-L di/dt (mV)\", -1000 indSol[n, l, a] didt}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

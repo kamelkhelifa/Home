@@ -1,0 +1,122 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 31.2 - Time Constant of an RL Circuit", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 12 \:00b7 Chapter 31 \:00b7 Lecture slide 30 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["The circuit of Figure 31.2 has emf 12.0 V, R = 6.00 ohm, L = 30.0 mH. (A) Find the time constant. (B) With S2 at a, S1 is closed at t = 0; find the current at t = 2.00 ms. (C) Compare the voltages across the resistor and the inductor.", "Text"],
+
+Cell["tau = L/R = 5.00 ms; i = (emf/R)(1 - e^(-t/tau)) = 0.659 A at 2.00 ms; dv_R = i R and dv_L = emf e^(-t/tau) always add to 12.0 V, crossing at t_half = tau ln 2 = 3.47 ms. What If?: to move the crossing to 10.0 ms, change R to 2.08 ohm (65 % decrease) or L to 86.4 mH (188 % increase). Extra part (publisher's slides): after a long time S2 goes to b with R2 = 100 ohm in the loop; the 2.00 A cannot change at once, so the inductor must supply 2.00 A x 106 ohm = 212 V.", "Text"],
+
+Cell["Figure", "Subsection"],
+
+Cell["Figure 31.2: an RL circuit. With S\:2082 at a and S\:2081 closed, the battery drives a current that builds up through the inductor. Redrawn after the figure in Serway & Jewett, Physics for Scientists and Engineers, 11th ed. (The picture appears when the notebook is evaluated; the cell that holds it is collapsed.)", "Text"],
+
+Cell["Image[ImportByteArray[BaseDecode[\"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\"], \"PNG\"], ImageSize -> 440]", "Input", CellOpen -> False],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the inductor laws (self- and mutual inductance, RL and LC circuits); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+tauRL[l_, r_] := l/r;
+iRise[t_, e_, r_, l_] := e/r (1 - Exp[-t/tauRL[l, r]]);
+iDecay[t_, e_, r_, l_, r2_] := e/r Exp[-t (r + r2)/l];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{l = lmH/1000., tau, tt = tms/1000., cur, vr, vl, fig},
+  tau = tauRL[l, r]; cur = iRise[tt, e, r, l]; vr = cur r; vl = e Exp[-tt/tau];
+  fig = Graphics[{
+     batteryG[{0, 0}, {0, 1.2}, True], lbl[\"\\[CurlyEpsilon]\", {-0.3, 0.6}, Italic, 14],
+     wire[{{0, 1.2}, {0, 1.6}}], {maroon, AbsoluteThickness[2.5], Line[{{0, 1.6}, {0, 2.3}}]}, lbl[\"S\\:2081 closed\", {-0.45, 1.95}, Gray, 10],
+     wire[{{0, 2.3}, {0, 3}, {1.6, 3}}], {maroon, AbsoluteThickness[2.5], Line[{{1.6, 3}, {2.1, 3}}]}, lbl[\"S\\:2082 at a\", {1.85, 3.25}, Gray, 10],
+     nodeG[{1.6, 3}], nodeG[{2.1, 3}], nodeG[{1.6, 2.6}, \"b\", {0.2, 0}],
+     wire[{{2.1, 3}, {2.6, 3}}], resistorG[{2.6, 3}, {3.6, 3}], lbl[\"R\", {3.1, 3.3}, Italic], wire[{{3.6, 3}, {4.4, 3}, {4.4, 2.1}}],
+     Table[{RGBColor[0.78, 0.18, 0.23], AbsoluteThickness[2.5], Circle[{4.4, 1.9 - 0.3 k}, 0.15, {-Pi/2, Pi/2}]}, {k, 0, 3}],
+     wire[{{4.4, 0.9}, {4.4, 0}, {0, 0}}], lbl[\"L\", {4.85, 1.5}, Italic],
+     currentG[{3.7, 3}, {4.3, 3}, cur, Row[{\"i = \", NumberForm[cur, 3], \" A\"}], 0.25]},
+    PlotRange -> {{-0.8, 5.4}, {-0.3, 3.6}}, AspectRatio -> Automatic, ImageSize -> 440];
+  Column[{fig,
+    Plot[iRise[s/1000, e, r, l], {s, 0, 30}, PlotStyle -> Directive[RGBColor[0.48, 0.25, 0.69], Thick], Frame -> True, FrameLabel -> {\"t (ms)\", \"i (A)\"},
+     GridLines -> {{1000 tau, tms}, {e/r}}, GridLinesStyle -> Directive[Gray, Dashed], PlotRange -> {0, 1.1 e/r}, Epilog -> {PointSize[0.02], Point[{tms, cur}]}, ImageSize -> 440],
+    Plot[{iRise[s/1000, e, r, l] r, e Exp[-s/(1000 tau)]}, {s, 0, 30}, PlotStyle -> {Directive[maroon, Thick], Directive[blue, Thick]},
+     PlotLegends -> Placed[{\"\\[CapitalDelta]v_R\", \"\\[CapitalDelta]v_L\"}, {Right, Center}], Frame -> True, FrameLabel -> {\"t (ms)\", \"\\[CapitalDelta]v (V)\"},
+     GridLines -> {{1000 tau Log[2], tms}, None}, GridLinesStyle -> Directive[Gray, Dashed], ImageSize -> 440],
+    results[{
+      {\"(A) \\[Tau] = L/R\", Row[{NumberForm[1000 tau, 4], \" ms\"}]},
+      {\"(B) i(t)\", Row[{NumberForm[cur, 4], \" A\"}]},
+      {\"(C) \\[CapitalDelta]v_R = iR, \\[CapitalDelta]v_L = \\[CurlyEpsilon] e^(-t/\\[Tau])\", Row[{NumberForm[vr, 4], \" V, \", NumberForm[vl, 4], \" V  (sum \", NumberForm[vr + vl, 4], \" V)\"}]},
+      {\"voltages equal at t\\:00bd = \\[Tau] ln 2\", Row[{NumberForm[1000 tau Log[2], 4], \" ms\"}]}}]}, Spacings -> 1.2]],
+ {{e, 12., \"emf (V)\"}, 1, 24, 0.5, Appearance -> \"Labeled\"},
+ {{r, 6., \"R (ohm)\"}, 0.5, 20, 0.01, Appearance -> \"Labeled\"},
+ {{lmH, 30., \"L (mH)\"}, 1, 200, 0.1, Appearance -> \"Labeled\"},
+ {{tms, 2., \"t (ms)\"}, 0, 30, ControlType -> Animator, AnimationRate -> 6, AnimationRunning -> False},
+ Delimiter, Row[{Button[\"book values\", e = 12.; r = 6.; lmH = 30.], Button[\"t\\:00bd = 10 ms via R\", e = 12.; lmH = 30.; r = 0.03/(0.01/Log[2])], Button[\"t\\:00bd = 10 ms via L\", e = 12.; r = 6.; lmH = 1000 6 0.01/Log[2]]}],
+ ControlPlacement -> Left, TrackedSymbols :> {e, r, lmH, tms}]", "Input"],
+
+Cell["What if? Delaying the crossover to 10.0 ms", "Section"],
+
+Cell["(* The crossover is the half-life tau ln 2, so tau must be 10.0 ms / ln 2 = 14.4 ms. *)
+With[{tau = 0.01/Log[2]},
+ Grid[{{\"required \\[Tau] (ms)\", 1000 tau}, {\"R with L fixed (ohm)\", 0.03/tau}, {\"percentage change in R\", 100 (0.03/tau/6 - 1)},
+   {\"L with R fixed (mH)\", 1000 6 tau}, {\"percentage change in L\", 100 (6 tau/0.03 - 1)}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"],
+
+Cell["Going further - the extra part: S2 thrown to b after a long time", "Section"],
+
+Cell["(* The current through the inductor cannot jump: it is still 2.00 A just after the throw, now through R + R2 = 106 ohm. *)
+Module[{e = 12., r = 6., r2 = 100., l = 0.03, i0},
+ i0 = e/r;
+ Column[{Grid[{{\"i just after the throw (A)\", i0}, {\"\\[CapitalDelta]v_R (V)\", i0 r}, {\"\\[CapitalDelta]v_R2 (V)\", i0 r2}, {\"\\[CapitalDelta]v_L (V)\", i0 (r + r2)}, {\"new time constant L/(R + R2) (ms)\", 1000 l/(r + r2)}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]],
+   Plot[iDecay[t/1000, e, r, l, r2] (r + r2), {t, 0, 2}, PlotStyle -> Directive[blue, Thick], Frame -> True, FrameLabel -> {\"t (ms) after the throw\", \"|\\[CapitalDelta]v_L| (V)\"}, ImageSize -> 440]}]]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* The loop equation emf - i R - L di/dt = 0 solved numerically (NDSolve) against Equation 31.7, and the crossover found by FindRoot against tau ln 2. *)
+With[{e = 12., r = 6., l = 0.03},
+ Module[{sol = NDSolveValue[{l i'[t] == e - r i[t], i[0] == 0}, i, {t, 0, 0.03}, AccuracyGoal -> 12, PrecisionGoal -> 10], tc},
+  tc = t /. FindRoot[sol[t] r == e Exp[-t r/l], {t, 0.003}];
+  Column[{Grid[Prepend[Table[{1000 t, NumberForm[sol[t], 8], NumberForm[iRise[t, e, r, l], 8]}, {t, {0.001, 0.002, 0.005, 0.01, 0.02}}], {\"t (ms)\", \"NDSolve (A)\", \"Eq. 31.7 (A)\"}], Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]],
+    Row[{\"crossover (ms): \", 1000 tc, \"   \\[Tau] ln 2 (ms): \", 1000 l/r Log[2]}]}]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

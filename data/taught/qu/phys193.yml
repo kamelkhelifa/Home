@@ -302,6 +302,33 @@ interactive:
             examples:
               - { num: "30.7", slide: 75, title: { en: emf Induced in a Generator, ar: القوة الدافعة الكهربائية المحتثة في مولد } }
               - { num: "30.8", slide: 78, title: { en: The Induced Current in a Motor, ar: التيار المحتث في محرك } }
+      - chapter: 31
+        week: 12
+        title: { en: "Inductance", ar: "المحاثة" }
+        path: assets/demos/phys193/week12
+        index: assets/demos/phys193/week12/index.html
+        sections:
+          - section: "31.1"
+            title: { en: Self-Induction and Inductance, ar: الحث الذاتي والمحاثة }
+            examples:
+              - { num: "31.1", slide: 13, title: { en: Inductance of a Solenoid, ar: محاثة ملف لولبي } }
+          - section: "31.2"
+            title: { en: RL Circuits, ar: دارات RL }
+            examples:
+              - { num: "31.2", slide: 30, title: { en: Time Constant of an RL Circuit, ar: الثابت الزمني لدارة RL } }
+          - section: "31.3"
+            title: { en: Energy in a Magnetic Field, ar: الطاقة في المجال المغناطيسي }
+            examples:
+              - { num: "31.3", slide: 43, title: { en: "What Happens to the Energy in the Inductor?", ar: "ماذا يحدث للطاقة المخزنة في المحث؟" } }
+              - { num: "31.4", slide: 47, title: { en: The Coaxial Cable, ar: الكابل المحوري } }
+          - section: "31.4"
+            title: { en: Mutual Inductance, ar: المحاثة المتبادلة }
+            examples:
+              - { num: "31.5", slide: 57, title: { en: Wireless Battery Charger, ar: شاحن بطارية لاسلكي } }
+          - section: "31.5"
+            title: { en: Oscillations in an LC Circuit, ar: التذبذبات في دارة LC }
+            examples:
+              - { num: "31.6", slide: 75, title: { en: Oscillations in an LC Circuit, ar: التذبذبات في دارة LC } }
 
 materials:
   - type: video
