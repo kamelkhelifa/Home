@@ -1,0 +1,114 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 31.6 - Oscillations in an LC Circuit", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 12 \:00b7 Chapter 31 \:00b7 Lecture slide 75 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["In Figure 31.11 the battery has emf 12.0 V, L = 2.81 mH and C = 9.00 pF. The switch has been at a for a long time, charging the capacitor, and is then thrown to b, connecting the capacitor across the inductor. (A) Find the frequency of oscillation. (B) Find the maximum charge on the capacitor and the maximum current.", "Text"],
+
+Cell["f = 1/(2 pi sqrt(LC)) = 1.00 MHz; Q_max = C emf = 108 pC; I_max = omega Q_max = 679 microamps. The energy, 648 pJ, moves back and forth between q^2/2C and (1/2) L i^2.", "Text"],
+
+Cell["Figure", "Subsection"],
+
+Cell["Figure 31.11: a simple LC circuit. The capacitor is charged by the battery with the switch at a; at t = 0 the switch is thrown to b, connecting the capacitor across the inductor. Redrawn after the figure in Serway & Jewett, Physics for Scientists and Engineers, 11th ed. (The picture appears when the notebook is evaluated; the cell that holds it is collapsed.)", "Text"],
+
+Cell["Image[ImportByteArray[BaseDecode[\"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\"], \"PNG\"], ImageSize -> 440]", "Input", CellOpen -> False],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the inductor laws (self- and mutual inductance, RL and LC circuits); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];
+omegaLC[l_, c_] := 1/Sqrt[l c];
+qLC[t_, q0_, w_] := q0 Cos[w t];
+iLC[t_, q0_, w_] := -w q0 Sin[w t];", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{l = lmH/1000., c = cpF 10.^-12, w, q0, tt, q, cur, ue, ub, ut, fig},
+  w = omegaLC[l, c]; q0 = c e; tt = u 2 Pi/w; q = qLC[tt, q0, w]; cur = iLC[tt, q0, w]; ue = q^2/(2 c); ub = l cur^2/2; ut = q0^2/(2 c);
+  fig = Graphics[{
+     wire[{{0, 0.9}, {0, 0}, {2.4, 0}, {2.4, 1.2}}], wire[{{2.4, 1.8}, {2.4, 3}, {0, 3}, {0, 2.1}}],
+     Table[{RGBColor[0.78, 0.18, 0.23], AbsoluteThickness[2.5], Circle[{0, 1.95 - 0.3 k}, 0.15, {Pi/2, 3 Pi/2}]}, {k, 0, 3}], lbl[\"L\", {-0.45, 1.5}, Italic],
+     capacitorG[{2.4, 1.2}, {2.4, 1.8}], lbl[\"C\", {2.85, 1.5}, Italic],
+     Text[Style[If[q > 0, \"+\", \"\\[Minus]\"], 14 + 8 Abs[q/q0], Bold, maroon], {2.1, 1.65}], Text[Style[If[q > 0, \"\\[Minus]\", \"+\"], 14 + 8 Abs[q/q0], Bold, blue], {2.1, 1.35}],
+     currentG[{0.5, 3}, {1.9, 3}, -cur, Row[{\"i = \", NumberForm[10^6 Abs[cur], 3], \" \\[Mu]A\"}], 0.25],
+     Text[Style[Row[{\"q = \", NumberForm[10^12 q, 3], \" pC\"}], 11, maroon], {2.4, 3.35}],
+     {maroon, Rectangle[{3.4, 0}, {4.0, 3 ue/ut}]}, {blue, Rectangle[{4.4, 0}, {5.0, 3 ub/ut}]},
+     {GrayLevel[0.7], Line[{{3.4, 0}, {3.4, 3}, {4.0, 3}, {4.0, 0}}], Line[{{4.4, 0}, {4.4, 3}, {5.0, 3}, {5.0, 0}}]},
+     Text[Style[\"U_E in C\", 10], {3.7, -0.25}], Text[Style[\"U_B in L\", 10], {4.7, -0.25}]},
+    PlotRange -> {{-0.9, 5.3}, {-0.5, 3.6}}, AspectRatio -> Automatic, ImageSize -> 440];
+  Column[{fig,
+    Plot[{Cos[2 Pi x], -Sin[2 Pi x]}, {x, 0, 2}, PlotStyle -> {Directive[maroon, Thick], Directive[RGBColor[0.48, 0.25, 0.69], Thick]},
+     PlotLegends -> Placed[{\"q / Q_max\", \"i / I_max\"}, {Right, Top}], Frame -> True, FrameLabel -> {\"t / T\", \"\"}, GridLines -> {{u}, {0}}, ImageSize -> 440],
+    Plot[{10^12 ut Cos[2 Pi x]^2, 10^12 ut Sin[2 Pi x]^2, 10^12 ut}, {x, 0, 2}, PlotStyle -> {Directive[maroon, Thick], Directive[blue, Thick], Directive[gold, Dashed]},
+     PlotLegends -> Placed[{\"U_E\", \"U_B\", \"U_E + U_B\"}, Below], Frame -> True, FrameLabel -> {\"t / T\", \"energy (pJ)\"}, GridLines -> {{u}, None}, ImageSize -> 440],
+    results[{
+      {\"(A) f = 1/(2\\[Pi]\\[Sqrt](LC))\", Row[{ScientificForm[w/(2 Pi), 4], \" Hz\"}]},
+      {\"(B) Q_max = C\\[CurlyEpsilon]\", Row[{NumberForm[10^12 q0, 4], \" pC\"}]},
+      {\"(B) I_max = \\[Omega] Q_max\", Row[{NumberForm[10^6 w q0, 4], \" \\[Mu]A\"}]},
+      {\"total energy \\.bd C\\[CurlyEpsilon]\\.b2 = \\.bd L I_max\\.b2\", Row[{NumberForm[10^12 ut, 4], \" pJ\"}]}}]}, Spacings -> 1.2]],
+ {{e, 12., \"emf (V)\"}, 1, 24, 0.5, Appearance -> \"Labeled\"},
+ {{lmH, 2.81, \"L (mH)\"}, 0.1, 30, 0.01, Appearance -> \"Labeled\"},
+ {{cpF, 9., \"C (pF)\"}, 1, 100, 0.5, Appearance -> \"Labeled\"},
+ {{u, 0.15, \"time in periods\"}, 0, 2, ControlType -> Animator, AnimationRate -> 0.25, AnimationRunning -> False},
+ ControlPlacement -> Left, TrackedSymbols :> {e, lmH, cpF, u}]", "Input"],
+
+Cell["Going further - where the energy is", "Section"],
+
+Cell["(* All in C at t = 0; all in L a quarter period later; the sum q^2/2C + L i^2/2 is constant. *)
+Simplify[qLC[t, q0v, 1/Sqrt[lv cv]]^2/(2 cv) + lv iLC[t, q0v, 1/Sqrt[lv cv]]^2/2]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* The loop equation L q'' + q/C = 0 integrated numerically (NDSolve) against Q_max cos(omega t); period from the zero crossings. *)
+With[{e = 12., l = 2.81*^-3, c = 9.*^-12},
+ Module[{w = omegaLC[l, c], q0 = c e, per, sol, zeros},
+  per = 2 Pi/w;
+  sol = NDSolveValue[{l q''[t] + q[t]/c == 0, q[0] == q0, q'[0] == 0}, q, {t, 0, 2 per}, AccuracyGoal -> 14, PrecisionGoal -> 12, MaxSteps -> 10^6];
+  zeros = Table[t /. FindRoot[sol[t] == 0, {t, (2 k - 1) per/4}], {k, 1, 3}];
+  Column[{Grid[Prepend[Table[{k, NumberForm[10^12 sol[k per], 8], NumberForm[10^12 qLC[k per, q0, w], 8]}, {k, {0.1, 0.25, 0.4, 0.75, 1.}}], {\"t / T\", \"NDSolve (pC)\", \"formula (pC)\"}], Frame -> All, Alignment -> Right, FrameStyle -> GrayLevel[0.8]],
+    Row[{\"period from zero crossings: \", zeros[[3]] - zeros[[1]], \" s;  2\\[Pi]\\[Sqrt](LC) = \", per, \" s;  f = \", 1/per, \" Hz\"}],
+    Row[{\"Q_max = \", q0, \" C;  I_max = \", w q0, \" A\"}]}]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]
