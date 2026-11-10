@@ -406,13 +406,17 @@
           <div class="vid-player">
             {% if vid.youtube %}
             <div class="vid-frame"><iframe src="https://www.youtube-nocookie.com/embed/{{ vid.youtube }}?rel=0&cc_load_policy=1" title="{{ t(ch.title) }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
-            {% else %}
+            {% elif vid.mp4 %}
             <video class="vid-video" controls preload="metadata" playsinline poster="{{ asset(vid.poster) }}">
               <source src="{{ asset(vid.mp4) }}" type="video/mp4">
               {% if vid.captions %}<track kind="subtitles" srclang="en" label="English" src="{{ asset(vid.captions) }}">{% endif %}
             </video>
+            {% elif vid.echo360 %}
+            <a class="vid-frame vid-poster" href="{{ vid.echo360 }}" target="_blank" rel="noopener" aria-label="{{ t(vu.echo) }}">{% if vid.poster %}<img src="{{ asset(vid.poster) }}" alt="">{% endif %}<span class="vid-poster-cta">{{ ic('play', 'ic') }} {{ t(vu.echo) }}</span></a>
+            {% else %}
+            <div class="vid-frame vid-poster">{% if vid.poster %}<img src="{{ asset(vid.poster) }}" alt="">{% endif %}<span class="vid-poster-cta">{{ t(vu.coming) }}</span></div>
             {% endif %}
-            {% if vid.chapters %}
+            {% if vid.chapters and (vid.youtube or vid.mp4) %}
             <div class="vid-chapters" aria-label="{{ t(vu.chapters) }}">
               <span class="vid-chapters-label">{{ t(vu.chapters) }}</span>
               {% for k in vid.chapters %}<button type="button" class="vid-chip" data-seek="{{ k.t }}" data-target="{{ pid }}"{% if vid.youtube %} data-yt="{{ vid.youtube }}"{% endif %}><span dir="ltr">{{ '%d:%02d' | format(k.t // 60, k.t % 60) }}</span> {{ t(k.title) }}</button>{% endfor %}

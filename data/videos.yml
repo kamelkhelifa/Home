@@ -8,7 +8,9 @@
 #  `youtube:` — once the video is on YouTube, put its id here (the part after watch?v=);
 #               the page then embeds YouTube (auto-translated voice-over and captions
 #               available there) and the self-hosted MP4 can be deleted from static/.
-#  `echo360:` — optional public Echo360 link, shown as a button.
+#  `echo360:` — public Echo360 link; shown as a button, and as the main "Watch" link while there is no player.
+#  Videos are NOT kept in this repository (GitHub Pages storage is small): leave `mp4:` empty and
+#  put the Echo360 (or YouTube) link instead.
 #  `chapters:` — jump points inside the video, in seconds.
 # ─────────────────────────────────────────────────────────────
 
@@ -31,6 +33,7 @@ ui:
   captions: { en: Captions (.vtt), ar: الترجمة (.vtt) }
   download: { en: Download video, ar: تنزيل الفيديو }
   echo: { en: Watch on Echo360, ar: شاهد على Echo360 }
+  coming: { en: "The video will be available on Echo360 shortly.", ar: "سيتوفر الفيديو على Echo360 قريبًا." }
   youtube: { en: Watch on YouTube, ar: شاهد على يوتيوب }
   course_page: { en: Course page, ar: صفحة المقرر }
   minutes: { en: min, ar: دقيقة }
@@ -60,8 +63,8 @@ courses:
             بوابة المطار، مغناطيس في أنبوب نحاسي، شاحن لاسلكي، مصباح يدوي يُدار بالذراع —
             ليوضّح فكرة واحدة، ويضع معادلة واحدة في إطار، ويسمّي الخطأ الشائع. خمس لحظات «توقّف وتوقّع».
         video:
-          mp4: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview.mp4
-          captions: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview.vtt
+          mp4:
+          captions:
           poster: assets/videos/phys193/ch30/PHYS193_W11_Ch30_Overview_poster.jpg
           youtube:
           echo360:
