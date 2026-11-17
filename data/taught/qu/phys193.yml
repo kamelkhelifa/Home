@@ -329,6 +329,40 @@ interactive:
             title: { en: Oscillations in an LC Circuit, ar: التذبذبات في دارة LC }
             examples:
               - { num: "31.6", slide: 75, title: { en: Oscillations in an LC Circuit, ar: التذبذبات في دارة LC } }
+      - chapter: 32
+        week: 13
+        title: { en: "Alternating-Current Circuits", ar: "دارات التيار المتردد" }
+        path: assets/demos/phys193/week13
+        index: assets/demos/phys193/week13/index.html
+        sections:
+          - section: "32.2"
+            title: { en: Resistors in an AC Circuit, ar: المقاومات في دارة تيار متردد }
+            examples:
+              - { num: "32.1", slide: 21, title: { en: "What Is the rms Current?", ar: "ما هو التيار الفعّال (rms)؟" } }
+          - section: "32.3"
+            title: { en: Inductors in an AC Circuit, ar: المحثات في دارة تيار متردد }
+            examples:
+              - { num: "32.2", slide: 32, title: { en: A Purely Inductive AC Circuit, ar: دارة تيار متردد حثّية بحتة } }
+          - section: "32.4"
+            title: { en: Capacitors in an AC Circuit, ar: المكثفات في دارة تيار متردد }
+            examples:
+              - { num: "32.3", slide: 45, title: { en: A Purely Capacitive AC Circuit, ar: دارة تيار متردد سعوية بحتة } }
+          - section: "32.5"
+            title: { en: The RLC Series Circuit, ar: دارة RLC على التوالي }
+            examples:
+              - { num: "32.4", slide: 57, title: { en: Analyzing a Series RLC Circuit, ar: تحليل دارة RLC على التوالي } }
+          - section: "32.6"
+            title: { en: Power in an AC Circuit, ar: القدرة في دارة تيار متردد }
+            examples:
+              - { num: "32.5", slide: 69, title: { en: Average Power in an RLC Series Circuit, ar: القدرة المتوسطة في دارة RLC على التوالي } }
+          - section: "32.7"
+            title: { en: Resonance in a Series RLC Circuit, ar: الرنين في دارة RLC على التوالي }
+            examples:
+              - { num: "32.6", slide: 78, title: { en: A Resonating Series RLC Circuit, ar: دارة RLC متوالية في حالة رنين } }
+          - section: "32.8"
+            title: { en: The Transformer and Power Transmission, ar: المحوّل ونقل القدرة الكهربائية }
+            examples:
+              - { num: "32.7", slide: 87, title: { en: The Economics of AC Power, ar: اقتصاديات القدرة الكهربائية المترددة } }
 
 materials:
   - type: video
