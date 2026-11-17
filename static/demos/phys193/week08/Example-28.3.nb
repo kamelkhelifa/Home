@@ -1,0 +1,111 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 28.3 - Bending an Electron Beam", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 8 \:00b7 Chapter 28 \:00b7 Lecture slide 37 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["Electrons accelerated from rest through 350 V enter a uniform magnetic field perpendicular to their velocity and move on a circle of radius 7.5 cm. (A) Find the magnitude of the field. (B) Find the angular speed of the electrons.", "Text"],
+
+Cell["Energy: (1/2) m_e v^2 = e DeltaV gives v = 1.11 x 10^7 m/s. Then r = m_e v/e B gives B = m_e v/e r = 8.4 x 10^-4 T, and omega = v/r = 1.5 x 10^8 rad/s (24 million revolutions per second). What if? A surge to 400 V raises v and r by the same factor: omega = e B/m_e is unchanged.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the magnetic force on moving charges and currents, circular motion in a field, the torque on a current loop and the Hall effect; the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];(* inductor between p0 and p1: n semicircular bumps on the nv side *)
+inductorG[p0_, p1_, n_ : 4, len_ : 0.7] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, r},
+   a = m - u len/2; r = len/(2 n);
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{m + u len/2, p1}],
+    maroon, AbsoluteThickness[2.5], Table[Circle[a + u r (2 k + 1), r, {0, Pi} + ArcTan @@ u], {k, 0, n - 1}]}];
+(* AC source centred at p with radius r: a gold disc with a sine wave inside *)
+acSourceG[p_, r_ : 0.22] :=
+  {{gold, Disk[p, r]}, {maroon, AbsoluteThickness[1.8], Circle[p, r],
+    Line[Table[p + {x, 0.55 r Sin[Pi x/(0.6 r)]}, {x, -0.6 r, 0.6 r, 0.05 r}]]}};
+(* field/current marks: dotG = out of the page, crossG = into the page *)
+dotG[p_, r_ : 0.08, col_ : maroon] := {col, AbsoluteThickness[1.5], Circle[p, r], Disk[p, 0.3 r]};
+crossG[p_, r_ : 0.08, col_ : maroon] := {col, AbsoluteThickness[1.5], Circle[p, r], Line[{p + 0.6 r {-1, -1}, p + 0.6 r {1, 1}}], Line[{p + 0.6 r {-1, 1}, p + 0.6 r {1, -1}}]};
+mu0 = 4 Pi 10.^-7;
+qe = 1.602 10.^-19; me = 9.109 10.^-31; mp = 1.673 10.^-27; cLight = 2.998 10.^8;
+particleG[p_, sign_, r_ : 0.08] := {{If[sign < 0, blue, maroon], Disk[p, r]}, {ink, Circle[p, r]}, Text[Style[If[sign < 0, \"\\[Minus]\", \"+\"], White, Bold, 12], p]};
+vFromV[dv_] := Sqrt[2 qe dv/me];
+bFromR[v_, r_] := me v/(qe r);", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{v = vFromV[dv], r, b, w, fig},
+  If[hold, b = bHeld; r = me v/(qe b), r = rcm/100.; b = bFromR[v, r]]; w = v/r;
+  fig = Graphics[{{GrayLevel[0.4], AbsoluteThickness[4], Line[{{-2.6, -0.5}, {-2.6, 0.5}}], Line[{{-1.4, -0.5}, {-1.4, 0.5}}]}, Text[Style[\"\\[Minus]\", 14], {-2.6, 0.7}], Text[Style[\"+\", 14], {-1.4, 0.7}],
+     Text[Style[Row[{\"\\[CapitalDelta]V = \", NumberForm[dv, 4], \" V\"}], 11], {-2, -0.75}], {gold, Arrowheads[0.02], Table[Arrow[{{-2.4 + 0.3 k, 0.3 - 0.2 k}, {-2.2 + 0.3 k, 0.3 - 0.2 k}}], {k, 0, 3}]},
+     {GrayLevel[0.93], Rectangle[{-1.1, -1.6}, {2.4, 1.8}]}, Table[crossG[{x, y}, 0.04, RGBColor[0.18, 0.49, 0.31, 0.5]], {x, -0.95, 2.3, 0.35}, {y, -1.45, 1.7, 0.35}],
+     {blue, AbsoluteThickness[2], Line[{{-1.36, 0}, {-0.4, 0}}], Arrowheads[0.03], Arrow[{{-0.9, 0}, {-0.6, 0}}], Circle[{-0.4, 0.9 r/0.075}, 0.9 r/0.075]},
+     {GrayLevel[0.6], Dashed, Line[{{-0.4, 0.9 r/0.075}, {-0.4, 0.9 r/0.075} + 0.9 r/0.075 {Cos[-0.5], Sin[-0.5]}}]}, Text[Style[Row[{\"r = \", NumberForm[100 r, 3], \" cm\"}], 11], {-0.4, 0.9 r/0.075} + 0.55 r/0.075 {Cos[-0.5], Sin[-0.5]} + {0.35, 0}],
+     particleG[{-0.4, 0.9 r/0.075} + 0.9 r/0.075 {Cos[1.1], Sin[1.1]}, -1, 0.07],
+     Text[Style[Row[{\"B = \", NumberForm[1000 b, 3], \" mT into the page\"}], 11, green], {0.65, -1.45}], Text[Style[Row[{\"v = \", ScientificForm[v, 3], \" m/s\"}], 10, blue], {-0.9, -0.2}]},
+    PlotRange -> {{-2.9, 2.5}, {-1.8, 2.0}}, AspectRatio -> Automatic, ImageSize -> 440];
+  Column[{fig,
+    Plot[{100 me vFromV[vv]/(qe b)}, {vv, 1, 1000}, PlotStyle -> Directive[blue, Thick], Frame -> True, FrameLabel -> {\"\\[CapitalDelta]V (V)\", \"r (cm) at this B\"}, PlotRange -> {0, All},
+     GridLines -> {{dv, 400}, None}, GridLinesStyle -> Directive[gold, Dashed], Epilog -> {gold, PointSize[0.02], Point[{dv, 100 r}], Text[Style[Row[{\"\\[Omega] = eB/m_e = \", ScientificForm[qe b/me, 3], \" rad/s, whatever \\[CapitalDelta]V\"}], 10], Scaled[{0.5, 0.92}]]}, ImageSize -> 440],
+    results[{
+      {\"speed from \\[OneHalf] m_e v\\.b2 = e \\[CapitalDelta]V\", Row[{ScientificForm[v, 3], \" m/s (\", NumberForm[100 v/cLight, 2], \" % of c)\"}]},
+      {\"(A) B = m_e v/e r\", Row[{ScientificForm[b, 3], \" T\", If[hold, \" (held)\", \"\"]}]},
+      {\"(B) \\[Omega] = v/r = eB/m_e\", Row[{ScientificForm[w, 3], \" rad/s = \", ScientificForm[w/(2 Pi), 3], \" rev/s\"}]}}]}, Spacings -> 1]],
+ {{dv, 350., \"accelerating voltage (V)\"}, 50, 1000, 5, Appearance -> \"Labeled\"},
+ {{rcm, 7.5, \"measured radius r (cm)\"}, 2, 15, 0.1, Appearance -> \"Labeled\"},
+ {{hold, False, \"hold B at the value found in (A) and let r follow \\[CapitalDelta]V (the What if?)\"}, {True, False}},
+ Initialization :> (bHeld = bFromR[vFromV[350.], 0.075]),
+ ControlPlacement -> Left, TrackedSymbols :> {dv, rcm, hold}]", "Input"],
+
+Cell["What if? - the surge to 400 V", "Section"],
+
+Cell["(* v and r both scale as Sqrt[DeltaV]; omega = v/r does not change. *)
+With[{b = bFromR[vFromV[350.], 0.075]}, Table[{dv, vFromV[dv], me vFromV[dv]/(qe b), vFromV[dv]/(me vFromV[dv]/(qe b))}, {dv, {350., 400.}}] // TableForm]", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Book values: energy balance, the field from the radius, omega two ways, and the relativistic factor at this speed. *)
+With[{v = vFromV[350.], r = 0.075},
+ Grid[{{\"\\[OneHalf] m_e v\\.b2 vs e \\[CapitalDelta]V (J)\", {me v^2/2, qe 350.}}, {\"B = m_e v/e r (T)\", bFromR[v, r]}, {\"\\[Omega] = v/r vs eB/m_e (rad/s)\", {v/r, qe bFromR[v, r]/me}},
+   {\"revolutions per second\", v/r/(2 Pi)}, {\"\\[Gamma] at this speed\", 1/Sqrt[1 - (v/cLight)^2]}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]

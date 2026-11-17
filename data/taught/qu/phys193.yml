@@ -273,6 +273,33 @@ interactive:
               - { num: "27.9", slide: 94, title: { en: Charging a Capacitor in an RC Circuit, ar: شحن مكثف في دارة RC } }
               - { num: "27.10", slide: 96, title: { en: Discharging a Capacitor in an RC Circuit, ar: تفريغ مكثف في دارة RC } }
               - { num: "27.11", slide: 100, title: { en: Energy Delivered to a Resistor, ar: الطاقة المنقولة إلى مقاومة } }
+      - chapter: 28
+        week: 8
+        title: { en: "Magnetic Fields", ar: "المجالات المغناطيسية" }
+        path: assets/demos/phys193/week08
+        index: assets/demos/phys193/week08/index.html
+        sections:
+          - section: "28.1"
+            title: { en: "Analysis Model: Particle in a Field (Magnetic)", ar: "نموذج التحليل: جسيم في مجال (مغناطيسي)" }
+            examples:
+              - { num: "28.1", slide: 19, title: { en: An Electron Moving in a Magnetic Field, ar: إلكترون يتحرك في مجال مغناطيسي } }
+          - section: "28.2"
+            title: { en: Motion of a Charged Particle in a Uniform Magnetic Field, ar: حركة جسيم مشحون في مجال مغناطيسي منتظم }
+            examples:
+              - { num: "28.2", slide: 34, title: { en: A Proton Moving Perpendicular to a Uniform Magnetic Field, ar: بروتون يتحرك عمودياً على مجال مغناطيسي منتظم } }
+              - { num: "28.3", slide: 37, title: { en: Bending an Electron Beam, ar: حرف حزمة إلكترونات } }
+          - section: "28.4"
+            title: { en: Magnetic Force Acting on a Current-Carrying Conductor, ar: القوة المغناطيسية على موصل يحمل تياراً }
+            examples:
+              - { num: "28.4", slide: 58, title: { en: Force on a Semicircular Conductor, ar: القوة على موصل نصف دائري } }
+          - section: "28.5"
+            title: { en: Torque on a Current Loop in a Uniform Magnetic Field, ar: عزم الدوران على حلقة تيار في مجال مغناطيسي منتظم }
+            examples:
+              - { num: "28.5", slide: 73, title: { en: Rotating a Coil, ar: تدوير ملف } }
+          - section: "28.6"
+            title: { en: The Hall Effect, ar: ظاهرة هول }
+            examples:
+              - { num: "28.6", slide: 83, title: { en: The Hall Effect for Copper, ar: ظاهرة هول في النحاس } }
       - chapter: 29
         week: 9
         title: { en: "Sources of the Magnetic Field", ar: "مصادر المجال المغناطيسي" }
