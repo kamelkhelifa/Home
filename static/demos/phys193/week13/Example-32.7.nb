@@ -1,0 +1,116 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+Notebook[{
+
+Cell["Example 32.7 - The Economics of AC Power", "Title"],
+
+Cell["PHYS 193 \:00b7 Week 13 \:00b7 Chapter 32 \:00b7 Lecture slide 87 \:00b7 Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", "Subtitle"],
+
+Cell["A generating station must deliver 20 MW to a city 1.0 km away. The generator voltage of 22 kV is stepped up to 230 kV for transmission. (A) If the wires have resistance 2.0 ohm and energy costs 11 cents/kWh, estimate the cost of the energy converted to internal energy in the wires during one day. (B) Repeat for transmission at 22 kV.", "Text"],
+
+Cell["With the power factor set to 1, I_rms = P/Delta V_rms and the wires lose I_rms^2 R. (A) At 230 kV: 87 A, 15 kW, 360 kWh per day, about $40. (B) At 22 kV: 909 A, 1.65 MW, 4.0 x 10^4 kWh per day, about $4400. The loss falls as the square of the voltage: a factor (230/22)^2 = 110.", "Text"],
+
+Cell["Evaluate the cells in order (Evaluation menu, Evaluate Notebook). Every number and figure is computed from the AC circuit laws (reactance, impedance, phasors and average power); the web version of this solution has the same physics.", "Text"],
+
+Cell["Definitions - evaluate first", "Section"],
+
+Cell["(* ---------- colours and circuit-drawing helpers (plain Graphics primitives) ---------- *)
+maroon = RGBColor[0.54, 0.08, 0.22]; gold = RGBColor[0.66, 0.48, 0.18];
+blue = RGBColor[0.14, 0.34, 0.72]; green = RGBColor[0.18, 0.49, 0.31]; ink = GrayLevel[0.15];
+unitV[p0_, p1_] := (p1 - p0)/Norm[p1 - p0];
+perpV[p0_, p1_] := With[{u = unitV[p0, p1]}, {-u[[2]], u[[1]]}];
+(* a plain wire through a list of points *)
+wire[pts_] := {ink, AbsoluteThickness[2], Line[pts]};
+(* resistor between p0 and p1: a zigzag of length len (drawing units) in the middle of the segment *)
+resistorG[p0_, p1_, col_ : maroon, len_ : 0.7, amp_ : 0.1] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, b},
+   a = m - u len/2; b = m + u len/2;
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{b, p1}],
+    col, AbsoluteThickness[2.5], Line[Table[a + u len k/12 + nv amp {0, 1, 0, -1}[[Mod[k, 4] + 1]], {k, 0, 12}]]}];
+(* battery between p0 and p1; the long thin plate is the positive terminal, on the p1 side when plusAtP1 is True *)
+batteryG[p0_, p1_, plusAtP1_ : True] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.07, pl, mi},
+   {pl, mi} = If[TrueQ[plusAtP1], {m + u g, m - u g}, {m - u g, m + u g}];
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    green, AbsoluteThickness[2.5], Line[{pl - nv 0.22, pl + nv 0.22}],
+    AbsoluteThickness[5], Line[{mi - nv 0.11, mi + nv 0.11}],
+    Text[Style[\"+\", 12, Bold, green], pl + 0.32 nv + 1.6 (pl - mi)]}];
+(* capacitor between p0 and p1 *)
+capacitorG[p0_, p1_] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, g = 0.06},
+   {ink, AbsoluteThickness[2], Line[{p0, m - u g}], Line[{m + u g, p1}],
+    blue, AbsoluteThickness[3], Line[{m - u g - 0.22 nv, m - u g + 0.22 nv}], Line[{m + u g - 0.22 nv, m + u g + 0.22 nv}]}];
+(* arrow for a current i on the segment p0 -> p1, reversed when i < 0, drawn a distance off beside the wire *)
+currentG[p0_, p1_, i_, lab_ : \"\", off_ : 0.18, len_ : 0.35] :=
+  If[Abs[i] < 10^-12, {},
+   Module[{u = Sign[i] unitV[p0, p1], nv = perpV[p0, p1], m},
+    m = (p0 + p1)/2 + off nv;
+    {maroon, AbsoluteThickness[2.5], Arrowheads[0.035], Arrow[{m - u len/2, m + u len/2}],
+     If[lab === \"\", {}, Text[Style[lab, 12, Bold, maroon], m + 1.3 off nv]]}]];
+(* a junction or labelled point *)
+nodeG[p_, lab_ : \"\", d_ : {0.15, 0.15}] := {Black, PointSize[0.014], Point[p], If[lab === \"\", {}, Text[Style[lab, Italic, 14], p + d]]};
+lbl[t_, p_, sty___] := Text[Style[t, 12, sty], p];
+(* a small boxed table of results *)
+results[rows_] := Grid[rows, Alignment -> Left, Frame -> All, FrameStyle -> GrayLevel[0.8], Spacings -> {2, 0.8}];(* inductor between p0 and p1: n semicircular bumps on the nv side *)
+inductorG[p0_, p1_, n_ : 4, len_ : 0.7] :=
+  Module[{u = unitV[p0, p1], nv = perpV[p0, p1], m = (p0 + p1)/2, a, r},
+   a = m - u len/2; r = len/(2 n);
+   {ink, AbsoluteThickness[2], Line[{p0, a}], Line[{m + u len/2, p1}],
+    maroon, AbsoluteThickness[2.5], Table[Circle[a + u r (2 k + 1), r, {0, Pi} + ArcTan @@ u], {k, 0, n - 1}]}];
+(* AC source centred at p with radius r: a gold disc with a sine wave inside *)
+acSourceG[p_, r_ : 0.22] :=
+  {{gold, Disk[p, r]}, {maroon, AbsoluteThickness[1.8], Circle[p, r],
+    Line[Table[p + {x, 0.55 r Sin[Pi x/(0.6 r)]}, {x, -0.6 r, 0.6 r, 0.05 r}]]}};
+lineLoss[p_, v_, r_] := <|\"I\" -> p/v, \"Pw\" -> (p/v)^2 r, \"kWhDay\" -> (p/v)^2 r 24/1000|>;   (* p in W, v in V, r in ohm *)
+costDay[p_, v_, r_, price_] := lineLoss[p, v, r][\"kWhDay\"] price;                             (* price in $/kWh *)", "Input"],
+
+Cell["Interactive solution", "Section"],
+
+Cell["Manipulate[
+ Module[{p = pmw 10.^6, v = vkv 10.^3, price = cents/100., s, frac, fig},
+  s = lineLoss[p, v, r]; frac = s[\"Pw\"]/p;
+  (* plant - step-up transformer - line - city; the line is a bar whose red share is the fraction of the output lost in the wires *)
+  fig = Graphics[{acSourceG[{-3, 0}, 0.35], Text[Style[\"plant\", 10], {-3, -0.65}], Text[Style[Row[{NumberForm[pmw, 3], \" MW\"}], 11, Bold], {-3, 0.65}],
+     wire[{{-2.65, 0}, {-2.05, 0}}], inductorG[{-2.05, -0.3}, {-2.05, 0.3}, 3, 0.5], inductorG[{-1.65, 0.3}, {-1.65, -0.3}, 3, 0.5],
+     {ink, AbsoluteThickness[2], Line[{{-1.9, -0.4}, {-1.9, 0.4}}], Line[{{-1.8, -0.4}, {-1.8, 0.4}}]},
+     Text[Style[\"step-up\", 10], {-1.85, -0.65}], Text[Style[Row[{\"\\[Rule] \", NumberForm[vkv, 4], \" kV\"}], 11, Bold, maroon], {-1.85, 0.65}],
+     {RGBColor[0.48, 0.25, 0.69], Rectangle[{-1.3, -0.14}, {-1.3 + 3.3 (1 - Min[1, frac]), 0.14}]}, {maroon, Rectangle[{-1.3 + 3.3 (1 - Min[1, frac]), -0.14}, {2, 0.14}]},
+     Text[Style[Row[{\"I_rms = \", NumberForm[s[\"I\"], 4], \" A\"}], 11, Bold, RGBColor[0.48, 0.25, 0.69]], {0.35, 0.4}],
+     Text[Style[Row[{\"R = \", NumberForm[r, 3], \" \\[CapitalOmega] \\[CenterDot] lost \", NumberForm[s[\"Pw\"]/1000, 4], \" kW (\", NumberForm[100 frac, 3], \" %)\"}], 10, maroon], {0.35, -0.4}],
+     {GrayLevel[0.3], Table[Rectangle[{2.2 + 0.22 k, -0.3}, {2.38 + 0.22 k, -0.3 + 0.3 + 0.2 Mod[7 k, 3]}], {k, 0, 3}]}, Text[Style[\"city\", 10], {2.6, -0.65}],
+     Text[Style[Row[{NumberForm[(p - s[\"Pw\"])/10.^6, 4], \" MW arrives\"}], 11, Bold, green], {2.6, 0.65}],
+     Text[Style[Row[{\"wasted today: \", NumberForm[s[\"kWhDay\"], 4], \" kWh \\[TildeTilde] $\", NumberForm[s[\"kWhDay\"] price, 4]}], 13, Bold], {0, -1.2}]},
+    PlotRange -> {{-3.5, 3.4}, {-1.5, 1}}, ImageSize -> 520];
+  Column[{fig,
+    (* the daily cost against the transmission voltage on logarithmic axes: a straight line of slope -2 *)
+    LogLogPlot[costDay[p, vv 10.^3, r, price], {vv, 5, 500}, PlotStyle -> Directive[maroon, Thick], Frame -> True, FrameLabel -> {\"transmission voltage (kV)\", \"cost per day ($)\"},
+     GridLines -> {{vkv}, None}, GridLinesStyle -> Directive[gold, Dashed],
+     Epilog -> {PointSize[0.02], green, Point[Log[{230, costDay[p, 230000., r, price]}]], blue, Point[Log[{22, costDay[p, 22000., r, price]}]], gold, Point[Log[{vkv, costDay[p, v, r, price]}]],
+       Text[Style[\"230 kV\", 10, green], Log[{230, costDay[p, 230000., r, price]}], {1.3, -1.2}], Text[Style[\"22 kV\", 10, blue], Log[{22, costDay[p, 22000., r, price]}], {-1.3, -1.2}]}, ImageSize -> 460],
+    results[{
+      {\"line current I_rms = P/\\[CapitalDelta]V_rms\", Row[{NumberForm[s[\"I\"], 4], \" A\"}]},
+      {\"power lost in the wires I_rms\\.b2 R\", Row[{NumberForm[s[\"Pw\"]/1000, 4], \" kW\"}]},
+      {\"energy lost per day\", Row[{NumberForm[s[\"kWhDay\"], 4], \" kWh = \", NumberForm[s[\"Pw\"] 86400/10.^9, 4], \" GJ\"}]},
+      {\"cost per day\", Row[{\"$\", NumberForm[s[\"kWhDay\"] price, 4]}]},
+      {\"fraction of the output wasted\", Row[{NumberForm[100 frac, 4], \" %\"}]}}]}, Spacings -> 1]],
+ {{pmw, 20., \"power delivered P (MW)\"}, 1, 100, 1, Appearance -> \"Labeled\"},
+ {{vkv, 230., \"transmission voltage (kV)\"}, 5, 500, 1, Appearance -> \"Labeled\"},
+ {{r, 2., \"line resistance R (\\[CapitalOmega])\"}, 0.2, 10, 0.1, Appearance -> \"Labeled\"},
+ {{cents, 11., \"price (\\[Cent]/kWh)\"}, 2, 40, 1, Appearance -> \"Labeled\"},
+ ControlPlacement -> Left, TrackedSymbols :> {pmw, vkv, r, cents}]", "Input"],
+
+Cell["Going further - thicker wires or higher voltage?", "Section"],
+
+Cell["(* Halving R halves the loss (twice the copper); multiplying the voltage by ten divides the loss by a hundred. Loss as a function of both, in $/day at 20 MW. *)
+Table[{Row[{v, \" kV\"}], Row[{r, \" \\[CapitalOmega]\"}], NumberForm[costDay[20.*^6, v 10.^3, r, 0.11], 4]}, {v, {22, 230}}, {r, {2., 1., 0.2}}] // Flatten[#, 1] & // TableForm", "Input"],
+
+Cell["Check the numbers", "Section"],
+
+Cell["(* Book values for both cases, the ratio of the two losses against (230/22)^2, and the energy in joules converted to kWh (1 kWh = 3.6 MJ). *)
+With[{p = 20.*^6, r = 2., price = 0.11},
+ Module[{a = lineLoss[p, 230000., r], b = lineLoss[p, 22000., r]},
+  Grid[{{\"\", \"230 kV\", \"22 kV\"}, {\"I_rms (A)\", a[\"I\"], b[\"I\"]}, {\"P_wires (kW)\", a[\"Pw\"]/1000, b[\"Pw\"]/1000}, {\"energy per day (kWh)\", a[\"kWhDay\"], b[\"kWhDay\"]},
+    {\"energy per day from joules (kWh)\", a[\"Pw\"] 86400/3.6*^6, b[\"Pw\"] 86400/3.6*^6}, {\"cost per day ($)\", a[\"kWhDay\"] price, b[\"kWhDay\"] price},
+    {\"ratio of losses, (230/22)\\.b2\", b[\"kWhDay\"]/a[\"kWhDay\"], (230/22.)^2}}, Frame -> All, Alignment -> Left, FrameStyle -> GrayLevel[0.8]]]]", "Input"]
+
+}, WindowSize -> {1280, 900}, WindowMargins -> Automatic, StyleDefinitions -> "Default.nb"]
