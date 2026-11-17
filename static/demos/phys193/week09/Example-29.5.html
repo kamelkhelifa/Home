@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 29.5 · The Magnetic Field Created by a Long Current-Carrying Wire — PHYS 193</title>
+<meta name="description" content="Interactive solution of Example 29.5: The Magnetic Field Created by a Long Current-Carrying Wire (Serway &amp; Jewett, Ch. 29).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 9 · Chapter 29</a> / Example 29.5</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 9</span><span>Chapter 29</span><span>§29.3 · Ampère&#x27;s law</span><span>Lecture slide 52</span></div><h1>Example 29.5 · The Magnetic Field Created by a Long Current-Carrying Wire</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
+<p class="lead">Draw a circle around the wire and Ampère's law gives the field in one line: \(B\cdot2\pi r=\mu_0I_{\text{enc}}\). Outside, the circle encloses all of \(I\) and \(B\) falls as \(1/r\).
+Inside, it encloses only the current within its own radius, a fraction \(r^2/R^2\), so \(B\) grows linearly from zero at the axis.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
+
+<p>A long, straight wire of radius \(R\) carries a steady current \(I\) that is uniformly distributed through the cross section of the wire (Figure 29.13). Calculate the magnetic field a distance \(r\)
+  from the center of the wire in the regions \(r\ge R\) and \(r\lt R\).</p>
+<figure class="probfig"><svg aria-label="Figure 29.13: a long, straight wire of radius R carrying a steady current I uniformly distributed over its cross-section. Circle 1 (radius r &gt; R) and circle 2 (r &lt; R) are the amperian paths, concentric with the wire." role="img" viewbox="0 0 700 480" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-grn{stroke:var(--c-3,#2e7d4f);fill:var(--c-3,#2e7d4f)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><path d="M 300 150 L 560 70 A 40 95 0 0 1 560 260 L 300 350" style="fill:var(--surface-2,#e9e5dc);stroke:var(--ink,#15171c);stroke-width:1.4;opacity:.9"></path><ellipse cx="300" cy="250" rx="100" ry="100" style="fill:var(--surface-2,#dedad0);stroke:var(--ink,#15171c);stroke-width:1.6"></ellipse><circle class="pf-ink" cx="300.0" cy="250.0" r="4.0"></circle><polyline class="pf-thin" points="300.0,250.0 360.0,170.0"></polyline><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="324.0" y="194.0"><tspan font-style="italic">R</tspan></text><circle class="pf-gsd" cx="300.0" cy="250.0" r="60.0"></circle><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="252.0" y="300.0">2</text><ellipse class="pf-gsd" cx="300" cy="250" rx="200" ry="200"></ellipse><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="130.0" y="130.0">1</text><polyline class="pf-thin" points="300.0,250.0 400.0,423.2"></polyline><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="340.0" y="360.0"><tspan font-style="italic">r</tspan></text><line class="pf-ink" stroke-width="3.2" x1="400.0" x2="423.4" y1="423.2" y2="409.7"></line><polygon class="pf-ink" points="434.6,403.2 426.4,416.9 418.7,403.5" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="end" x="467.6" y="409.2"><tspan font-style="italic">d</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="476.0" y="409.2"><tspan font-weight="700">s</tspan></text><line class="pf-ink" stroke-width="1.3" x1="469.3" x2="477.4" y1="394.3" y2="394.3"></line><polygon class="pf-ink" points="483.6,394.3 476.4,396.7 476.4,391.9" stroke-width="1"></polygon><line class="pf-cur" stroke-width="4" x1="640.0" x2="572.5" y1="60.0" y2="93.7"></line><polygon class="pf-cur" points="560.0,100.0 569.7,85.9 577.1,100.7" stroke-width="1"></polygon><text class="pf-tc" dominant-baseline="middle" font-size="26" text-anchor="start" x="660.0" y="50.0"><tspan font-style="italic">I</tspan></text><line class="pf-grn" stroke-width="3" x1="473.2" x2="463.7" y1="150.0" y2="133.5"></line><polygon class="pf-grn" points="458.2,124.0 469.9,131.1 458.5,137.7" stroke-width="1"></polygon><line class="pf-grn" stroke-width="3" x1="171.4" x2="156.9" y1="96.8" y2="109.0"></line><polygon class="pf-grn" points="148.5,116.1 153.4,103.3 161.9,113.4" stroke-width="1"></polygon><line class="pf-grn" stroke-width="3" x1="126.8" x2="136.3" y1="350.0" y2="366.5"></line><polygon class="pf-grn" points="141.8,376.0 130.1,368.9 141.5,362.3" stroke-width="1"></polygon><line class="pf-grn" stroke-width="3" x1="400.0" x2="416.5" y1="423.2" y2="413.7"></line><polygon class="pf-grn" points="426.0,408.2 418.9,419.9 412.3,408.5" stroke-width="1"></polygon></svg><figcaption>Figure 29.13: a long, straight wire of radius R carrying a steady current I uniformly distributed over its cross-section. Circle 1 (radius r &gt; R) and circle 2 (r &lt; R) are the amperian paths, concentric with the wire. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Move the amperian circle</span></summary><div class="fold-body">
+
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs two">
+<figure class="fig"><canvas aria-label="Cross-section of the wire with the amperian circle and the enclosed current" id="geo"></canvas>
+<figcaption>The wire in cross-section (current out of the page, ⊙ spread uniformly), the amperian circle of radius \(r\), and the enclosed current shaded. Arrows show \(\vec B\), tangent to the circle,
+        with length proportional to its magnitude.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Magnetic field against distance from the axis" id="plot"></canvas>
+<figcaption>Figure 29.14: \(B\) against \(r\), linear inside the wire (Equation 29.15) and \(1/r\) outside (Equation 29.14), continuous at \(r=R\), where it is largest.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
+
+
+<p class="phase">Conceptualize</p>
+<p>Study Figure 29.13 to understand the structure of the wire and the current in it. The current creates magnetic fields everywhere, both inside and outside the wire. Based on our discussions about long
+    straight wires, we expect the field lines to be circles centered on the central axis. In Example 29.1 we used \(a\) for the distance from a wire of negligible radius; here the wire has radius \(R\), and we use
+    \(r\) for the distance from the centre.</p>
+<p class="phase">Categorize</p>
+<p>Because the wire has a high degree of symmetry, we categorize this as an Ampère's law problem. For the \(r\ge R\) case we should arrive at the same result obtained in Example 29.1, where we applied the
+    Biot–Savart law to the same situation.</p>
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>For the field exterior to the wire, choose circle 1 in Figure 29.13 as the path of integration. From symmetry, \(\vec B\) is constant in magnitude and parallel to \(d\vec s\) at every point on this circle.
+        The total current passing through the plane of the circle is \(I\), so apply Ampère's law: \[\oint\vec B\cdot d\vec s=B\oint ds=B(2\pi r)=\mu_0I.\]</li>
+<li>Solve for \(B\): \[B=\frac{\mu_0I}{2\pi r}\qquad(\text{for }r\ge R).\qquad(29.14)\]</li>
+<li>Now consider the interior, \(r\lt R\). Here the current \(I'\) passing through the plane of circle 2 is less than the total current \(I\). Because the current is uniformly distributed, the current density
+        is constant, so for any interior area the current passing through is \(I'=JA\). Set the ratio of the enclosed current to the total equal to the ratio of the areas:
+        \[\frac{I'}{I}=\frac{\pi r^2}{\pi R^2}\quad\Rightarrow\quad I'=\frac{r^2}{R^2}I.\]</li>
+<li>Apply Ampère's law to circle 2: \[\oint\vec B\cdot d\vec s=B(2\pi r)=\mu_0I'=\mu_0\left(\frac{r^2}{R^2}I\right).\]</li>
+<li>Solve for \(B\): \[B=\left(\frac{\mu_0I}{2\pi R^2}\right)r\qquad(\text{for }r<r).\qquad(29.15)\]< li="">
+</r).\qquad(29.15)\]<></li></ol>
+<p class="phase">Finalize</p>
+<p>The field exterior to the wire is identical in form to Equation 29.5, except for the substitution of \(r\) for \(a\). As is often the case in highly symmetric situations, it is much easier to use Ampère's law
+    than the Biot–Savart law. Inside the wire, \(B\to0\) as \(r\to0\); the interior result is similar in form to the expression for the electric field inside a uniformly charged sphere. Equations 29.14 and
+    29.15 give the same value at \(r=R\), so the field is continuous at the surface of the wire.</p>
+
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Going further</span><span class="fold-title">What if the current were not uniform?</span></summary><div class="fold-body">
+
+<p> Ampère's law still works, only \(I_{\text{enc}}\) changes. Switch the current-density profile above: a current that crowds toward the surface
+  (\(J\propto r\), as in the skin effect at high frequency) gives \(B\propto r^2\) inside, while a hollow tube gives \(B=0\) inside the hole, exactly as a uniformly charged shell gives no electric field within.
+  Outside the wire all three profiles give the same \(\mu_0I/2\pi r\): from outside, only the total current matters.</p>
+<div class="btns" id="presets"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
+
+<p>The enclosed current from the integral of the current density, \(\int_0^rJ\,2\pi r'\,dr'\), against \(r^2I/R^2\) for the uniform case; \(B\) from Ampère's law against Equations 29.14 and 29.15; and, as an independent
+  check at the chosen \(r\), the Biot–Savart sum over the whole cross-section of the wire (a grid of parallel filaments), which must agree with Ampère's law.</p>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+</div></details>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Example 29.5 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 29, as presented on slide 52 of the Week 9 lecture. Every number and interactive drawing on this page is computed live in your browser from the Biot–Savart law, Ampère’s law and the definition of magnetic flux. Mathematica version: <a href="Example-29.5.nb" download>Example-29.5.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 9 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    if (o.alpha != null) { ctx.save(); ctx.globalAlpha = o.alpha; }
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) { if (o.alpha != null) ctx.restore(); return; }
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+    if (o.alpha != null) ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    if (o.alpha != null) ctx.globalAlpha = o.alpha;
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      if (s.fill && cl.length > 1) { // shade the area between the curve and y = 0 (or the bottom axis)
+        const base = (!o.ylog && o.y[0] < 0 && o.y[1] > 0) ? PY(0) : m.t + ph;
+        ctx.save(); ctx.globalAlpha = s.fillAlpha ?? 0.15; ctx.fillStyle = s.color; ctx.beginPath(); ctx.moveTo(cl[0][0], base);
+        for (const p of cl) ctx.lineTo(p[0], p[1]); ctx.lineTo(cl[cl.length - 1][0], base); ctx.closePath(); ctx.fill(); ctx.restore();
+      }
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const mid = o.legend === "mr" || o.legend === "ml";   // "mr"/"ml": middle of the right/left edge
+      const bx = (left || o.legend === "ml") ? m.l + 8 : m.l + pw - lw - 8;
+      const by = bottom ? m.t + ph - items.length * lh - 12 : mid ? m.t + ph / 2 - (items.length * lh + 6) / 2 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
+
+/* ---------- circuit symbols (screen coordinates) ---------- */
+D.wire = (ctx, pts, c, w = 2) => D.line(ctx, pts, { color: c.ink2, width: w });
+D.node = (ctx, x, y, c, label, dx = -12, dy = -10) => {
+  D.circle(ctx, x, y, 3.6, { fill: c.ink });
+  if (label) D.text(ctx, label, x + dx, y + dy, { color: c.ink, italic: true, size: 15, font: "Georgia, serif" });
+};
+// resistor between (x0,y0) and (x1,y1): zig-zag of length L in the middle, leads to the ends
+D.resistor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const z = Math.min(o.len || 46, 0.7 * L), a = (L - z) / 2, amp = o.amp || 7, n = 6;
+  const pts = [[x0, y0], [x0 + ux * a, y0 + uy * a]];
+  for (let k = 0; k < n; k++) {
+    const t = a + z * (k + 0.5) / n, s = k % 2 ? -1 : 1;
+    pts.push([x0 + ux * t + nx * amp * s, y0 + uy * t + ny * amp * s]);
+  }
+  pts.push([x0 + ux * (a + z), y0 + uy * (a + z)], [x1, y1]);
+  D.line(ctx, pts, { color: o.color || c.pos, width: 2.2 });
+  if (o.label) {
+    const off = o.labelOff ?? 18, mx = (x0 + x1) / 2 + nx * off * (o.side || 1), my = (y0 + y1) / 2 + ny * off * (o.side || 1);
+    D.text(ctx, o.label, mx, my, { color: c.ink, size: o.size || 13, align: o.align || "center", halo: c.surface2 });
+  }
+};
+// battery between ends; positive plate (long) towards the end given by o.plus = 1 (end 1) or 0 (end 0)
+D.battery = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 7, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, plusAt1 = o.plus !== 0;
+  const pLong = plusAt1 ? g / 2 : -g / 2, pShort = -pLong;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  const plate = (t, h, w) => D.line(ctx, [[mx + ux * t + nx * h, my + uy * t + ny * h], [mx + ux * t - nx * h, my + uy * t - ny * h]], { color: c.c3, width: w });
+  plate(pLong, 15, 2.6); plate(pShort, 8, 4.5);
+  const sgn = o.side || 1;
+  D.text(ctx, "+", mx + ux * pLong * 2.4 + nx * 15 * sgn, my + uy * pLong * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  D.text(ctx, "−", mx + ux * pShort * 2.4 + nx * 15 * sgn, my + uy * pShort * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  if (o.label) D.text(ctx, o.label, mx - nx * 26 * sgn, my - ny * 26 * sgn, { color: c.ink, size: o.size || 13, halo: c.surface2 });
+};
+// capacitor between ends
+D.capacitor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 8, mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  for (const t of [-g / 2, g / 2]) D.line(ctx, [[mx + ux * t + nx * 14, my + uy * t + ny * 14], [mx + ux * t - nx * 14, my + uy * t - ny * 14]], { color: c.c1, width: 3 });
+  if (o.label) D.text(ctx, o.label, mx + nx * 30 * (o.side || 1), my + ny * 30 * (o.side || 1), { color: c.ink, size: 13, halo: c.surface2 });
+};
+// current arrow along a straight wire segment, pointing from (x0,y0) to (x1,y1); flips for negative values
+D.current = (ctx, x0, y0, x1, y1, value, c, label, o = {}) => {
+  if (!isFinite(value) || Math.abs(value) < 1e-12) return;
+  const s = value >= 0 ? 1 : -1, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0);
+  const ux = (x1 - x0) / L * s, uy = (y1 - y0) / L * s, h = o.len || 16;
+  const ox = (o.off || 0) * -uy * s, oy = (o.off || 0) * ux * s;
+  D.arrow(ctx, mx - ux * h + ox, my - uy * h + oy, mx + ux * h + ox, my + uy * h + oy, { color: o.color || c.accent, width: 2.6, head: 10 });
+  if (label) D.text(ctx, label, mx + ox * 2.2 + (o.ldx || 0), my + oy * 2.2 + (o.ldy || 0), { color: o.color || c.accent, size: 13, bold: true, halo: c.surface2 });
+};
+// Gaussian elimination with partial pivoting (written out so students can read it)
+D.solve = (A, b) => {
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let k = 0; k < n; k++) {
+    let p = k; for (let i = k + 1; i < n; i++) if (Math.abs(M[i][k]) > Math.abs(M[p][k])) p = i;
+    [M[k], M[p]] = [M[p], M[k]];
+    for (let i = k + 1; i < n; i++) { const f = M[i][k] / M[k][k]; for (let j = k; j <= n; j++) M[i][j] -= f * M[k][j]; }
+  }
+  const x = new Array(n).fill(0);
+  for (let i = n - 1; i >= 0; i--) { let s = M[i][n]; for (let j = i + 1; j < n; j++) s -= M[i][j] * x[j]; x[i] = s / M[i][i]; }
+  return x;
+};
+// inductor (coil) between two points: n loops of radius r on the side given by o.side (default +1 = left of the direction of travel)
+D.inductor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const n = o.n || 4, len = o.len || Math.min(L * 0.6, 56), r = len / (2 * n), mx = (x0 + x1) / 2, my = (y0 + y1) / 2, side = o.side || 1;
+  const ax = mx - ux * len / 2, ay = my - uy * len / 2;
+  D.line(ctx, [[x0, y0], [ax, ay]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * len / 2, my + uy * len / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  ctx.save(); ctx.strokeStyle = o.color || c.pos; ctx.lineWidth = 2.6; ctx.lineCap = "round"; ctx.beginPath();
+  const base = Math.atan2(uy, ux);
+  for (let k = 0; k < n; k++) {
+    const cx = ax + ux * r * (2 * k + 1), cy = ay + uy * r * (2 * k + 1);
+    // semicircle bulging to the chosen side
+    const a0 = base + (side > 0 ? Math.PI : 0), a1 = a0 + Math.PI;
+    ctx.arc(cx, cy, r, a0, a1, side > 0);
+  }
+  ctx.stroke(); ctx.restore();
+  if (o.label) D.text(ctx, o.label, mx + nx * (o.labelOff || 26) * side, my + ny * (o.labelOff || 26) * side, { color: c.ink, size: 13, halo: c.surface2, align: o.align || "center" });
+};
+// a switch blade from the pivot (x0,y0) toward one of two contacts; `pos` = 0 (open) or 1 (closed) toward (x1,y1)
+D.switchBlade = (ctx, x0, y0, x1, y1, closed, c) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const ex = closed ? x1 : x0 + ux * L * 0.85 + nx * L * 0.45, ey = closed ? y1 : y0 + uy * L * 0.85 + ny * L * 0.45;
+  D.line(ctx, [[x0, y0], [ex, ey]], { color: c.pos, width: 2.6 });
+  D.circle(ctx, x0, y0, 3.5, { fill: c.surface, color: c.ink2, width: 1.6 }); D.circle(ctx, x1, y1, 3.5, { fill: c.surface, color: c.ink2, width: 1.6 });
+};
+// AC source symbol: a circle with a sine wave, centred on the wire from (x0,y0) to (x1,y1)
+D.acSource = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const r = o.r || 16, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L;
+  D.line(ctx, [[x0, y0], [mx - ux * r, my - uy * r]], { color: c.ink2, width: 2 }); D.line(ctx, [[mx + ux * r, my + uy * r], [x1, y1]], { color: c.ink2, width: 2 });
+  D.circle(ctx, mx, my, r, { fill: c.gold, color: c.ink2, width: 2 });
+  ctx.save(); ctx.strokeStyle = c.ink; ctx.lineWidth = 2; ctx.beginPath();
+  for (let k = 0; k <= 20; k++) { const t = k / 20, x = mx - r * 0.65 + 1.3 * r * t, y = my - r * 0.45 * Math.sin(2 * Math.PI * t); k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.stroke(); ctx.restore();
+  if (o.label) D.text(ctx, o.label, mx, my + r + 14, { color: c.ink, size: 12, halo: c.surface2 });
+};
+// into-the-page (⊗) or out-of-the-page (⊙) field symbol at (x, y); size scales with the field strength when o.scale is given
+D.mark = (ctx, x, y, into, col, o = {}) => {
+  const r = o.r || 5;
+  ctx.save(); ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = o.width || 1.5; ctx.globalAlpha = o.alpha ?? 1;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.stroke();
+  if (into) { ctx.beginPath(); const d = r * 0.6; ctx.moveTo(x - d, y - d); ctx.lineTo(x + d, y + d); ctx.moveTo(x + d, y - d); ctx.lineTo(x - d, y + d); ctx.stroke(); }
+  else { ctx.beginPath(); ctx.arc(x, y, Math.max(1.2, r * 0.3), 0, 2 * Math.PI); ctx.fill(); }
+  ctx.restore();
+};
+
+</script>
+<script>
+(() => {
+  const MU0 = 4e-7 * Math.PI;
+  const ctl = D.$("ctl");
+  const sI = D.slider(ctl, { label: "current I", min: 1, max: 100, step: 1, value: 20, unit: "A", fmt: v => v.toFixed(0), onInput: update });
+  const sR = D.slider(ctl, { label: "wire radius R", min: 1, max: 10, step: 0.5, value: 4, unit: "mm", fmt: v => v.toFixed(1), onInput: update });
+  const sr = D.slider(ctl, { label: "radius r of the amperian circle", min: 0, max: 20, step: 0.1, value: 2.5, unit: "mm", fmt: v => v.toFixed(1), onInput: update });
+  const sp = D.seg(ctl, { label: "current-density profile", options: [["u", "uniform"], ["s", "J ∝ r (surface-heavy)"], ["h", "hollow tube (inner radius R/2)"]], value: "u", onChange: update });
+  const ro = D.readout(D.$("ro"), [["Ienc", "enclosed current I_enc"], ["B", "B = μ₀I_enc/2πr"], ["Bs", "B at the surface μ₀I/2πR"], ["reg", "region"]]);
+  // enclosed-current fraction for each profile
+  const frac = (p, u) => u >= 1 ? 1 : p === "u" ? u * u : p === "s" ? u * u * u : u <= 0.5 ? 0 : (u * u - 0.25) / 0.75;
+  const Jof = (p, u) => p === "u" ? 1 : p === "s" ? 1.5 * u : u < 0.5 ? 0 : 4 / 3;   // in units of I/πR²
+  const S = () => { const I = sI.get(), R = sR.get() / 1000, r = sr.get() / 1000, p = sp.get(), u = r / R, Ienc = I * frac(p, u); return { I, R, r, p, u, Ienc, B: r > 0 ? MU0 * Ienc / (2 * Math.PI * r) : 0, Bs: MU0 * I / (2 * Math.PI * R) }; };
+  const Bof = (s, r) => r > 0 ? MU0 * s.I * frac(s.p, r / s.R) / (2 * Math.PI * r) : 0;
+
+  const geo = D.canvas(D.$("geo"), 0.85, (ctx, w, h, c) => {
+    const s = S(), span = Math.max(1.3 * s.R, 1.1 * s.r, 0.004), V = D.view(w, h, [-span, span], [-span, span], { pad: 10, equal: true }), X = V.X, Y = V.Y, k = V.sx;
+    // the wire cross-section with the current-density shading
+    ctx.save(); ctx.fillStyle = c.surface2; ctx.beginPath(); ctx.arc(X(0), Y(0), s.R * k, 0, 2 * Math.PI); ctx.fill(); ctx.restore();
+    if (s.p !== "u") { ctx.save(); for (let q = 0; q < 24; q++) { const u0 = q / 24, u1 = (q + 1) / 24; ctx.globalAlpha = 0.25 * Math.min(1, Jof(s.p, (u0 + u1) / 2)); ctx.fillStyle = c.c4; ctx.beginPath(); ctx.arc(X(0), Y(0), u1 * s.R * k, 0, 2 * Math.PI); ctx.arc(X(0), Y(0), u0 * s.R * k, 0, 2 * Math.PI, true); ctx.fill(); } ctx.restore(); }
+    // enclosed part shaded
+    ctx.save(); ctx.fillStyle = c.gold; ctx.globalAlpha = 0.22; ctx.beginPath(); ctx.arc(X(0), Y(0), Math.min(s.r, s.R) * k, 0, 2 * Math.PI); if (s.p === "h") { ctx.arc(X(0), Y(0), Math.min(s.r, s.R / 2) * k, 0, 2 * Math.PI, true); } ctx.fill(); ctx.restore();
+    D.circle(ctx, X(0), Y(0), s.R * k, { color: c.ink2, width: 2 }); if (s.p === "h") D.circle(ctx, X(0), Y(0), s.R * k / 2, { color: c.ink2, width: 1.5, dash: [4, 3] });
+    // current marks (out of the page), spaced to suggest the density
+    const step = s.R * k / 4.5; for (let gx = -s.R * k; gx <= s.R * k; gx += step) for (let gy = -s.R * k; gy <= s.R * k; gy += step) { const rr = Math.hypot(gx, gy) / (s.R * k); if (rr < 0.97 && Jof(s.p, rr) > 0.05) D.mark(ctx, X(0) + gx, Y(0) + gy, false, c.c4, { r: 3.2, width: 1.2, alpha: 0.5 + 0.5 * Math.min(1, Jof(s.p, rr)) }); }
+    D.text(ctx, "R", X(0.7 * s.R) + 6, Y(0.7 * s.R) - 8, { color: c.ink2, size: 12, italic: true, halo: c.surface2 }); D.line(ctx, [[X(0), Y(0)], [X(s.R * Math.SQRT1_2), Y(s.R * Math.SQRT1_2)]], { color: c.ink2, width: 1 });
+    // amperian circle and B arrows
+    D.circle(ctx, X(0), Y(0), s.r * k, { color: c.c1, width: 2, dash: [6, 4] });
+    const Bn = s.B / s.Bs; for (let q = 0; q < 8; q++) { const a = q * Math.PI / 4, px = X(0) + s.r * k * Math.cos(a), py = Y(0) - s.r * k * Math.sin(a), len = 34 * Bn; if (len > 2) D.arrow(ctx, px, py, px - len * Math.sin(a), py - len * Math.cos(a), { color: c.c3, width: 2.4 }); }
+    D.text(ctx, "r", X(-0.5 * s.r) - 10, Y(0.5 * s.r) - 8, { color: c.c1, size: 12, italic: true, halo: c.surface2 }); D.line(ctx, [[X(0), Y(0)], [X(-s.r * Math.SQRT1_2), Y(s.r * Math.SQRT1_2)]], { color: c.c1, width: 1 });
+    D.text(ctx, `B = ${D.fmt(s.B * 1e3, 3)} mT`, w - 8, h - 8, { color: c.c3, size: 12, bold: true, align: "right", halo: c.surface2 });
+    D.text(ctx, `I_enc = ${D.fmt(s.Ienc, 3)} A of ${s.I} A`, 8, h - 8, { color: c.gold, size: 11, align: "left", halo: c.surface2 });
+  });
+
+  const plot = D.canvas(D.$("plot"), 0.85, (ctx, w, h, c) => {
+    const s = S(), rmax = 20;
+    D.plot(ctx, w, h, c, { x: [0, rmax], y: [0, 1.15 * s.Bs * 1e3], xlabel: "r (mm)", ylabel: "B (mT)", legend: "tr",
+      series: [{ f: rm => Bof(s, rm / 1000) * 1e3, color: c.c3, width: 2.5, n: 800, label: s.p === "u" ? "uniform current" : s.p === "s" ? "J ∝ r" : "hollow tube" }, ...(s.p !== "u" ? [{ f: rm => Bof({ ...s, p: "u" }, rm / 1000) * 1e3, color: c.muted, width: 1.5, dash: [4, 4], label: "uniform, for comparison" }] : [])],
+      vlines: [{ x: 1000 * s.R, color: c.muted, label: "r = R" }, { x: 1000 * s.r, color: c.gold }], points: [{ x: 1000 * s.r, y: s.B * 1e3, color: c.gold }], hlines: [{ y: s.Bs * 1e3, label: "μ₀I/2πR", color: c.muted, left: false, below: true }] });
+  });
+
+  const pr = D.$("presets");
+  D.button(pr, "Inside: r = R/2", () => { sr.set(sR.get() / 2); update(); }, true);
+  D.button(pr, "Surface: r = R", () => { sr.set(sR.get()); update(); });
+  D.button(pr, "Outside: r = 3R", () => { sr.set(Math.min(20, 3 * sR.get())); update(); });
+
+  // Biot–Savart over the cross-section: filaments on a polar grid, each an infinite straight wire giving μ0 dI/2πd
+  function filaments(s, r) {
+    const nr = 120, na = 180; let bx = 0, by = 0;
+    for (let i = 0; i < nr; i++) { const u0 = i / nr, u1 = (i + 1) / nr, um = (u0 + u1) / 2, dI = s.I * Jof(s.p, um) * (u1 * u1 - u0 * u0); // current in the ring (J in units of I/πR²)
+      for (let j = 0; j < na; j++) { const a = 2 * Math.PI * (j + 0.5) / na, fx = um * s.R * Math.cos(a), fy = um * s.R * Math.sin(a), dx = r - fx, dy = -fy, d2 = dx * dx + dy * dy; if (d2 < 1e-14) continue;
+        const f = MU0 * dI / na / (2 * Math.PI * d2); bx += -f * dy; by += f * dx; } }
+    return Math.hypot(bx, by);
+  }
+  function update() {
+    const s = S();
+    ro("Ienc", `${D.fmt(s.Ienc, 4)} A (fraction ${D.fmt(frac(s.p, s.u), 4)})`); ro("B", `${D.fmt(s.B * 1e3, 4)} mT`); ro("Bs", `${D.fmt(s.Bs * 1e3, 4)} mT`); ro("reg", s.r < s.R ? `inside, r = ${s.u.toFixed(3)} R: B ∝ ${s.p === "u" ? "r" : s.p === "s" ? "r²" : "(r² − R²/4)/r"}` : `outside, r = ${s.u.toFixed(3)} R: B ∝ 1/r`);
+    const IencNum = s.I * D.simpson(u => Jof(s.p, u) * 2 * u, 0, Math.min(1, s.u), 2000), Bfil = filaments(s, s.r);
+    D.$("tbl").innerHTML = `<tr><th>quantity</th><th>numerical</th><th>formula</th></tr>
+      <tr><td>I_enc at r = ${(1000 * s.r).toFixed(1)} mm (A)</td><td>${D.fmt(IencNum, 6)} (∫J·2πr′dr′)</td><td>${D.fmt(s.Ienc, 6)}${s.p === "u" ? " (r²I/R² inside, I outside)" : ""}</td></tr>
+      <tr><td>B at r (mT)</td><td>${D.fmt(Bfil * 1e3, 5)} (Biot–Savart over 21 600 filaments)</td><td>${D.fmt(s.B * 1e3, 5)} (Ampère)</td></tr>
+      <tr><td>B at the surface (mT)</td><td>${D.fmt(MU0 * s.I / (2 * Math.PI * s.R) * 1e3, 6)} from 29.14</td><td>${D.fmt(MU0 * s.I * s.R / (2 * Math.PI * s.R * s.R) * 1e3, 6)} from 29.15 (continuous)</td></tr>`;
+    geo.render(); plot.render();
+    window.__check = { Ienc: s.Ienc, IencNum, B: s.B, Bfil, Bs: s.Bs };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 29.4 · Suspending a Wire — PHYS 193</title>
+<meta name="description" content="Interactive solution of Example 29.4: Suspending a Wire (Serway &amp; Jewett, Ch. 29).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 9 · Chapter 29</a> / Example 29.4</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 9</span><span>Chapter 29</span><span>§29.2 · The magnetic force between two parallel conductors</span><span>Lecture slide 37</span></div><h1>Example 29.4 · Suspending a Wire</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
+<p class="lead">Antiparallel currents repel, and each repulsion is \(\mu_0I_1I_2L/2\pi d\). Tilt two of them symmetrically and their sideways parts cancel while their upward parts add; set that against the
+weight and the current needed follows. Then ask the question the book leaves open: is this balance stable?</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
+
+<p>Two infinitely long, parallel wires are lying on the ground a distance \(a=1.00\) cm apart as shown in Figure 29.9a. A third wire, of length \(L=10.0\) m and mass 400 g, carries a current of
+  \(I_1=100\) A and is levitated above the first two wires, at a horizontal position midway between them. The infinitely long wires carry equal currents \(I_2\) in the same direction, but in the direction
+  opposite that in the levitated wire. What current must the infinitely long wires carry so that the three wires form an equilateral triangle?</p>
+<figure class="probfig wide"><svg aria-label="Figure 29.9: (a) two current-carrying wires lying on the ground, a distance a apart, suspend a third wire of length L by magnetic forces. (b) End view: the three wires form an equilateral triangle; the two magnetic forces F_B,L and F_B,R on the levitated wire and its weight F_g." role="img" viewbox="0 0 760 380" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-grn{stroke:var(--c-3,#2e7d4f);fill:var(--c-3,#2e7d4f)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="start" x="40.0" y="50.0">(a)</text><polyline points="40.0,230.0 330.0,130.0" style="fill:none;stroke:var(--muted,#9a9ea8);stroke-width:10;stroke-linecap:round;stroke-linejoin:round;opacity:.55"></polyline><polyline points="40.0,230.0 330.0,130.0" style="fill:none;stroke:var(--ink,#15171c);stroke-width:1.2;stroke-linejoin:round;opacity:.5"></polyline><polyline points="40.0,290.0 330.0,190.0" style="fill:none;stroke:var(--muted,#9a9ea8);stroke-width:10;stroke-linecap:round;stroke-linejoin:round;opacity:.55"></polyline><polyline points="40.0,290.0 330.0,190.0" style="fill:none;stroke:var(--ink,#15171c);stroke-width:1.2;stroke-linejoin:round;opacity:.5"></polyline><polyline points="120.0,170.0 300.0,110.0" style="fill:none;stroke:var(--muted,#9a9ea8);stroke-width:10;stroke-linecap:round;stroke-linejoin:round;opacity:.55"></polyline><polyline points="120.0,170.0 300.0,110.0" style="fill:none;stroke:var(--ink,#15171c);stroke-width:1.2;stroke-linejoin:round;opacity:.5"></polyline><polyline class="pf-dash" points="120.0,170.0 120.0,260.0"></polyline><polyline class="pf-dash" points="300.0,110.0 300.0,200.0"></polyline><line class="pf-cur" stroke-width="3.5" x1="80.0" x2="118.6" y1="216.0" y2="202.9"></line><polygon class="pf-cur" points="130.0,199.0 120.0,210.0 115.4,196.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="70.0" y="238.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan></text><line class="pf-cur" stroke-width="3.5" x1="80.0" x2="118.6" y1="276.0" y2="262.9"></line><polygon class="pf-cur" points="130.0,259.0 120.0,270.0 115.4,256.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="70.0" y="298.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan></text><line class="pf-cur" stroke-width="3.5" x1="250.0" x2="211.4" y1="127.0" y2="140.1"></line><polygon class="pf-cur" points="200.0,144.0 210.0,133.0 214.6,146.6" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="260.0" y="112.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">1</tspan></text><line class="pf-ink" stroke-width="1.4" x1="210.0" x2="290.5" y1="120.0" y2="93.2"></line><polygon class="pf-ink" points="300.0,90.0 291.0,97.7 288.2,89.3" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="210.0" x2="129.5" y1="120.0" y2="146.8"></line><polygon class="pf-ink" points="120.0,150.0 129.0,142.3 131.8,150.7" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="216.0" y="108.0"><tspan font-style="italic">L</tspan></text><line class="pf-ink" stroke-width="1.4" x1="50.0" x2="50.0" y1="270.0" y2="290.0"></line><polygon class="pf-ink" points="50.0,300.0 45.6,289.0 54.4,289.0" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="50.0" x2="50.0" y1="270.0" y2="250.0"></line><polygon class="pf-ink" points="50.0,240.0 54.4,251.0 45.6,251.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="end" x="34.0" y="272.0"><tspan font-style="italic">a</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="start" x="420.0" y="50.0">(b)</text><polyline class="pf-mut" points="420.0,342.0 740.0,342.0"></polyline><polyline class="pf-dash" points="470.0,330.0 580.0,140.0"></polyline><polyline class="pf-dash" points="690.0,330.0 580.0,140.0"></polyline><polyline class="pf-dash" points="470.0,330.0 690.0,330.0"></polyline><circle class="pf-cur" cx="470.0" cy="330.0" r="9" stroke-width="1.8" style="fill:none"></circle><path class="pf-cur" d="M 464.6 324.6 L 475.4 335.4 M 475.4 324.6 L 464.6 335.4" stroke-width="1.8" style="fill:none"></path><circle class="pf-cur" cx="690.0" cy="330.0" r="9" stroke-width="1.8" style="fill:none"></circle><path class="pf-cur" d="M 684.6 324.6 L 695.4 335.4 M 695.4 324.6 L 684.6 335.4" stroke-width="1.8" style="fill:none"></path><circle class="pf-cur" cx="580.0" cy="140.0" r="9" stroke-width="1.8" style="fill:none"></circle><circle class="pf-cur" cx="580.0" cy="140.0" r="2.7"></circle><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="end" x="450.0" y="338.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="start" x="710.0" y="338.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">2</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="start" x="598.0" y="128.0"><tspan font-style="italic">I</tspan><tspan baseline-shift="sub" font-size="68%">1</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="524.0" y="240.0"><tspan font-style="italic">a</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="636.0" y="240.0"><tspan font-style="italic">a</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="580.0" y="366.0"><tspan font-style="italic">a</tspan></text><line class="pf-gs2" stroke-width="4" x1="580.0" x2="542.0" y1="140.0" y2="74.2"></line><polygon class="pf-gs2" points="535.0,62.1 549.6,70.9 535.4,79.2" stroke-width="1"></polygon><line class="pf-gs2" stroke-width="4" x1="580.0" x2="618.0" y1="140.0" y2="74.2"></line><polygon class="pf-gs2" points="625.0,62.1 624.6,79.2 610.4,70.9" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="510.0" y="40.0"><tspan font-weight="700">F</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="14.96" text-anchor="start" x="517.7" y="46.2"><tspan font-style="italic">B</tspan>,<tspan font-style="italic">L</tspan></text><line class="pf-ink" stroke-width="1.3" x1="503.9" x2="511.4" y1="26.4" y2="26.4"></line><polygon class="pf-ink" points="517.0,26.4 510.4,28.5 510.4,24.2" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="650.0" y="40.0"><tspan font-weight="700">F</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="14.96" text-anchor="start" x="657.7" y="46.2"><tspan font-style="italic">B</tspan>,<tspan font-style="italic">R</tspan></text><line class="pf-ink" stroke-width="1.3" x1="643.9" x2="651.4" y1="26.4" y2="26.4"></line><polygon class="pf-ink" points="657.0,26.4 650.4,28.5 650.4,24.2" stroke-width="1"></polygon><line class="pf-cur" stroke-width="4" x1="580.0" x2="580.0" y1="140.0" y2="236.0"></line><polygon class="pf-cur" points="580.0,250.0 571.8,235.0 588.2,235.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="610.0" y="236.0"><tspan font-weight="700">F</tspan></text><text class="pf-t" dominant-baseline="middle" font-size="14.96" text-anchor="start" x="617.7" y="242.2"><tspan font-style="italic">g</tspan></text><line class="pf-ink" stroke-width="1.3" x1="603.9" x2="611.4" y1="222.4" y2="222.4"></line><polygon class="pf-ink" points="617.0,222.4 610.4,224.5 610.4,220.2" stroke-width="1"></polygon><path class="pf-thin" d="M 556.0 182.0 A 48 48 0 0 0 580.0 188.0"></path><text class="pf-t" dominant-baseline="middle" font-size="20" text-anchor="middle" x="558.0" y="206.0"><tspan font-style="italic">θ</tspan></text></svg><figcaption>Figure 29.9: (a) two current-carrying wires lying on the ground, a distance a apart, suspend a third wire of length L by magnetic forces. (b) End view: the three wires form an equilateral triangle; the two magnetic forces F_B,L and F_B,R on the levitated wire and its weight F_g. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Balance the forces</span></summary><div class="fold-body">
+
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs two">
+<figure class="fig"><canvas aria-label="End view: the two ground wires, the levitated wire and the forces on it" id="geo"></canvas>
+<figcaption>Figure 29.9b, end view: the two ground wires \(I_2\) (into the page) a distance \(a\) apart, the levitated wire \(I_1\) (out of the page) at height \(h\), the two magnetic repulsions
+        \(\vec F_{B,L}\), \(\vec F_{B,R}\) along the lines joining the wires, their vertical sum, and the weight. At the equilateral height, \(\theta=30.0^\circ\).</figcaption></figure>
+<figure class="fig"><canvas aria-label="Net upward magnetic force against height" id="plot"></canvas>
+<figcaption>The upward magnetic force \(2F_B\cos\theta=\mu_0I_1I_2Lh/\pi(h^2+a^2/4)\) against the height \(h\), with the weight \(mg\) as the horizontal line. Where they cross the wire floats;
+        the force peaks at \(h=a/2\), and the equilibrium on the falling side of the peak is the stable one.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
+
+
+<p class="phase">Conceptualize</p>
+<p>Because the current in the short wire is opposite those in the long wires, the short wire is repelled from both of the others. Imagine the currents in the long wires increased: the repulsive force
+    becomes stronger and the levitated wire rises to a new equilibrium at a higher position. Figure 29.9b shows the desired situation, with the three wires forming an equilateral triangle.</p>
+<p class="phase">Categorize</p>
+<p>Because the levitated wire is subject to forces but does not accelerate, it is modeled as a particle in equilibrium.</p>
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>The horizontal components of the magnetic forces on the levitated wire cancel; the vertical components are both positive and add. Choose the \(z\) axis upward through the top wire, in the plane of
+        the page, and find the total upward magnetic force: \[\vec F_B=2\frac{\mu_0I_1I_2}{2\pi a}L\cos\theta\,\hat{\mathbf k}=\frac{\mu_0I_1I_2L}{\pi a}\cos\theta\,\hat{\mathbf k}.\]</li>
+<li>Find the gravitational force on the levitated wire: \(\vec F_g=-mg\,\hat{\mathbf k}\).</li>
+<li>Apply the particle in equilibrium model by adding the forces and setting the net force equal to zero:
+        \[\sum\vec F=\vec F_B+\vec F_g=\frac{\mu_0I_1I_2L}{\pi a}\cos\theta\,\hat{\mathbf k}-mg\,\hat{\mathbf k}=0.\]</li>
+<li>Solve for the current in the wires on the ground: \[I_2=\frac{mg\pi a}{\mu_0I_1L\cos\theta}.\]</li>
+<li>Substitute numerical values, with \(\theta=30.0^\circ\) for the equilateral triangle:
+        \[I_2=\frac{(0.400\ \text{kg})(9.80\ \text{m/s}^2)\pi(0.010\,0\ \text{m})}{(4\pi\times10^{-7}\ \text{T·m/A})(100\ \text{A})(10.0\ \text{m})\cos30.0^\circ}=113\ \text{A}.\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>The currents in all wires are on the order of \(10^2\) A. Such large currents would require specialized equipment, so this situation would be difficult to establish in practice.</p>
+
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">A question the book leaves open</span><span class="fold-title">Is the equilibrium of wire 1 stable or unstable?</span></summary><div class="fold-body">
+
+<p> Raise the wire slightly with the height slider: \(\cos\theta\) grows, but each repulsion, \(\propto1/d\), weakens faster, so the
+  upward force \(\mu_0I_1I_2Lh/\pi(h^2+a^2/4)\) drops below \(mg\) and the wire falls back; lowered, it is pushed up. <em>Vertically</em> the equilateral equilibrium is stable (it sits on the falling side of
+  the force peak at \(h=a/2\); the second crossing, below the peak, is unstable). <em>Sideways</em> a shift toward one lower wire strengthens that push, so the wire slides off: the equilibrium is unstable
+  against horizontal displacement. Tick the box to see the net force for a sideways offset.</p>
+<div class="btns" id="presets"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
+
+<p>The book's current from the equilibrium condition; the equilibrium heights found numerically from the force curve; and the stability test, the slope \(dF_{\text{net}}/dh\) at each equilibrium (negative means
+  stable). Horizontal stiffness \(dF_x/dx\) at the equilateral point.</p>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+</div></details>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Example 29.4 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 29, as presented on slide 37 of the Week 9 lecture. Every number and interactive drawing on this page is computed live in your browser from the Biot–Savart law, Ampère’s law and the definition of magnetic flux. Mathematica version: <a href="Example-29.4.nb" download>Example-29.4.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 9 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    if (o.alpha != null) { ctx.save(); ctx.globalAlpha = o.alpha; }
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) { if (o.alpha != null) ctx.restore(); return; }
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+    if (o.alpha != null) ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    if (o.alpha != null) ctx.globalAlpha = o.alpha;
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      if (s.fill && cl.length > 1) { // shade the area between the curve and y = 0 (or the bottom axis)
+        const base = (!o.ylog && o.y[0] < 0 && o.y[1] > 0) ? PY(0) : m.t + ph;
+        ctx.save(); ctx.globalAlpha = s.fillAlpha ?? 0.15; ctx.fillStyle = s.color; ctx.beginPath(); ctx.moveTo(cl[0][0], base);
+        for (const p of cl) ctx.lineTo(p[0], p[1]); ctx.lineTo(cl[cl.length - 1][0], base); ctx.closePath(); ctx.fill(); ctx.restore();
+      }
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const mid = o.legend === "mr" || o.legend === "ml";   // "mr"/"ml": middle of the right/left edge
+      const bx = (left || o.legend === "ml") ? m.l + 8 : m.l + pw - lw - 8;
+      const by = bottom ? m.t + ph - items.length * lh - 12 : mid ? m.t + ph / 2 - (items.length * lh + 6) / 2 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
+
+/* ---------- circuit symbols (screen coordinates) ---------- */
+D.wire = (ctx, pts, c, w = 2) => D.line(ctx, pts, { color: c.ink2, width: w });
+D.node = (ctx, x, y, c, label, dx = -12, dy = -10) => {
+  D.circle(ctx, x, y, 3.6, { fill: c.ink });
+  if (label) D.text(ctx, label, x + dx, y + dy, { color: c.ink, italic: true, size: 15, font: "Georgia, serif" });
+};
+// resistor between (x0,y0) and (x1,y1): zig-zag of length L in the middle, leads to the ends
+D.resistor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const z = Math.min(o.len || 46, 0.7 * L), a = (L - z) / 2, amp = o.amp || 7, n = 6;
+  const pts = [[x0, y0], [x0 + ux * a, y0 + uy * a]];
+  for (let k = 0; k < n; k++) {
+    const t = a + z * (k + 0.5) / n, s = k % 2 ? -1 : 1;
+    pts.push([x0 + ux * t + nx * amp * s, y0 + uy * t + ny * amp * s]);
+  }
+  pts.push([x0 + ux * (a + z), y0 + uy * (a + z)], [x1, y1]);
+  D.line(ctx, pts, { color: o.color || c.pos, width: 2.2 });
+  if (o.label) {
+    const off = o.labelOff ?? 18, mx = (x0 + x1) / 2 + nx * off * (o.side || 1), my = (y0 + y1) / 2 + ny * off * (o.side || 1);
+    D.text(ctx, o.label, mx, my, { color: c.ink, size: o.size || 13, align: o.align || "center", halo: c.surface2 });
+  }
+};
+// battery between ends; positive plate (long) towards the end given by o.plus = 1 (end 1) or 0 (end 0)
+D.battery = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 7, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, plusAt1 = o.plus !== 0;
+  const pLong = plusAt1 ? g / 2 : -g / 2, pShort = -pLong;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  const plate = (t, h, w) => D.line(ctx, [[mx + ux * t + nx * h, my + uy * t + ny * h], [mx + ux * t - nx * h, my + uy * t - ny * h]], { color: c.c3, width: w });
+  plate(pLong, 15, 2.6); plate(pShort, 8, 4.5);
+  const sgn = o.side || 1;
+  D.text(ctx, "+", mx + ux * pLong * 2.4 + nx * 15 * sgn, my + uy * pLong * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  D.text(ctx, "−", mx + ux * pShort * 2.4 + nx * 15 * sgn, my + uy * pShort * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  if (o.label) D.text(ctx, o.label, mx - nx * 26 * sgn, my - ny * 26 * sgn, { color: c.ink, size: o.size || 13, halo: c.surface2 });
+};
+// capacitor between ends
+D.capacitor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 8, mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  for (const t of [-g / 2, g / 2]) D.line(ctx, [[mx + ux * t + nx * 14, my + uy * t + ny * 14], [mx + ux * t - nx * 14, my + uy * t - ny * 14]], { color: c.c1, width: 3 });
+  if (o.label) D.text(ctx, o.label, mx + nx * 30 * (o.side || 1), my + ny * 30 * (o.side || 1), { color: c.ink, size: 13, halo: c.surface2 });
+};
+// current arrow along a straight wire segment, pointing from (x0,y0) to (x1,y1); flips for negative values
+D.current = (ctx, x0, y0, x1, y1, value, c, label, o = {}) => {
+  if (!isFinite(value) || Math.abs(value) < 1e-12) return;
+  const s = value >= 0 ? 1 : -1, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0);
+  const ux = (x1 - x0) / L * s, uy = (y1 - y0) / L * s, h = o.len || 16;
+  const ox = (o.off || 0) * -uy * s, oy = (o.off || 0) * ux * s;
+  D.arrow(ctx, mx - ux * h + ox, my - uy * h + oy, mx + ux * h + ox, my + uy * h + oy, { color: o.color || c.accent, width: 2.6, head: 10 });
+  if (label) D.text(ctx, label, mx + ox * 2.2 + (o.ldx || 0), my + oy * 2.2 + (o.ldy || 0), { color: o.color || c.accent, size: 13, bold: true, halo: c.surface2 });
+};
+// Gaussian elimination with partial pivoting (written out so students can read it)
+D.solve = (A, b) => {
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let k = 0; k < n; k++) {
+    let p = k; for (let i = k + 1; i < n; i++) if (Math.abs(M[i][k]) > Math.abs(M[p][k])) p = i;
+    [M[k], M[p]] = [M[p], M[k]];
+    for (let i = k + 1; i < n; i++) { const f = M[i][k] / M[k][k]; for (let j = k; j <= n; j++) M[i][j] -= f * M[k][j]; }
+  }
+  const x = new Array(n).fill(0);
+  for (let i = n - 1; i >= 0; i--) { let s = M[i][n]; for (let j = i + 1; j < n; j++) s -= M[i][j] * x[j]; x[i] = s / M[i][i]; }
+  return x;
+};
+// inductor (coil) between two points: n loops of radius r on the side given by o.side (default +1 = left of the direction of travel)
+D.inductor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const n = o.n || 4, len = o.len || Math.min(L * 0.6, 56), r = len / (2 * n), mx = (x0 + x1) / 2, my = (y0 + y1) / 2, side = o.side || 1;
+  const ax = mx - ux * len / 2, ay = my - uy * len / 2;
+  D.line(ctx, [[x0, y0], [ax, ay]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * len / 2, my + uy * len / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  ctx.save(); ctx.strokeStyle = o.color || c.pos; ctx.lineWidth = 2.6; ctx.lineCap = "round"; ctx.beginPath();
+  const base = Math.atan2(uy, ux);
+  for (let k = 0; k < n; k++) {
+    const cx = ax + ux * r * (2 * k + 1), cy = ay + uy * r * (2 * k + 1);
+    // semicircle bulging to the chosen side
+    const a0 = base + (side > 0 ? Math.PI : 0), a1 = a0 + Math.PI;
+    ctx.arc(cx, cy, r, a0, a1, side > 0);
+  }
+  ctx.stroke(); ctx.restore();
+  if (o.label) D.text(ctx, o.label, mx + nx * (o.labelOff || 26) * side, my + ny * (o.labelOff || 26) * side, { color: c.ink, size: 13, halo: c.surface2, align: o.align || "center" });
+};
+// a switch blade from the pivot (x0,y0) toward one of two contacts; `pos` = 0 (open) or 1 (closed) toward (x1,y1)
+D.switchBlade = (ctx, x0, y0, x1, y1, closed, c) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const ex = closed ? x1 : x0 + ux * L * 0.85 + nx * L * 0.45, ey = closed ? y1 : y0 + uy * L * 0.85 + ny * L * 0.45;
+  D.line(ctx, [[x0, y0], [ex, ey]], { color: c.pos, width: 2.6 });
+  D.circle(ctx, x0, y0, 3.5, { fill: c.surface, color: c.ink2, width: 1.6 }); D.circle(ctx, x1, y1, 3.5, { fill: c.surface, color: c.ink2, width: 1.6 });
+};
+// AC source symbol: a circle with a sine wave, centred on the wire from (x0,y0) to (x1,y1)
+D.acSource = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const r = o.r || 16, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L;
+  D.line(ctx, [[x0, y0], [mx - ux * r, my - uy * r]], { color: c.ink2, width: 2 }); D.line(ctx, [[mx + ux * r, my + uy * r], [x1, y1]], { color: c.ink2, width: 2 });
+  D.circle(ctx, mx, my, r, { fill: c.gold, color: c.ink2, width: 2 });
+  ctx.save(); ctx.strokeStyle = c.ink; ctx.lineWidth = 2; ctx.beginPath();
+  for (let k = 0; k <= 20; k++) { const t = k / 20, x = mx - r * 0.65 + 1.3 * r * t, y = my - r * 0.45 * Math.sin(2 * Math.PI * t); k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.stroke(); ctx.restore();
+  if (o.label) D.text(ctx, o.label, mx, my + r + 14, { color: c.ink, size: 12, halo: c.surface2 });
+};
+// into-the-page (⊗) or out-of-the-page (⊙) field symbol at (x, y); size scales with the field strength when o.scale is given
+D.mark = (ctx, x, y, into, col, o = {}) => {
+  const r = o.r || 5;
+  ctx.save(); ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = o.width || 1.5; ctx.globalAlpha = o.alpha ?? 1;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.stroke();
+  if (into) { ctx.beginPath(); const d = r * 0.6; ctx.moveTo(x - d, y - d); ctx.lineTo(x + d, y + d); ctx.moveTo(x + d, y - d); ctx.lineTo(x - d, y + d); ctx.stroke(); }
+  else { ctx.beginPath(); ctx.arc(x, y, Math.max(1.2, r * 0.3), 0, 2 * Math.PI); ctx.fill(); }
+  ctx.restore();
+};
+
+</script>
+<script>
+(() => {
+  const MU0 = 4e-7 * Math.PI, G = 9.80;
+  const ctl = D.$("ctl");
+  const sI2 = D.slider(ctl, { label: "ground-wire current I₂", min: 20, max: 300, step: 1, value: 113, unit: "A", fmt: v => v.toFixed(0), onInput: update });
+  const sI1 = D.slider(ctl, { label: "levitated-wire current I₁", min: 20, max: 300, step: 1, value: 100, unit: "A", fmt: v => v.toFixed(0), onInput: update });
+  const sm = D.slider(ctl, { label: "mass of the levitated wire", min: 50, max: 1000, step: 10, value: 400, unit: "g", fmt: v => v.toFixed(0), onInput: update });
+  const sa = D.slider(ctl, { label: "spacing a", min: 0.5, max: 3, step: 0.05, value: 1, unit: "cm", fmt: v => v.toFixed(2), onInput: update });
+  const sh = D.slider(ctl, { label: "height h of the levitated wire", min: 0.1, max: 3, step: 0.01, value: 0.866, unit: "cm", fmt: v => v.toFixed(3), onInput: update });
+  const ck = D.check(ctl, { label: "sideways offset of 1 mm (stability test)", value: false, onChange: update });
+  const ro = D.readout(D.$("ro"), [["I2", "I₂ for the equilateral triangle"], ["F", "upward magnetic force at this h"], ["mg", "weight mg"], ["net", "net force (up positive)"], ["stab", "stability at this height"]]);
+  const L = 10;
+  const S = () => { const I1 = sI1.get(), I2 = sI2.get(), m = sm.get() / 1000, a = sa.get() / 100, h = sh.get() / 100, x = ck.get() ? 0.001 : 0;
+    const hEq = a * Math.sqrt(3) / 2, I2eq = m * G * Math.PI * a / (MU0 * I1 * L * Math.cos(Math.PI / 6));
+    return { I1, I2, m, a, h, x, hEq, I2eq, mg: m * G }; };
+  // forces on the top wire at (x, h) from the two ground wires at (±a/2, 0): repulsion μ0 I1 I2 L / 2π d along the line from each ground wire
+  const forces = (s, x, h) => { const out = { fx: 0, fz: 0, parts: [] };
+    for (const xw of [-s.a / 2, s.a / 2]) { const dx = x - xw, d = Math.hypot(dx, h), F = MU0 * s.I1 * s.I2 * L / (2 * Math.PI * d); out.fx += F * dx / d; out.fz += F * h / d; out.parts.push({ xw, F, ux: dx / d, uz: h / d }); }
+    return out; };
+  const Fup = (s, h) => MU0 * s.I1 * s.I2 * L * h / (Math.PI * (h * h + s.a * s.a / 4));
+
+  const geo = D.canvas(D.$("geo"), 0.8, (ctx, w, h, c) => {
+    const s = S(), span = Math.max(1.6 * s.a, 1.3 * s.h + 0.3 * s.a);
+    const V = D.view(w, h, [-0.75 * span, 0.75 * span], [-0.18 * span, 1.05 * span], { pad: 14, equal: true }), X = V.X, Y = V.Y;
+    // ground
+    ctx.save(); ctx.fillStyle = c.surface2; ctx.fillRect(0, Y(0) + 8, w, h - Y(0) - 8); ctx.restore(); D.line(ctx, [[0, Y(0) + 8], [w, Y(0) + 8]], { color: c.muted, width: 2 });
+    // triangle guides
+    const f = forces(s, s.x, s.h), top = [X(s.x), Y(s.h)];
+    for (const p of f.parts) D.line(ctx, [[X(p.xw), Y(0)], top], { color: c.line2, width: 1, dash: [4, 4] });
+    D.line(ctx, [[X(-s.a / 2), Y(0)], [X(s.a / 2), Y(0)]], { color: c.line2, width: 1, dash: [4, 4] });
+    D.text(ctx, "a", X(0), Y(0) + 24, { color: c.ink2, size: 12, italic: true, halo: c.surface2 });
+    D.text(ctx, "a", X(-s.a / 4 + s.x / 2) - 12, Y(s.h / 2), { color: c.ink2, size: 12, italic: true, halo: c.surface2 }); D.text(ctx, "a", X(s.a / 4 + s.x / 2) + 12, Y(s.h / 2), { color: c.ink2, size: 12, italic: true, halo: c.surface2 });
+    // angle θ between the vertical and each joining line
+    const th = Math.atan2(s.a / 2 - s.x, s.h); ctx.save(); ctx.strokeStyle = c.gold; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(top[0], top[1], 30, Math.PI / 2 - th, Math.PI / 2 + th); ctx.stroke(); ctx.restore();
+    D.text(ctx, `θ = ${(th * 180 / Math.PI).toFixed(1)}°`, top[0], top[1] + 46, { color: c.gold, size: 11, halo: c.surface2 });
+    // wires
+    for (const p of f.parts) { D.mark(ctx, X(p.xw), Y(0), true, c.c4, { r: 8, width: 2 }); D.text(ctx, "I₂", X(p.xw) + (p.xw < 0 ? -20 : 20), Y(0), { color: c.c4, size: 12, bold: true, halo: c.surface2 }); }
+    D.mark(ctx, top[0], top[1], false, c.c4, { r: 8, width: 2 }); D.text(ctx, "I₁", top[0] + 22, top[1] - 10, { color: c.c4, size: 12, bold: true, halo: c.surface2 });
+    // forces: scale so that mg is 70 px
+    const k = 70 / s.mg;
+    for (const [p, lab] of [[f.parts[0], "F_B,L"], [f.parts[1], "F_B,R"]]) { D.arrow(ctx, top[0], top[1], top[0] + k * p.F * p.ux, top[1] - k * p.F * p.uz, { color: c.c1, width: 3 });
+      D.text(ctx, lab, top[0] + k * p.F * p.ux + (p.ux < 0 ? -22 : 22), top[1] - k * p.F * p.uz - 8, { color: c.c1, size: 11, bold: true, halo: c.surface2 }); }
+    D.arrow(ctx, top[0], top[1], top[0], top[1] + k * s.mg, { color: c.pos, width: 3 }); D.text(ctx, "F_g", top[0] + 16, top[1] + k * s.mg - 6, { color: c.pos, size: 11, bold: true, align: "left", halo: c.surface2 });
+    D.arrow(ctx, top[0] - 26, top[1], top[0] - 26, top[1] - k * f.fz, { color: c.c3, width: 2.4 }); D.text(ctx, "ΣF_B", top[0] - 34, top[1] - k * f.fz - 8, { color: c.c3, size: 11, bold: true, align: "right", halo: c.surface2 });
+    if (Math.abs(f.fx) > 1e-6) { D.arrow(ctx, top[0], top[1] - 18, top[0] + k * f.fx, top[1] - 18, { color: c.gold, width: 2.4 }); D.text(ctx, "sideways push", top[0] + k * f.fx + (f.fx > 0 ? 8 : -8), top[1] - 30, { color: c.gold, size: 10, align: f.fx > 0 ? "left" : "right", halo: c.surface2 }); }
+    D.text(ctx, `h = ${(100 * s.h).toFixed(3)} cm`, 8, 14, { color: c.ink2, size: 11, align: "left" });
+  });
+
+  const plot = D.canvas(D.$("plot"), 0.85, (ctx, w, h, c) => {
+    const s = S(), hmax = 3, Fpk = Fup(s, s.a / 2);
+    D.plot(ctx, w, h, c, { x: [0, hmax], y: [0, 1.15 * Math.max(Fpk, s.mg)], xlabel: "h (cm)", ylabel: "force (N)", legend: "tr",
+      series: [{ f: hc => Fup(s, hc / 100), color: c.c3, width: 2.5, label: "upward magnetic force" }], hlines: [{ y: s.mg, label: "mg", color: c.pos, left: true }],
+      vlines: [{ x: 100 * s.h, color: c.gold }, { x: 100 * s.hEq, color: c.muted, label: "equilateral" }, { x: 50 * s.a, color: c.line2 }], points: [{ x: 100 * s.h, y: Fup(s, s.h), color: c.gold }, { x: 50 * s.a, y: Fpk, color: c.c3, r: 3, label: "peak at h = a/2", dx: 6, dy: -8 }] });
+  });
+
+  const pr = D.$("presets");
+  D.button(pr, "Book: I₂ = 113 A, equilateral", () => { sI1.set(100); sI2.set(113); sm.set(400); sa.set(1); sh.set(0.866); ck.set(false); update(); }, true);
+  D.button(pr, "Raise the wire 1 mm", () => { sh.set(0.966); update(); });
+  D.button(pr, "Lower the wire 1 mm", () => { sh.set(0.766); update(); });
+
+  // equilibrium heights: roots of Fup(h) − mg on either side of the peak, by bisection
+  function roots(s) { const g = hh => Fup(s, hh) - s.mg, out = []; for (const [lo0, hi0] of [[1e-5, s.a / 2], [s.a / 2, 1]]) { let lo = lo0, hi = hi0; if (g(lo) * g(hi) > 0) continue; for (let k = 0; k < 60; k++) { const mid = (lo + hi) / 2; (g(lo) * g(mid) <= 0) ? hi = mid : lo = mid; } out.push((lo + hi) / 2); } return out; }
+  function update() {
+    const s = S(), f = forces(s, s.x, s.h), net = f.fz - s.mg, slope = (Fup(s, s.h + 1e-5) - Fup(s, s.h - 1e-5)) / 2e-5;
+    ro("I2", `${D.fmt(s.I2eq, 4)} A (with I₁ = ${s.I1} A, m = ${(1000 * s.m).toFixed(0)} g, a = ${(100 * s.a).toFixed(2)} cm)`); ro("F", `${D.fmt(f.fz, 4)} N`); ro("mg", `${D.fmt(s.mg, 4)} N`);
+    ro("net", `${D.fmt(net, 3)} N ${Math.abs(net) < 0.02 * s.mg ? "(balanced)" : net > 0 ? "(wire rises)" : "(wire falls)"}${s.x ? `; sideways ${D.fmt(f.fx, 3)} N away from the centre` : ""}`);
+    ro("stab", `dF/dh = ${D.fmt(slope, 3)} N/m: ${s.h > s.a / 2 ? "above the peak, vertically stable" : "below the peak, vertically unstable"}`);
+    const rs = roots(s), kx = (forces(s, 1e-5, s.hEq).fx - forces(s, -1e-5, s.hEq).fx) / 2e-5;
+    D.$("tbl").innerHTML = `<tr><th>quantity</th><th>value</th></tr>
+      <tr><td>book: I₂ = mgπa/(μ₀I₁L cos 30°)</td><td>${D.fmt(0.4 * G * Math.PI * 0.01 / (MU0 * 100 * L * Math.cos(Math.PI / 6)), 5)} A</td></tr>
+      <tr><td>equilibrium heights for these sliders (cm)</td><td>${rs.length ? rs.map(r => `${(100 * r).toFixed(4)} (dF/dh = ${D.fmt((Fup(s, r + 1e-5) - Fup(s, r - 1e-5)) / 2e-5, 3)} N/m, ${r > s.a / 2 ? "stable" : "unstable"})`).join("; ") : "none: the force never reaches mg"}</td></tr>
+      <tr><td>equilateral height a√3/2 (cm)</td><td>${(100 * s.hEq).toFixed(4)}</td></tr>
+      <tr><td>horizontal stiffness dF_x/dx at the equilateral point (N/m)</td><td>${D.fmt(kx, 4)} (positive: pushes the wire further away, unstable sideways)</td></tr>`;
+    geo.render(); plot.render();
+    window.__check = { I2eq: s.I2eq, Fz: f.fz, mg: s.mg, roots: rs, kx };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>

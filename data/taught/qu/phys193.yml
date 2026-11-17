@@ -273,6 +273,31 @@ interactive:
               - { num: "27.9", slide: 94, title: { en: Charging a Capacitor in an RC Circuit, ar: شحن مكثف في دارة RC } }
               - { num: "27.10", slide: 96, title: { en: Discharging a Capacitor in an RC Circuit, ar: تفريغ مكثف في دارة RC } }
               - { num: "27.11", slide: 100, title: { en: Energy Delivered to a Resistor, ar: الطاقة المنقولة إلى مقاومة } }
+      - chapter: 29
+        week: 9
+        title: { en: "Sources of the Magnetic Field", ar: "مصادر المجال المغناطيسي" }
+        path: assets/demos/phys193/week09
+        index: assets/demos/phys193/week09/index.html
+        sections:
+          - section: "29.1"
+            title: { en: The Biot–Savart Law, ar: قانون بيو–سافار }
+            examples:
+              - { num: "29.1", slide: 15, title: { en: Magnetic Field Surrounding a Thin, Straight Conductor, ar: المجال المغناطيسي حول موصل رفيع مستقيم } }
+              - { num: "29.2", slide: 20, title: { en: Magnetic Field Due to a Curved Wire Segment, ar: المجال المغناطيسي لقطعة سلك منحنية } }
+              - { num: "29.3", slide: 23, title: { en: Magnetic Field on the Axis of a Circular Current Loop, ar: المجال المغناطيسي على محور حلقة تيار دائرية } }
+          - section: "29.2"
+            title: { en: The Magnetic Force Between Two Parallel Conductors, ar: القوة المغناطيسية بين موصلين متوازيين }
+            examples:
+              - { num: "29.4", slide: 37, title: { en: Suspending a Wire, ar: تعليق سلك } }
+          - section: "29.3"
+            title: { en: Ampère’s Law, ar: قانون أمبير }
+            examples:
+              - { num: "29.5", slide: 52, title: { en: The Magnetic Field Created by a Long Current-Carrying Wire, ar: المجال المغناطيسي لسلك طويل يحمل تياراً } }
+              - { num: "29.6", slide: 56, title: { en: The Magnetic Field Created by a Toroid, ar: المجال المغناطيسي لملف حلقي } }
+          - section: "29.5"
+            title: { en: Magnetic Flux, ar: التدفق المغناطيسي }
+            examples:
+              - { num: "29.7", slide: 71, title: { en: Magnetic Flux Through a Rectangular Loop, ar: التدفق المغناطيسي عبر حلقة مستطيلة } }
       - chapter: 30
         week: 11
         title: { en: "Faraday’s Law", ar: "قانون فاراداي" }

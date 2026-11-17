@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 29.7 · Magnetic Flux Through a Rectangular Loop — PHYS 193</title>
+<meta name="description" content="Interactive solution of Example 29.7: Magnetic Flux Through a Rectangular Loop (Serway &amp; Jewett, Ch. 29).">
+<link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+<style>
+/* PHYS 193 interactive solutions — shared styles (tokens copied from the site's style.css) */
+:root {
+  --bg: #f6f3ec; --surface: #fffdf8; --surface-2: #f3efe6;
+  --ink: #15171c; --ink-2: #2c2f37; --muted: #646873;
+  --line: #e2dccf; --line-strong: #cfc7b6;
+  --accent: #8a1538; --accent-ink: #fff; --accent-soft: rgba(138, 21, 56, .08);
+  --gold: #a87b2f; --gold-soft: rgba(168, 123, 47, .12);
+  --c-pos: #c62f3a; --c-neg: #2357b8; --c-1: #2357b8; --c-2: #b8741a; --c-3: #2e7d4f; --c-4: #7a3fb0;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 16px; --radius-sm: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+    --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+    --line: #232834; --line-strong: #323846;
+    --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+    --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+    --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12; --surface: #13161d; --surface-2: #181c24;
+  --ink: #eceae4; --ink-2: #d4d2cc; --muted: #9298a3;
+  --line: #232834; --line-strong: #323846;
+  --accent: #e0607f; --accent-ink: #12090c; --accent-soft: rgba(224, 96, 127, .12);
+  --gold: #d9b26f; --gold-soft: rgba(217, 178, 111, .12);
+  --c-pos: #ff7b7b; --c-neg: #7fb0ff; --c-1: #7fb0ff; --c-2: #e6a456; --c-3: #6fcf97; --c-4: #c49cf0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: .2em; }
+p { margin: 0 0 .8em; }
+canvas { display: block; width: 100%; touch-action: pan-y; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* top bar */
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+.topbar .wrap { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.crumbs { font: 500 .78rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.theme-btn { border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 500 .8rem var(--sans); cursor: pointer; }
+
+/* hero */
+header.hero { padding: 28px 0 8px; }
+.eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.eyebrow span + span::before { content: "·"; margin-right: 10px; color: var(--muted); }
+h1 { font: 400 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--serif); margin: 0 0 12px; letter-spacing: -.01em; }
+h2 { font: 500 1.25rem/1.25 var(--serif); margin: 0 0 12px; }
+h3 { font: 600 .95rem/1.3 var(--sans); margin: 0 0 8px; }
+.lead { color: var(--ink-2); max-width: 70ch; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 16px 0; }
+.card.problem { border-left: 4px solid var(--accent); }
+.card.whatif { border-left: 4px solid var(--gold); }
+.tag { display: inline-block; font: 600 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 10px; }
+.whatif .tag { background: var(--gold-soft); color: var(--gold); }
+
+/* interactive layout */
+.lab { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 18px; align-items: start; }
+.lab.wide-fig { grid-template-columns: 270px minmax(0, 1fr); }
+@media (max-width: 820px) { .lab, .lab.wide-fig { grid-template-columns: 1fr; } }
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.figs { display: grid; gap: 14px; }
+.figs.two { grid-template-columns: 1fr 1fr; }
+@media (max-width: 980px) { .figs.two { grid-template-columns: 1fr; } }
+.fig { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px; }
+.fig figcaption { font-size: .8rem; color: var(--muted); padding: 4px 6px 2px; }
+
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; color: var(--ink-2); margin-bottom: 2px; }
+.ctl output { font: 500 .84rem var(--mono); color: var(--ink); white-space: nowrap; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px; font: 500 .82rem var(--sans); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 10px; padding: 7px 14px; font: 600 .86rem var(--sans); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: var(--ink-2); }
+.chk input { accent-color: var(--accent); }
+
+/* readouts */
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+.readout div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.readout b { display: block; font: 500 .72rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.readout span { font: 500 1rem var(--mono); }
+.verdict { margin-top: 10px; padding: 9px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); font-size: .92rem; }
+.verdict.ok { background: rgba(46, 125, 79, .12); }
+.verdict.bad { background: rgba(198, 47, 58, .12); }
+
+/* solution steps */
+details.solution > summary { cursor: pointer; font: 600 .95rem var(--sans); color: var(--accent); list-style: none; }
+details.solution > summary::before { content: "▸ "; }
+details.solution[open] > summary::before { content: "▾ "; }
+.steps { counter-reset: s; margin: 12px 0 0; padding: 0; list-style: none; }
+.steps > li { position: relative; padding: 2px 0 12px 40px; }
+.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 600 .8rem/26px var(--sans); text-align: center; }
+.phase { font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* tables */
+table.t { border-collapse: collapse; width: 100%; font-size: .88rem; }
+table.t th, table.t td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { font: 600 .74rem var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+table.t td { font-family: var(--mono); }
+table.t tr.sum td { font-weight: 600; border-top: 2px solid var(--line-strong); }
+.scroll-x { overflow-x: auto; }
+
+.try { margin: 8px 0 0 1.2em; padding: 0; list-style: decimal; }
+.try li { margin-bottom: 4px; }
+.note { font-size: .86rem; color: var(--muted); }
+footer.foot { border-top: 1px solid var(--line); margin-top: 28px; padding: 18px 0 36px; font-size: .82rem; color: var(--muted); }
+footer.foot a { color: var(--muted); }
+
+/* foldable blocks: every card is a <details>; only the Problem starts open */
+details.card.fold { padding: 0; }
+details.fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 18px; border-radius: var(--radius); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:hover { background: var(--accent-soft); }
+details.fold[open] > summary { border-bottom: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0; }
+.fold-caret { width: .8em; flex: none; transition: transform .2s ease; }
+.fold-caret::before { content: "▸"; color: var(--accent); }
+details.fold[open] > summary .fold-caret { transform: rotate(90deg); }
+.fold-chip { font: 600 .68rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+details.fold.whatif .fold-chip { background: var(--gold-soft); color: var(--gold); }
+.fold-title { flex: 1 1 22ch; font: 500 1.06rem/1.35 var(--serif); }
+.fold-body { padding: 16px 18px 18px; }
+.fold-tools { display: flex; justify-content: flex-end; gap: 8px; margin: 6px 0 -6px; }
+.fold-tools .btn { padding: 5px 12px; font-size: .8rem; }
+@media print { details.fold > .fold-body { display: block; } .fold-tools { display: none; } }
+
+/* problem-statement figure (redrawn after the textbook figure) */
+.probfig { margin: 14px auto 2px; max-width: 520px; }
+.probfig.wide { max-width: 760px; }
+.probfig svg { display: block; width: 100%; height: auto; max-height: 430px; }
+.probfig figcaption { margin-top: 6px; font-size: .82rem; line-height: 1.45; color: var(--muted); text-align: center; }
+
+</style>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="crumbs"><a href="../../../../teaching/qu/phys193.html#lab">PHYS 193</a> / <a href="index.html">Week 9 · Chapter 29</a> / Example 29.7</div>
+  <button class="theme-btn" type="button" id="themeBtn">☾ Dark</button>
+</div></div>
+<main class="wrap">
+<header class="hero"><div class="eyebrow"><span>Week 9</span><span>Chapter 29</span><span>§29.5 · Magnetic flux</span><span>Lecture slide 71</span></div><h1>Example 29.7 · Magnetic Flux Through a Rectangular Loop</h1></header>
+<div class="fold-tools"><button type="button" class="btn ghost" data-fold="open">Unfold all</button><button type="button" class="btn ghost" data-fold="close">Fold all</button></div>
+<p class="lead">The wire's field is strong near it and weak far away, so the flux through the loop is not "B times A". Cut the loop into strips parallel to the wire: each strip sees one value of \(B\), and
+adding them gives a logarithm, the signature of a \(1/r\) field.</p>
+<details class="card fold problem" open=""><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Problem</span><span class="fold-title"></span></summary><div class="fold-body">
+
+<p>A rectangular loop of width \(a\) and length \(b\) is located near a long wire carrying a current \(I\) (Figure 29.21). The distance between the wire and the closest side of the loop is \(c\). The wire is
+  parallel to the long side of the loop. Find the total magnetic flux through the loop due to the current in the wire.</p>
+<figure class="probfig"><svg aria-label="Figure 29.21: a long wire carrying a current I upward and a rectangular loop of width a and length b beside it, its near side a distance c from the wire. The field (into the page) is not uniform over the loop; the tan strip of width dr at distance r is the area element dA = b dr." role="img" viewbox="0 0 580 490" xmlns="http://www.w3.org/2000/svg"><style>
+.pf-w{stroke:var(--ink,#15171c);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-thin{stroke:var(--ink,#15171c);stroke-width:1.4;fill:none}
+.pf-mut{stroke:var(--muted,#646873);stroke-width:1.6;fill:none}
+.pf-dash{stroke:var(--muted,#646873);stroke-width:1.8;fill:none;stroke-dasharray:7 6}
+.pf-res{stroke:var(--c-pos,#c62f3a);stroke-width:2.8;fill:none;stroke-linejoin:miter}
+.pf-bat{stroke:var(--c-3,#2e7d4f);fill:none}
+.pf-cap{stroke:var(--c-1,#2357b8);stroke-width:4;fill:none}
+.pf-cur{stroke:var(--c-4,#7a3fb0);fill:var(--c-4,#7a3fb0)}
+.pf-fld{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a)}
+.pf-grn{stroke:var(--c-3,#2e7d4f);fill:var(--c-3,#2e7d4f)}
+.pf-fldl{stroke:var(--c-2,#b8741a);fill:var(--c-2,#b8741a);opacity:.55}
+.pf-ink{stroke:var(--ink,#15171c);fill:var(--ink,#15171c)}
+.pf-chg{fill:var(--c-pos,#c62f3a);fill-opacity:.22;stroke:var(--c-pos,#c62f3a);stroke-width:1.6}
+.pf-chg2{fill:var(--c-pos,#c62f3a);fill-opacity:.42;stroke:var(--c-pos,#c62f3a);stroke-width:1.4}
+.pf-gs{fill:var(--c-1,#2357b8);fill-opacity:.12;stroke:var(--c-1,#2357b8);stroke-width:1.4}
+.pf-gs2{fill:var(--c-1,#2357b8);fill-opacity:.32;stroke:var(--c-1,#2357b8);stroke-width:1.2}
+.pf-gsd{fill:none;stroke:var(--c-1,#2357b8);stroke-width:1.6;stroke-dasharray:7 6}
+.pf-t{fill:var(--ink,#15171c);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tm{fill:var(--muted,#646873);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tc{fill:var(--c-4,#7a3fb0);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-tf{fill:var(--c-2,#b8741a);font-family:"Times New Roman","STIX Two Text","Nimbus Roman","Liberation Serif",Georgia,serif}
+.pf-bg{fill:var(--surface,#fffdf8)}
+</style><path class="pf-fld" d="M 116 46 L 130 60 M 130 46 L 116 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 46 L 176 60 M 176 46 L 162 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 46 L 222 60 M 222 46 L 208 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 46 L 268 60 M 268 46 L 254 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 46 L 314 60 M 314 46 L 300 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 46 L 360 60 M 360 46 L 346 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 46 L 406 60 M 406 46 L 392 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 46 L 452 60 M 452 46 L 438 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 46 L 498 60 M 498 46 L 484 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 46 L 544 60 M 544 46 L 530 60" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 92 L 130 106 M 130 92 L 116 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 92 L 176 106 M 176 92 L 162 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 92 L 222 106 M 222 92 L 208 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 92 L 268 106 M 268 92 L 254 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 92 L 314 106 M 314 92 L 300 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 92 L 360 106 M 360 92 L 346 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 92 L 406 106 M 406 92 L 392 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 92 L 452 106 M 452 92 L 438 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 92 L 498 106 M 498 92 L 484 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 92 L 544 106 M 544 92 L 530 106" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 138 L 130 152 M 130 138 L 116 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 138 L 176 152 M 176 138 L 162 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 138 L 222 152 M 222 138 L 208 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 138 L 268 152 M 268 138 L 254 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 138 L 314 152 M 314 138 L 300 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 138 L 360 152 M 360 138 L 346 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 138 L 406 152 M 406 138 L 392 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 138 L 452 152 M 452 138 L 438 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 138 L 498 152 M 498 138 L 484 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 138 L 544 152 M 544 138 L 530 152" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 184 L 130 198 M 130 184 L 116 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 184 L 176 198 M 176 184 L 162 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 184 L 222 198 M 222 184 L 208 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 184 L 268 198 M 268 184 L 254 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 184 L 314 198 M 314 184 L 300 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 184 L 360 198 M 360 184 L 346 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 184 L 406 198 M 406 184 L 392 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 184 L 452 198 M 452 184 L 438 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 184 L 498 198 M 498 184 L 484 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 184 L 544 198 M 544 184 L 530 198" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 230 L 130 244 M 130 230 L 116 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 230 L 176 244 M 176 230 L 162 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 230 L 222 244 M 222 230 L 208 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 230 L 268 244 M 268 230 L 254 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 230 L 314 244 M 314 230 L 300 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 230 L 360 244 M 360 230 L 346 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 230 L 406 244 M 406 230 L 392 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 230 L 452 244 M 452 230 L 438 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 230 L 498 244 M 498 230 L 484 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 230 L 544 244 M 544 230 L 530 244" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 276 L 130 290 M 130 276 L 116 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 276 L 176 290 M 176 276 L 162 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 276 L 222 290 M 222 276 L 208 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 276 L 268 290 M 268 276 L 254 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 276 L 314 290 M 314 276 L 300 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 276 L 360 290 M 360 276 L 346 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 276 L 406 290 M 406 276 L 392 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 276 L 452 290 M 452 276 L 438 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 276 L 498 290 M 498 276 L 484 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 276 L 544 290 M 544 276 L 530 290" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 322 L 130 336 M 130 322 L 116 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 322 L 176 336 M 176 322 L 162 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 322 L 222 336 M 222 322 L 208 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 322 L 268 336 M 268 322 L 254 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 322 L 314 336 M 314 322 L 300 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 322 L 360 336 M 360 322 L 346 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 322 L 406 336 M 406 322 L 392 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 322 L 452 336 M 452 322 L 438 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 322 L 498 336 M 498 322 L 484 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 322 L 544 336 M 544 322 L 530 336" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 368 L 130 382 M 130 368 L 116 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 368 L 176 382 M 176 368 L 162 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 368 L 222 382 M 222 368 L 208 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 368 L 268 382 M 268 368 L 254 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 368 L 314 382 M 314 368 L 300 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 368 L 360 382 M 360 368 L 346 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 368 L 406 382 M 406 368 L 392 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 368 L 452 382 M 452 368 L 438 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 368 L 498 382 M 498 368 L 484 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 368 L 544 382 M 544 368 L 530 382" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 116 414 L 130 428 M 130 414 L 116 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 162 414 L 176 428 M 176 414 L 162 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 208 414 L 222 428 M 222 414 L 208 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 254 414 L 268 428 M 268 414 L 254 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 300 414 L 314 428 M 314 414 L 300 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 346 414 L 360 428 M 360 414 L 346 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 392 414 L 406 428 M 406 414 L 392 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 438 414 L 452 428 M 452 414 L 438 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 484 414 L 498 428 M 498 414 L 484 428" fill="none" stroke-width="2"></path><path class="pf-fld" d="M 530 414 L 544 428 M 544 414 L 530 428" fill="none" stroke-width="2"></path><line style="stroke:var(--muted,#9a9ea8);stroke-width:10;opacity:.6" x1="80" x2="80" y1="10" y2="480"></line><line style="stroke:var(--ink,#15171c);stroke-width:1.2;opacity:.5" x1="80" x2="80" y1="10" y2="480"></line><line class="pf-cur" stroke-width="4" x1="56.0" x2="56.0" y1="290.0" y2="214.0"></line><polygon class="pf-cur" points="56.0,200.0 64.2,215.0 47.8,215.0" stroke-width="1"></polygon><text class="pf-tc" dominant-baseline="middle" font-size="26" text-anchor="end" x="36.0" y="250.0"><tspan font-style="italic">I</tspan></text><rect height="310" style="fill:none;stroke:var(--ink,#15171c);stroke-width:2.2" width="240" x="200" y="90"></rect><rect height="310" style="fill:var(--c-2,#b8741a);fill-opacity:.55" width="16" x="322" y="90"></rect><line class="pf-ink" stroke-width="1.4" x1="330.0" x2="328.0" y1="60.0" y2="60.0"></line><polygon class="pf-ink" points="338.0,60.0 327.0,64.4 327.0,55.6" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="330.0" x2="332.0" y1="60.0" y2="60.0"></line><polygon class="pf-ink" points="322.0,60.0 333.0,55.6 333.0,64.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="22" text-anchor="middle" x="330.0" y="40.0"><tspan font-style="italic">dr</tspan></text><polyline class="pf-thin" points="322.0,60.0 322.0,84.0"></polyline><polyline class="pf-thin" points="338.0,60.0 338.0,84.0"></polyline><line class="pf-ink" stroke-width="1.4" x1="205.0" x2="320.0" y1="250.0" y2="250.0"></line><polygon class="pf-ink" points="330.0,250.0 319.0,254.4 319.0,245.6" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="205.0" x2="90.0" y1="250.0" y2="250.0"></line><polygon class="pf-ink" points="80.0,250.0 91.0,245.6 91.0,254.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="205.0" y="232.0"><tspan font-style="italic">r</tspan></text><line class="pf-ink" stroke-width="1.4" x1="470.0" x2="470.0" y1="245.0" y2="390.0"></line><polygon class="pf-ink" points="470.0,400.0 465.6,389.0 474.4,389.0" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="470.0" x2="470.0" y1="245.0" y2="100.0"></line><polygon class="pf-ink" points="470.0,90.0 474.4,101.0 465.6,101.0" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="start" x="490.0" y="245.0"><tspan font-style="italic">b</tspan></text><line class="pf-ink" stroke-width="1.4" x1="140.0" x2="190.0" y1="440.0" y2="440.0"></line><polygon class="pf-ink" points="200.0,440.0 189.0,444.4 189.0,435.6" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="140.0" x2="90.0" y1="440.0" y2="440.0"></line><polygon class="pf-ink" points="80.0,440.0 91.0,435.6 91.0,444.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="140.0" y="462.0"><tspan font-style="italic">c</tspan></text><line class="pf-ink" stroke-width="1.4" x1="320.0" x2="430.0" y1="440.0" y2="440.0"></line><polygon class="pf-ink" points="440.0,440.0 429.0,444.4 429.0,435.6" stroke-width="1"></polygon><line class="pf-ink" stroke-width="1.4" x1="320.0" x2="210.0" y1="440.0" y2="440.0"></line><polygon class="pf-ink" points="200.0,440.0 211.0,435.6 211.0,444.4" stroke-width="1"></polygon><text class="pf-t" dominant-baseline="middle" font-size="24" text-anchor="middle" x="320.0" y="462.0"><tspan font-style="italic">a</tspan></text></svg><figcaption>Figure 29.21: a long wire carrying a current I upward and a rectangular loop of width a and length b beside it, its near side a distance c from the wire. The field (into the page) is not uniform over the loop; the tan strip of width dr at distance r is the area element dA = b dr. Redrawn after the figure in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em>, 11th ed.</figcaption></figure>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Interactive</span><span class="fold-title">Add the strips</span></summary><div class="fold-body">
+
+<div class="lab">
+<div class="controls" id="ctl"></div>
+<div class="figs two">
+<figure class="fig"><canvas aria-label="The wire, the loop and the strip of width dr" id="geo"></canvas>
+<figcaption>Figure 29.21: the wire (current up), the field into the page (⊗, denser near the wire), the loop from \(r=c\) to \(r=c+a\), and the strip \(dA=b\,dr\) at the position of the slider.</figcaption></figure>
+<figure class="fig"><canvas aria-label="Field across the loop and the accumulated flux" id="plot"></canvas>
+<figcaption>Top: \(B=\mu_0I/2\pi r\) across the loop; the flux is the shaded area times \(b\). Bottom: the flux accumulated from the near edge, which reaches \(\dfrac{\mu_0Ib}{2\pi}\ln\!\left(1+\dfrac ac\right)\)
+        at the far edge.</figcaption></figure>
+</div>
+</div>
+<div id="ro"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Solution</span><span class="fold-title">Step-by-step solution, as on the slides</span></summary><div class="fold-body">
+
+
+<p class="phase">Conceptualize</p>
+<p>As we saw in Figure 29.3, the magnetic field lines due to the wire will be circles, many of which will pass through the rectangular loop. We know that the magnitude of the field is a function of distance
+    \(r\) from a long wire. Therefore the magnetic field varies over the area of the rectangular loop.</p>
+<p class="phase">Categorize</p>
+<p>Because the magnetic field varies over the area of the loop, we must integrate over this area to find the total flux. That identifies this as an analysis problem.</p>
+<p class="phase">Analyze</p>
+<ol class="steps">
+<li>Noting that \(\vec B\) is parallel to \(d\vec A\) at any point within the loop, find the flux through the rectangular area using Equation 29.18 and incorporate Equation 29.14 for the field:
+        \[\Phi_B=\int\vec B\cdot d\vec A=\int B\,dA=\int\frac{\mu_0I}{2\pi r}\,dA.\]</li>
+<li>Express the area element (the tan strip in Figure 29.21) as \(dA=b\,dr\) and substitute: \[\Phi_B=\int\frac{\mu_0I}{2\pi r}\,b\,dr=\frac{\mu_0Ib}{2\pi}\int\frac{dr}{r}.\]</li>
+<li>Integrate from \(r=c\) to \(r=a+c\): \[\Phi_B=\frac{\mu_0Ib}{2\pi}\int_c^{a+c}\frac{dr}{r}=\frac{\mu_0Ib}{2\pi}\ln r\Big|_c^{a+c}=\frac{\mu_0Ib}{2\pi}\ln\!\left(\frac{a+c}{c}\right)=\frac{\mu_0Ib}{2\pi}\ln\!\left(1+\frac ac\right).\]</li>
+</ol>
+<p class="phase">Finalize</p>
+<p>Notice how the flux depends on the size of the loop. Increasing either \(a\) or \(b\) increases the flux, as expected. If \(c\) becomes large, so that the loop is very far from the wire, the flux approaches zero,
+    also as expected. If \(c\) goes to zero, the flux becomes infinite. In principle this infinite value occurs because the field becomes infinite at \(r=0\), assuming an infinitesimally thin wire. That will not
+    happen in reality, because the thickness of the wire prevents the left edge of the loop from reaching \(r=0\).</p>
+
+</div></details>
+<details class="card fold whatif"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Going further</span><span class="fold-title">Why not just use the field at the middle of the loop?</span></summary><div class="fold-body">
+
+<p> The naive estimate \(B(c+a/2)\cdot ab\) is compared with the exact flux in the readout. Far from the wire (\(c\gg a\)) the field hardly
+  changes across the loop and the estimate is excellent; close in, the near strips dominate and the logarithm wins: at \(c=a/10\) the naive value is 40 % low. Slide \(c\) toward zero and watch the flux grow
+  without bound while the loop's area stays the same.</p>
+<div class="btns" id="presets"></div>
+</div></details>
+<details class="card fold"><summary><span aria-hidden="true" class="fold-caret"></span><span class="fold-chip">Check</span><span class="fold-title">Check the numbers</span></summary><div class="fold-body">
+
+<p>The flux by two-dimensional numerical integration of \(B\) over the loop (a grid of points, no strip argument), against the logarithm; the naive mid-loop estimate; and the limits \(c\to\infty\) (flux \(\to0\))
+  and \(c\to0\) (flux \(\to\infty\)).</p>
+<div class="scroll-x"><table class="t" id="tbl"></table></div>
+</div></details>
+</main>
+<footer class="foot"><div class="wrap">
+  <p>Interactive solution of Example 29.7 in Serway &amp; Jewett, <em>Physics for Scientists and Engineers</em> (11th ed.), Chapter 29, as presented on slide 71 of the Week 9 lecture. Every number and interactive drawing on this page is computed live in your browser from the Biot–Savart law, Ampère’s law and the definition of magnetic flux. Mathematica version: <a href="Example-29.7.nb" download>Example-29.7.nb</a>.</p>
+  <p>PHYS 193 · General Physics for Engineering II · Qatar University · Dr. K. Khelifa-Kerfa ·
+  <a href="index.html">all Week 9 solutions</a> · <a href="../../../../teaching/qu/phys193.html#lab">course page · Interactive lab</a></p>
+</div></footer>
+<script>
+"use strict";
+/* PHYS 193 interactive solutions — shared helpers (no dependencies).
+   Physics constants are SI; every page computes its own physics from them. */
+const KE = 8.9875517873681764e9;          // Coulomb constant, N m^2 / C^2
+const EPS0 = 1 / (4 * Math.PI * KE);      // permittivity of free space, C^2 / (N m^2)
+
+const D = (() => {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+
+  /* ---------- redraw registry ---------- */
+  const renderers = [];
+  function redrawAll() { renderers.forEach(r => r()); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+
+  function isDark() {
+    if (root.dataset.theme) return root.dataset.theme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function themeButton(btn) {
+    const label = () => { btn.textContent = isDark() ? "☀ Light" : "☾ Dark"; };
+    label();
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label(); redrawAll();
+    });
+  }
+
+  /* ---------- colours from CSS tokens ---------- */
+  function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function C() {
+    return {
+      ink: cssv("--ink"), ink2: cssv("--ink-2"), muted: cssv("--muted"), line: cssv("--line"),
+      line2: cssv("--line-strong"), accent: cssv("--accent"), gold: cssv("--gold"),
+      surface: cssv("--surface"), surface2: cssv("--surface-2"),
+      pos: cssv("--c-pos"), neg: cssv("--c-neg"),
+      c1: cssv("--c-1"), c2: cssv("--c-2"), c3: cssv("--c-3"), c4: cssv("--c-4"), dark: isDark()
+    };
+  }
+
+  /* ---------- responsive hi-dpi canvas ---------- */
+  function canvas(el, aspect, draw) {
+    const ctx = el.getContext("2d");
+    const obj = { el, ctx, w: 0, h: 0 };
+    let lastW = -1;
+    obj.render = () => {
+      const w = Math.max(200, el.parentElement.clientWidth - 2);
+      const a = typeof aspect === "function" ? aspect(w) : aspect;
+      const h = Math.round(w * a), dpr = window.devicePixelRatio || 1;
+      el.style.height = h + "px";
+      el.width = Math.round(w * dpr); el.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      obj.w = w; obj.h = h;
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, C());
+    };
+    new ResizeObserver(() => {
+      const w = el.parentElement.clientWidth;
+      if (w !== lastW) { lastW = w; obj.render(); }
+    }).observe(el.parentElement);
+    renderers.push(obj.render);
+    return obj;
+  }
+
+  /* ---------- world -> pixel transform ---------- */
+  function view(w, h, xr, yr, opt = {}) {
+    const pad = opt.pad ?? 12;
+    let sx = (w - 2 * pad) / (xr[1] - xr[0]), sy = (h - 2 * pad) / (yr[1] - yr[0]);
+    if (opt.equal) { const s = Math.min(sx, sy); sx = sy = s; }
+    const cx = (xr[0] + xr[1]) / 2, cy = (yr[0] + yr[1]) / 2;
+    return {
+      sx, sy,
+      X: x => w / 2 + (x - cx) * sx,
+      Y: y => h / 2 - (y - cy) * sy,
+      ix: px => cx + (px - w / 2) / sx,
+      iy: py => cy - (py - h / 2) / sy
+    };
+  }
+
+  /* ---------- primitives ---------- */
+  function arrow(ctx, x0, y0, x1, y1, o = {}) {
+    if (o.alpha != null) { ctx.save(); ctx.globalAlpha = o.alpha; }
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    if (!(L > 0.5)) { if (o.alpha != null) ctx.restore(); return; }
+    const hw = o.head ?? Math.min(10, 0.35 * L + 3), ang = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.strokeStyle = ctx.fillStyle = o.color || "#000";
+    ctx.lineWidth = o.width ?? 2; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    ctx.beginPath(); ctx.moveTo(x0, y0);
+    ctx.lineTo(x1 - 0.8 * hw * Math.cos(ang), y1 - 0.8 * hw * Math.sin(ang)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hw * Math.cos(ang - 0.38), y1 - hw * Math.sin(ang - 0.38));
+    ctx.lineTo(x1 - hw * Math.cos(ang + 0.38), y1 - hw * Math.sin(ang + 0.38));
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+    if (o.alpha != null) ctx.restore();
+  }
+  function line(ctx, pts, o = {}) {
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = o.color || "#000"; ctx.lineWidth = o.width ?? 1.5;
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    if (o.dash) ctx.setLineDash(o.dash);
+    if (o.alpha != null) ctx.globalAlpha = o.alpha;
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if (o.close) ctx.closePath();
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color !== "none") ctx.stroke();
+    ctx.restore();
+  }
+  function circle(ctx, x, y, r, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function ellipse(ctx, x, y, rx, ry, o = {}) {
+    ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, Math.max(rx, 0.1), Math.max(ry, 0.1), o.rot || 0, o.a0 ?? 0, o.a1 ?? 2 * Math.PI);
+    if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); }
+    if (o.color) { ctx.strokeStyle = o.color; ctx.lineWidth = o.width ?? 1.5; if (o.dash) ctx.setLineDash(o.dash); ctx.stroke(); }
+    ctx.restore();
+  }
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save();
+    ctx.fillStyle = o.color || "#000";
+    ctx.font = `${o.italic ? "italic " : ""}${o.bold ? "600 " : "400 "}${o.size || 13}px ${o.font || "Inter, system-ui, sans-serif"}`;
+    ctx.textAlign = o.align || "center"; ctx.textBaseline = o.base || "middle";
+    if (o.halo) { ctx.lineWidth = 4; ctx.strokeStyle = o.halo; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+    ctx.restore();
+  }
+  function charge(ctx, x, y, r, q, c) {
+    const col = q > 0 ? c.pos : q < 0 ? c.neg : c.muted;
+    circle(ctx, x, y, r, { fill: col, color: c.dark ? "#000" : "#fff", width: 1 });
+    if (r >= 5) {
+      ctx.save(); ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.4, r / 5);
+      ctx.beginPath(); ctx.moveTo(x - r * 0.5, y); ctx.lineTo(x + r * 0.5, y);
+      if (q > 0) { ctx.moveTo(x, y - r * 0.5); ctx.lineTo(x, y + r * 0.5); }
+      ctx.stroke(); ctx.restore();
+    }
+  }
+
+  /* ---------- number formatting ---------- */
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  function sup(n) { return String(n).split("").map(ch => SUP[ch] || ch).join(""); }
+  function fmt(v, sig = 3) {
+    if (v === null || v === undefined || Number.isNaN(v)) return "—";
+    if (!isFinite(v)) return v > 0 ? "∞" : "−∞";
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    const sign = v < 0 ? "−" : "";
+    if (a >= 1e-3 && a < 1e5) {
+      let s = a.toPrecision(sig);
+      if (s.includes("e")) s = String(Number(s));
+      return sign + s;
+    }
+    let e = Math.floor(Math.log10(a)), m = a / Math.pow(10, e);
+    let ms = m.toFixed(sig - 1);
+    if (parseFloat(ms) >= 10) { e += 1; ms = (m / 10).toFixed(sig - 1); }
+    return sign + ms + "×10" + sup(e);
+  }
+  function fmtTick(v, log) {
+    if (log) { const e = Math.round(Math.log10(v)); return e === 0 ? "1" : e === 1 ? "10" : "10" + sup(e); }
+    if (v === 0) return "0";
+    const a = Math.abs(v);
+    if (a >= 1e-3 && a < 1e5) return String(+v.toPrecision(6)).replace("-", "−");
+    return fmt(v, 2);
+  }
+
+  /* ---------- 2-D plot ---------- */
+  function niceStep(range, n) {
+    const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+  }
+  function ticks(lo, hi, log, n) {
+    const out = [];
+    if (log) {
+      const a = Math.ceil(Math.log10(lo) - 1e-9), b = Math.floor(Math.log10(hi) + 1e-9);
+      const every = Math.max(1, Math.ceil((b - a + 1) / 7));
+      for (let k = a; k <= b; k += every) out.push(Math.pow(10, k));
+      return out;
+    }
+    const s = niceStep(hi - lo, n);
+    for (let v = Math.ceil(lo / s - 1e-9) * s; v <= hi + 1e-9 * s; v += s) out.push(Math.abs(v) < 1e-12 * s ? 0 : v);
+    return out;
+  }
+  function plot(ctx, w, h, c, o) {
+    const fs = w < 420 ? 11 : 12;
+    const m = { l: o.ml ?? (w < 420 ? 48 : 58), r: 12, t: o.title ? 26 : 12, b: 40 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b;
+    const tx = v => o.xlog ? Math.log10(v) : v, ty = v => o.ylog ? Math.log10(v) : v;
+    const x0 = tx(o.x[0]), x1 = tx(o.x[1]), y0 = ty(o.y[0]), y1 = ty(o.y[1]);
+    const PX = v => m.l + (tx(v) - x0) / (x1 - x0) * pw;
+    const PY = v => m.t + ph - (ty(v) - y0) / (y1 - y0) * ph;
+    // grid + ticks
+    ctx.save();
+    ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`; ctx.fillStyle = c.muted;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const v of ticks(o.x[0], o.x[1], o.xlog, w < 420 ? 4 : 6)) {
+      const X = PX(v); ctx.beginPath(); ctx.moveTo(X, m.t); ctx.lineTo(X, m.t + ph); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.xlog), X, m.t + ph + 5);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const v of ticks(o.y[0], o.y[1], o.ylog, 5)) {
+      const Y = PY(v); ctx.beginPath(); ctx.moveTo(m.l, Y); ctx.lineTo(m.l + pw, Y); ctx.stroke();
+      ctx.fillText(fmtTick(v, o.ylog), m.l - 6, Y);
+    }
+    if (!o.ylog && o.y[0] < 0 && o.y[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(m.l, PY(0)); ctx.lineTo(m.l + pw, PY(0)); ctx.stroke(); }
+    if (!o.xlog && o.x[0] < 0 && o.x[1] > 0) { ctx.strokeStyle = c.line2; ctx.beginPath(); ctx.moveTo(PX(0), m.t); ctx.lineTo(PX(0), m.t + ph); ctx.stroke(); }
+    ctx.strokeStyle = c.line2; ctx.strokeRect(m.l, m.t, pw, ph);
+    // axis labels
+    ctx.fillStyle = c.ink2; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.font = `500 ${fs}px Inter, system-ui, sans-serif`;
+    if (o.xlabel) ctx.fillText(o.xlabel, m.l + pw / 2, h - 2);
+    if (o.ylabel) { ctx.save(); ctx.translate(12, m.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+    if (o.title) { ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(o.title, m.l, 5); }
+    // clip region
+    ctx.beginPath(); ctx.rect(m.l, m.t, pw, ph); ctx.clip();
+    for (const b of o.bands || []) {
+      ctx.fillStyle = b.fill; ctx.fillRect(PX(b.x0), m.t, PX(b.x1) - PX(b.x0), ph);
+    }
+    for (const v of o.vlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(PX(v.x), m.t); ctx.lineTo(PX(v.x), m.t + ph); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, PX(v.x) + 4, m.t + 10, { color: v.color || c.muted, size: fs, align: "left", halo: c.surface2 });
+    }
+    for (const v of o.hlines || []) {
+      ctx.save(); ctx.strokeStyle = v.color || c.muted; ctx.lineWidth = v.width || 1; ctx.setLineDash(v.dash || [4, 4]);
+      ctx.beginPath(); ctx.moveTo(m.l, PY(v.y)); ctx.lineTo(m.l + pw, PY(v.y)); ctx.stroke(); ctx.restore();
+      if (v.label) text(ctx, v.label, v.left ? m.l + 6 : m.l + pw - 4, PY(v.y) + (v.below ? 10 : -9), { color: v.color || c.muted, size: fs, align: v.left ? "left" : "right", halo: c.surface2 });
+    }
+    for (const s of o.series || []) {
+      let pts = [];
+      if (s.f) {
+        const n = s.n || 500;
+        for (let i = 0; i <= n; i++) {
+          const t = x0 + (x1 - x0) * i / n, xv = o.xlog ? Math.pow(10, t) : t;
+          const yv = s.f(xv);
+          if (!isFinite(yv) || (o.ylog && yv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      } else if (s.pts) {
+        for (const [xv, yv] of s.pts) {
+          if (!isFinite(yv) || (o.ylog && yv <= 0) || (o.xlog && xv <= 0)) { if (pts.length) { drawSeg(pts, s); pts = []; } continue; }
+          pts.push([PX(xv), PY(yv)]);
+        }
+      }
+      if (s.dots) { for (const p of pts) circle(ctx, p[0], p[1], s.dots, { fill: s.color }); }
+      else drawSeg(pts, s);
+    }
+    function drawSeg(pts, s) {
+      // clamp absurd pixel values so huge numbers do not break the path
+      const cl = pts.map(p => [p[0], Math.max(-1e5, Math.min(1e5, p[1]))]);
+      if (s.fill && cl.length > 1) { // shade the area between the curve and y = 0 (or the bottom axis)
+        const base = (!o.ylog && o.y[0] < 0 && o.y[1] > 0) ? PY(0) : m.t + ph;
+        ctx.save(); ctx.globalAlpha = s.fillAlpha ?? 0.15; ctx.fillStyle = s.color; ctx.beginPath(); ctx.moveTo(cl[0][0], base);
+        for (const p of cl) ctx.lineTo(p[0], p[1]); ctx.lineTo(cl[cl.length - 1][0], base); ctx.closePath(); ctx.fill(); ctx.restore();
+      }
+      line(ctx, cl, { color: s.color, width: s.width ?? 2, dash: s.dash });
+    }
+    for (const p of o.points || []) {
+      if (!isFinite(p.y) || (o.ylog && p.y <= 0)) continue;
+      circle(ctx, PX(p.x), PY(p.y), p.r || 5, { fill: p.color || c.accent, color: c.surface, width: 1.5 });
+      if (p.label) text(ctx, p.label, PX(p.x) + (p.dx ?? 8), PY(p.y) + (p.dy ?? -10), { color: p.color || c.accent, size: fs, align: p.align || "left", halo: c.surface2 });
+    }
+    ctx.restore();
+    // legend
+    const items = (o.series || []).filter(s => s.label);
+    if (items.length) {
+      ctx.save(); ctx.font = `400 ${fs}px Inter, system-ui, sans-serif`;
+      const lw = Math.max(...items.map(s => ctx.measureText(s.label).width)) + 34, lh = fs + 7;
+      const left = o.legend === "tl" || o.legend === "bl", bottom = o.legend === "br" || o.legend === "bl";
+      const mid = o.legend === "mr" || o.legend === "ml";   // "mr"/"ml": middle of the right/left edge
+      const bx = (left || o.legend === "ml") ? m.l + 8 : m.l + pw - lw - 8;
+      const by = bottom ? m.t + ph - items.length * lh - 12 : mid ? m.t + ph / 2 - (items.length * lh + 6) / 2 : m.t + 8;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = c.surface; ctx.fillRect(bx, by, lw, items.length * lh + 6); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c.line; ctx.strokeRect(bx, by, lw, items.length * lh + 6);
+      items.forEach((s, i) => {
+        const yy = by + 6 + i * lh + lh / 2 - 2;
+        if (s.dots) circle(ctx, bx + 16, yy, 3, { fill: s.color });
+        else line(ctx, [[bx + 6, yy], [bx + 26, yy]], { color: s.color, width: s.width ?? 2, dash: s.dash });
+        ctx.fillStyle = c.ink2; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(s.label, bx + 30, yy);
+      });
+      ctx.restore();
+    }
+    return { PX, PY, m, pw, ph };
+  }
+
+  /* ---------- controls ---------- */
+  function el(tag, attrs = {}, html) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function slider(parent, o) {
+    const box = el("div", { class: "ctl" });
+    const id = "s" + Math.random().toString(36).slice(2, 9);
+    const lab = el("label", { for: id }, `<span>${o.label}</span>`);
+    const out = el("output", { for: id });
+    lab.appendChild(out);
+    const inp = el("input", { type: "range", id });
+    const toT = v => o.log ? 1000 * Math.log(v / o.min) / Math.log(o.max / o.min) : v;
+    const fromT = t => o.log ? o.min * Math.pow(o.max / o.min, t / 1000) : t;
+    if (o.log) { inp.min = 0; inp.max = 1000; inp.step = "any"; }
+    else { inp.min = o.min; inp.max = o.max; inp.step = o.step ?? (o.max - o.min) / 200; }
+    inp.value = toT(o.value);
+    box.append(lab, inp);
+    parent.appendChild(box);
+    const api = {
+      get: () => fromT(parseFloat(inp.value)),
+      set: v => { inp.value = toT(v); show(); },
+      setRange: (lo, hi) => { if (!o.log) { inp.min = lo; inp.max = hi; show(); } },
+      input: inp
+    };
+    function show() { const v = api.get(); out.textContent = (o.fmt ? o.fmt(v) : fmt(v, 3)) + (o.unit ? " " + o.unit : ""); }
+    inp.addEventListener("input", () => { show(); o.onInput && o.onInput(api.get()); });
+    show();
+    return api;
+  }
+  function seg(parent, o) {
+    const box = el("div", { class: "ctl" });
+    if (o.label) box.appendChild(el("label", {}, `<span>${o.label}</span>`));
+    const row = el("div", { class: "seg", role: "group" });
+    let value = o.value;
+    const btns = o.options.map(([v, l]) => {
+      const b = el("button", { type: "button", "aria-pressed": String(v === value) }, l);
+      b.addEventListener("click", () => { api.set(v); o.onChange && o.onChange(v); });
+      row.appendChild(b); return [v, b];
+    });
+    box.appendChild(row); parent.appendChild(box);
+    const api = {
+      get: () => value,
+      set: v => { value = v; btns.forEach(([bv, b]) => b.setAttribute("aria-pressed", String(bv === v))); }
+    };
+    return api;
+  }
+  function check(parent, o) {
+    const lab = el("label", { class: "chk" });
+    const inp = el("input", { type: "checkbox" }); inp.checked = !!o.value;
+    lab.append(inp, document.createTextNode(o.label));
+    parent.appendChild(lab);
+    inp.addEventListener("change", () => o.onChange && o.onChange(inp.checked));
+    return { get: () => inp.checked, set: v => { inp.checked = v; } };
+  }
+  function button(parent, label, onClick, ghost) {
+    const b = el("button", { type: "button", class: ghost ? "btn ghost" : "btn" }, label);
+    b.addEventListener("click", onClick); parent.appendChild(b); return b;
+  }
+  function readout(parent, items) {
+    // items: [[key, label]]; returns setter(key, html)
+    const grid = el("div", { class: "readout" }), spans = {};
+    for (const [k, l] of items) { const d = el("div", {}, `<b>${l}</b>`); const s = el("span", {}, "—"); d.appendChild(s); grid.appendChild(d); spans[k] = s; }
+    parent.appendChild(grid);
+    return (k, html) => { if (spans[k]) spans[k].innerHTML = html; };
+  }
+
+  /* ---------- animation ---------- */
+  function animator(step) {
+    let raf = null, last = 0;
+    function frame(t) {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      if (step(dt) === false) { raf = null; last = 0; return; }
+      raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } },
+      stop() { if (raf) cancelAnimationFrame(raf); raf = null; last = 0; },
+      running() { return !!raf; }
+    };
+  }
+
+  /* ---------- KaTeX (site copy first, CDN fallback) ---------- */
+  function loadScript(srcs) {
+    return new Promise((res, rej) => {
+      const tryOne = i => {
+        if (i >= srcs.length) return rej();
+        const s = document.createElement("script"); s.src = srcs[i];
+        s.onload = res; s.onerror = () => { s.remove(); tryOne(i + 1); };
+        document.head.appendChild(s);
+      };
+      tryOne(0);
+    });
+  }
+  function loadCss(hrefs) {
+    const tryOne = i => {
+      if (i >= hrefs.length) return;
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = hrefs[i];
+      l.onerror = () => { l.remove(); tryOne(i + 1); };
+      document.head.appendChild(l);
+    };
+    tryOne(0);
+  }
+  function math() {
+    const local = "../../../vendor/katex/", cdn = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    loadCss([local + "katex.min.css", cdn + "katex.min.css"]);
+    loadScript([local + "katex.min.js", cdn + "katex.min.js"])
+      .then(() => loadScript([local + "contrib/auto-render.min.js", cdn + "contrib/auto-render.min.js"]))
+      .then(() => {
+        window.renderMathInElement(document.body, {
+          delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }],
+          throwOnError: false
+        });
+        document.documentElement.dataset.math = "ok";
+      })
+      .catch(() => { document.documentElement.dataset.math = "fail"; });
+  }
+
+  /* ---------- numerics shared by several pages ---------- */
+  // composite Simpson rule on [a,b] with n (even) panels
+  function simpson(f, a, b, n = 2000) {
+    if (n % 2) n++;
+    const h = (b - a) / n; let s = f(a) + f(b);
+    for (let i = 1; i < n; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+    return s * h / 3;
+  }
+
+  const $ = id => document.getElementById(id);
+  return { C, canvas, view, arrow, line, circle, ellipse, text, charge, fmt, sup, plot, slider, seg, check, button, readout,
+           animator, math, themeButton, redrawAll, simpson, el, $ };
+})();
+
+/* Unfold all / Fold all, and open everything for printing */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fold]");
+  if (!b) return;
+  document.querySelectorAll("details.fold").forEach(d => { d.open = b.dataset.fold === "open"; });
+});
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.fold").forEach(d => { d.open = true; }));
+
+/* ---------- circuit symbols (screen coordinates) ---------- */
+D.wire = (ctx, pts, c, w = 2) => D.line(ctx, pts, { color: c.ink2, width: w });
+D.node = (ctx, x, y, c, label, dx = -12, dy = -10) => {
+  D.circle(ctx, x, y, 3.6, { fill: c.ink });
+  if (label) D.text(ctx, label, x + dx, y + dy, { color: c.ink, italic: true, size: 15, font: "Georgia, serif" });
+};
+// resistor between (x0,y0) and (x1,y1): zig-zag of length L in the middle, leads to the ends
+D.resistor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const z = Math.min(o.len || 46, 0.7 * L), a = (L - z) / 2, amp = o.amp || 7, n = 6;
+  const pts = [[x0, y0], [x0 + ux * a, y0 + uy * a]];
+  for (let k = 0; k < n; k++) {
+    const t = a + z * (k + 0.5) / n, s = k % 2 ? -1 : 1;
+    pts.push([x0 + ux * t + nx * amp * s, y0 + uy * t + ny * amp * s]);
+  }
+  pts.push([x0 + ux * (a + z), y0 + uy * (a + z)], [x1, y1]);
+  D.line(ctx, pts, { color: o.color || c.pos, width: 2.2 });
+  if (o.label) {
+    const off = o.labelOff ?? 18, mx = (x0 + x1) / 2 + nx * off * (o.side || 1), my = (y0 + y1) / 2 + ny * off * (o.side || 1);
+    D.text(ctx, o.label, mx, my, { color: c.ink, size: o.size || 13, align: o.align || "center", halo: c.surface2 });
+  }
+};
+// battery between ends; positive plate (long) towards the end given by o.plus = 1 (end 1) or 0 (end 0)
+D.battery = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 7, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, plusAt1 = o.plus !== 0;
+  const pLong = plusAt1 ? g / 2 : -g / 2, pShort = -pLong;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  const plate = (t, h, w) => D.line(ctx, [[mx + ux * t + nx * h, my + uy * t + ny * h], [mx + ux * t - nx * h, my + uy * t - ny * h]], { color: c.c3, width: w });
+  plate(pLong, 15, 2.6); plate(pShort, 8, 4.5);
+  const sgn = o.side || 1;
+  D.text(ctx, "+", mx + ux * pLong * 2.4 + nx * 15 * sgn, my + uy * pLong * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  D.text(ctx, "−", mx + ux * pShort * 2.4 + nx * 15 * sgn, my + uy * pShort * 2.4 + ny * 15 * sgn, { color: c.ink2, size: 13 });
+  if (o.label) D.text(ctx, o.label, mx - nx * 26 * sgn, my - ny * 26 * sgn, { color: c.ink, size: o.size || 13, halo: c.surface2 });
+};
+// capacitor between ends
+D.capacitor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const g = 8, mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  D.line(ctx, [[x0, y0], [mx - ux * g / 2, my - uy * g / 2]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * g / 2, my + uy * g / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  for (const t of [-g / 2, g / 2]) D.line(ctx, [[mx + ux * t + nx * 14, my + uy * t + ny * 14], [mx + ux * t - nx * 14, my + uy * t - ny * 14]], { color: c.c1, width: 3 });
+  if (o.label) D.text(ctx, o.label, mx + nx * 30 * (o.side || 1), my + ny * 30 * (o.side || 1), { color: c.ink, size: 13, halo: c.surface2 });
+};
+// current arrow along a straight wire segment, pointing from (x0,y0) to (x1,y1); flips for negative values
+D.current = (ctx, x0, y0, x1, y1, value, c, label, o = {}) => {
+  if (!isFinite(value) || Math.abs(value) < 1e-12) return;
+  const s = value >= 0 ? 1 : -1, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0);
+  const ux = (x1 - x0) / L * s, uy = (y1 - y0) / L * s, h = o.len || 16;
+  const ox = (o.off || 0) * -uy * s, oy = (o.off || 0) * ux * s;
+  D.arrow(ctx, mx - ux * h + ox, my - uy * h + oy, mx + ux * h + ox, my + uy * h + oy, { color: o.color || c.accent, width: 2.6, head: 10 });
+  if (label) D.text(ctx, label, mx + ox * 2.2 + (o.ldx || 0), my + oy * 2.2 + (o.ldy || 0), { color: o.color || c.accent, size: 13, bold: true, halo: c.surface2 });
+};
+// Gaussian elimination with partial pivoting (written out so students can read it)
+D.solve = (A, b) => {
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let k = 0; k < n; k++) {
+    let p = k; for (let i = k + 1; i < n; i++) if (Math.abs(M[i][k]) > Math.abs(M[p][k])) p = i;
+    [M[k], M[p]] = [M[p], M[k]];
+    for (let i = k + 1; i < n; i++) { const f = M[i][k] / M[k][k]; for (let j = k; j <= n; j++) M[i][j] -= f * M[k][j]; }
+  }
+  const x = new Array(n).fill(0);
+  for (let i = n - 1; i >= 0; i--) { let s = M[i][n]; for (let j = i + 1; j < n; j++) s -= M[i][j] * x[j]; x[i] = s / M[i][i]; }
+  return x;
+};
+// inductor (coil) between two points: n loops of radius r on the side given by o.side (default +1 = left of the direction of travel)
+D.inductor = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const n = o.n || 4, len = o.len || Math.min(L * 0.6, 56), r = len / (2 * n), mx = (x0 + x1) / 2, my = (y0 + y1) / 2, side = o.side || 1;
+  const ax = mx - ux * len / 2, ay = my - uy * len / 2;
+  D.line(ctx, [[x0, y0], [ax, ay]], { color: c.ink2, width: 2 });
+  D.line(ctx, [[mx + ux * len / 2, my + uy * len / 2], [x1, y1]], { color: c.ink2, width: 2 });
+  ctx.save(); ctx.strokeStyle = o.color || c.pos; ctx.lineWidth = 2.6; ctx.lineCap = "round"; ctx.beginPath();
+  const base = Math.atan2(uy, ux);
+  for (let k = 0; k < n; k++) {
+    const cx = ax + ux * r * (2 * k + 1), cy = ay + uy * r * (2 * k + 1);
+    // semicircle bulging to the chosen side
+    const a0 = base + (side > 0 ? Math.PI : 0), a1 = a0 + Math.PI;
+    ctx.arc(cx, cy, r, a0, a1, side > 0);
+  }
+  ctx.stroke(); ctx.restore();
+  if (o.label) D.text(ctx, o.label, mx + nx * (o.labelOff || 26) * side, my + ny * (o.labelOff || 26) * side, { color: c.ink, size: 13, halo: c.surface2, align: o.align || "center" });
+};
+// a switch blade from the pivot (x0,y0) toward one of two contacts; `pos` = 0 (open) or 1 (closed) toward (x1,y1)
+D.switchBlade = (ctx, x0, y0, x1, y1, closed, c) => {
+  const L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L, nx = -uy, ny = ux;
+  const ex = closed ? x1 : x0 + ux * L * 0.85 + nx * L * 0.45, ey = closed ? y1 : y0 + uy * L * 0.85 + ny * L * 0.45;
+  D.line(ctx, [[x0, y0], [ex, ey]], { color: c.pos, width: 2.6 });
+  D.circle(ctx, x0, y0, 3.5, { fill: c.surface, color: c.ink2, width: 1.6 }); D.circle(ctx, x1, y1, 3.5, { fill: c.surface, color: c.ink2, width: 1.6 });
+};
+// AC source symbol: a circle with a sine wave, centred on the wire from (x0,y0) to (x1,y1)
+D.acSource = (ctx, x0, y0, x1, y1, c, o = {}) => {
+  const r = o.r || 16, mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L;
+  D.line(ctx, [[x0, y0], [mx - ux * r, my - uy * r]], { color: c.ink2, width: 2 }); D.line(ctx, [[mx + ux * r, my + uy * r], [x1, y1]], { color: c.ink2, width: 2 });
+  D.circle(ctx, mx, my, r, { fill: c.gold, color: c.ink2, width: 2 });
+  ctx.save(); ctx.strokeStyle = c.ink; ctx.lineWidth = 2; ctx.beginPath();
+  for (let k = 0; k <= 20; k++) { const t = k / 20, x = mx - r * 0.65 + 1.3 * r * t, y = my - r * 0.45 * Math.sin(2 * Math.PI * t); k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.stroke(); ctx.restore();
+  if (o.label) D.text(ctx, o.label, mx, my + r + 14, { color: c.ink, size: 12, halo: c.surface2 });
+};
+// into-the-page (⊗) or out-of-the-page (⊙) field symbol at (x, y); size scales with the field strength when o.scale is given
+D.mark = (ctx, x, y, into, col, o = {}) => {
+  const r = o.r || 5;
+  ctx.save(); ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = o.width || 1.5; ctx.globalAlpha = o.alpha ?? 1;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.stroke();
+  if (into) { ctx.beginPath(); const d = r * 0.6; ctx.moveTo(x - d, y - d); ctx.lineTo(x + d, y + d); ctx.moveTo(x + d, y - d); ctx.lineTo(x - d, y + d); ctx.stroke(); }
+  else { ctx.beginPath(); ctx.arc(x, y, Math.max(1.2, r * 0.3), 0, 2 * Math.PI); ctx.fill(); }
+  ctx.restore();
+};
+
+</script>
+<script>
+(() => {
+  const MU0 = 4e-7 * Math.PI;
+  const ctl = D.$("ctl");
+  const sI = D.slider(ctl, { label: "current I", min: 1, max: 50, step: 1, value: 10, unit: "A", fmt: v => v.toFixed(0), onInput: update });
+  const sa = D.slider(ctl, { label: "width a (across the field)", min: 1, max: 20, step: 0.5, value: 6, unit: "cm", fmt: v => v.toFixed(1), onInput: update });
+  const sb = D.slider(ctl, { label: "length b (along the wire)", min: 1, max: 30, step: 0.5, value: 10, unit: "cm", fmt: v => v.toFixed(1), onInput: update });
+  const sc = D.slider(ctl, { label: "distance c to the near edge", min: 0.2, max: 20, step: 0.1, value: 2, unit: "cm", fmt: v => v.toFixed(1), onInput: update });
+  const sr = D.slider(ctl, { label: "position of the strip across the loop", min: 0, max: 1, step: 0.01, value: 0.3, unit: "", fmt: v => `${(100 * v).toFixed(0)} %`, onInput: () => { playing = false; update(); } });
+  const bx = D.el("div", { class: "btns" }); ctl.appendChild(bx);
+  let playing = false;
+  const playBtn = D.button(bx, "▶ Sweep the strip", () => { playing = !playing; if (playing) { if (sr.get() >= 0.99) sr.set(0); anim.start(); } update(); });
+  const ro = D.readout(D.$("ro"), [["flux", "Φ_B = (μ₀Ib/2π) ln(1 + a/c)"], ["B", "B at the near and far edges"], ["strip", "this strip: r, B, dΦ/dr = B b"], ["naive", "naive B(c + a/2)·ab"]]);
+  const S = () => { const I = sI.get(), a = sa.get() / 100, b = sb.get() / 100, c = sc.get() / 100, r = c + a * sr.get();
+    return { I, a, b, c, r, flux: MU0 * I * b / (2 * Math.PI) * Math.log(1 + a / c), Bc: MU0 * I / (2 * Math.PI * c), Bf: MU0 * I / (2 * Math.PI * (c + a)), Br: MU0 * I / (2 * Math.PI * r), naive: MU0 * I / (2 * Math.PI * (c + a / 2)) * a * b }; };
+  const Bof = (s, r) => MU0 * s.I / (2 * Math.PI * r);
+  const anim = D.animator(dt => { const v = sr.get() + dt * 0.3; if (v >= 1) { sr.set(1); playing = false; } else sr.set(v); update(); return playing; });
+
+  const geo = D.canvas(D.$("geo"), 0.9, (ctx, w, h, c) => {
+    const s = S(), xmax = s.c + s.a, V = D.view(w, h, [-0.18 * xmax, 1.15 * xmax], [-0.75 * Math.max(s.b, 0.6 * xmax), 0.75 * Math.max(s.b, 0.6 * xmax)], { pad: 14, equal: true }), X = V.X, Y = V.Y;
+    // field marks: ⊗ into the page, denser near the wire (columns at increasing spacing)
+    const cols = []; for (let r = 0.012; r < 1.15 * xmax; r *= 1.35) cols.push(r);
+    for (const r of cols) { const dy = Math.max(14, Math.min(40, 3.2 * (X(r) - X(0)) / 3)); for (let y = 0; y < h; y += dy) D.mark(ctx, X(r), y + 7, true, c.c3, { r: 4, width: 1.2, alpha: 0.5 }); }
+    // the wire
+    D.line(ctx, [[X(0), 0], [X(0), h]], { color: c.muted, width: 8 }); D.line(ctx, [[X(0), 0], [X(0), h]], { color: c.ink2, width: 2 });
+    D.arrow(ctx, X(0) - 16, Y(-0.3 * s.b), X(0) - 16, Y(0.3 * s.b), { color: c.c4, width: 2.5 }); D.text(ctx, "I", X(0) - 28, Y(0), { color: c.c4, size: 13, italic: true, bold: true, halo: c.surface2 });
+    // the loop
+    ctx.save(); ctx.strokeStyle = c.ink; ctx.lineWidth = 2.2; ctx.strokeRect(X(s.c), Y(s.b / 2), X(s.c + s.a) - X(s.c), Y(-s.b / 2) - Y(s.b / 2)); ctx.restore();
+    // the strip
+    const sw = Math.max(4, (X(s.c + s.a) - X(s.c)) * 0.04);
+    ctx.save(); ctx.fillStyle = c.gold; ctx.globalAlpha = 0.6; ctx.fillRect(X(s.r) - sw / 2, Y(s.b / 2), sw, Y(-s.b / 2) - Y(s.b / 2)); ctx.restore();
+    D.text(ctx, "dr", X(s.r), Y(s.b / 2) - 10, { color: c.gold, size: 11, italic: true, halo: c.surface2 });
+    // dimensions
+    const yd = Y(-s.b / 2) + 18; D.arrow(ctx, X(0), yd, X(s.c), yd, { color: c.ink2, width: 1.2, head: 7 }); D.arrow(ctx, X(s.c), yd, X(0), yd, { color: c.ink2, width: 1.2, head: 7 }); D.text(ctx, "c", X(s.c / 2), yd + 12, { color: c.ink2, size: 12, italic: true, halo: c.surface2 });
+    D.arrow(ctx, X(s.c), yd, X(s.c + s.a), yd, { color: c.ink2, width: 1.2, head: 7 }); D.arrow(ctx, X(s.c + s.a), yd, X(s.c), yd, { color: c.ink2, width: 1.2, head: 7 }); D.text(ctx, "a", X(s.c + s.a / 2), yd + 12, { color: c.ink2, size: 12, italic: true, halo: c.surface2 });
+    const xd = X(s.c + s.a) + 16; D.arrow(ctx, xd, Y(s.b / 2), xd, Y(-s.b / 2), { color: c.ink2, width: 1.2, head: 7 }); D.arrow(ctx, xd, Y(-s.b / 2), xd, Y(s.b / 2), { color: c.ink2, width: 1.2, head: 7 }); D.text(ctx, "b", xd + 10, Y(0), { color: c.ink2, size: 12, italic: true, align: "left", halo: c.surface2 });
+    const yr = Y(s.b / 2) - 26; D.arrow(ctx, X(0), yr, X(s.r), yr, { color: c.gold, width: 1.2, head: 7 }); D.text(ctx, "r", X(s.r / 2), yr - 10, { color: c.gold, size: 12, italic: true, halo: c.surface2 });
+    D.text(ctx, `B(r) = ${D.fmt(s.Br * 1e6, 3)} μT`, w - 8, h - 8, { color: c.c3, size: 11, align: "right", halo: c.surface2 });
+  });
+
+  const plot = D.canvas(D.$("plot"), 1.0, (ctx, w, h, c) => {
+    const s = S(), half = h * 0.5, x0 = 100 * s.c, x1 = 100 * (s.c + s.a);
+    ctx.save(); ctx.beginPath(); ctx.rect(0, 0, w, half); ctx.clip();
+    D.plot(ctx, w, half, c, { x: [x0, x1], y: [0, 1.15 * s.Bc * 1e6], ylabel: "B (μT)", series: [{ f: rc => Bof(s, rc / 100) * 1e6, color: c.c3, width: 2.5, fill: true, fillAlpha: 0.18 }],
+      vlines: [{ x: 100 * s.r, color: c.gold }], points: [{ x: 100 * s.r, y: s.Br * 1e6, color: c.gold }], hlines: [{ y: Bof(s, s.c + s.a / 2) * 1e6, label: "B at the middle", color: c.muted, left: false }] });
+    ctx.restore(); ctx.save(); ctx.translate(0, half); ctx.beginPath(); ctx.rect(0, 0, w, h - half); ctx.clip();
+    D.plot(ctx, w, h - half, c, { x: [x0, x1], y: [0, 1.15 * Math.max(s.flux, s.naive) * 1e6], xlabel: "r (cm)", ylabel: "flux from c to r (μWb)",
+      series: [{ f: rc => MU0 * s.I * s.b / (2 * Math.PI) * Math.log(rc / x0) * 1e6, color: c.c1, width: 2.5 }], vlines: [{ x: 100 * s.r, color: c.gold }],
+      hlines: [{ y: s.flux * 1e6, label: `Φ_B = ${D.fmt(s.flux * 1e6, 3)} μWb`, color: c.c1, left: false, below: true }, { y: s.naive * 1e6, label: "naive estimate", color: c.muted, left: true }] });
+    ctx.restore();
+  });
+
+  const pr = D.$("presets");
+  D.button(pr, "Loop near the wire: c = a/10", () => { sc.set(Math.max(0.2, sa.get() / 10)); update(); }, true);
+  D.button(pr, "Loop far away: c = 20 cm", () => { sc.set(20); update(); });
+  D.button(pr, "c = a", () => { sc.set(sa.get()); update(); });
+
+  function update() {
+    const s = S();
+    ro("flux", `${D.fmt(s.flux * 1e6, 4)} μWb`); ro("B", `${D.fmt(s.Bc * 1e6, 4)} μT at r = c,  ${D.fmt(s.Bf * 1e6, 4)} μT at r = c + a`);
+    ro("strip", `r = ${(100 * s.r).toFixed(2)} cm, B = ${D.fmt(s.Br * 1e6, 4)} μT, dΦ/dr = ${D.fmt(s.Br * s.b * 1e6, 4)} μWb/m`); ro("naive", `${D.fmt(s.naive * 1e6, 4)} μWb (${(100 * (s.naive / s.flux - 1)).toFixed(1)} % off)`);
+    playBtn.textContent = playing ? "❚❚ Pause" : "▶ Sweep the strip";
+    // 2-D midpoint integration over the loop (nothing assumed about strips)
+    const nx = 400, ny = 40; let f2 = 0; for (let i = 0; i < nx; i++) { const r = s.c + s.a * (i + 0.5) / nx; for (let j = 0; j < ny; j++) f2 += Bof(s, r) * (s.a / nx) * (s.b / ny); }
+    const fl = cc => MU0 * s.I * s.b / (2 * Math.PI) * Math.log(1 + s.a / cc);
+    D.$("tbl").innerHTML = `<tr><th>quantity</th><th>numerical</th><th>formula</th></tr>
+      <tr><td>Φ_B (μWb)</td><td>${D.fmt(f2 * 1e6, 7)} (2-D midpoint, ${nx}×${ny})</td><td>${D.fmt(s.flux * 1e6, 7)} = (μ₀Ib/2π) ln(1 + a/c)</td></tr>
+      <tr><td>naive B(c + a/2)·ab (μWb)</td><td colspan="2">${D.fmt(s.naive * 1e6, 7)}</td></tr>
+      <tr><td>c = 10 a, 100 a, 1000 a (μWb)</td><td colspan="2">${D.fmt(fl(10 * s.a) * 1e6, 4)}, ${D.fmt(fl(100 * s.a) * 1e6, 4)}, ${D.fmt(fl(1000 * s.a) * 1e6, 4)} → 0</td></tr>
+      <tr><td>c = a/10, a/100, a/1000 (μWb)</td><td colspan="2">${D.fmt(fl(s.a / 10) * 1e6, 4)}, ${D.fmt(fl(s.a / 100) * 1e6, 4)}, ${D.fmt(fl(s.a / 1000) * 1e6, 4)} → ∞ (logarithmically)</td></tr>`;
+    geo.render(); plot.render();
+    window.__check = { flux: s.flux, flux2d: f2, naive: s.naive };
+  }
+  update();
+})();
+D.themeButton(D.$("themeBtn"));
+D.math();
+</script>
+</body>
+</html>
