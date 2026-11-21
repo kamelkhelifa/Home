@@ -1,15 +1,15 @@
 """Draw the site's logo: three K's for research, teaching and community.
 
-The three K's are the circle: each stem is a third of the ring, and the arms reach inwards and meet the
-neighbours' arms; a three-jet event marks the centre. In the seal each K's story sits between its arms: particle tracks through a lattice
+The three K's are the circle: each stem is a third of the ring, and their arms together draw a triangle inscribed in
+it; a three-jet event marks the centre and each K's story sits in its corner of the triangle: particle tracks through a lattice
 ring (research), an open book and a pen (teaching), a group of people (community).
 
   python tools/make_logo.py                          # redraw with the cached Arabic name
   python tools/make_logo.py --arabic-font FONT.ttf   # also re-trace the Arabic name from a font
 
 Writes templates/_logo.html (theme colours: the seal and the compact mark), static/img/favicon.svg and
-static/img/logo-seal.svg (fixed colours). The Arabic name is set in Khalid Art Bold; its outlines are cached in
-tools/logo_name_ar.txt, so the font file itself is never needed by the site or published.
+static/img/logo-seal.svg (fixed colours). The seal used to carry the name in English and Arabic round the ring;
+it is now the ring alone. The Arabic-name tracing below is kept for reuse (outlines cached in tools/logo_name_ar.txt).
 """
 import argparse
 import math
@@ -36,15 +36,16 @@ def pt(x, y, r, deg):
 
 # ---------------------------------------------------------------- the three K's on a ring
 # The three K's make up the circle: each stem is a 120-degree arc of the ring (with a small gap to its neighbours),
-# research (maroon) at the upper left, teaching (gold) at the upper right, community (ink) at the bottom. From the
-# middle of each arc two arms reach inwards and meet the neighbouring K's arms, as the triangle's did. A three-jet
-# event marks the centre and each K's story sits between its arms.
+# research (maroon) at the upper left, teaching (gold) at the upper right, community (ink) at the bottom. The arms
+# of the three K's are the sides of one triangle inscribed in the ring: from the middle of each arc two arms run
+# along the triangle's sides and meet the neighbouring K's arms half-way. Inside the triangle, a three-jet event at
+# the centre and, in each corner, that K's story.
 
 O, RING, SPAN, GAP_DEG = (50, 50), 38, 120, 3.2     # ring radius; degrees of arc per K; the small gap between K's
 ANGLES = {"research": -150, "teaching": -30, "community": 90}     # degrees, clockwise from +x (SVG y is down)
 COLOURS = {"research": "maroon", "teaching": "gold", "community": "ink"}
 ORDER = ("research", "teaching", "community")
-ARM_DEG, ARM_LEN = 34, 21                               # each K's arms open at +-ARM_DEG from the inward radius
+ARM_GAP = 1.3                                           # gap where two neighbouring K's arms meet
 
 
 def add(a, b, k=1):
@@ -73,23 +74,26 @@ def bar(p, q, w, color):
     return f'<polygon points="{fmt([add(p, n, w / 2), add(q, n, w / 2), add(q, n, -w / 2), add(p, n, -w / 2)])}" {paint(("fill", color))}/>'
 
 
+def vertex(which, sw):
+    """Where a K's arms leave its stem: the middle of its arc, on the inner edge of the stroke."""
+    return pt(*O, RING - sw / 2 + .3, ANGLES[which])
+
+
 def k_arc(which, c, sw=4.2, aw=2.6):
     """One K whose stem is an arc of the ring: a third of the circle (minus a small gap) centred on the K's angle.
-    From the middle of the arc the K's two arms open inwards, like the '<' of a K laid against a curved stem,
-    each ending in a short serif."""
+    Its two arms run from the middle of the arc along two sides of the inscribed triangle and stop just short of
+    the middle of each side, where the neighbouring K's arm comes to meet them."""
     color, ang = c[COLOURS[which]], ANGLES[which]
     half = SPAN / 2 - GAP_DEG / 2
     (x0, y0), (x1, y1) = pt(*O, RING, ang - half), pt(*O, RING, ang + half)
     out = [f'<path d="M{x0:.2f} {y0:.2f}A{RING} {RING} 0 0 1 {x1:.2f} {y1:.2f}" fill="none" {paint(("stroke", color))} stroke-width="{sw}" stroke-linecap="butt"/>']
-    mid = pt(*O, RING - sw / 2 + .3, ang)                    # the arms start on the inner edge of the stem
-    inward = unit(sub(O, mid))
-    for da in (-ARM_DEG, ARM_DEG):
-        a = math.radians(da)
-        d = (inward[0] * math.cos(a) - inward[1] * math.sin(a), inward[0] * math.sin(a) + inward[1] * math.cos(a))
-        end = add(mid, d, ARM_LEN)
-        out.append(bar(mid, end, aw, color))
-        n = perp(d)
-        out.append(bar(add(end, n, -aw * .95), add(end, n, aw * .95), .9, color))
+    v = vertex(which, sw)
+    for other in ORDER:
+        if other == which:
+            continue
+        meet = add(v, sub(vertex(other, sw), v), .5)          # the middle of the triangle's side
+        end = add(meet, unit(sub(v, meet)), ARM_GAP / 2)
+        out.append(bar(v, end, aw, color))
     return "".join(out)
 
 
@@ -106,34 +110,34 @@ def three_jets(c, r=5.5):
     return "".join(out)
 
 
-def symbols(c):
-    """Each K's story, drawn upright between that K's arms: particle tracks through a lattice
-    ring (research), an open book with a pen (teaching), a group of people (community). Thin inner circle and
-    each drawn a little larger than the jets."""
+def symbols(c, k=1.0, rr=23):
+    """Each K's story, drawn upright in the triangle's corner between that K's arms: particle tracks through a
+    lattice ring (research), an open book with a pen (teaching), a group of people (community). `k` scales the
+    icons about their own centres and `rr` is how far from the centre they sit."""
     out = []
-    # research: tracks fanning out from a vertex, through a hexagonal lattice ring
-    m = pt(*O, 23, ANGLES["research"]); d = unit(sub(m, O))
-    out.append(f'<g transform="translate({m[0]:.2f} {m[1]:.2f}) scale(1.0) translate({-m[0]:.2f} {-m[1]:.2f})">')
+    # research: a collision vertex inside a hexagonal lattice cell, its tracks fanning out through the cell
+    m = pt(*O, rr, ANGLES["research"]); d = unit(sub(m, O))
+    out.append(f'<g transform="translate({m[0]:.2f} {m[1]:.2f}) scale({k}) translate({-m[0]:.2f} {-m[1]:.2f})">')
     for ang in (-28, -14, 0, 14, 28):
         a = math.radians(ang)
         dd = (d[0] * math.cos(a) - d[1] * math.sin(a), d[0] * math.sin(a) + d[1] * math.cos(a))
-        (x1, y1), (x2, y2) = add(m, dd, -4.2), add(m, dd, 3.4)
+        (x1, y1), (x2, y2) = add(m, dd, .9), add(m, dd, 4.4)
         out.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" {paint(("stroke", c["maroon"]))} stroke-width=".5" stroke-linecap="round" stroke-opacity=".85"/>')
-    hexa = [add(m, (2.6 * math.cos(math.radians(60 * k + 30)), 2.6 * math.sin(math.radians(60 * k + 30)))) for k in range(6)]
+    hexa = [add(m, (2.3 * math.cos(math.radians(60 * k + 30)), 2.6 * math.sin(math.radians(60 * k + 30)))) for k in range(6)]
     out.append(f'<polygon points="{fmt(hexa)}" fill="none" {paint(("stroke", c["maroon"]))} stroke-width=".6" stroke-linejoin="round"/>')
-    out.append(f'<circle cx="{m[0] - 4.2 * d[0]:.2f}" cy="{m[1] - 4.2 * d[1]:.2f}" r=".7" {paint(("fill", c["maroon"]))}/></g>')
+    out.append(f'<circle cx="{m[0]:.2f}" cy="{m[1]:.2f}" r=".75" {paint(("fill", c["maroon"]))}/></g>')
     # teaching: an open book and a pen
-    bx, by = pt(*O, 23, ANGLES["teaching"])
-    out.append(f'<g transform="translate({bx:.2f} {by:.2f}) scale(1.0) translate({-bx:.2f} {-by:.2f})">')
+    bx, by = pt(*O, rr, ANGLES["teaching"])
+    out.append(f'<g transform="translate({bx:.2f} {by:.2f}) scale({k}) translate({-bx:.2f} {-by:.2f})">')
     out.append(f'<path d="M{bx:.2f} {by + 2.2:.2f}C{bx - 1.4:.2f} {by + 1.2:.2f} {bx - 3.2:.2f} {by + 1.2:.2f} {bx - 4.6:.2f} {by + 1.7:.2f}V{by - 1.9:.2f}'
                f'C{bx - 3.2:.2f} {by - 2.4:.2f} {bx - 1.4:.2f} {by - 2.4:.2f} {bx:.2f} {by - 1.5:.2f}Z'
                f'M{bx:.2f} {by + 2.2:.2f}C{bx + 1.4:.2f} {by + 1.2:.2f} {bx + 3.2:.2f} {by + 1.2:.2f} {bx + 4.6:.2f} {by + 1.7:.2f}V{by - 1.9:.2f}'
                f'C{bx + 3.2:.2f} {by - 2.4:.2f} {bx + 1.4:.2f} {by - 2.4:.2f} {bx:.2f} {by - 1.5:.2f}Z" fill="none" {paint(("stroke", c["gold"]))} stroke-width=".6" stroke-linejoin="round"/>')
-    out.append(f'<g transform="translate({bx + 1.2:.2f} {by - 3.6:.2f}) rotate(-35)"><rect x="-3.2" y="-.5" width="5" height="1" rx=".3" {paint(("fill", c["gold"]))}/>'
+    out.append(f'<g transform="translate({bx - .6:.2f} {by - 3.0:.2f}) rotate(-35)"><rect x="-3.2" y="-.5" width="5" height="1" rx=".3" {paint(("fill", c["gold"]))}/>'
                f'<path d="M1.8 -.5L3.5 0L1.8 .5Z" {paint(("fill", c["ink"]))}/></g></g>')
     # community: three people
-    x0, y0 = pt(*O, 23.5, ANGLES["community"])
-    out.append(f'<g transform="translate({x0:.2f} {y0:.2f}) scale(1.0) translate({-x0:.2f} {-y0:.2f})">')
+    x0, y0 = pt(*O, rr, ANGLES["community"])
+    out.append(f'<g transform="translate({x0:.2f} {y0:.2f}) scale({k}) translate({-x0:.2f} {-y0:.2f})">')
     ink = paint(("fill", c["ink"]))
     for dx, r, dy in ((-3, .95, .6), (0, 1.15, 0), (3, .95, .6)):
         out.append(f'<circle cx="{x0 + dx:.2f}" cy="{y0 + dy - 1.9:.2f}" r="{r}" {ink}/>'
@@ -143,12 +147,12 @@ def symbols(c):
 
 
 def emblem(c, detailed=True):
-    """The whole mark: the three K's whose stems make up the ring, the jets at the centre and, in the detailed
-    version, each K's story between its arms."""
+    """The whole mark: the three K's whose stems make up the ring and whose arms make the triangle, the jets at the
+    centre and each K's story in its corner. The compact version (seen at 40 px or so) has heavier strokes and
+    slightly larger icons and jets."""
     if detailed:
-        return "".join(k_arc(w, c) for w in ORDER) + three_jets(c, 6) + symbols(c)
-    # the compact mark is seen at 40 px or so: heavier strokes and bigger jets
-    return "".join(k_arc(w, c, 5.4, 3.3) for w in ORDER) + three_jets(c, 8.5)
+        return "".join(k_arc(w, c) for w in ORDER) + three_jets(c, 7.5) + symbols(c, 1.2, 23)
+    return "".join(k_arc(w, c, 5.2, 3.2) for w in ORDER) + three_jets(c, 8.5) + symbols(c, 1.35, 22.5)
 
 
 # ---------------------------------------------------------------- the Arabic name, bent along the seal
@@ -219,17 +223,8 @@ def arabic_on_arc(cx, cy, radius, size):
 # ---------------------------------------------------------------- assemblies
 
 def seal(c, uid):
-    m = paint(("stroke", c["maroon"]))
-    return "".join([
-        f'<circle cx="50" cy="50" r="48.5" fill="none" {m} stroke-width="1.2"/>',
-        f'<circle cx="50" cy="50" r="46.6" fill="none" {m} stroke-width=".4" stroke-opacity=".7"/>',
-                f'<defs><path id="{uid}-t" d="M10.8 50A39.2 39.2 0 0 1 89.2 50"/></defs>',
-        f'<text font-family="Fraunces, Georgia, serif" font-size="6.4" letter-spacing="1.3" direction="ltr" {paint(("fill", c["ink"]))}>'
-        f'<textPath href="#{uid}-t" startOffset="50%" text-anchor="middle">KAMEL KHELIFA-KERFA</textPath></text>',
-        f'<path d="{arabic_on_arc(50, 50, 44, 6.9)}" {paint(("fill", c["ink"]))}/>',
-        f'<circle cx="8.6" cy="50" r="1.2" {paint(("fill", c["gold"]))}/><circle cx="91.4" cy="50" r="1.2" {paint(("fill", c["gold"]))}/>',
-        f'<g transform="translate(50 50) scale(.78) translate(-50 -50)">{emblem(c)}</g>',
-    ])
+    """The large version used on the home page and in the footer: the ring alone, with the full detail inside."""
+    return f'<g transform="translate(50 50) scale(1.2) translate(-50 -50)">{emblem(c)}</g>'
 
 
 def main():
