@@ -114,50 +114,93 @@ def three_jets(c, r=11):
     return "".join(out)
 
 
+# The three symbols share one drawing language: solid shapes in the K's colour, with details cut out in the paper
+# colour, each fitting the same 11-unit circle so they carry the same visual weight.
+
+def arrowhead(p, q, size, color):
+    """A small filled arrowhead at the middle of segment p-q, pointing from p to q (fermion-flow arrow)."""
+    m, d = add(p, sub(q, p), .5), unit(sub(q, p))
+    n = perp(d)
+    tip, b1, b2 = add(m, d, size * .65), add(add(m, d, -size * .45), n, size * .55), add(add(m, d, -size * .45), n, -size * .55)
+    return f'<polygon points="{fmt([tip, b1, b2])}" {paint(("fill", color))}/>'
+
+
+def gluon(p, q, loops=3, r=1.05):
+    """A curly gluon line from p to q: a prolate cycloid, i.e. the path of a point on a wheel's spoke longer than
+    the wheel, which draws `loops` round curls of radius about `r` along the segment."""
+    d, L = unit(sub(q, p)), math.hypot(*sub(q, p))
+    n = perp(d)
+    steps = 40 * loops
+    adv = (L - 0) / (2 * math.pi * loops)          # how far the wheel rolls per radian
+    pts = []
+    for i in range(steps + 1):
+        th = 2 * math.pi * loops * i / steps
+        ax = adv * th + r * math.sin(th)             # forwards, with a backwards swing that closes each curl
+        tr = r * (1 - math.cos(th)) - r             # sideways, centred on the line p-q
+        pts.append(add(add(p, d, ax), n, tr * math.sin(math.pi * i / steps) ** .35))   # taper into the ends
+    return "M" + " L".join(f"{x:.2f} {y:.2f}" for x, y in pts)
+
+
 def icon_research(c):
-    """A collision vertex inside a hexagonal lattice cell, three charged tracks curling out of it."""
+    """A QCD vertex: a quark comes in, radiates a gluon and goes on (fermion-flow arrows on the quark line, a curly
+    gluon). This is the Feynman-diagram picture behind soft-gluon resummation and behind the jets at the centre."""
     m = c["maroon"]
-    hexa = [(3.2 * math.cos(math.radians(60 * k + 30)), 3.2 * math.sin(math.radians(60 * k + 30))) for k in range(6)]
-    out = [f'<polygon points="{fmt(hexa)}" fill="none" {paint(("stroke", m))} stroke-width=".55" stroke-linejoin="round" stroke-opacity=".55"/>']
-    for d in ("M0 0Q-1.4 -2.3 -4.1 -3.0", "M0 0Q2.0 -1.6 4.4 -1.0", "M0 0Q.4 2.2 -1.2 4.3"):
-        out.append(f'<path d="{d}" fill="none" {paint(("stroke", m))} stroke-width=".7" stroke-linecap="round"/>')
-    for x, y in ((-4.1, -3.0), (4.4, -1.0), (-1.2, 4.3)):
-        out.append(f'<circle cx="{x}" cy="{y}" r=".55" {paint(("fill", m))}/>')
-    out.append(f'<circle cx="0" cy="0" r=".95" {paint(("fill", m))}/>')
-    return "".join(out)
+    a, v, b, g = (-5.2, 3.2), (0, 1.0), (5.2, 3.2), (0, -6.2)
+    return (f'<path d="M{a[0]} {a[1]}L{v[0]} {v[1]}L{b[0]} {b[1]}" fill="none" {paint(("stroke", m))} stroke-width="1" '
+            f'stroke-linecap="round" stroke-linejoin="round"/>'
+            + arrowhead(a, v, 2.1, m) + arrowhead(v, b, 2.1, m)
+            + f'<path d="{gluon(v, g, 3, .95)}" fill="none" {paint(("stroke", m))} stroke-width=".72" stroke-linecap="round" '
+              f'stroke-linejoin="round"/>'
+            + f'<circle cx="{v[0]}" cy="{v[1]}" r="1.05" {paint(("fill", m))}/>')
 
 
 def icon_teaching(c):
-    """An open book: two curved leaves meeting at a sunken spine, with a few lines of text on each page."""
-    g = c["gold"]
-    leaf = "M0 2.8C-1.4 1.9 -3.1 1.7 -4.6 2.1V-2.3C-3.1 -2.8 -1.4 -2.6 0 -1.7Z"
-    out = [f'<path d="{leaf}" {paint(("fill", g))} fill-opacity=".14"/><path d="{leaf}" fill="none" {paint(("stroke", g))} stroke-width=".6" stroke-linejoin="round"/>',
-           f'<g transform="scale(-1 1)"><path d="{leaf}" {paint(("fill", g))} fill-opacity=".14"/><path d="{leaf}" fill="none" {paint(("stroke", g))} stroke-width=".6" stroke-linejoin="round"/></g>']
+    """An open book: two solid leaves whose top edges curve down into the spine, lines of text cut out of the pages
+    in the paper colour, and the cover's edge showing as a thin curve underneath."""
+    g, paper = c["gold"], c["paper"]
+    leaf = "M-.35 3.0C-1.9 2.1 -3.7 1.9 -5.5 2.4V-2.9C-3.7 -3.4 -1.9 -3.2 -.35 -2.2Z"
+    out = [f'<path d="{leaf}" {paint(("fill", g))}/>', f'<path d="{leaf}" transform="scale(-1 1)" {paint(("fill", g))}/>']
     for side in (-1, 1):
-        for y, w in ((-1.0, 2.7), (.2, 2.7), (1.35, 1.8)):
-            x0 = side * .9
-            out.append(f'<line x1="{x0:.2f}" y1="{y:.2f}" x2="{x0 + side * w:.2f}" y2="{y - .25:.2f}" {paint(("stroke", g))} stroke-width=".32" stroke-linecap="round" stroke-opacity=".7"/>')
+        for y, w in ((-1.55, 3.35), (-.3, 3.35), (.95, 2.3)):
+            x0 = side * 1.3
+            out.append(f'<line x1="{x0:.2f}" y1="{y:.2f}" x2="{x0 + side * w:.2f}" y2="{y - .34:.2f}" {paint(("stroke", paper))} '
+                       f'stroke-width=".46" stroke-linecap="round"/>')
+    out.append(f'<path d="M-5.5 3.15C-3.5 2.65 -1.6 2.95 0 3.8C1.6 2.95 3.5 2.65 5.5 3.15" fill="none" {paint(("stroke", g))} '
+               f'stroke-width=".62" stroke-linecap="round" stroke-linejoin="round"/>')
     return "".join(out)
 
 
 def icon_community(c):
-    """Three people side by side, the middle one a little taller and in front."""
-    ink = c["ink"]
-    out = []
-    for dx, r, dy, op in ((-3.3, .95, .55, .8), (3.3, .95, .55, .8), (0, 1.2, 0, 1)):
-        body = (f"M{dx - 1.75 * r:.2f} {dy + 2.6:.2f}C{dx - 1.75 * r:.2f} {dy + .3:.2f} {dx + 1.75 * r:.2f} {dy + .3:.2f} "
-                f"{dx + 1.75 * r:.2f} {dy + 2.6:.2f}Z")
-        out.append(f'<g fill-opacity="{op}"><circle cx="{dx:.2f}" cy="{dy - 1.35:.2f}" r="{r}" {paint(("fill", ink))}/><path d="{body}" {paint(("fill", ink))}/></g>')
-    return "".join(out)
+    """People together: two behind, one in front. The front figure is outlined in the paper colour so the three
+    read as separate people; the group is wider at the top, matching the shape of the triangle's lower corner."""
+    ink, paper = c["ink"], c["paper"]
+
+    def person(cx, cy, r, extra=""):
+        """A head of radius r centred at (cx, cy) above rounded shoulders."""
+        w, top, base = 2.0 * r, cy + 1.45 * r, cy + 3.55 * r
+        body = (f"M{cx - w:.2f} {base:.2f}C{cx - w:.2f} {top + .2 * r:.2f} {cx - .62 * w:.2f} {top:.2f} {cx:.2f} {top:.2f}"
+                f"C{cx + .62 * w:.2f} {top:.2f} {cx + w:.2f} {top + .2 * r:.2f} {cx + w:.2f} {base:.2f}"
+                f"Q{cx:.2f} {base + .35 * r:.2f} {cx - w:.2f} {base:.2f}Z")
+        return (f'<path d="{body}" {paint(("fill", ink))}{extra}/>'
+                f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r:.2f}" {paint(("fill", ink))}{extra}/>')
+    back = "".join(f'<g fill-opacity=".55">{person(dx, -3.3, 1.2)}</g>' for dx in (-3.0, 3.0))
+    clip = f' {paint(("stroke", paper))} stroke-width=".7" stroke-linejoin="round"'
+    return back + person(0, -.6, 1.5, clip)
 
 
-def symbols(c, k=1.0, rr=23):
-    """Each K's story, upright in the triangle's corner between that K's arms. `k` scales the icons and `rr` is how
-    far from the centre they sit."""
+# Where each story sits: on its corner's bisector, about where the largest circle that fits between that corner's
+# two arms is centred, nudged by eye (`dy`) because the icons are not round; `k` evens out their visual weight.
+PLACE = {"research": dict(k=1.0, dy=1.1), "teaching": dict(k=1.02, dy=1.2), "community": dict(k=1.08, dy=-1.2)}
+
+
+def symbols(c, k=1.0, rr=19):
+    """Each K's story, upright in the triangle's corner between that K's arms. `k` scales all three icons and `rr`
+    is how far from the centre they sit."""
     out = []
     for which, draw in (("research", icon_research), ("teaching", icon_teaching), ("community", icon_community)):
         x, y = pt(*O, rr, ANGLES[which])
-        out.append(f'<g transform="translate({x:.2f} {y:.2f}) scale({k})">{draw(c)}</g>')
+        pl = PLACE[which]
+        out.append(f'<g transform="translate({x:.2f} {y + pl["dy"]:.2f}) scale({k * pl["k"]:.3f})">{draw(c)}</g>')
     return "".join(out)
 
 
@@ -166,8 +209,8 @@ def emblem(c, detailed=True):
     centre and each K's story in its corner. The compact version (seen at 40 px or so) has heavier strokes and
     slightly larger icons and jets."""
     if detailed:
-        return "".join(k_arc(w, c) for w in ORDER) + three_jets(c, 13) + symbols(c, 1.0, 20.5)
-    return "".join(k_arc(w, c, 5.2, 3.2) for w in ORDER) + three_jets(c, 13.5) + symbols(c, 1.1, 20.5)
+        return "".join(k_arc(w, c) for w in ORDER) + three_jets(c, 12.5) + symbols(c, 1.0, 19.5)
+    return "".join(k_arc(w, c, 5.2, 3.2) for w in ORDER) + three_jets(c, 13) + symbols(c, 1.0, 19.5)
 
 
 # ---------------------------------------------------------------- the Arabic name, bent along the seal
