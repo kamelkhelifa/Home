@@ -41,11 +41,11 @@ def pt(x, y, r, deg):
 # along the triangle's sides and meet the neighbouring K's arms half-way. Inside the triangle, a three-jet event at
 # the centre and, in each corner, that K's story.
 
-O, RING, SPAN, GAP_DEG = (50, 50), 38, 120, 3.2     # ring radius; degrees of arc per K; the small gap between K's
+O, RING, SPAN, GAP_DEG = (50, 50), 38, 120, 2.6     # ring radius; degrees of arc per K; the small gap between K's
 ANGLES = {"research": -150, "teaching": -30, "community": 90}     # degrees, clockwise from +x (SVG y is down)
 COLOURS = {"research": "maroon", "teaching": "gold", "community": "ink"}
 ORDER = ("research", "teaching", "community")
-ARM_GAP = 1.3                                           # gap where two neighbouring K's arms meet
+ARM_GAP = 1.7                                           # gap where two neighbouring K's arms meet
 
 
 def add(a, b, k=1):
@@ -97,52 +97,67 @@ def k_arc(which, c, sw=4.2, aw=2.6):
     return "".join(out)
 
 
-def three_jets(c, r=5.5):
-    """A three-jet event at the centre, one jet in each of the three colours."""
+def three_jets(c, r=11):
+    """A three-jet event at the centre: three slender cones, one per colour, each a solid core inside one soft
+    halo. The cones' sides bow outwards a little, as jets of particles do, and end in a round cap."""
+    def cone(ang, half, R):
+        b0, (x1, y1), (x2, y2) = pt(*O, 1.7, ang), pt(*O, R, ang - half), pt(*O, R, ang + half)
+        (q1x, q1y), (q2x, q2y) = pt(*O, R * .55, ang - half * 1.12), pt(*O, R * .55, ang + half * 1.12)
+        return (f"M{b0[0]:.2f} {b0[1]:.2f}Q{q1x:.2f} {q1y:.2f} {x1:.2f} {y1:.2f}"
+                f"A{R:.2f} {R:.2f} 0 0 1 {x2:.2f} {y2:.2f}Q{q2x:.2f} {q2y:.2f} {b0[0]:.2f} {b0[1]:.2f}Z")
     out = []
     for k, col in enumerate(("maroon", "gold", "ink")):
         ang = -90 + 120 * k
-        for half, op in ((13, .22), (4.5, 1)):
-            x1, y1 = pt(*O, r, ang - half)
-            x2, y2 = pt(*O, r, ang + half)
-            out.append(f'<path d="M{O[0]} {O[1]}L{x1:.2f} {y1:.2f}A{r} {r} 0 0 1 {x2:.2f} {y2:.2f}Z" {paint(("fill", c[col]))} fill-opacity="{op}"/>')
-    out.append(f'<circle cx="{O[0]}" cy="{O[1]}" r="1.1" {paint(("fill", c["paper"]), ("stroke", c["ink"]))} stroke-width=".5"/>')
+        out.append(f'<path d="{cone(ang, 13, r * .88)}" {paint(("fill", c[col]))} fill-opacity=".2"/>')
+        out.append(f'<path d="{cone(ang, 5, r)}" {paint(("fill", c[col]))}/>')
+    out.append(f'<circle cx="{O[0]}" cy="{O[1]}" r="1.25" {paint(("fill", c["paper"]), ("stroke", c["ink"]))} stroke-width=".55"/>')
+    return "".join(out)
+
+
+def icon_research(c):
+    """A collision vertex inside a hexagonal lattice cell, three charged tracks curling out of it."""
+    m = c["maroon"]
+    hexa = [(3.2 * math.cos(math.radians(60 * k + 30)), 3.2 * math.sin(math.radians(60 * k + 30))) for k in range(6)]
+    out = [f'<polygon points="{fmt(hexa)}" fill="none" {paint(("stroke", m))} stroke-width=".55" stroke-linejoin="round" stroke-opacity=".55"/>']
+    for d in ("M0 0Q-1.4 -2.3 -4.1 -3.0", "M0 0Q2.0 -1.6 4.4 -1.0", "M0 0Q.4 2.2 -1.2 4.3"):
+        out.append(f'<path d="{d}" fill="none" {paint(("stroke", m))} stroke-width=".7" stroke-linecap="round"/>')
+    for x, y in ((-4.1, -3.0), (4.4, -1.0), (-1.2, 4.3)):
+        out.append(f'<circle cx="{x}" cy="{y}" r=".55" {paint(("fill", m))}/>')
+    out.append(f'<circle cx="0" cy="0" r=".95" {paint(("fill", m))}/>')
+    return "".join(out)
+
+
+def icon_teaching(c):
+    """An open book: two curved leaves meeting at a sunken spine, with a few lines of text on each page."""
+    g = c["gold"]
+    leaf = "M0 2.8C-1.4 1.9 -3.1 1.7 -4.6 2.1V-2.3C-3.1 -2.8 -1.4 -2.6 0 -1.7Z"
+    out = [f'<path d="{leaf}" {paint(("fill", g))} fill-opacity=".14"/><path d="{leaf}" fill="none" {paint(("stroke", g))} stroke-width=".6" stroke-linejoin="round"/>',
+           f'<g transform="scale(-1 1)"><path d="{leaf}" {paint(("fill", g))} fill-opacity=".14"/><path d="{leaf}" fill="none" {paint(("stroke", g))} stroke-width=".6" stroke-linejoin="round"/></g>']
+    for side in (-1, 1):
+        for y, w in ((-1.0, 2.7), (.2, 2.7), (1.35, 1.8)):
+            x0 = side * .9
+            out.append(f'<line x1="{x0:.2f}" y1="{y:.2f}" x2="{x0 + side * w:.2f}" y2="{y - .25:.2f}" {paint(("stroke", g))} stroke-width=".32" stroke-linecap="round" stroke-opacity=".7"/>')
+    return "".join(out)
+
+
+def icon_community(c):
+    """Three people side by side, the middle one a little taller and in front."""
+    ink = c["ink"]
+    out = []
+    for dx, r, dy, op in ((-3.3, .95, .55, .8), (3.3, .95, .55, .8), (0, 1.2, 0, 1)):
+        body = (f"M{dx - 1.75 * r:.2f} {dy + 2.6:.2f}C{dx - 1.75 * r:.2f} {dy + .3:.2f} {dx + 1.75 * r:.2f} {dy + .3:.2f} "
+                f"{dx + 1.75 * r:.2f} {dy + 2.6:.2f}Z")
+        out.append(f'<g fill-opacity="{op}"><circle cx="{dx:.2f}" cy="{dy - 1.35:.2f}" r="{r}" {paint(("fill", ink))}/><path d="{body}" {paint(("fill", ink))}/></g>')
     return "".join(out)
 
 
 def symbols(c, k=1.0, rr=23):
-    """Each K's story, drawn upright in the triangle's corner between that K's arms: particle tracks through a
-    lattice ring (research), an open book with a pen (teaching), a group of people (community). `k` scales the
-    icons about their own centres and `rr` is how far from the centre they sit."""
+    """Each K's story, upright in the triangle's corner between that K's arms. `k` scales the icons and `rr` is how
+    far from the centre they sit."""
     out = []
-    # research: a collision vertex inside a hexagonal lattice cell, its tracks fanning out through the cell
-    m = pt(*O, rr, ANGLES["research"]); d = unit(sub(m, O))
-    out.append(f'<g transform="translate({m[0]:.2f} {m[1]:.2f}) scale({k}) translate({-m[0]:.2f} {-m[1]:.2f})">')
-    for ang in (-28, -14, 0, 14, 28):
-        a = math.radians(ang)
-        dd = (d[0] * math.cos(a) - d[1] * math.sin(a), d[0] * math.sin(a) + d[1] * math.cos(a))
-        (x1, y1), (x2, y2) = add(m, dd, .9), add(m, dd, 4.4)
-        out.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" {paint(("stroke", c["maroon"]))} stroke-width=".5" stroke-linecap="round" stroke-opacity=".85"/>')
-    hexa = [add(m, (2.3 * math.cos(math.radians(60 * k + 30)), 2.6 * math.sin(math.radians(60 * k + 30)))) for k in range(6)]
-    out.append(f'<polygon points="{fmt(hexa)}" fill="none" {paint(("stroke", c["maroon"]))} stroke-width=".6" stroke-linejoin="round"/>')
-    out.append(f'<circle cx="{m[0]:.2f}" cy="{m[1]:.2f}" r=".75" {paint(("fill", c["maroon"]))}/></g>')
-    # teaching: an open book and a pen
-    bx, by = pt(*O, rr, ANGLES["teaching"])
-    out.append(f'<g transform="translate({bx:.2f} {by:.2f}) scale({k}) translate({-bx:.2f} {-by:.2f})">')
-    out.append(f'<path d="M{bx:.2f} {by + 2.2:.2f}C{bx - 1.4:.2f} {by + 1.2:.2f} {bx - 3.2:.2f} {by + 1.2:.2f} {bx - 4.6:.2f} {by + 1.7:.2f}V{by - 1.9:.2f}'
-               f'C{bx - 3.2:.2f} {by - 2.4:.2f} {bx - 1.4:.2f} {by - 2.4:.2f} {bx:.2f} {by - 1.5:.2f}Z'
-               f'M{bx:.2f} {by + 2.2:.2f}C{bx + 1.4:.2f} {by + 1.2:.2f} {bx + 3.2:.2f} {by + 1.2:.2f} {bx + 4.6:.2f} {by + 1.7:.2f}V{by - 1.9:.2f}'
-               f'C{bx + 3.2:.2f} {by - 2.4:.2f} {bx + 1.4:.2f} {by - 2.4:.2f} {bx:.2f} {by - 1.5:.2f}Z" fill="none" {paint(("stroke", c["gold"]))} stroke-width=".6" stroke-linejoin="round"/>')
-    out.append(f'<g transform="translate({bx - .6:.2f} {by - 3.0:.2f}) rotate(-35)"><rect x="-3.2" y="-.5" width="5" height="1" rx=".3" {paint(("fill", c["gold"]))}/>'
-               f'<path d="M1.8 -.5L3.5 0L1.8 .5Z" {paint(("fill", c["ink"]))}/></g></g>')
-    # community: three people
-    x0, y0 = pt(*O, rr, ANGLES["community"])
-    out.append(f'<g transform="translate({x0:.2f} {y0:.2f}) scale({k}) translate({-x0:.2f} {-y0:.2f})">')
-    ink = paint(("fill", c["ink"]))
-    for dx, r, dy in ((-3, .95, .6), (0, 1.15, 0), (3, .95, .6)):
-        out.append(f'<circle cx="{x0 + dx:.2f}" cy="{y0 + dy - 1.9:.2f}" r="{r}" {ink}/>'
-                   f'<path d="M{x0 + dx - 1.7 * r:.2f} {y0 + dy + 1.9:.2f}C{x0 + dx - 1.7 * r:.2f} {y0 + dy - .3:.2f} {x0 + dx + 1.7 * r:.2f} {y0 + dy - .3:.2f} {x0 + dx + 1.7 * r:.2f} {y0 + dy + 1.9:.2f}Z" {ink}/>')
-    out.append("</g>")
+    for which, draw in (("research", icon_research), ("teaching", icon_teaching), ("community", icon_community)):
+        x, y = pt(*O, rr, ANGLES[which])
+        out.append(f'<g transform="translate({x:.2f} {y:.2f}) scale({k})">{draw(c)}</g>')
     return "".join(out)
 
 
@@ -151,8 +166,8 @@ def emblem(c, detailed=True):
     centre and each K's story in its corner. The compact version (seen at 40 px or so) has heavier strokes and
     slightly larger icons and jets."""
     if detailed:
-        return "".join(k_arc(w, c) for w in ORDER) + three_jets(c, 7.5) + symbols(c, 1.2, 23)
-    return "".join(k_arc(w, c, 5.2, 3.2) for w in ORDER) + three_jets(c, 8.5) + symbols(c, 1.35, 22.5)
+        return "".join(k_arc(w, c) for w in ORDER) + three_jets(c, 13) + symbols(c, 1.0, 20.5)
+    return "".join(k_arc(w, c, 5.2, 3.2) for w in ORDER) + three_jets(c, 13.5) + symbols(c, 1.1, 20.5)
 
 
 # ---------------------------------------------------------------- the Arabic name, bent along the seal
