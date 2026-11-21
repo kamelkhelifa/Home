@@ -244,6 +244,26 @@ interactive:
               - { num: "23.7", slide: 54, title: { en: A Cylindrically Symmetric Charge Distribution, ar: توزيع شحنة متماثل أسطوانيًا } }
               - { num: "23.8", slide: 58, title: { en: A Plane of Charge, ar: مستوٍ مشحون } }
               - { num: "23.9", slide: 62, conceptual: true, title: { en: Don’t Use Gauss’s Law Here!, ar: لا تستخدم قانون غاوس هنا! } }
+      - chapter: 26
+        week: 6
+        title: { en: "Current and Resistance", ar: "التيار والمقاومة" }
+        path: assets/demos/phys193/week06
+        index: assets/demos/phys193/week06/index.html
+        sections:
+          - section: "26.1"
+            title: { en: Electric Current, ar: التيار الكهربائي }
+            examples:
+              - { num: "26.1", slide: 14, title: { en: Drift Speed in a Copper Wire, ar: سرعة الانجراف في سلك نحاسي } }
+          - section: "26.2"
+            title: { en: Resistance, ar: المقاومة }
+            examples:
+              - { num: "26.2", slide: 34, title: { en: The Resistance of Nichrome Wire, ar: مقاومة سلك النيكروم } }
+              - { num: "26.3", slide: 37, title: { en: The Radial Resistance of a Coaxial Cable, ar: المقاومة القطرية لكبل محوري } }
+          - section: "26.6"
+            title: { en: Electrical Power, ar: القدرة الكهربائية }
+            examples:
+              - { num: "26.4", slide: 62, title: { en: Power in an Electric Heater, ar: القدرة في مدفأة كهربائية } }
+              - { num: "26.5", slide: 65, title: { en: Linking Electricity and Thermodynamics, ar: الربط بين الكهرباء والديناميكا الحرارية } }
       - chapter: 27
         week: 7
         title: { en: "Direct-Current Circuits", ar: "دارات التيار المستمر" }
