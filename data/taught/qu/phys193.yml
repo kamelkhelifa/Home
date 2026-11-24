@@ -244,6 +244,32 @@ interactive:
               - { num: "23.7", slide: 54, title: { en: A Cylindrically Symmetric Charge Distribution, ar: توزيع شحنة متماثل أسطوانيًا } }
               - { num: "23.8", slide: 58, title: { en: A Plane of Charge, ar: مستوٍ مشحون } }
               - { num: "23.9", slide: 62, conceptual: true, title: { en: Don’t Use Gauss’s Law Here!, ar: لا تستخدم قانون غاوس هنا! } }
+      - chapter: 24
+        week: 4
+        title: { en: "Electric Potential", ar: "الجهد الكهربائي" }
+        path: assets/demos/phys193/week04
+        index: assets/demos/phys193/week04/index.html
+        sections:
+          - section: "24.2"
+            title: { en: Potential Difference in a Uniform Electric Field, ar: فرق الجهد في مجال كهربائي منتظم }
+            examples:
+              - { num: "24.1", slide: 26, title: { en: "Electric Potential Is Independent of a Particle's Charge", ar: الجهد الكهربائي لا يعتمد على شحنة الجسيم } }
+              - { num: "24.2", slide: 31, title: { en: Motion of a Proton in a Uniform Electric Field, ar: حركة بروتون في مجال كهربائي منتظم } }
+          - section: "24.3"
+            title: { en: Electric Potential and Potential Energy Due to Point Charges, ar: الجهد الكهربائي وطاقة الوضع للشحنات النقطية }
+            examples:
+              - { num: "24.3", slide: 45, title: { en: The Electric Potential Due to Two Point Charges, ar: الجهد الكهربائي لشحنتين نقطيتين } }
+          - section: "24.5"
+            title: { en: Electric Potential Due to Charge Distributions, ar: الجهد الكهربائي لتوزيعات الشحنة }
+            examples:
+              - { num: "24.4", slide: 62, title: { en: The Electric Potential Due to a Dipole, ar: الجهد الكهربائي لثنائي القطب } }
+              - { num: "24.5", slide: 66, title: { en: Electric Potential Due to a Uniformly Charged Ring, ar: الجهد الكهربائي لحلقة مشحونة بانتظام } }
+              - { num: "24.6", slide: 70, title: { en: Electric Potential Due to a Uniformly Charged Disk, ar: الجهد الكهربائي لقرص مشحون بانتظام } }
+              - { num: "24.7", slide: 74, title: { en: Electric Potential Due to a Finite Line of Charge, ar: الجهد الكهربائي لخط شحنة محدود } }
+          - section: "24.6"
+            title: { en: Conductors in Electrostatic Equilibrium, ar: الموصلات في حالة الاتزان الكهروستاتيكي }
+            examples:
+              - { num: "24.8", slide: 90, title: { en: A Sphere Inside a Spherical Shell, ar: كرة داخل قشرة كروية } }
       - chapter: 25
         week: 5
         title: { en: "Capacitance and Dielectrics", ar: "السعة والعوازل الكهربائية" }
