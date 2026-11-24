@@ -244,6 +244,38 @@ interactive:
               - { num: "23.7", slide: 54, title: { en: A Cylindrically Symmetric Charge Distribution, ar: توزيع شحنة متماثل أسطوانيًا } }
               - { num: "23.8", slide: 58, title: { en: A Plane of Charge, ar: مستوٍ مشحون } }
               - { num: "23.9", slide: 62, conceptual: true, title: { en: Don’t Use Gauss’s Law Here!, ar: لا تستخدم قانون غاوس هنا! } }
+      - chapter: 25
+        week: 5
+        title: { en: "Capacitance and Dielectrics", ar: "السعة والعوازل الكهربائية" }
+        path: assets/demos/phys193/week05
+        index: assets/demos/phys193/week05/index.html
+        sections:
+          - section: "25.2"
+            title: { en: Calculating Capacitance, ar: حساب السعة }
+            examples:
+              - { num: "25.1", slide: 22, title: { en: The Cylindrical Capacitor, ar: المكثف الأسطواني } }
+              - { num: "25.2", slide: 26, title: { en: The Spherical Capacitor, ar: المكثف الكروي } }
+          - section: "25.3"
+            title: { en: Combinations of Capacitors, ar: توصيل المكثفات }
+            examples:
+              - { num: "25.3", slide: 39, title: { en: Equivalent Capacitance, ar: السعة المكافئة } }
+          - section: "25.4"
+            title: { en: Energy Stored in a Charged Capacitor, ar: الطاقة المختزنة في مكثف مشحون }
+            examples:
+              - { num: "25.4", slide: 51, title: { en: Rewiring Two Charged Capacitors, ar: إعادة توصيل مكثفين مشحونين } }
+          - section: "25.5"
+            title: { en: Capacitors with Dielectrics, ar: المكثفات ذات العوازل }
+            examples:
+              - { num: "25.5", slide: 61, title: { en: Energy Stored Before and After, ar: الطاقة المختزنة قبل وبعد } }
+          - section: "25.6"
+            title: { en: Electric Dipole in an Electric Field, ar: ثنائي القطب الكهربائي في مجال كهربائي }
+            examples:
+              - { num: "25.6", slide: 72, title: { en: The H₂O Molecule, ar: جزيء الماء H₂O } }
+          - section: "25.7"
+            title: { en: An Atomic Description of Dielectrics, ar: الوصف الذري للعوازل }
+            examples:
+              - { num: "25.7", slide: 78, title: { en: Effect of a Metallic Slab, ar: تأثير لوح معدني } }
+              - { num: "25.8", slide: 81, title: { en: A Partially Filled Capacitor, ar: مكثف مملوء جزئيًا } }
       - chapter: 26
         week: 6
         title: { en: "Current and Resistance", ar: "التيار والمقاومة" }
