@@ -516,6 +516,29 @@ interactive:
             title: { en: The Transformer and Power Transmission, ar: المحوّل ونقل القدرة الكهربائية }
             examples:
               - { num: "32.7", slide: 87, title: { en: The Economics of AC Power, ar: اقتصاديات القدرة الكهربائية المترددة } }
+      - chapter: 33
+        week: 14
+        title: { en: "Electromagnetic Waves", ar: "الموجات الكهرومغناطيسية" }
+        path: assets/demos/phys193/week14
+        index: assets/demos/phys193/week14/index.html
+        sections:
+          - section: "33.1"
+            title: { en: "Displacement Current and the General Form of Ampère’s Law", ar: "تيار الإزاحة والصيغة العامة لقانون أمبير" }
+            examples:
+              - { num: "33.1", slide: 19, title: { en: Displacement Current in a Capacitor, ar: تيار الإزاحة في مكثف } }
+          - section: "33.3"
+            title: { en: Plane Electromagnetic Waves, ar: الموجات الكهرومغناطيسية المستوية }
+            examples:
+              - { num: "33.2", slide: 50, title: { en: An Electromagnetic Wave, ar: موجة كهرومغناطيسية } }
+          - section: "33.4"
+            title: { en: Energy Carried by Electromagnetic Waves, ar: الطاقة التي تحملها الموجات الكهرومغناطيسية }
+            examples:
+              - { num: "33.3", slide: 61, title: { en: Fields on the Page, ar: المجالات على الصفحة } }
+          - section: "33.5"
+            title: { en: Momentum and Radiation Pressure, ar: الزخم وضغط الإشعاع }
+            examples:
+              - { num: "33.4", slide: 73, title: { en: "Sweeping the Solar System (conceptual)", ar: "كنس المجموعة الشمسية (مثال مفاهيمي)" } }
+              - { num: "33.5", slide: 75, title: { en: Pressure from a Laser Pointer, ar: الضغط الناتج عن مؤشر ليزر } }
 
 materials:
   - type: video

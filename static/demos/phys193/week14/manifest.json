@@ -1,0 +1,37 @@
+[
+ {
+  "num": "33.1",
+  "slide": 19,
+  "title": "Displacement Current in a Capacitor",
+  "section": "\u00a733.1 \u00b7 Displacement current",
+  "short": "i_d = \u03b5\u2080 d\u03a6_E/dt equals the conduction current in the wires"
+ },
+ {
+  "num": "33.2",
+  "slide": 50,
+  "title": "An Electromagnetic Wave",
+  "section": "\u00a733.3 \u00b7 Plane electromagnetic waves",
+  "short": "\u03bb = c/f, T = 1/f and B_max = E_max/c for a 40.0 MHz wave"
+ },
+ {
+  "num": "33.3",
+  "slide": 61,
+  "title": "Fields on the Page",
+  "section": "\u00a733.4 \u00b7 Energy carried by electromagnetic waves",
+  "short": "From lamp power to E_max \u2248 45 V/m and B_max \u2248 1.5 \u00d7 10\u207b\u2077 T"
+ },
+ {
+  "num": "33.4",
+  "slide": 73,
+  "title": "Sweeping the Solar System",
+  "section": "\u00a733.5 \u00b7 Momentum and radiation pressure",
+  "short": "Radiation force \u221d a\u00b2, gravity \u221d a\u00b3: the smallest grains are blown away"
+ },
+ {
+  "num": "33.5",
+  "slide": 75,
+  "title": "Pressure from a Laser Pointer",
+  "section": "\u00a733.5 \u00b7 Momentum and radiation pressure",
+  "short": "S = 955 W/m\u00b2 but P = 5.4 \u00d7 10\u207b\u2076 N/m\u00b2 on a 70% reflecting screen"
+ }
+]
