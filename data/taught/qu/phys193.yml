@@ -217,6 +217,29 @@ sims: []   # no general simulations on this course page: the Interactive lab sho
 interactive:
   - book: { en: "Serway & Jewett, Physics for Scientists and Engineers, 11th ed.", ar: "سيرواي وجيويت، «الفيزياء للعلماء والمهندسين»، الطبعة 11" }
     chapters:
+      - chapter: 22
+        week: 2
+        title: { en: "Electric Fields", ar: "المجالات الكهربائية" }
+        path: assets/demos/phys193/week02
+        index: assets/demos/phys193/week02/index.html
+        sections:
+          - section: "22.3"
+            title: { en: Coulomb’s Law, ar: قانون كولوم }
+            examples:
+              - { num: "22.1", slide: 11, title: { en: The Hydrogen Atom, ar: ذرة الهيدروجين } }
+              - { num: "22.2", slide: 19, title: { en: Find the Resultant Force, ar: إيجاد القوة المحصلة } }
+              - { num: "22.3", slide: 24, title: { en: "Where Is the Net Force Zero?", ar: "أين تنعدم القوة المحصلة؟" } }
+              - { num: "22.4", slide: 28, title: { en: Find the Charge on the Spheres, ar: إيجاد الشحنة على الكرتين } }
+          - section: "22.4"
+            title: { en: "Analysis Model: Particle in a Field (Electric)", ar: "نموذج التحليل: جسيم في مجال (كهربائي)" }
+            examples:
+              - { num: "22.5", slide: 42, title: { en: A Suspended Water Droplet, ar: قطرة ماء معلقة } }
+              - { num: "22.6", slide: 45, title: { en: Electric Field Due to Two Charges, ar: المجال الكهربائي الناتج عن شحنتين } }
+          - section: "22.6"
+            title: { en: Motion of a Charged Particle in a Uniform Electric Field, ar: حركة جسيم مشحون في مجال كهربائي منتظم }
+            examples:
+              - { num: "22.7", slide: 64, title: { en: "An Accelerating Positive Charge: Two Models", ar: "شحنة موجبة متسارعة: نموذجان" } }
+              - { num: "22.8", slide: 69, title: { en: An Accelerated Electron, ar: إلكترون متسارع } }
       - chapter: 23
         week: 3
         title: { en: "Continuous Charge Distributions and Gauss’s Law", ar: "توزيعات الشحنة المتصلة وقانون غاوس" }
