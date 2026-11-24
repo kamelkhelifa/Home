@@ -1,0 +1,58 @@
+[
+ {
+  "num": "22.1",
+  "slide": 11,
+  "title": "The Hydrogen Atom",
+  "section": "\u00a722.3 \u00b7 Coulomb's law",
+  "short": "Electric vs gravitational force: a ratio of 10\u00b3\u2079"
+ },
+ {
+  "num": "22.2",
+  "slide": 19,
+  "title": "Find the Resultant Force",
+  "section": "\u00a722.3 \u00b7 Coulomb's law",
+  "short": "Vector addition of two Coulomb forces"
+ },
+ {
+  "num": "22.3",
+  "slide": 24,
+  "title": "Where Is the Net Force Zero?",
+  "section": "\u00a722.3 \u00b7 Coulomb's law",
+  "short": "Equilibrium of a charge between two charges, and its stability"
+ },
+ {
+  "num": "22.4",
+  "slide": 28,
+  "title": "Find the Charge on the Spheres",
+  "section": "\u00a722.3 \u00b7 Coulomb's law",
+  "short": "Two hanging charged spheres in equilibrium"
+ },
+ {
+  "num": "22.5",
+  "slide": 42,
+  "title": "A Suspended Water Droplet",
+  "section": "\u00a722.4 \u00b7 Particle in a field",
+  "short": "Electric force balancing gravity: the charge on a hovering droplet"
+ },
+ {
+  "num": "22.6",
+  "slide": 45,
+  "title": "Electric Field Due to Two Charges",
+  "section": "\u00a722.4 \u00b7 Particle in a field",
+  "short": "Superposition of two fields; the dipole and its 1/r\u00b3 fall-off"
+ },
+ {
+  "num": "22.7",
+  "slide": 64,
+  "title": "An Accelerating Positive Charge: Two Models",
+  "section": "\u00a722.6 \u00b7 Motion in a uniform field",
+  "short": "Kinematics and energy give the same speed, \u221a(2qEd/m)"
+ },
+ {
+  "num": "22.8",
+  "slide": 69,
+  "title": "An Accelerated Electron",
+  "section": "\u00a722.6 \u00b7 Motion in a uniform field",
+  "short": "Projectile motion in an electric field: a = \u2212eE/m"
+ }
+]
